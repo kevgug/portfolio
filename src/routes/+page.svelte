@@ -2,7 +2,10 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 </script>
 
-<HeroSection />
+<div class="w-screen max-w-screen-xl flex flex-col mx-auto">
+  <HeroSection />
+  <p class="text-lg">below the fold</p>
+</div>
 
 <style lang="postcss">
   :root {
