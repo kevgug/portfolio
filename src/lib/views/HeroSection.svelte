@@ -2,11 +2,14 @@
   const atfPhone = "/images/atf-phone.png";
 </script>
 
-<div class="container row">
-  <img src={atfPhone} />
+<div>
+  <!-- <img src={atfPhone} /> -->
+
   <div>
-    <h2>Kevin Gugelmann</h2>
-    <h1>Digital Designer &<br />Front-End Developer</h1>
+    <h2 class="text-glacialBlue">Kevin Gugelmann</h2>
+    <h1 class="text-glacialBlue">
+      Digital Designer &<br />Front-End Developer
+    </h1>
     <ul>
       <li>
         Self-driven student at the University of Chicago, studying Computer
