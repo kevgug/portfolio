@@ -25,9 +25,9 @@
     @apply md:text-lg;
   }
 
-  :global(p) {
-    @apply text-base;
-    @apply md:text-lg;
+  :global(p, li) {
+    @apply text-sm;
+    @apply md:text-base;
     @apply xl:text-xl;
   }
 

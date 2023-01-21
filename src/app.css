@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Euclid Square */
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Regular.otf");
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Medium.otf");
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Semibold.otf");
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Bold.otf");
+    font-weight: bold;
+  }
+
+  /* SangBleu Sunrise */
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-Regular.otf");
+    font-weight: normal;
+  }
+}

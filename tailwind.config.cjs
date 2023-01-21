@@ -8,6 +8,10 @@ module.exports = {
       lightGrey: "#8B8B8B",
       glacialBlue: "#A9F4E9",
     },
+    fontFamily: {
+      sans: ['Euclid Square'],
+      serif: ['SangBleu Sunrise'],
+    },
     fontSize: {
       sm: '0.813rem', // 13px
       base: '1rem', // 16px
