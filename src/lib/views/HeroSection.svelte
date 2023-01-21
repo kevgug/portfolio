@@ -8,14 +8,22 @@
     alt="A tilted iPhone showing Kevin's latest mobile app"
     class="hidden md:flex
     object-contain
-    w-auto max-w-[25rem]
+    w-auto max-w-[15rem] lg:max-w-[18rem] xl:max-w-[25rem]
     h-2/3 min-h-[35rem]
     md:p-10 xl:p-14"
   />
 
   <div>
-    <h2 class="text-glacialBlue uppercase">Kevin Gugelmann</h2>
-    <h1 class="text-glacialBlue uppercase">
+    <h2
+      class="text-glacialBlue uppercase 
+    mb-2 md:mb-3"
+    >
+      Kevin Gugelmann
+    </h2>
+    <h1
+      class="text-glacialBlue uppercase
+    mb-12 xl:mb-16"
+    >
       Digital Designer &<br />Front-End Developer
     </h1>
     <ul>
