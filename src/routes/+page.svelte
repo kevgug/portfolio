@@ -9,7 +9,7 @@
 
 <style lang="postcss">
   :root {
-    background-color: theme(colors.background);
+    @apply bg-background;
   }
 
   :global(p, h1, h2, li) {
@@ -36,5 +36,23 @@
 
   :global(li) {
     @apply font-serif;
+    @apply list-none;
+    @apply relative; /* positioning context for bullet */
+  }
+
+  :global(li::before) {
+    content: "";
+    font-size: 2.5em; /* the default unicode bullet size is very small */
+    line-height: 0; /* kills huge line height on resized bullet */
+
+    @apply w-1;
+    @apply h-1;
+    @apply xl:w-[0.4rem];
+    @apply xl:h-[0.4rem];
+    @apply rounded-full;
+    @apply bg-mutedGrey;
+    @apply absolute; /* position bullet relative to list item */
+    @apply top-[0.23em]; /* vertical align bullet position relative to list item */
+    @apply left-[-0.55em]; /* position the bullet L- R relative to list item */
   }
 </style>
