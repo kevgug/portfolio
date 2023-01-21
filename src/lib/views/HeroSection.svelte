@@ -10,7 +10,8 @@
     object-contain
     w-auto max-w-[15rem] lg:max-w-[18rem] xl:max-w-[25rem]
     h-2/3 min-h-[35rem]
-    md:p-10 xl:p-14"
+    md:p-10 xl:p-14
+    mr-2 lg:mr-4 xl:mr-8"
   />
 
   <div>
