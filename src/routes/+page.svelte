@@ -39,6 +39,11 @@ px-[32px] lg:px-[2.5rem] xl:px-[5rem]"
     @apply xl:text-lg;
   }
 
+  :global(button) {
+    @apply text-sm;
+    @apply md:text-base;
+  }
+
   :global(li) {
     @apply font-serif;
     @apply list-none;

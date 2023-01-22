@@ -21,6 +21,11 @@ module.exports = {
       '2xl': '1.75rem', // 28px
       '3xl': '2.25rem', // 36px
       '4xl': '3.625rem', // 58px
+    },
+    extend: {
+      borderRadius: {
+        'lg': '0.7rem',
+      }
     }
   },
   plugins: [],
