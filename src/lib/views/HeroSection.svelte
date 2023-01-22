@@ -13,7 +13,8 @@
     w-auto max-w-[15rem] lg:max-w-[18rem] xl:max-w-[25rem]
     h-2/3 min-h-[35rem]
     md:p-10 xl:p-14
-    mr-2 lg:mr-4 xl:mr-8"
+    mr-2 lg:mr-4 xl:mr-8
+    mb-2.5 lg:mb-4"
   />
   <div>
     <div>
@@ -25,7 +26,7 @@
       </h2>
       <h1
         class="text-glacialBlue uppercase
-      mb-8 xl:mb-16"
+      mb-8 xl:mb-12"
       >
         Digital Designer &<br />Front-End Developer
       </h1>
@@ -41,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <div class="mt-[4rem] lg:mt-[5rem] md:mt-[5.5rem]" />
+    <div class="mt-[4.5rem] lg:mt-[5.5rem] xl:mt-[7.5rem]" />
     <CtaButton label="View 6 projects" />
   </div>
 </div>
