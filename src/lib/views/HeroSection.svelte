@@ -1,10 +1,19 @@
 <script lang="ts">
   import CtaButton from "$lib/components/CtaButton.svelte";
+  import Separator from "$lib/components/Separator.svelte";
 
   const atfPhone = "/images/atf-phone.png";
 </script>
 
-<div class="h-screen flex flex-row items-center">
+<div
+  class="
+flex flex-row items-center
+h-[calc(100vh-theme(padding.separatorY)-theme(fontSize.sm))]
+md:h-[calc(100vh-theme(padding.separatorY))]
+min-h-[30em] md:min-h-[34em] lg:min-h-[38em] xl:min-h-[44em]
+max-h-[50em] md:max-h-[46em] lg:max-h-[50em] xl:max-h-[70em]
+"
+>
   <img
     src={atfPhone}
     alt="A tilted iPhone showing Kevin's latest mobile app"
@@ -42,7 +51,48 @@
         </li>
       </ul>
     </div>
-    <div class="mt-[4.5rem] lg:mt-[5.5rem] xl:mt-[7.5rem]" />
-    <CtaButton label="View 6 projects" />
+    <div
+      class="mt-[4.5rem] lg:mt-[5.5rem] xl:mt-[7.5rem]
+    hidden md:flex"
+    >
+      <CtaButton label="View 6 projects" />
+    </div>
+  </div>
+</div>
+<div class="pb-separatorY">
+  <!-- Show separator only on >MD screens -->
+  <div class="hidden md:flex">
+    <Separator />
+  </div>
+  <!-- On small devices (i.e. phones) show scroll down arrow -->
+  <div class="md:hidden">
+    <button on:click={(e) => console.log("Scroll down")}>
+      <svg
+        id="Regular"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        height="13"
+        width="13"
+        ><defs /><title>arrow-down</title><line
+          x1="12"
+          y1="0.75"
+          x2="12"
+          y2="23.25"
+          fill="none"
+          stroke="#ffffff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5px"
+        /><polyline
+          points="1.5 12.75 12 23.25 22.5 12.75"
+          fill-rule="evenodd"
+          fill="none"
+          stroke="#ffffff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5px"
+        /></svg
+      >
+    </button>
   </div>
 </div>

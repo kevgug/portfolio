@@ -9,6 +9,11 @@ px-[32px] lg:px-[2.5rem] xl:px-[5rem]"
 >
   <HeroSection />
   <p class="text-lg">below the fold</p>
+  <p class="text-lg">below the fold</p>
+  <p class="text-lg">below the fold</p>
+  <p class="text-lg">below the fold</p>
+  <p class="text-lg">below the fold</p>
+  <p class="text-lg">below the fold</p>
 </div>
 
 <style lang="postcss">

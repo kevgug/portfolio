@@ -14,7 +14,7 @@ module.exports = {
       serif: ['SangBleu Sunrise'],
     },
     fontSize: {
-      sm: '0.813rem', // 13px
+      sm: '0.85rem', // 13px
       base: '1rem', // 16px
       lg: '1.125rem', // 18px
       xl: '1.438rem', // 23px
@@ -25,6 +25,9 @@ module.exports = {
     extend: {
       borderRadius: {
         'lg': '0.7rem',
+      },
+      padding: {
+        separatorY: '2.5rem'
       }
     }
   },
