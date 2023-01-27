@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CtaButton from "$lib/components/CtaButton.svelte";
+  import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import Separator from "$lib/components/Separator.svelte";
 
   const atfPhone = "/images/atf-phone.png";
@@ -55,7 +55,7 @@
         class="mt-[4.5rem] lg:mt-[5.5rem]
               hidden md:flex"
       >
-        <CtaButton label="View 6 projects" />
+        <PrimaryButton label="View 6 projects" />
       </div>
     </div>
   </div>

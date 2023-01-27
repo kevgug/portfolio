@@ -28,6 +28,14 @@ module.exports = {
       },
       padding: {
         separatorY: '1.75rem' // 28px
+      },
+      transitionTimingFunction: {
+        intro: 'cubic-bezier(0, 0.98, 0.31, 0.98)',
+        outro: 'cubic-bezier(0.23,0.49,0.31,0.98)'
+      },
+      transitionDuration: {
+        intro: '390ms',
+        outro: '80ms'
       }
     }
   },

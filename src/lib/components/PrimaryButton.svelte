@@ -2,7 +2,7 @@
   export let label = "";
 </script>
 
-<button class="button-84 flex flex-row">
+<button class="button flex flex-row">
   {label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />
   <svg
@@ -39,37 +39,41 @@
 </button>
 
 <style lang="postcss">
-  .button-84 {
+  .button {
     align-items: center;
-    background-image: linear-gradient(180deg, #3a3c42 0%, #232529 99%);
+    background: linear-gradient(180deg, #3a3c42 0%, #232529 99%);
     border: 1px solid #434343;
-    @apply rounded-lg md:rounded-xl;
     color: theme(colors.white);
+
+    @apply rounded-lg md:rounded-xl;
     @apply px-[0.85rem] md:px-4;
     @apply py-2;
 
-    @apply transition-opacity;
-    @apply duration-150;
+    @apply transition-all;
+    @apply duration-outro;
+    @apply ease-outro;
   }
 
-  .button-84:hover {
-    box-shadow: rgba(0, 1, 0, 0.2) 0 2px 8px;
-    opacity: 0.85;
+  .button:hover {
+    box-shadow: rgba(0, 1, 0, 0.15) 0 2px 30px;
 
-    @apply transition-opacity;
-    @apply duration-200;
+    @apply opacity-[85%];
+    @apply transition-all;
+    @apply duration-intro;
+    @apply ease-intro;
   }
 
-  .button-84:active {
-    outline: 0;
-  }
+  .button:active {
+    box-shadow: rgba(0, 1, 0, 0.3) 0 2px 4px;
 
-  .button-84:focus {
-    box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 3px;
+    @apply opacity-[75%];
+    @apply transition-all;
+    @apply duration-intro;
+    @apply ease-intro;
   }
 
   @media (max-width: 420px) {
-    .button-84 {
+    .button {
       height: 48px;
     }
   }
