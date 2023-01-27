@@ -23,7 +23,7 @@
             min-h-[35rem]
             md:pr-10 xl:pr-12
             mr-2 lg:mr-4 xl:mr-8
-            mb-2.5 lg:mb-4"
+            mb-7 lg:mb-9 xl:mb-7"
     />
     <div>
       <div>
