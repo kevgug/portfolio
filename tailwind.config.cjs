@@ -5,29 +5,29 @@ module.exports = {
     colors: {
       background: "#141518",
       white: "#FFFFFF",
-      lightGrey: "#8B8B8B",
-      mutedGrey: '#4f4f4f',
+      mutedTextGrey: '#4F4F4F',
       glacialBlue: "#A9F4E9",
+      separatorGrey: "#494949"
     },
     fontFamily: {
       sans: ['Euclid Square'],
       serif: ['SangBleu Sunrise'],
     },
     fontSize: {
-      sm: '0.85rem', // 13px
+      sm: '0.85rem', // 13.6px
       base: '1rem', // 16px
       lg: '1.125rem', // 18px
       xl: '1.438rem', // 23px
       '2xl': '1.75rem', // 28px
       '3xl': '2.25rem', // 36px
-      '4xl': '3.625rem', // 58px
+      '4xl': '3rem', // 48px
     },
     extend: {
       borderRadius: {
-        'lg': '0.7rem',
+        'lg': '0.7rem', // 11.2px
       },
       padding: {
-        separatorY: '2.5rem'
+        separatorY: '1.75rem' // 28px
       }
     }
   },
