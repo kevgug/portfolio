@@ -28,13 +28,13 @@
     <div>
       <div>
         <h2
-          class="text-glacialBlue uppercase 
+          class="text-glacial-blue uppercase 
                 mb-2 md:mb-3"
         >
           Kevin Gugelmann
         </h2>
         <h1
-          class="text-glacialBlue uppercase
+          class="text-glacial-blue uppercase
                 mb-8 xl:mb-12"
         >
           Digital Designer &<br />Front-End Developer
@@ -59,7 +59,7 @@
       </div>
     </div>
   </div>
-  <div class="pb-separatorY">
+  <div class="pb-separator-y">
     <!-- Show separator only on MD+ screens -->
     <div class="hidden md:flex">
       <Separator />

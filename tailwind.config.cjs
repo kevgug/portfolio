@@ -5,9 +5,9 @@ module.exports = {
     colors: {
       background: "#141518",
       white: "#FFFFFF",
-      mutedTextGrey: '#4F4F4F',
-      glacialBlue: "#A9F4E9",
-      separatorGrey: "#494949"
+      'muted-text-grey': '#4F4F4F',
+      'glacial-blue': "#A9F4E9",
+      'separator-grey': "#494949"
     },
     fontFamily: {
       sans: ['Euclid Square'],
@@ -27,7 +27,7 @@ module.exports = {
         'lg': '0.7rem', // 11.2px
       },
       padding: {
-        separatorY: '1.75rem' // 28px
+        'separator-y': '1.75rem' // 28px
       },
       transitionTimingFunction: {
         intro: 'cubic-bezier(0, 0.98, 0.31, 0.98)',
