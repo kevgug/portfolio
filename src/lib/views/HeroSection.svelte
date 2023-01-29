@@ -5,6 +5,7 @@
   import Separator from "$lib/components/Separator.svelte";
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
   import LinkButton from "$lib/components/LinkButton.svelte";
+  import { onMount } from "svelte";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -16,9 +17,27 @@
   // Calculations
   let innerWidth: number = 0;
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, innerWidth);
+  let heroContent: HTMLElement;
+  let separator: HTMLElement;
+  let separatorMarginY = 0;
+  $: boundedSeparatorMarginY = Math.min(80, Math.max(16, separatorMarginY));
+
+  const calculateSeparatorDistance = () => {
+    // Recalculate vertical distance between separator and hero content
+    separatorMarginY =
+      (separator?.getBoundingClientRect().top ?? 0) -
+      (heroContent?.getBoundingClientRect().bottom ?? 0);
+  };
+
+  onMount(() => {
+    calculateSeparatorDistance();
+  });
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window
+  bind:innerWidth
+  on:resize={(_) => calculateSeparatorDistance()}
+/>
 
 <div
   class="flex flex-col justify-between
@@ -45,7 +64,7 @@
       />
     </div>
   </div>
-  <div class="flex flex-row items-center">
+  <div bind:this={heroContent} class="flex flex-row items-center">
     <img
       src={atfPhone}
       alt="A tilted iPhone showing Kevin's latest mobile app"
@@ -92,7 +111,7 @@
       </div>
     </div>
   </div>
-  <div>
+  <div bind:this={separator}>
     <!-- Show separator only on MD+ screens -->
     <div class="hidden md:flex">
       <Separator />
@@ -105,3 +124,4 @@
     </div>
   </div>
 </div>
+<div style="height: {boundedSeparatorMarginY}px" />
