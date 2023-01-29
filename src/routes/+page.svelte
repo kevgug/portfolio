@@ -43,7 +43,6 @@ px-[32px] lg:px-[2.5rem] xl:px-[5rem]"
   :global(p, li, a) {
     @apply text-sm;
     @apply md:text-base;
-    @apply xl:text-lg;
   }
 
   :global(button) {

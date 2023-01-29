@@ -19,10 +19,8 @@ export function responsiveIconSize(smFontSize: SmFontSize, screenWidth: number) 
 			switch (breakpoint) {
 				case BreakpointSizes.sm:
 					return tailwindTheme.fontSize.sm;
-				case BreakpointSizes.md:
-					return tailwindTheme.fontSize.base;
 				default:
-					return tailwindTheme.fontSize.lg;
+					return tailwindTheme.fontSize.base;
 			}
         case SmFontSize.base:
             switch (breakpoint) {
