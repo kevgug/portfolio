@@ -1,0 +1,60 @@
+<script lang="ts">
+  import { tailwindTheme } from "$lib/tailwindTheme";
+  import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
+  import Icon from "./Icon.svelte";
+
+  // Props
+  export let label = "";
+  export let href = "";
+  export let openInNewTab = false;
+
+  // Interactions
+  let isHovering = false;
+
+  // Colors
+  const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
+  const whiteColor = tailwindTheme.colors["white"];
+  $: iconColor = isHovering ? whiteColor : mutedTextGreyColor;
+
+  // Calculations
+  let innerWidth: number = 0;
+  $: arrowIconSize = responsiveIconSize(SmFontSize.xs, innerWidth);
+</script>
+
+<svelte:window bind:innerWidth />
+
+<button
+  class="group relative"
+  on:pointerover={() => (isHovering = true)}
+  on:pointerout={() => (isHovering = false)}
+>
+  <div class="group flex flex-row items-center space-x-1.5">
+    <a
+      {href}
+      target={openInNewTab ? "_blank" : "_self"}
+      rel={openInNewTab ? "noreferrer" : ""}
+      class="text-muted-text-grey group-hover:text-white
+	  duration-100"
+    >
+      {label}
+    </a>
+    <Icon
+      name="arrow-corner-right"
+      color={iconColor}
+      size={arrowIconSize}
+      flipY
+    />
+  </div>
+  <div
+    class="absolute flex flex-col-reverse
+	w-full h-[0.24rem] md:h-[0.25rem]"
+  >
+    <div
+      class="
+	  h-[2px] rounded-sm
+  bg-muted-text-grey group-hover:bg-white
+  opacity-30 group-hover:opacity-100
+  duration-100"
+    />
+  </div>
+</button>

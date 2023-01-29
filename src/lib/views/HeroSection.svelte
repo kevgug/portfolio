@@ -1,16 +1,19 @@
 <script lang="ts">
   import { tailwindTheme } from "$lib/tailwindTheme";
-
   import Icon from "$lib/components/Icon.svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import Separator from "$lib/components/Separator.svelte";
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
+  import LinkButton from "$lib/components/LinkButton.svelte";
 
+  // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
   const whiteColor = tailwindTheme.colors.white;
 
+  // Assets
   const atfPhone = "/images/atf-phone.png";
 
+  // Calculations
   let innerWidth: number = 0;
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, innerWidth);
 </script>
@@ -33,9 +36,13 @@
       />
       <p class="text-muted-text-grey">Chicago, IL</p>
     </div>
-    <div class="flex flex-row space-x-4">
-      <p class="text-muted-text-grey">Email</p>
-      <p class="text-muted-text-grey">LinkedIn</p>
+    <div class="flex flex-row space-x-4 md:space-x-5 xl:space-x-6">
+      <LinkButton label="Email" href="mailto:contact@kevingugelmann.com" />
+      <LinkButton
+        label="LinkedIn"
+        href="https://www.linkedin.com/in/kevingugelmann/"
+        openInNewTab
+      />
     </div>
   </div>
   <div class="flex flex-row items-center">

@@ -12,6 +12,7 @@ export const tailwindTheme = {
       serif: ['SangBleu Sunrise'],
     },
     fontSize: {
+      xs: '0.7rem', // 
       sm: '0.85rem', // 13.6px
       base: '1rem', // 16px
       lg: '1.125rem', // 18px

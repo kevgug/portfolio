@@ -2,12 +2,19 @@ import { tailwindTheme } from "$lib/tailwindTheme";
 import { BreakpointSizes, getCurrentBreakpoint } from "./breakpoints";
 
 export enum SmFontSize {
-	sm, base, lg, xl, '2xl'
+	xs, sm, base, lg, xl, '2xl'
 }
 
 export function responsiveIconSize(smFontSize: SmFontSize, screenWidth: number) {
 	const breakpoint: BreakpointSizes = getCurrentBreakpoint(screenWidth);
     switch (smFontSize) {
+		case SmFontSize.xs:
+			switch (breakpoint) {
+				case BreakpointSizes.sm:
+					return tailwindTheme.fontSize.xs;
+				default:
+					return tailwindTheme.fontSize.sm;
+			}
         case SmFontSize.sm:
 			switch (breakpoint) {
 				case BreakpointSizes.sm:
@@ -24,21 +31,21 @@ export function responsiveIconSize(smFontSize: SmFontSize, screenWidth: number) 
 				default:
 					return tailwindTheme.fontSize.lg;
 			}
-        case  SmFontSize.lg:
+        case SmFontSize.lg:
             switch (breakpoint) {
 				case BreakpointSizes.sm:
 					return tailwindTheme.fontSize.lg;
 				default:
 					return tailwindTheme.fontSize.xl;
 			}
-        case  SmFontSize.xl:
+        case SmFontSize.xl:
             switch (breakpoint) {
 				case BreakpointSizes.sm:
 					return tailwindTheme.fontSize.xl;
 				default:
 					return tailwindTheme.fontSize["2xl"];
 			}
-        case  SmFontSize["2xl"]:
+        case SmFontSize["2xl"]:
             switch (breakpoint) {
 				case BreakpointSizes.sm:
 					return tailwindTheme.fontSize["2xl"];

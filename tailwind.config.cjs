@@ -8,13 +8,14 @@ module.exports = {
       'glacial-blue': "#A9F4E9",
       'muted-text-grey': '#8B8B8B',
       'bullet-grey': '#4F4F4F',
-      'separator-grey': "#494949"
+      'separator-grey': "#494949",
     },
     fontFamily: {
       sans: ['Euclid Square'],
       serif: ['SangBleu Sunrise'],
     },
     fontSize: {
+      xs: '0.7rem', // 
       sm: '0.85rem', // 13.6px
       base: '1rem', // 16px
       lg: '1.125rem', // 18px
