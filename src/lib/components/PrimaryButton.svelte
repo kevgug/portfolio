@@ -1,41 +1,16 @@
 <script lang="ts">
+  import { tailwindTheme } from "$lib/tailwindTheme";
+  import Icon from "./Icon.svelte";
+
   export let label = "";
+
+  const whiteColor = tailwindTheme.colors.white;
 </script>
 
 <button class="button flex flex-row">
   {label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />
-  <svg
-    class="w-[0.65rem] md:w-[0.8rem] h-[0.65rem] md:h-[0.8rem]"
-    viewBox="0 0 14 15"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
-    <g
-      id="Page-1"
-      stroke="none"
-      stroke-width="1"
-      fill="none"
-      fill-rule="evenodd"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <g
-        id="Wide-V1"
-        transform="translate(-661.000000, -847.000000)"
-        stroke="#FFFFFF"
-        stroke-width="1.5"
-      >
-        <g id="Group-7" transform="translate(521.000000, 843.000000)">
-          <g id="arrow-down" transform="translate(141.000000, 5.000000)">
-            <line x1="6" y1="0" x2="6" y2="13" id="Path" />
-            <polyline id="Path" points="0 7 6 13 12 7" />
-          </g>
-        </g>
-      </g>
-    </g>
-  </svg>
+  <Icon name="arrow-down" color={whiteColor} size="0.75em" />
 </button>
 
 <style lang="postcss">

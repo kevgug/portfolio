@@ -1,17 +1,43 @@
 <script lang="ts">
+  import { tailwindTheme } from "$lib/tailwindTheme";
+
+  import Icon from "$lib/components/Icon.svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import Separator from "$lib/components/Separator.svelte";
+  import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
+
+  const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
+  const whiteColor = tailwindTheme.colors.white;
 
   const atfPhone = "/images/atf-phone.png";
+
+  let innerWidth: number = 0;
+  $: globeIconSize = responsiveIconSize(SmFontSize.sm, innerWidth);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div
   class="flex flex-col justify-between
+        py-screen-y
         h-screen
         min-h-[34em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
-  <div><p class="pt-6">Header</p></div>
+  <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
+    <div class="flex flex-row items-center space-x-2 md:space-x-3">
+      <Icon
+        name="network-pin"
+        color={mutedTextGreyColor}
+        size={globeIconSize}
+      />
+      <p class="text-muted-text-grey">Chicago, IL</p>
+    </div>
+    <div class="flex flex-row space-x-4">
+      <p class="text-muted-text-grey">Email</p>
+      <p class="text-muted-text-grey">LinkedIn</p>
+    </div>
+  </div>
   <div class="flex flex-row items-center">
     <img
       src={atfPhone}
@@ -59,7 +85,7 @@
       </div>
     </div>
   </div>
-  <div class="pb-separator-y">
+  <div>
     <!-- Show separator only on MD+ screens -->
     <div class="hidden md:flex">
       <Separator />
@@ -67,32 +93,7 @@
     <!-- On small devices (i.e. phones) show scroll down arrow -->
     <div class="md:hidden">
       <button on:click={(e) => console.log("Scroll down")}>
-        <svg
-          id="Regular"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          height="13"
-          width="13"
-          ><defs /><title>arrow-down</title><line
-            x1="12"
-            y1="0.75"
-            x2="12"
-            y2="23.25"
-            fill="none"
-            stroke="#ffffff"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5px"
-          /><polyline
-            points="1.5 12.75 12 23.25 22.5 12.75"
-            fill-rule="evenodd"
-            fill="none"
-            stroke="#ffffff"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5px"
-          /></svg
-        >
+        <Icon name="arrow-down" color={whiteColor} size="1rem" />
       </button>
     </div>
   </div>

@@ -1,7 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'], // paths to all template files
-  theme: {
+export const tailwindTheme = {
     colors: {
       background: "#141518",
       white: "#FFFFFF",
@@ -46,6 +43,4 @@ module.exports = {
         outro: '80ms'
       }
     }
-  },
-  plugins: [],
-}
+  } as const
