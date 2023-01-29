@@ -53,7 +53,7 @@
       class="
 	  h-[2px] rounded-sm
   bg-muted-text-grey group-hover:bg-white
-  opacity-30 group-hover:opacity-100
+  opacity-40 group-hover:opacity-100
   duration-100"
     />
   </div>
