@@ -24,7 +24,7 @@
   class="flex flex-col justify-between
         py-screen-y
         h-screen
-        min-h-[34em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
+        min-h-[38em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
   <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
