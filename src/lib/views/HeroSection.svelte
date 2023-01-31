@@ -55,7 +55,7 @@
       />
       <p class="text-muted-text-grey">Chicago, IL</p>
     </div>
-    <div class="flex flex-row space-x-4 md:space-x-5 xl:space-x-6">
+    <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton label="Email" href="mailto:contact@kevingugelmann.com" />
       <LinkButton
         label="LinkedIn"
