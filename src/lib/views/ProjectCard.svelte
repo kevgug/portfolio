@@ -52,7 +52,7 @@ rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
     class="flex flex-col md:justify-between
   w-full md:min-w-[20em] md:max-w-[25em]
   mt-2 md:mt-0 md:pl-8
-  mr-0.5 md:mr-1.5
+  mr-0.5 md:mr-1.5 xl:mr-2
   mb-0.5 md:mb-2"
   >
     <div class="h-5" />
