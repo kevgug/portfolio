@@ -14,11 +14,29 @@
 
 <div class="flex flex-col md:flex-row justify-between">
   <div class="flex flex-col md:flex-row">
-    <p class="font-semibold text-muted-text-grey md:mr-4">{year}</p>
-    <!-- TODO: align top of texts -->
-    <h2 class="text-lg md:text-2xl lg:text-3xl font-semibold">{name}</h2>
+    <p
+      class="font-semibold text-muted-text-grey 
+	  leading-none
+	  md:mr-3 lg:mr-3.5 xl:mr-4"
+    >
+      {year}
+    </p>
+    <!-- MD+ : Align top of h2 with p's -->
+    <h2
+      class="text-xl md:text-2xl lg:text-3xl font-semibold
+	leading-none
+	mt-[0.52rem] md:mt-[-0.145rem] lg:mt-[-0.21rem]"
+    >
+      {name}
+    </h2>
   </div>
-  <p class="text-muted-text-grey">{outputMedium} – {role}</p>
+  <p
+    class="text-muted-text-grey
+	leading-none
+	mt-[0.76rem] md:mt-0"
+  >
+    {outputMedium} – {role}
+  </p>
 </div>
 <div
   class="flex flex-col md:flex-row
