@@ -17,7 +17,7 @@
     <p
       class="font-semibold text-muted-text-grey 
 	  leading-none
-	  md:mr-3 lg:mr-3.5 xl:mr-4"
+	  md:mr-4 xl:mr-4.5"
     >
       {year}
     </p>
