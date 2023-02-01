@@ -2,7 +2,9 @@
   import { tailwindTheme } from "$lib/tailwindTheme";
   import Icon from "./Icon.svelte";
 
-  export let label = "";
+  export let label: string;
+  export let iconName: string;
+  export let iconFlipY = false;
 
   const whiteColor = tailwindTheme.colors.white;
 </script>
@@ -10,7 +12,7 @@
 <button class="button flex flex-row">
   {label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />
-  <Icon name="arrow-down" color={whiteColor} size="0.75em" />
+  <Icon name={iconName} color={whiteColor} size="0.75em" flipY={iconFlipY} />
 </button>
 
 <style lang="postcss">

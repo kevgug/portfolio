@@ -1,4 +1,6 @@
 <script>
+  import Separator from "$lib/components/Separator.svelte";
+  import CtaSection from "$lib/views/CtaSection.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
 </script>
@@ -24,6 +26,10 @@ px-[32px] lg:px-[2.5rem] xl:px-[5rem]"
       }}
     />
   </div>
+  <div class="py-20 md:py-24 lg:py-32">
+    <Separator />
+  </div>
+  <CtaSection />
 </div>
 
 <style lang="postcss">

@@ -118,7 +118,7 @@
         class="mt-[4.5rem] lg:mt-[5.5rem]
               hidden md:flex"
       >
-        <PrimaryButton label="View 6 projects" />
+        <PrimaryButton label="View 6 projects" iconName="arrow-down" />
       </div>
     </div>
   </div>
