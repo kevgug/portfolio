@@ -4,6 +4,7 @@ export const tailwindTheme = {
       white: "#FFFFFF",
       'glacial-blue': "#A9F4E9",
       'muted-text-grey': '#8B8B8B',
+      'description-text-grey': '#E2E2E2',
       'bullet-grey': '#4F4F4F',
       'separator-grey': "#2D2D2D",
     },
@@ -31,6 +32,9 @@ export const tailwindTheme = {
     extend: {
       borderRadius: {
         'lg': '0.7rem', // 11.2px
+        '4xl': '1.75em', // 28px
+        '5xl': '1.875em', // 30px
+        '6xl': '2.25em', // 36px
       },
       padding: {
         'screen-y': '2rem' // 32px

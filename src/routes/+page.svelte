@@ -1,4 +1,5 @@
 <script>
+  import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
 </script>
 
@@ -9,12 +10,19 @@ px-[32px] lg:px-[2.5rem] xl:px-[5rem]"
 >
   <HeroSection />
   <div class="flex flex-col">
-    <p class="text-lg">below the fold</p>
-    <p class="text-lg">below the fold</p>
-    <p class="text-lg">below the fold</p>
-    <p class="text-lg">below the fold</p>
-    <p class="text-lg">below the fold</p>
-    <p class="text-lg">below the fold</p>
+    <ProjectCard
+      year="2022"
+      name="Sport Video Analysis"
+      outputMedium="Desktop App"
+      role="Concept Design"
+      imgPath="/images/projects/sport-video-analysis.png"
+      imgAlt=""
+      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      linkButtonContent={{
+        label: "Dribbble",
+        href: "",
+      }}
+    />
   </div>
 </div>
 

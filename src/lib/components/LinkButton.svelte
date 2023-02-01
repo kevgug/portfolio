@@ -23,6 +23,7 @@
 
 <svelte:window bind:innerWidth />
 
+<!-- TODO: whole button should be interactive, not just the <a> -->
 <button
   class="group relative"
   on:pointerover={() => (isHovering = true)}
