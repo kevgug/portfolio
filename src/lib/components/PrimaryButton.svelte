@@ -34,7 +34,7 @@
     @apply py-2;
 
     @apply transition-all;
-    @apply duration-outro;
+    @apply duration-intro;
     @apply ease-outro;
   }
 
@@ -44,7 +44,7 @@
     @apply opacity-[85%];
     @apply transition-all;
     @apply duration-intro;
-    @apply ease-intro;
+    @apply ease-out;
   }
 
   .button:active {
