@@ -11,6 +11,11 @@
   }
   @font-face {
     font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Light.otf");
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: "Euclid Square";
     src: url("/fonts/euclid-square/EuclidSquare-Medium.otf");
     font-weight: 500;
   }

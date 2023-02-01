@@ -4,7 +4,11 @@
 
 <div>
   <h2 class="text-glacial-blue uppercase">Hire me for an internship</h2>
-  <ul class="my-10 md:my-12">
+  <ul class="my-9 md:my-10 lg:my-11">
+    <li>
+      Open to work as a UI/UX Designer, Front-End Developer, or Digital
+      Marketer.
+    </li>
     <li>Bilingual in English and German.</li>
     <li>Authorized to work in the UK, EU, and Switzerland.</li>
   </ul>
