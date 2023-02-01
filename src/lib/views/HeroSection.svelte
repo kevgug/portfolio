@@ -6,6 +6,7 @@
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
   import LinkButton from "$lib/components/LinkButton.svelte";
   import { onMount } from "svelte";
+  import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -15,12 +16,22 @@
   const atfPhone = "/images/atf-phone.png";
 
   // Calculations
-  let innerWidth: number = 0;
-  $: globeIconSize = responsiveIconSize(SmFontSize.sm, innerWidth);
+  let screenWidth = 0;
+  $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
+
+  $: breakpoint = getCurrentBreakpoint(screenWidth);
+
   let heroContent: HTMLElement;
   let separator: HTMLElement;
   let separatorMarginY = 0;
-  $: boundedSeparatorMarginY = Math.min(80, Math.max(16, separatorMarginY));
+  let boundedSeparatorMarginY = 0;
+  $: {
+    if (breakpoint == BreakpointSizes.sm) {
+      boundedSeparatorMarginY = Math.min(56, Math.max(16, separatorMarginY));
+    } else {
+      boundedSeparatorMarginY = Math.min(80, Math.max(16, separatorMarginY));
+    }
+  }
 
   const calculateSeparatorDistance = () => {
     // Recalculate vertical distance between separator and hero content
@@ -35,7 +46,7 @@
 </script>
 
 <svelte:window
-  bind:innerWidth
+  bind:innerWidth={screenWidth}
   on:resize={(_) => calculateSeparatorDistance()}
 />
 
