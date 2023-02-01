@@ -21,8 +21,8 @@
       linkButtonContent={{
         label: "LinkedIn",
         href: "https://www.linkedin.com/in/kevingugelmann/",
+        openInNewTab: true,
       }}
-      openInNewTab
       iconName="arrow-corner-right"
       iconFlipY
     />

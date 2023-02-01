@@ -4,7 +4,6 @@
   import Icon from "./Icon.svelte";
 
   export let linkButtonContent: LinkButtonContent;
-  export let openInNewTab = false;
   export let iconName: string;
   export let iconFlipY = false;
 
@@ -14,8 +13,8 @@
 <a
   class="button flex flex-row"
   href={linkButtonContent.href}
-  target={openInNewTab ? "_blank" : "_self"}
-  rel={openInNewTab ? "noreferrer" : ""}
+  target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
+  rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
 >
   {linkButtonContent.label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />

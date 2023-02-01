@@ -67,11 +67,18 @@
       <p class="text-muted-text-grey">Chicago, IL</p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
-      <LinkButton label="Email" href="mailto:contact@kevingugelmann.com" />
       <LinkButton
-        label="LinkedIn"
-        href="https://www.linkedin.com/in/kevingugelmann/"
-        openInNewTab
+        linkButtonContent={{
+          label: "Email",
+          href: "mailto:contact@kevingugelmann.com",
+        }}
+      />
+      <LinkButton
+        linkButtonContent={{
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/in/kevingugelmann/",
+          openInNewTab: true,
+        }}
       />
     </div>
   </div>

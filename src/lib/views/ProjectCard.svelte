@@ -61,7 +61,7 @@ rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
       class="flex justify-end h-5
 	mt-14 md:mt-0"
     >
-      <LinkButton {...linkButtonContent} openInNewTab />
+      <LinkButton {linkButtonContent} />
     </div>
   </div>
 </div>

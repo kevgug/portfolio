@@ -1,12 +1,11 @@
 <script lang="ts">
   import { tailwindTheme } from "$lib/tailwindTheme";
+  import type { LinkButtonContent } from "$lib/util/linkButtonContent";
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
   import Icon from "./Icon.svelte";
 
   // Props
-  export let label = "";
-  export let href = "";
-  export let openInNewTab = false;
+  export let linkButtonContent: LinkButtonContent;
 
   // Interactions
   let isHovering = false;
@@ -25,9 +24,9 @@
 
 <a
   class="group relative"
-  {href}
-  target={openInNewTab ? "_blank" : "_self"}
-  rel={openInNewTab ? "noreferrer" : ""}
+  href={linkButtonContent.href}
+  target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
+  rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
   on:pointerover={() => (isHovering = true)}
   on:pointerout={() => (isHovering = false)}
 >
@@ -36,7 +35,7 @@
       class="text-muted-text-grey group-hover:text-white
 	  duration-100"
     >
-      {label}
+      {linkButtonContent.label}
     </p>
     <Icon
       name="arrow-corner-right"
