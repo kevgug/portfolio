@@ -1,19 +1,26 @@
 <script lang="ts">
   import { tailwindTheme } from "$lib/tailwindTheme";
+  import type { LinkButtonContent as LinkButtonContent } from "$lib/util/linkButtonContent";
   import Icon from "./Icon.svelte";
 
-  export let label: string;
+  export let linkButtonContent: LinkButtonContent;
+  export let openInNewTab = false;
   export let iconName: string;
   export let iconFlipY = false;
 
   const whiteColor = tailwindTheme.colors.white;
 </script>
 
-<button class="button flex flex-row">
-  {label}
+<a
+  class="button flex flex-row"
+  href={linkButtonContent.href}
+  target={openInNewTab ? "_blank" : "_self"}
+  rel={openInNewTab ? "noreferrer" : ""}
+>
+  {linkButtonContent.label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />
   <Icon name={iconName} color={whiteColor} size="0.75em" flipY={iconFlipY} />
-</button>
+</a>
 
 <style lang="postcss">
   .button {

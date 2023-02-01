@@ -9,7 +9,22 @@
     <li>Authorized to work in the UK, EU, and Switzerland.</li>
   </ul>
   <div class="flex flex-row space-x-3.5">
-    <PrimaryButton label="Email" iconName="arrow-corner-right" iconFlipY />
-    <PrimaryButton label="LinkedIn" iconName="arrow-corner-right" iconFlipY />
+    <PrimaryButton
+      linkButtonContent={{
+        label: "Email",
+        href: "mailto:contact@kevingugelmann.com",
+      }}
+      iconName="arrow-corner-right"
+      iconFlipY
+    />
+    <PrimaryButton
+      linkButtonContent={{
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/kevingugelmann/",
+      }}
+      openInNewTab
+      iconName="arrow-corner-right"
+      iconFlipY
+    />
   </div>
 </div>

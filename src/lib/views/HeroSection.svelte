@@ -118,7 +118,13 @@
         class="mt-[4.5rem] lg:mt-[5.5rem]
               hidden md:flex"
       >
-        <PrimaryButton label="View 6 projects" iconName="arrow-down" />
+        <PrimaryButton
+          linkButtonContent={{
+            label: "View 6 projects",
+            href: "#projects",
+          }}
+          iconName="arrow-down"
+        />
       </div>
     </div>
   </div>
@@ -129,10 +135,10 @@
     </div>
     <!-- On small devices (i.e. phones) show scroll down arrow -->
     <div class="md:hidden">
-      <button on:click={(e) => console.log("Scroll down")}>
+      <a href="#projects">
         <Icon name="arrow-down" color={whiteColor} size="1rem" />
-      </button>
+      </a>
     </div>
   </div>
 </div>
-<div style="height: {boundedSeparatorMarginY}px" />
+<div id="projects" style="height: {boundedSeparatorMarginY}px" />

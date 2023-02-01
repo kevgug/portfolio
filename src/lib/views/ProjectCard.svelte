@@ -1,6 +1,6 @@
 <script lang="ts">
   import LinkButton from "$lib/components/LinkButton.svelte";
-  import type { ProjectLinkContent } from "$lib/util/projectLinkContent";
+  import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
   export let year: string;
   export let name: string;
@@ -9,7 +9,7 @@
   export let imgPath: string;
   export let imgAlt: string;
   export let description: string;
-  export let linkButtonContent: ProjectLinkContent;
+  export let linkButtonContent: LinkButtonContent;
 </script>
 
 <div class="flex flex-col md:flex-row justify-between">
