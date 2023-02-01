@@ -23,22 +23,21 @@
 
 <svelte:window bind:innerWidth />
 
-<!-- TODO: whole button should be interactive, not just the <a> -->
-<button
+<a
   class="group relative"
+  {href}
+  target={openInNewTab ? "_blank" : "_self"}
+  rel={openInNewTab ? "noreferrer" : ""}
   on:pointerover={() => (isHovering = true)}
   on:pointerout={() => (isHovering = false)}
 >
   <div class="group flex flex-row items-center space-x-1.5">
-    <a
-      {href}
-      target={openInNewTab ? "_blank" : "_self"}
-      rel={openInNewTab ? "noreferrer" : ""}
+    <p
       class="text-muted-text-grey group-hover:text-white
 	  duration-100"
     >
       {label}
-    </a>
+    </p>
     <Icon
       name="arrow-corner-right"
       color={iconColor}
@@ -58,4 +57,4 @@
   duration-100"
     />
   </div>
-</button>
+</a>
