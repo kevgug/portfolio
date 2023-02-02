@@ -2,7 +2,7 @@
   import LinkButton from "$lib/components/LinkButton.svelte";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
-  export let year: string;
+  export let year: number;
   export let name: string;
   export let outputMedium: string;
   export let role: string;
@@ -16,50 +16,52 @@
   <div class="flex flex-col md:flex-row">
     <p
       class="font-semibold text-muted-text-grey 
-	  leading-none
-	  md:mr-4 xl:mr-4.5"
+            leading-none
+            md:mr-4 xl:mr-4.5"
     >
       {year}
     </p>
     <!-- MD+ : Align top of h2 with p's -->
     <h2
       class="text-xl md:text-2xl lg:text-3xl font-semibold
-	leading-none
-	mt-[0.52rem] md:mt-[-0.145rem] lg:mt-[-0.21rem]"
+            leading-none
+            mt-[0.52rem] md:mt-[-0.145rem] lg:mt-[-0.21rem]"
     >
       {name}
     </h2>
   </div>
+  <!-- Never shrinks -->
   <p
     class="text-muted-text-grey
-	leading-none
-	mt-[0.76rem] md:mt-0"
+          leading-none
+          shrink-0 ml-0 md:ml-10 lg:ml-12
+          mt-[0.76rem] md:mt-0"
   >
     {outputMedium} – {role}
   </p>
 </div>
 <div
   class="flex flex-col md:flex-row
-  mt-8 md:mt-9 lg:mt-10
-  p-7
-bg-gradient-to-b from-[#1E1E1E] to-[#1B1B1B]
-rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
+        mt-8 md:mt-9 lg:mt-10
+        p-7
+        bg-gradient-to-b from-[#1E1E1E] to-[#1B1B1B]
+        rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
 >
   <div class="flex justify-center">
     <img src={imgPath} alt={imgAlt} class="max-h-full object-contain" />
   </div>
   <div
     class="flex flex-col md:justify-between
-  w-full md:min-w-[20em] md:max-w-[25em]
-  mt-2 md:mt-0 md:pl-8
-  mr-0.5 md:mr-1.5 xl:mr-2
-  mb-0.5 md:mb-2"
+          w-full md:min-w-[20em] md:max-w-[25em]
+          mt-2 md:mt-0 md:pl-8
+          mr-0.5 md:mr-1.5 xl:mr-2
+          mb-0.5 md:mb-2"
   >
     <div class="h-5" />
     <p class="font-serif text-description-text-grey">{description}</p>
     <div
       class="flex justify-end h-5
-	mt-14 md:mt-0"
+	          mt-14 md:mt-0"
     >
       <LinkButton {linkButtonContent} />
     </div>

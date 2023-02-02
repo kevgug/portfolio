@@ -17,7 +17,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   <HeroSection />
   <div class="flex flex-col">
     <ProjectCard
-      year="2022"
+      year={2022}
       name="Sport Video Analysis"
       outputMedium="Desktop App"
       role="Concept Design"
