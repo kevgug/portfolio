@@ -4,6 +4,9 @@
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
+
+  // Assets
+  import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.png";
 </script>
 
 <div
@@ -18,7 +21,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Sport Video Analysis"
       outputMedium="Desktop App"
       role="Concept Design"
-      imgPath="/images/projects/sport-video-analysis.png"
+      imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={{

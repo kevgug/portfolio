@@ -8,12 +8,12 @@
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
 
+  // Assets
+  import atfPhoneSrc from "$lib/images/atf-phone.png";
+
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
   const whiteColor = tailwindTheme.colors.white;
-
-  // Assets
-  const atfPhone = "/images/atf-phone.png";
 
   // Calculations
   let screenWidth = 0;
@@ -84,7 +84,7 @@
   </div>
   <div bind:this={heroContent} class="flex flex-row items-center">
     <img
-      src={atfPhone}
+      src={atfPhoneSrc}
       alt="A tilted iPhone showing Kevin's latest mobile app"
       class="hidden md:flex 
             object-contain
