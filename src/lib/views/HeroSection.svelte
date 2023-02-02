@@ -29,7 +29,7 @@
     if (breakpoint == BreakpointSizes.sm) {
       boundedSeparatorMarginY = Math.min(56, Math.max(16, separatorMarginY));
     } else {
-      boundedSeparatorMarginY = Math.min(80, Math.max(16, separatorMarginY));
+      boundedSeparatorMarginY = Math.min(80, Math.max(56, separatorMarginY));
     }
   }
 
