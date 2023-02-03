@@ -56,7 +56,7 @@
             w-full md:min-w-[20em] md:max-w-[25em]
             mt-2 md:mt-0 md:pl-8
             mr-0.5 md:mr-1.5 xl:mr-2
-            mb-0.5 md:mb-2"
+            py-0.5 md:py-2"
     >
       <div class="h-5" />
       <p class="font-serif text-description-text-grey">{description}</p>
