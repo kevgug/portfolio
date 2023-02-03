@@ -9,6 +9,7 @@
   export let imgPath: string;
   export let imgAlt: string;
   export let description: string;
+  export let builtWith: string[] | undefined;
   export let linkButtonContent: LinkButtonContent | undefined;
 </script>
 
@@ -63,8 +64,28 @@
             mr-0.5 md:mr-1.5 xl:mr-2
             py-0.5 md:py-2"
     >
-      <div class="h-5" />
-      <p class="font-serif text-description-text-grey">{description}</p>
+      {#if linkButtonContent}
+        <!-- Always need top padding if there's a link -->
+        <div class="h-5" />
+      {:else}
+        <!-- SM : Always need y padding between image and description -->
+        <div class="h-5 md:h-0" />
+      {/if}
+      <div class="flex flex-col h-full justify-center">
+        <p class="font-serif text-description-text-grey">{description}</p>
+        {#if builtWith}
+          <div class="flex flex-wrap mt-5 md:mt-6 lg:mt-7">
+            {#each builtWith as tool, i}
+              <div class="flex flex-row">
+                <p class="font-serif text-muted-text-grey">{tool}</p>
+                {#if i != builtWith.length - 1}
+                  <p class="font-serif text-muted-text-grey px-2">|</p>
+                {/if}
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
       {#if linkButtonContent}
         <div
           class="flex justify-end h-5

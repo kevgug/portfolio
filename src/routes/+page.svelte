@@ -31,6 +31,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      builtWith={undefined}
       linkButtonContent={undefined}
     />
     <ProjectCard
@@ -41,6 +42,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={tfdiSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      builtWith={undefined}
       linkButtonContent={{
         label: "TFDi Website",
         href: "https://www.tradefinancedistribution.com/",
@@ -54,7 +56,15 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Product, Design & Development"
       imgPath={mindxoneSrc}
       imgAlt=""
-      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      description="Web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology."
+      builtWith={[
+        "Adobe XD",
+        "HTML/CSS/JS",
+        "JQuery",
+        "NodeJS",
+        "Express.js",
+        "AWS Elastic Beanstalk",
+      ]}
       linkButtonContent={undefined}
     />
     <ProjectCard
@@ -65,6 +75,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={taskTimerAppSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      builtWith={undefined}
       linkButtonContent={undefined}
     />
     <ProjectCard
@@ -75,6 +86,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={panoramaMailSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      builtWith={undefined}
       linkButtonContent={undefined}
     />
   </div>
