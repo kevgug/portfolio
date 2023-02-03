@@ -40,7 +40,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Concept Design"
       imgPath={sportVideoAnalysisSrc}
       imgAlt="Visually highlighting an athlete's technique in a sport video analysis desktop UI"
-      description="Designed and prototyped ten states of a sport video analysis desktop app. Restricted myself to a mainly monochromatic color scheme (dark neutrals) to keep the user's focus on each video."
+      description="Designed and prototyped ten states of a sport video analysis desktop app. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch App"]}
       linkButtonContent={undefined}
     />
