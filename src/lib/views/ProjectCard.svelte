@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Image from "$lib/components/Image.svelte";
   import LinkButton from "$lib/components/LinkButton.svelte";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
@@ -50,10 +51,9 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div class="flex justify-center">
-      <img
+      <Image
         src={imgPath}
         alt={imgAlt}
-        loading="lazy"
         class="max-h-full object-contain rounded-md"
       />
     </div>

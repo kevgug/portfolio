@@ -10,6 +10,7 @@
 
   // Assets
   import atfPhoneSrc from "$lib/images/atf-phone.png";
+  import Image from "$lib/components/Image.svelte";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -83,17 +84,17 @@
     </div>
   </div>
   <div bind:this={heroContent} class="flex flex-row items-center">
-    <img
+    <Image
       src={atfPhoneSrc}
       alt="A tilted iPhone showing Kevin's latest mobile app"
       class="hidden md:flex 
-            object-contain
-            w-auto
-            max-w-[15rem] lg:max-w-[16rem] xl:max-w-[16.5rem]
-            min-h-[35rem]
-            md:pr-10 xl:pr-12
-            mr-2 lg:mr-4 xl:mr-8
-            mb-7 lg:mb-9 xl:mb-7"
+          object-contain
+          w-auto
+          max-w-[15rem] lg:max-w-[16rem] xl:max-w-[16.5rem]
+          min-h-[35rem]
+          md:pr-10 xl:pr-12
+          mr-2 lg:mr-4 xl:mr-8
+          mb-7 lg:mb-9 xl:mb-7"
     />
     <div>
       <div>
