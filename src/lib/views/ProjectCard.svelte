@@ -9,7 +9,7 @@
   export let imgPath: string;
   export let imgAlt: string;
   export let description: string;
-  export let linkButtonContent: LinkButtonContent;
+  export let linkButtonContent: LinkButtonContent | undefined;
 </script>
 
 <div>
@@ -60,12 +60,17 @@
     >
       <div class="h-5" />
       <p class="font-serif text-description-text-grey">{description}</p>
-      <div
-        class="flex justify-end h-5
+      {#if linkButtonContent}
+        <div
+          class="flex justify-end h-5
               mt-14 md:mt-0"
-      >
-        <LinkButton {linkButtonContent} />
-      </div>
+        >
+          <LinkButton {linkButtonContent} />
+        </div>
+      {:else}
+        <!-- So that justify-between still centers description text (MD+) -->
+        <div />
+      {/if}
     </div>
   </div>
 </div>

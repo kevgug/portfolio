@@ -27,10 +27,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      linkButtonContent={{
-        label: "Read more",
-        href: "",
-      }}
+      linkButtonContent={undefined}
     />
     <ProjectCard
       year={2021}
@@ -54,10 +51,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      linkButtonContent={{
-        label: "Read more",
-        href: "",
-      }}
+      linkButtonContent={undefined}
     />
     <ProjectCard
       year={2019}
@@ -67,10 +61,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      linkButtonContent={{
-        label: "Read more",
-        href: "",
-      }}
+      linkButtonContent={undefined}
     />
     <ProjectCard
       year={2018}
@@ -80,10 +71,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      linkButtonContent={{
-        label: "Read more",
-        href: "",
-      }}
+      linkButtonContent={undefined}
     />
   </div>
   <div class="pt-20 md:pt-24 lg:pt-32">
