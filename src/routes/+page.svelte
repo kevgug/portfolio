@@ -15,7 +15,10 @@ w-screen max-w-screen-2xl
 px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
 >
   <HeroSection />
-  <div class="flex flex-col">
+  <div
+    class="flex flex-col
+          space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
+  >
     <ProjectCard
       year={2022}
       name="Sport Video Analysis"
@@ -25,7 +28,60 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={{
-        label: "Dribbble",
+        label: "Read more",
+        href: "",
+      }}
+    />
+    <ProjectCard
+      year={2021}
+      name="TFDi Website Redesign"
+      outputMedium="Website"
+      role="Digital Marketing"
+      imgPath={sportVideoAnalysisSrc}
+      imgAlt=""
+      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      linkButtonContent={{
+        label: "TFDi Website",
+        href: "https://www.tradefinancedistribution.com/",
+        openInNewTab: true,
+      }}
+    />
+    <ProjectCard
+      year={2020}
+      name="Mindxone Co-Founder"
+      outputMedium="Web SaaS"
+      role="Product, Design & Development"
+      imgPath={sportVideoAnalysisSrc}
+      imgAlt=""
+      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      linkButtonContent={{
+        label: "Read more",
+        href: "",
+      }}
+    />
+    <ProjectCard
+      year={2019}
+      name="Task App with Focus Timer"
+      outputMedium="Mobile App"
+      role="Design & Development"
+      imgPath={sportVideoAnalysisSrc}
+      imgAlt=""
+      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      linkButtonContent={{
+        label: "Read more",
+        href: "",
+      }}
+    />
+    <ProjectCard
+      year={2018}
+      name="Panorama Mail"
+      outputMedium="Mobile App"
+      role="Concept Design"
+      imgPath={sportVideoAnalysisSrc}
+      imgAlt=""
+      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
+      linkButtonContent={{
+        label: "Read more",
         href: "",
       }}
     />
