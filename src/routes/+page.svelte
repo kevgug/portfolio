@@ -11,6 +11,7 @@
   import mindxoneSrc from "$lib/images/projects/mindxone.png";
   import taskTimerAppSrc from "$lib/images/projects/task-timer-app.png";
   import panoramaMailSrc from "$lib/images/projects/panorama-mail.png";
+  import prismaticNewsSrc from "$lib/images/projects/prismatic-news.png";
 </script>
 
 <div
@@ -85,9 +86,24 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Concept Design"
       imgPath={panoramaMailSrc}
       imgAlt=""
-      description="Prototyped 57 animated artboards of a concept mobile mail app. Main feature is the titular 'Panorama' screen which enables rapid email triaging. Also includes snooze, quick reply, and undo send."
+      description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send."
       builtWith={["Adobe XD"]}
       linkButtonContent={undefined}
+    />
+    <ProjectCard
+      year={2018}
+      name="Prismatic News"
+      outputMedium="Android App"
+      role="Native Development"
+      imgPath={prismaticNewsSrc}
+      imgAlt=""
+      description="Developed and published an Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
+      builtWith={["Android Studio, Java"]}
+      linkButtonContent={{
+        label: "Promo Video (YouTube)",
+        href: "https://youtu.be/6lico6jtV5E",
+        openInNewTab: true,
+      }}
     />
   </div>
   <div class="pt-20 md:pt-24 lg:pt-32">
