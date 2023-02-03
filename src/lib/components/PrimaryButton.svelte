@@ -38,16 +38,15 @@
   }
 
   .button:hover {
-    box-shadow: rgba(0, 1, 0, 0.15) 0 2px 30px;
+    box-shadow: rgba(255, 255, 255, 0.06) 0 0px 12px;
 
-    @apply opacity-[85%];
     @apply transition-all;
     @apply duration-intro;
     @apply ease-out;
   }
 
   .button:active {
-    box-shadow: rgba(0, 1, 0, 0.3) 0 2px 4px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 0px 12px;
 
     @apply opacity-[75%];
     @apply transition-all;
