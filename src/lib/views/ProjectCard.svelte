@@ -71,7 +71,11 @@
         <!-- SM : Always need y padding between image and description -->
         <div class="h-5 md:h-0" />
       {/if}
-      <div class="flex flex-col h-full justify-center">
+      <!--  -->
+      <div
+        class="flex flex-col h-full justify-center
+              my-0 md:my-10 lg:my-0"
+      >
         <p class="font-serif text-description-text-grey">{description}</p>
         {#if builtWith}
           <div class="flex flex-wrap mt-5 md:mt-6 lg:mt-7">
