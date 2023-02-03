@@ -39,7 +39,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Desktop App"
       role="Concept Design"
       imgPath={sportVideoAnalysisSrc}
-      imgAlt=""
+      imgAlt="Visually highlighting an athlete's technique in a sport video analysis desktop UI"
       description="Designed and prototyped ten states of a sport video analysis desktop app. Restricted myself to a mainly monochromatic color scheme (dark neutrals) to keep the user's focus on each video."
       builtWith={["Sketch App"]}
       linkButtonContent={undefined}
@@ -50,7 +50,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Website"
       role="Digital Marketing"
       imgPath={tfdiSrc}
-      imgAlt=""
+      imgAlt="Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation"
       description="Redesigned the initiative's primary website, doubling site traffic within the first month. Rewrote 1,000+ words of copy across four pages that minimize financial jargon."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
@@ -65,7 +65,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Web SaaS"
       role="Product, Design & Development"
       imgPath={mindxoneSrc}
-      imgAlt=""
+      imgAlt="Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product"
       description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage."
       builtWith={[
         "Adobe XD",
@@ -83,7 +83,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Mobile App"
       role="Design & Development"
       imgPath={taskTimerAppSrc}
-      imgAlt=""
+      imgAlt="Side-by-side iPhone mockups of a task app with a focus timer"
       description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
@@ -94,7 +94,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Mobile App"
       role="Concept Design"
       imgPath={panoramaMailSrc}
-      imgAlt=""
+      imgAlt="Side-by-side iPhone screenshots of a concept design mail app"
       description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send."
       builtWith={["Adobe XD"]}
       linkButtonContent={undefined}
@@ -105,7 +105,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       outputMedium="Android App"
       role="Native Development"
       imgPath={prismaticNewsSrc}
-      imgAlt=""
+      imgAlt="Side-by-side promotional Android mockups for an offline news-reading app"
       description="Developed and published an Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
       builtWith={["Android Studio, Java"]}
       linkButtonContent={{
