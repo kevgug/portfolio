@@ -183,4 +183,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     @apply top-[0.22em] md:top-[0.23em] lg:top-[0.24em] xl:top-[0.23em]; /* vertical align bullet position relative to list item */
     @apply left-[-0.44em] xl:left-[-0.54em]; /* position the bullet L- R relative to list item */
   }
+
+  :global(img) {
+    /* For alt text */
+    @apply text-glacial-blue;
+  }
 </style>
