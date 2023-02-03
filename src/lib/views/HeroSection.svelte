@@ -127,7 +127,7 @@
       >
         <PrimaryButton
           linkButtonContent={{
-            label: "View 6 projects",
+            label: "View projects",
             href: "#projects",
           }}
           iconName="arrow-down"

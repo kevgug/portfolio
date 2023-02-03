@@ -30,8 +30,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Concept Design"
       imgPath={sportVideoAnalysisSrc}
       imgAlt=""
-      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      builtWith={undefined}
+      description="Designed and prototyped ten states of a sport video analysis desktop app. Restricted myself to a mainly monochromatic color scheme (dark neutrals) to keep the user's focus on each video."
+      builtWith={["Sketch App"]}
       linkButtonContent={undefined}
     />
     <ProjectCard
@@ -41,8 +41,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Digital Marketing"
       imgPath={tfdiSrc}
       imgAlt=""
-      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      builtWith={undefined}
+      description="Redesigned the initiative's primary website, doubling site traffic within the first month. Rewrote 1,000+ words of copy across four pages that minimize financial jargon."
+      builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
         label: "TFDi Website",
         href: "https://www.tradefinancedistribution.com/",
@@ -56,7 +56,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Product, Design & Development"
       imgPath={mindxoneSrc}
       imgAlt=""
-      description="Web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology."
+      description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage."
       builtWith={[
         "Adobe XD",
         "HTML/CSS/JS",
@@ -74,8 +74,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Design & Development"
       imgPath={taskTimerAppSrc}
       imgAlt=""
-      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      builtWith={undefined}
+      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions."
+      builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
     />
     <ProjectCard
@@ -85,8 +85,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       role="Concept Design"
       imgPath={panoramaMailSrc}
       imgAlt=""
-      description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
-      builtWith={undefined}
+      description="Prototyped 57 animated artboards of a concept mobile mail app. Main feature is the titular 'Panorama' screen which enables rapid email triaging. Also includes snooze, quick reply, and undo send."
+      builtWith={["Adobe XD"]}
       linkButtonContent={undefined}
     />
   </div>
