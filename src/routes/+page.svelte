@@ -7,6 +7,10 @@
 
   // Assets
   import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.png";
+  import tfdiSrc from "$lib/images/projects/tfdi.png";
+  import mindxoneSrc from "$lib/images/projects/mindxone.png";
+  import taskTimerAppSrc from "$lib/images/projects/task-timer-app.png";
+  import panoramaMailSrc from "$lib/images/projects/panorama-mail.png";
 </script>
 
 <div
@@ -34,7 +38,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="TFDi Website Redesign"
       outputMedium="Website"
       role="Digital Marketing"
-      imgPath={sportVideoAnalysisSrc}
+      imgPath={tfdiSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={{
@@ -48,7 +52,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Mindxone Co-Founder"
       outputMedium="Web SaaS"
       role="Product, Design & Development"
-      imgPath={sportVideoAnalysisSrc}
+      imgPath={mindxoneSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={undefined}
@@ -58,7 +62,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Task App with Focus Timer"
       outputMedium="Mobile App"
       role="Design & Development"
-      imgPath={sportVideoAnalysisSrc}
+      imgPath={taskTimerAppSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={undefined}
@@ -68,7 +72,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Panorama Mail"
       outputMedium="Mobile App"
       role="Concept Design"
-      imgPath={sportVideoAnalysisSrc}
+      imgPath={panoramaMailSrc}
       imgAlt=""
       description="Aliquid voluptatem vel ut quaerat veniam quisquam. Optio eos libero veniam rem et consequuntur omnis. Optio libero veniam doloremque."
       linkButtonContent={undefined}

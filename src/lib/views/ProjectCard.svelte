@@ -49,7 +49,12 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div class="flex justify-center">
-      <img src={imgPath} alt={imgAlt} class="max-h-full object-contain" />
+      <img
+        src={imgPath}
+        alt={imgAlt}
+        loading="lazy"
+        class="max-h-full object-contain rounded-md"
+      />
     </div>
     <div
       class="flex flex-col md:justify-between
