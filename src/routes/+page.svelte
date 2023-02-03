@@ -14,6 +14,15 @@
   import prismaticNewsSrc from "$lib/images/projects/prismatic-news.png";
 </script>
 
+<svelte:head>
+  <title>Kevin Gugelmann | Digital Designer & Front-End Developer</title>
+  <meta
+    name="description"
+    content="Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago studying Computer Science & Business Economics, designing digital experiences for over 6 years and building meaningful software products."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</svelte:head>
+
 <div
   class="flex flex-col mx-auto
 w-screen max-w-screen-2xl
