@@ -56,7 +56,7 @@
 <div
   class="flex flex-col justify-between
         py-screen-y
-        h-screen
+        h-[calc(100vh-env(safe-area-inset-bottom))]
         min-h-[38em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
