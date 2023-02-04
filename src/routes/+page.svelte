@@ -141,7 +141,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "Side-by-side promotional Android mockups for an offline news-reading app",
       }}
       description="Developed and published an Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
-      builtWith={["Android Studio, Java"]}
+      builtWith={["Android Studio", "Java"]}
       linkButtonContent={{
         label: "Promo Video (YouTube)",
         href: "https://youtu.be/6lico6jtV5E",
