@@ -48,7 +48,7 @@
           mt-8 md:mt-9 lg:mt-10
           p-7
           bg-gradient-to-b from-[#1E1E1E] to-[#1B1B1B]
-          border-[#232323] border-solid border-2
+          border-separator-grey border-solid border-[1px]
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div class="flex justify-center">
