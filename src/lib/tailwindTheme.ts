@@ -37,7 +37,10 @@ export const tailwindTheme = {
         '6xl': '2.25em', // 36px
       },
       padding: {
-        'screen-y': '2.25rem' // 36px
+        'screen-y': '2.25rem', // 36px
+      },
+      margin: {
+        'mobile-bottom-navbar': '44px',
       },
       transitionTimingFunction: {
         intro: 'cubic-bezier(0, 0.98, 0.31, 0.98)',
