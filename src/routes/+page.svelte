@@ -32,6 +32,11 @@
     content="Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago studying Computer Science & Business Economics, designing digital experiences for over 6 years and building meaningful software products."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script
+    data-goatcounter="https://kevingugelmann.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
 </svelte:head>
 
 <div
