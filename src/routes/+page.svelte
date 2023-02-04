@@ -163,8 +163,17 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     @apply bg-background;
   }
 
+  :global(body) {
+    /* Normal viewport */
+    min-height: 100vh;
+    /* iOS mobile viewport */
+    min-height: -webkit-fill-available;
+  }
+
   :global(html) {
     @apply scroll-smooth;
+    /* iOS mobile viewport */
+    height: -webkit-fill-available;
   }
 
   :global(p, h1, h2, li) {
