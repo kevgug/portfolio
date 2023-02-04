@@ -15,6 +15,8 @@
   href={linkButtonContent.href}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
+  data-goatcounter-click={linkButtonContent.href}
+  data-goatcounter-title={linkButtonContent.label}
 >
   {linkButtonContent.label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />

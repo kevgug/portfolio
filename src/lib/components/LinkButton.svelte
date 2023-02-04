@@ -29,6 +29,8 @@
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
   on:pointerover={() => (isHovering = true)}
   on:pointerout={() => (isHovering = false)}
+  data-goatcounter-click={linkButtonContent.href}
+  data-goatcounter-title={linkButtonContent.label}
 >
   <div class="group flex flex-row items-center space-x-1.5">
     <p
