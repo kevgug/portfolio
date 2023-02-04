@@ -1,15 +1,11 @@
 {
-  "src/lib/images/projects/sport-video-analysis.avif": {
-    "file": "internal/immutable/assets/sport-video-analysis-60b0aa6c.avif",
-    "src": "src/lib/images/projects/sport-video-analysis.avif"
-  },
-  "src/lib/images/projects/tfdi.avif": {
-    "file": "internal/immutable/assets/tfdi-81e56fe8.avif",
-    "src": "src/lib/images/projects/tfdi.avif"
-  },
   "src/lib/images/projects/sport-video-analysis.jpg": {
     "file": "internal/immutable/assets/sport-video-analysis-040d4efa.jpg",
     "src": "src/lib/images/projects/sport-video-analysis.jpg"
+  },
+  "src/lib/images/projects/sport-video-analysis.avif": {
+    "file": "internal/immutable/assets/sport-video-analysis-60b0aa6c.avif",
+    "src": "src/lib/images/projects/sport-video-analysis.avif"
   },
   "src/lib/images/projects/sport-video-analysis.webp": {
     "file": "internal/immutable/assets/sport-video-analysis-d7941df4.webp",
@@ -18,6 +14,10 @@
   "src/lib/images/projects/tfdi.jpg": {
     "file": "internal/immutable/assets/tfdi-056e9b60.jpg",
     "src": "src/lib/images/projects/tfdi.jpg"
+  },
+  "src/lib/images/projects/tfdi.avif": {
+    "file": "internal/immutable/assets/tfdi-81e56fe8.avif",
+    "src": "src/lib/images/projects/tfdi.avif"
   },
   "src/lib/images/projects/tfdi.webp": {
     "file": "internal/immutable/assets/tfdi-7e6f9fdf.webp",
@@ -31,25 +31,21 @@
     "file": "internal/immutable/assets/task-timer-app-5a182249.webp",
     "src": "src/lib/images/projects/task-timer-app.webp"
   },
-  "src/lib/images/projects/panorama-mail.webp": {
-    "file": "internal/immutable/assets/panorama-mail-ed814f7f.png",
-    "src": "src/lib/images/projects/panorama-mail.webp"
-  },
-  "src/lib/images/projects/panorama-mail.avif": {
-    "file": "internal/immutable/assets/panorama-mail-8c730a5c.avif",
-    "src": "src/lib/images/projects/panorama-mail.avif"
-  },
   "src/lib/images/projects/mindxone-landing-page.webp": {
     "file": "internal/immutable/assets/mindxone-landing-page-617ef104.webp",
     "src": "src/lib/images/projects/mindxone-landing-page.webp"
   },
-  "src/lib/images/projects/prismatic-news.jpg": {
-    "file": "internal/immutable/assets/prismatic-news-3f422b07.jpg",
-    "src": "src/lib/images/projects/prismatic-news.jpg"
+  "src/lib/images/projects/panorama-mail.webp": {
+    "file": "internal/immutable/assets/panorama-mail-ed814f7f.png",
+    "src": "src/lib/images/projects/panorama-mail.webp"
   },
   "src/lib/images/projects/mindxone-landing-page.jpg": {
     "file": "internal/immutable/assets/mindxone-landing-page-51313e95.jpg",
     "src": "src/lib/images/projects/mindxone-landing-page.jpg"
+  },
+  "src/lib/images/projects/panorama-mail.avif": {
+    "file": "internal/immutable/assets/panorama-mail-8c730a5c.avif",
+    "src": "src/lib/images/projects/panorama-mail.avif"
   },
   "src/lib/images/projects/prismatic-news.avif": {
     "file": "internal/immutable/assets/prismatic-news-0d44f4ba.avif",
@@ -59,25 +55,29 @@
     "file": "internal/immutable/assets/prismatic-news-3002652e.webp",
     "src": "src/lib/images/projects/prismatic-news.webp"
   },
-  "src/lib/images/atf-phone.avif": {
-    "file": "internal/immutable/assets/atf-phone-81298e49.avif",
-    "src": "src/lib/images/atf-phone.avif"
-  },
-  "src/lib/images/atf-phone.webp": {
-    "file": "internal/immutable/assets/atf-phone-a459d6b1.webp",
-    "src": "src/lib/images/atf-phone.webp"
+  "src/lib/images/projects/prismatic-news.jpg": {
+    "file": "internal/immutable/assets/prismatic-news-3f422b07.jpg",
+    "src": "src/lib/images/projects/prismatic-news.jpg"
   },
   "src/lib/images/built-with-icons/sketch.svg": {
     "file": "internal/immutable/assets/sketch-65f6fcbb.svg",
     "src": "src/lib/images/built-with-icons/sketch.svg"
   },
-  "src/lib/images/built-with-icons/tailwind-css.svg": {
-    "file": "internal/immutable/assets/tailwind-css-da161fa0.svg",
-    "src": "src/lib/images/built-with-icons/tailwind-css.svg"
-  },
   "src/lib/images/built-with-icons/svelte.svg": {
     "file": "internal/immutable/assets/svelte-dc8a06dc.svg",
     "src": "src/lib/images/built-with-icons/svelte.svg"
+  },
+  "src/lib/images/atf-phone.webp": {
+    "file": "internal/immutable/assets/atf-phone-a459d6b1.webp",
+    "src": "src/lib/images/atf-phone.webp"
+  },
+  "src/lib/images/atf-phone.avif": {
+    "file": "internal/immutable/assets/atf-phone-81298e49.avif",
+    "src": "src/lib/images/atf-phone.avif"
+  },
+  "src/lib/images/built-with-icons/tailwind-css.svg": {
+    "file": "internal/immutable/assets/tailwind-css-da161fa0.svg",
+    "src": "src/lib/images/built-with-icons/tailwind-css.svg"
   },
   "src/lib/images/atf-phone.png": {
     "file": "internal/immutable/assets/atf-phone-5d192bd9.png",
@@ -88,24 +88,24 @@
     "src": "src/routes/+page.css"
   },
   "src/routes/+layout.css": {
-    "file": "internal/immutable/assets/_layout-f3570630.css",
+    "file": "internal/immutable/assets/_layout-8b060613.css",
     "src": "src/routes/+layout.css"
   },
   ".svelte-kit/generated/nodes/2.js": {
-    "file": "internal/immutable/chunks/2-5e0b43e3.js",
+    "file": "internal/immutable/chunks/2-7ba23033.js",
     "src": ".svelte-kit/generated/nodes/2.js",
     "isDynamicEntry": true,
     "imports": [
       "src/routes/+page.svelte"
     ]
   },
-  "__layout-da46b06b.js": {
-    "file": "internal/immutable/chunks/_layout-da46b06b.js"
-  },
-  "_singletons-a68a0874.js": {
-    "file": "internal/immutable/chunks/singletons-a68a0874.js",
+  ".svelte-kit/generated/nodes/0.js": {
+    "file": "internal/immutable/chunks/0-84a20b5c.js",
+    "src": ".svelte-kit/generated/nodes/0.js",
+    "isDynamicEntry": true,
     "imports": [
-      "_index-43deecd7.js"
+      "__layout-da46b06b.js",
+      "src/routes/+layout.svelte"
     ]
   },
   ".svelte-kit/generated/nodes/1.js": {
@@ -114,15 +114,6 @@
     "isDynamicEntry": true,
     "imports": [
       "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
-    ]
-  },
-  ".svelte-kit/generated/nodes/0.js": {
-    "file": "internal/immutable/chunks/0-7a648bc1.js",
-    "src": ".svelte-kit/generated/nodes/0.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "__layout-da46b06b.js",
-      "src/routes/+layout.svelte"
     ]
   },
   "src/routes/+layout.ts": {
@@ -142,22 +133,31 @@
       "_singletons-a68a0874.js"
     ]
   },
+  "_singletons-a68a0874.js": {
+    "file": "internal/immutable/chunks/singletons-a68a0874.js",
+    "imports": [
+      "_index-43deecd7.js"
+    ]
+  },
+  "__layout-da46b06b.js": {
+    "file": "internal/immutable/chunks/_layout-da46b06b.js"
+  },
+  "_index-43deecd7.js": {
+    "file": "internal/immutable/chunks/index-43deecd7.js"
+  },
   "src/routes/+layout.svelte": {
-    "file": "internal/immutable/components/pages/_layout.svelte-2a7ca42e.js",
+    "file": "internal/immutable/components/pages/_layout.svelte-9e7136dd.js",
     "src": "src/routes/+layout.svelte",
     "isEntry": true,
     "imports": [
       "_index-43deecd7.js"
     ],
     "css": [
-      "internal/immutable/assets/_layout-f3570630.css"
+      "internal/immutable/assets/_layout-8b060613.css"
     ]
   },
-  "_index-43deecd7.js": {
-    "file": "internal/immutable/chunks/index-43deecd7.js"
-  },
   "node_modules/@sveltejs/kit/src/runtime/client/start.js": {
-    "file": "internal/immutable/start-b3cf1591.js",
+    "file": "internal/immutable/start-fff090d7.js",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -171,7 +171,7 @@
     ]
   },
   "src/routes/+page.svelte": {
-    "file": "internal/immutable/components/pages/_page.svelte-3160e5e3.js",
+    "file": "internal/immutable/components/pages/_page.svelte-fddecca8.js",
     "src": "src/routes/+page.svelte",
     "isEntry": true,
     "imports": [
