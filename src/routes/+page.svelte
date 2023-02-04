@@ -165,6 +165,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
 
   :global(html) {
     @apply scroll-smooth;
+    height: 100%;
+    height: -webkit-fill-available;
   }
 
   :global(p, h1, h2, li) {
