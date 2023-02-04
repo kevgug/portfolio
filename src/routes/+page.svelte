@@ -37,6 +37,17 @@
     async
     src="//gc.zgo.at/count.js"
   ></script>
+  <script
+    data-goatcounter="https://kevingugelmann.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
+  <noscript>
+    <img
+      src="https://kevingugelmann.goatcounter.com/count?p=/test-noscript"
+      alt=""
+    />
+  </noscript>
 </svelte:head>
 
 <div
