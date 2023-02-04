@@ -4,7 +4,7 @@
   export let imgOptions: ImageOptions;
 </script>
 
-<picture>
+<picture class="flex">
   {#if imgOptions.avifSrc}
     <source srcset={imgOptions.avifSrc} type="image/avif" />
   {/if}
