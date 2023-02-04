@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
 		"build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build",
+		"deploy": "touch build/.nojekyll && gh-pages -d build -t true",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
