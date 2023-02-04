@@ -1,17 +1,20 @@
 <script lang="ts">
-  export let src: string;
-  export let alt: string;
-  export let loading: "eager" | "lazy" = "lazy";
+  import type { ImageOptions } from "$lib/util/image";
 
-  // Helpers
-  const replaceImgExt = (newExt: string) => {
-    let prefix = src.split(".")[0];
-    return `${prefix}.${newExt}`;
-  };
+  export let imgOptions: ImageOptions;
 </script>
 
 <picture>
-  <!-- <source srcset={replaceImgExt("avif")} type="image/avif" />
-  <source srcset={replaceImgExt("webp")} type="image/webp" /> -->
-  <img {src} {alt} {loading} class={$$props.class} />
+  {#if imgOptions.avifSrc}
+    <source srcset={imgOptions.avifSrc} type="image/avif" />
+  {/if}
+  {#if imgOptions.webpSrc}
+    <source srcset={imgOptions.webpSrc} type="image/webp" />
+  {/if}
+  <img
+    src={imgOptions.src}
+    alt={imgOptions.alt}
+    loading={imgOptions.loading ?? "lazy"}
+    class={$$props.class}
+  />
 </picture>

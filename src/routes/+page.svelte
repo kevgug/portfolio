@@ -6,12 +6,23 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
-  import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.png";
-  import tfdiSrc from "$lib/images/projects/tfdi.png";
-  import mindxoneSrc from "$lib/images/projects/mindxone.png";
+  import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
+  import sportVideoAnalysisAvif from "$lib/images/projects/sport-video-analysis.avif";
+  import sportVideoAnalysisWebp from "$lib/images/projects/sport-video-analysis.webp";
+  import tfdiSrc from "$lib/images/projects/tfdi.jpg";
+  import tfdiAvif from "$lib/images/projects/tfdi.avif";
+  import tfdiWebp from "$lib/images/projects/tfdi.webp";
+  import mindxoneLandingPageSrc from "$lib/images/projects/mindxone-landing-page.jpg";
+  import mindxoneLandingPageWebp from "$lib/images/projects/mindxone-landing-page.webp";
   import taskTimerAppSrc from "$lib/images/projects/task-timer-app.png";
+  import taskTimerAppAvif from "$lib/images/projects/task-timer-app.avif";
+  import taskTimerAppWebp from "$lib/images/projects/task-timer-app.webp";
   import panoramaMailSrc from "$lib/images/projects/panorama-mail.png";
-  import prismaticNewsSrc from "$lib/images/projects/prismatic-news.png";
+  import panoramaMailAvif from "$lib/images/projects/panorama-mail.avif";
+  import panoramaMailWebp from "$lib/images/projects/panorama-mail.webp";
+  import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
+  import prismaticNewsAvif from "$lib/images/projects/prismatic-news.avif";
+  import prismaticNewsWebp from "$lib/images/projects/prismatic-news.webp";
 </script>
 
 <svelte:head>
@@ -38,8 +49,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Sport Video Analysis"
       outputMedium="Desktop App"
       role="Concept Design"
-      imgPath={sportVideoAnalysisSrc}
-      imgAlt="Visually highlighting an athlete's technique in a sport video analysis desktop UI"
+      imgOptions={{
+        src: sportVideoAnalysisSrc,
+        avifSrc: sportVideoAnalysisAvif,
+        webpSrc: sportVideoAnalysisWebp,
+        alt: "Visually highlighting an athlete's technique in a sport video analysis desktop UI",
+      }}
       description="Designed and prototyped ten states of a sport video analysis desktop app. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch App"]}
       linkButtonContent={undefined}
@@ -49,8 +64,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="TFDi Website Redesign"
       outputMedium="Website"
       role="Digital Marketing"
-      imgPath={tfdiSrc}
-      imgAlt="Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation"
+      imgOptions={{
+        src: tfdiSrc,
+        avifSrc: tfdiAvif,
+        webpSrc: tfdiWebp,
+        alt: "Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation",
+      }}
       description="Redesigned the initiative's primary website, doubling site traffic within the first month. Rewrote 1,000+ words of copy across four pages that minimize financial jargon."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
@@ -64,8 +83,11 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Mindxone Co-Founder"
       outputMedium="Web SaaS"
       role="Product, Design & Development"
-      imgPath={mindxoneSrc}
-      imgAlt="Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product"
+      imgOptions={{
+        src: mindxoneLandingPageSrc,
+        webpSrc: mindxoneLandingPageWebp,
+        alt: "Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product",
+      }}
       description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage."
       builtWith={[
         "Adobe XD",
@@ -82,8 +104,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Task App with Focus Timer"
       outputMedium="Mobile App"
       role="Design & Development"
-      imgPath={taskTimerAppSrc}
-      imgAlt="Side-by-side iPhone mockups of a task app with a focus timer"
+      imgOptions={{
+        src: taskTimerAppSrc,
+        avifSrc: taskTimerAppAvif,
+        webpSrc: taskTimerAppWebp,
+        alt: "Side-by-side iPhone mockups of a task app with a focus timer",
+      }}
       description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
@@ -93,8 +119,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Panorama Mail"
       outputMedium="Mobile App"
       role="Concept Design"
-      imgPath={panoramaMailSrc}
-      imgAlt="Side-by-side iPhone screenshots of a concept design mail app"
+      imgOptions={{
+        src: panoramaMailSrc,
+        avifSrc: panoramaMailAvif,
+        webpSrc: panoramaMailWebp,
+        alt: "Side-by-side iPhone screenshots of a concept design mail app",
+      }}
       description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send."
       builtWith={["Adobe XD"]}
       linkButtonContent={undefined}
@@ -104,8 +134,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       name="Prismatic News"
       outputMedium="Android App"
       role="Native Development"
-      imgPath={prismaticNewsSrc}
-      imgAlt="Side-by-side promotional Android mockups for an offline news-reading app"
+      imgOptions={{
+        src: prismaticNewsSrc,
+        avifSrc: prismaticNewsAvif,
+        webpSrc: prismaticNewsWebp,
+        alt: "Side-by-side promotional Android mockups for an offline news-reading app",
+      }}
       description="Developed and published an Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
       builtWith={["Android Studio, Java"]}
       linkButtonContent={{

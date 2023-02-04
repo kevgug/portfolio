@@ -1,14 +1,14 @@
 <script lang="ts">
   import Image from "$lib/components/Image.svelte";
   import LinkButton from "$lib/components/LinkButton.svelte";
+  import type { ImageOptions } from "$lib/util/image";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
   export let year: number;
   export let name: string;
   export let outputMedium: string;
   export let role: string;
-  export let imgPath: string;
-  export let imgAlt: string;
+  export let imgOptions: ImageOptions;
   export let description: string;
   export let builtWith: string[] | undefined;
   export let linkButtonContent: LinkButtonContent | undefined;
@@ -51,11 +51,7 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div class="flex justify-center">
-      <Image
-        src={imgPath}
-        alt={imgAlt}
-        class="max-h-full object-contain rounded-md"
-      />
+      <Image {imgOptions} class="max-h-full object-contain rounded-md" />
     </div>
     <div
       class="flex flex-col md:justify-between
@@ -71,7 +67,6 @@
         <!-- SM : Always need y padding between image and description -->
         <div class="h-5 md:h-0" />
       {/if}
-      <!--  -->
       <div
         class="flex flex-col h-full justify-center
               my-0 md:my-10 lg:my-0"

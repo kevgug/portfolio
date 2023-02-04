@@ -10,6 +10,8 @@
 
   // Assets
   import atfPhoneSrc from "$lib/images/atf-phone.png";
+  import atfPhoneAvif from "$lib/images/atf-phone.avif";
+  import atfPhoneWebp from "$lib/images/atf-phone.webp";
   import Image from "$lib/components/Image.svelte";
 
   // Colors
@@ -85,8 +87,13 @@
   </div>
   <div bind:this={heroContent} class="flex flex-row items-center">
     <Image
-      src={atfPhoneSrc}
-      alt="A tilted iPhone showing Kevin's latest mobile app"
+      imgOptions={{
+        src: atfPhoneSrc,
+        avifSrc: atfPhoneAvif,
+        webpSrc: atfPhoneWebp,
+        alt: "A tilted iPhone showing Kevin's latest mobile app",
+        loading: "eager",
+      }}
       class="hidden md:flex 
           object-contain
           w-auto
