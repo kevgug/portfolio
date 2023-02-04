@@ -56,7 +56,7 @@
 <div
   class="flex flex-col justify-between
         py-screen-y
-        h-screen
+        supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
         min-h-[38em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
@@ -149,7 +149,7 @@
       <Separator />
     </div>
     <!-- On small devices (i.e. phones) show scroll down arrow -->
-    <div class="md:hidden mb-mobile-bottom-navbar">
+    <div class="md:hidden mb-1">
       <a href="#projects">
         <Icon name="arrow-down" color={whiteColor} size="1rem" />
       </a>
