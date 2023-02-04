@@ -20,6 +20,7 @@
 
   // Calculations
   let screenWidth = 0;
+  let screenHeight = 0;
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
@@ -50,13 +51,14 @@
 
 <svelte:window
   bind:innerWidth={screenWidth}
+  bind:innerHeight={screenHeight}
   on:resize={(_) => calculateSeparatorDistance()}
 />
 
 <div
+  style="height: {screenHeight}px"
   class="flex flex-col justify-between
         py-screen-y
-        h-[calc(100vh-env(safe-area-inset-bottom))]
         min-h-[38em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
