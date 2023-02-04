@@ -32,24 +32,21 @@
     content="Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago studying Computer Science & Business Economics, designing digital experiences for over 6 years and building meaningful software products."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- 100% privacy friendly analytics -->
   <script
-    data-goatcounter="https://kevingugelmann.goatcounter.com/count"
     async
-    src="//gc.zgo.at/count.js"
+    defer
+    src="https://scripts.simpleanalyticscdn.com/latest.js"
   ></script>
   <script
-    data-goatcounter="https://kevingugelmann.goatcounter.com/count"
     async
-    src="//gc.zgo.at/count.js"
+    defer
+    src="https://scripts.simpleanalyticscdn.com/auto-events.js"
   ></script>
-  <noscript>
-    <img
-      src="https://kevingugelmann.goatcounter.com/count?p=/test-noscript"
-      alt=""
-    />
-  </noscript>
 </svelte:head>
 
+<!-- Portfolio website -->
 <div
   class="flex flex-col mx-auto
 w-screen max-w-screen-2xl
@@ -173,6 +170,15 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   </div>
   <Footer />
 </div>
+
+<!-- 100% privacy friendly analytics -->
+<noscript
+  ><img
+    src="https://queue.simpleanalyticscdn.com/noscript.gif"
+    alt=""
+    referrerpolicy="no-referrer-when-downgrade"
+  /></noscript
+>
 
 <style lang="postcss">
   :root {
