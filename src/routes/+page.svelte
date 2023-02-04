@@ -35,6 +35,7 @@
 
   <!-- 100% privacy friendly analytics -->
   <script
+    data-collect-dnt="true"
     async
     defer
     src="https://scripts.simpleanalyticscdn.com/latest.js"
@@ -174,7 +175,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
 <!-- 100% privacy friendly analytics -->
 <noscript
   ><img
-    src="https://queue.simpleanalyticscdn.com/noscript.gif"
+    src="https://queue.simpleanalyticscdn.com/hello.gif"
     alt=""
     referrerpolicy="no-referrer-when-downgrade"
   /></noscript
