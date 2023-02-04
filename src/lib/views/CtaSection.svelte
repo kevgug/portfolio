@@ -17,6 +17,7 @@
       linkButtonContent={{
         label: "Email",
         href: "mailto:contact@kevingugelmann.com",
+        openInNewTab: true,
       }}
       iconName="arrow-corner-right"
       iconFlipY

@@ -74,6 +74,7 @@
         linkButtonContent={{
           label: "Email",
           href: "mailto:contact@kevingugelmann.com",
+          openInNewTab: true,
         }}
       />
       <LinkButton
