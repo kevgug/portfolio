@@ -1,16 +1,4 @@
 {
-  "src/lib/images/projects/sport-video-analysis.avif": {
-    "file": "internal/immutable/assets/sport-video-analysis-60b0aa6c.avif",
-    "src": "src/lib/images/projects/sport-video-analysis.avif"
-  },
-  "src/lib/images/projects/tfdi.avif": {
-    "file": "internal/immutable/assets/tfdi-81e56fe8.avif",
-    "src": "src/lib/images/projects/tfdi.avif"
-  },
-  "src/lib/images/projects/task-timer-app.avif": {
-    "file": "internal/immutable/assets/task-timer-app-2b4a4998.png",
-    "src": "src/lib/images/projects/task-timer-app.avif"
-  },
   "src/lib/images/projects/sport-video-analysis.jpg": {
     "file": "internal/immutable/assets/sport-video-analysis-040d4efa.jpg",
     "src": "src/lib/images/projects/sport-video-analysis.jpg"
@@ -23,29 +11,45 @@
     "file": "internal/immutable/assets/tfdi-056e9b60.jpg",
     "src": "src/lib/images/projects/tfdi.jpg"
   },
+  "src/lib/images/projects/sport-video-analysis.avif": {
+    "file": "internal/immutable/assets/sport-video-analysis-60b0aa6c.avif",
+    "src": "src/lib/images/projects/sport-video-analysis.avif"
+  },
   "src/lib/images/projects/tfdi.webp": {
     "file": "internal/immutable/assets/tfdi-7e6f9fdf.webp",
     "src": "src/lib/images/projects/tfdi.webp"
   },
-  "src/lib/images/projects/mindxone-landing-page.webp": {
-    "file": "internal/immutable/assets/mindxone-landing-page-617ef104.webp",
-    "src": "src/lib/images/projects/mindxone-landing-page.webp"
+  "src/lib/images/projects/tfdi.avif": {
+    "file": "internal/immutable/assets/tfdi-81e56fe8.avif",
+    "src": "src/lib/images/projects/tfdi.avif"
   },
-  "src/lib/images/projects/panorama-mail.avif": {
-    "file": "internal/immutable/assets/panorama-mail-8c730a5c.avif",
-    "src": "src/lib/images/projects/panorama-mail.avif"
-  },
-  "src/lib/images/projects/panorama-mail.webp": {
-    "file": "internal/immutable/assets/panorama-mail-ed814f7f.png",
-    "src": "src/lib/images/projects/panorama-mail.webp"
+  "src/lib/images/projects/task-timer-app.avif": {
+    "file": "internal/immutable/assets/task-timer-app-2b4a4998.png",
+    "src": "src/lib/images/projects/task-timer-app.avif"
   },
   "src/lib/images/projects/task-timer-app.webp": {
     "file": "internal/immutable/assets/task-timer-app-5a182249.webp",
     "src": "src/lib/images/projects/task-timer-app.webp"
   },
+  "src/lib/images/projects/mindxone-landing-page.webp": {
+    "file": "internal/immutable/assets/mindxone-landing-page-617ef104.webp",
+    "src": "src/lib/images/projects/mindxone-landing-page.webp"
+  },
   "src/lib/images/projects/mindxone-landing-page.jpg": {
     "file": "internal/immutable/assets/mindxone-landing-page-51313e95.jpg",
     "src": "src/lib/images/projects/mindxone-landing-page.jpg"
+  },
+  "src/lib/images/projects/panorama-mail.webp": {
+    "file": "internal/immutable/assets/panorama-mail-ed814f7f.png",
+    "src": "src/lib/images/projects/panorama-mail.webp"
+  },
+  "src/lib/images/projects/panorama-mail.avif": {
+    "file": "internal/immutable/assets/panorama-mail-8c730a5c.avif",
+    "src": "src/lib/images/projects/panorama-mail.avif"
+  },
+  "src/lib/images/projects/prismatic-news.avif": {
+    "file": "internal/immutable/assets/prismatic-news-0d44f4ba.avif",
+    "src": "src/lib/images/projects/prismatic-news.avif"
   },
   "src/lib/images/projects/prismatic-news.jpg": {
     "file": "internal/immutable/assets/prismatic-news-3f422b07.jpg",
@@ -55,44 +59,77 @@
     "file": "internal/immutable/assets/prismatic-news-3002652e.webp",
     "src": "src/lib/images/projects/prismatic-news.webp"
   },
-  "src/lib/images/projects/prismatic-news.avif": {
-    "file": "internal/immutable/assets/prismatic-news-0d44f4ba.avif",
-    "src": "src/lib/images/projects/prismatic-news.avif"
-  },
-  "src/lib/images/atf-phone.avif": {
-    "file": "internal/immutable/assets/atf-phone-81298e49.avif",
-    "src": "src/lib/images/atf-phone.avif"
-  },
   "src/lib/images/built-with-icons/sketch.svg": {
     "file": "internal/immutable/assets/sketch-65f6fcbb.svg",
     "src": "src/lib/images/built-with-icons/sketch.svg"
   },
-  "src/lib/images/built-with-icons/tailwind-css.svg": {
-    "file": "internal/immutable/assets/tailwind-css-da161fa0.svg",
-    "src": "src/lib/images/built-with-icons/tailwind-css.svg"
-  },
-  "src/lib/images/atf-phone.png": {
-    "file": "internal/immutable/assets/atf-phone-5d192bd9.png",
-    "src": "src/lib/images/atf-phone.png"
+  "src/lib/images/atf-phone.webp": {
+    "file": "internal/immutable/assets/atf-phone-a459d6b1.webp",
+    "src": "src/lib/images/atf-phone.webp"
   },
   "src/lib/images/built-with-icons/svelte.svg": {
     "file": "internal/immutable/assets/svelte-dc8a06dc.svg",
     "src": "src/lib/images/built-with-icons/svelte.svg"
   },
-  "src/lib/images/atf-phone.webp": {
-    "file": "internal/immutable/assets/atf-phone-a459d6b1.webp",
-    "src": "src/lib/images/atf-phone.webp"
+  "src/lib/images/built-with-icons/tailwind-css.svg": {
+    "file": "internal/immutable/assets/tailwind-css-da161fa0.svg",
+    "src": "src/lib/images/built-with-icons/tailwind-css.svg"
+  },
+  "src/lib/images/atf-phone.avif": {
+    "file": "internal/immutable/assets/atf-phone-81298e49.avif",
+    "src": "src/lib/images/atf-phone.avif"
+  },
+  "src/lib/images/atf-phone.png": {
+    "file": "internal/immutable/assets/atf-phone-5d192bd9.png",
+    "src": "src/lib/images/atf-phone.png"
   },
   "src/routes/+layout.css": {
     "file": "internal/immutable/assets/_layout-9636dde1.css",
     "src": "src/routes/+layout.css"
   },
   "src/routes/+page.css": {
-    "file": "internal/immutable/assets/_page-e820dc81.css",
+    "file": "internal/immutable/assets/_page-8dcc2cb5.css",
     "src": "src/routes/+page.css"
   },
-  "__layout-da46b06b.js": {
-    "file": "internal/immutable/chunks/_layout-da46b06b.js"
+  ".svelte-kit/generated/nodes/1.js": {
+    "file": "internal/immutable/chunks/1-77c8916d.js",
+    "src": ".svelte-kit/generated/nodes/1.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
+    "file": "internal/immutable/components/error.svelte-0d4d9f43.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-30bfe97b.js",
+      "_singletons-12a4655c.js"
+    ]
+  },
+  ".svelte-kit/generated/nodes/2.js": {
+    "file": "internal/immutable/chunks/2-6d7d5129.js",
+    "src": ".svelte-kit/generated/nodes/2.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/routes/+page.svelte"
+    ]
+  },
+  ".svelte-kit/generated/nodes/0.js": {
+    "file": "internal/immutable/chunks/0-0d874444.js",
+    "src": ".svelte-kit/generated/nodes/0.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "__layout-da46b06b.js",
+      "src/routes/+layout.svelte"
+    ]
+  },
+  "_singletons-12a4655c.js": {
+    "file": "internal/immutable/chunks/singletons-12a4655c.js",
+    "imports": [
+      "_index-30bfe97b.js"
+    ]
   },
   "src/routes/+layout.ts": {
     "file": "internal/immutable/modules/pages/_layout.ts-9cbb603b.js",
@@ -102,67 +139,30 @@
       "__layout-da46b06b.js"
     ]
   },
-  ".svelte-kit/generated/nodes/1.js": {
-    "file": "internal/immutable/chunks/1-c0670778.js",
-    "src": ".svelte-kit/generated/nodes/1.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
-    ]
-  },
-  ".svelte-kit/generated/nodes/0.js": {
-    "file": "internal/immutable/chunks/0-7d6bd49a.js",
-    "src": ".svelte-kit/generated/nodes/0.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "__layout-da46b06b.js",
-      "src/routes/+layout.svelte"
-    ]
-  },
-  ".svelte-kit/generated/nodes/2.js": {
-    "file": "internal/immutable/chunks/2-070c80ec.js",
-    "src": ".svelte-kit/generated/nodes/2.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/routes/+page.svelte"
-    ]
-  },
-  "_singletons-a68a0874.js": {
-    "file": "internal/immutable/chunks/singletons-a68a0874.js",
-    "imports": [
-      "_index-43deecd7.js"
-    ]
-  },
-  "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
-    "file": "internal/immutable/components/error.svelte-4700692e.js",
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
-    "isEntry": true,
-    "imports": [
-      "_index-43deecd7.js",
-      "_singletons-a68a0874.js"
-    ]
+  "__layout-da46b06b.js": {
+    "file": "internal/immutable/chunks/_layout-da46b06b.js"
   },
   "src/routes/+layout.svelte": {
-    "file": "internal/immutable/components/pages/_layout.svelte-c92ee606.js",
+    "file": "internal/immutable/components/pages/_layout.svelte-14dd354e.js",
     "src": "src/routes/+layout.svelte",
     "isEntry": true,
     "imports": [
-      "_index-43deecd7.js"
+      "_index-30bfe97b.js"
     ],
     "css": [
       "internal/immutable/assets/_layout-9636dde1.css"
     ]
   },
-  "_index-43deecd7.js": {
-    "file": "internal/immutable/chunks/index-43deecd7.js"
+  "_index-30bfe97b.js": {
+    "file": "internal/immutable/chunks/index-30bfe97b.js"
   },
   "node_modules/@sveltejs/kit/src/runtime/client/start.js": {
-    "file": "internal/immutable/start-167f6749.js",
+    "file": "internal/immutable/start-35355273.js",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-43deecd7.js",
-      "_singletons-a68a0874.js"
+      "_index-30bfe97b.js",
+      "_singletons-12a4655c.js"
     ],
     "dynamicImports": [
       ".svelte-kit/generated/nodes/0.js",
@@ -171,14 +171,14 @@
     ]
   },
   "src/routes/+page.svelte": {
-    "file": "internal/immutable/components/pages/_page.svelte-62f7bb94.js",
+    "file": "internal/immutable/components/pages/_page.svelte-c10c2030.js",
     "src": "src/routes/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_index-43deecd7.js"
+      "_index-30bfe97b.js"
     ],
     "css": [
-      "internal/immutable/assets/_page-e820dc81.css"
+      "internal/immutable/assets/_page-8dcc2cb5.css"
     ],
     "assets": [
       "internal/immutable/assets/sketch-65f6fcbb.svg",
