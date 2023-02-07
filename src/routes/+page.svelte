@@ -186,10 +186,6 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     @apply bg-background;
   }
 
-  :global(html) {
-    @apply scroll-smooth;
-  }
-
   :global(p, h1, h2, li) {
     @apply text-white;
   }
