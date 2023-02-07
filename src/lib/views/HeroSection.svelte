@@ -44,10 +44,8 @@
   };
 
   // Scrolling
-  let scrollY = 0;
   let projectElement: HTMLElement;
-  const scrollToProjects = () =>
-    (scrollY = projectElement.getBoundingClientRect().top);
+  const scrollToProjects = () => projectElement.scrollIntoView(true);
 
   // Lifecycle
   onMount(() => {
@@ -58,7 +56,6 @@
 
 <svelte:window
   bind:innerWidth={screenWidth}
-  bind:scrollY
   on:resize={(_) => calculateSeparatorDistance()}
 />
 
