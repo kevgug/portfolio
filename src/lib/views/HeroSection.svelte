@@ -7,7 +7,6 @@
   import LinkButton from "$lib/components/LinkButton.svelte";
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
-  import gsap from "gsap";
 
   // Assets
   import atfPhoneSrc from "$lib/images/atf-phone.png";
@@ -50,31 +49,6 @@
   onMount(() => {
     // Calculations
     calculateSeparatorDistance();
-
-    // Wrap every letter in a span
-    let titleLines = titleWrapper.textContent!.split("&");
-    titleWrapper.innerHTML = titleLines
-      .map((str) => str.replace(/\S/g, "<span class='title-letter'>$&</span>"))
-      .join("<span class='title-letter'>&</span>" + "<br />");
-
-    console.log(titleLines);
-
-    // Animation
-    const tl = gsap.timeline();
-
-    tl.from("#full-name", {
-      duration: 0.8,
-      delay: 0.1,
-      opacity: 0,
-    }).from(
-      ".title-letter",
-      {
-        duration: 1.7,
-        stagger: 0.019,
-        opacity: 0,
-      },
-      "<"
-    );
   });
 </script>
 
