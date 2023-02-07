@@ -88,7 +88,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
         label: "TFDi Website",
-        href: "https://www.tradefinancedistribution.com/",
+        destination: "https://www.tradefinancedistribution.com/",
         openInNewTab: true,
       }}
     />
@@ -158,7 +158,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       builtWith={["Android Studio", "Java"]}
       linkButtonContent={{
         label: "Promo Video (YouTube)",
-        href: "https://youtu.be/6lico6jtV5E",
+        destination: "https://youtu.be/6lico6jtV5E",
         openInNewTab: true,
       }}
     />
@@ -210,6 +210,10 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   :global(p, li, a) {
     @apply text-sm;
     @apply md:text-base;
+  }
+
+  :global(a) {
+    @apply cursor-pointer;
   }
 
   :global(button) {

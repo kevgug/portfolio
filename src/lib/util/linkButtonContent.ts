@@ -1,5 +1,5 @@
 export interface LinkButtonContent {
 	label: string;
-	href: string;
+	destination: string | VoidFunction;
 	openInNewTab?: boolean;
   }

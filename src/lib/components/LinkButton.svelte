@@ -24,11 +24,16 @@
 
 <a
   class="group relative"
-  href={linkButtonContent.href}
+  href={typeof linkButtonContent.destination == "string"
+    ? linkButtonContent.destination
+    : null}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
   on:pointerover={() => (isHovering = true)}
   on:pointerout={() => (isHovering = false)}
+  on:click={typeof linkButtonContent.destination == "function"
+    ? linkButtonContent.destination
+    : null}
 >
   <div class="group flex flex-row items-center space-x-1.5">
     <p

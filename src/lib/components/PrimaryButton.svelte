@@ -12,9 +12,14 @@
 
 <a
   class="button flex flex-row"
-  href={linkButtonContent.href}
+  href={typeof linkButtonContent.destination == "string"
+    ? linkButtonContent.destination
+    : null}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
+  on:click={typeof linkButtonContent.destination == "function"
+    ? linkButtonContent.destination
+    : null}
 >
   {linkButtonContent.label}
   <div class="mr-[0.4rem] md:mr-[0.6rem]" />

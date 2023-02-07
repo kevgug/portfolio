@@ -43,9 +43,13 @@
       (heroContent?.getBoundingClientRect().bottom ?? 0);
   };
 
-  // Animations
-  let titleWrapper: HTMLElement;
+  // Scrolling
+  let scrollY = 0;
+  let projectElement: HTMLElement;
+  const scrollToProjects = () =>
+    (scrollY = projectElement.getBoundingClientRect().top);
 
+  // Lifecycle
   onMount(() => {
     // Calculations
     calculateSeparatorDistance();
@@ -54,6 +58,7 @@
 
 <svelte:window
   bind:innerWidth={screenWidth}
+  bind:scrollY
   on:resize={(_) => calculateSeparatorDistance()}
 />
 
@@ -77,14 +82,14 @@
       <LinkButton
         linkButtonContent={{
           label: "Email",
-          href: "mailto:contact@kevingugelmann.com",
+          destination: "mailto:contact@kevingugelmann.com",
           openInNewTab: true,
         }}
       />
       <LinkButton
         linkButtonContent={{
           label: "LinkedIn",
-          href: "https://www.linkedin.com/in/kevingugelmann/",
+          destination: "https://www.linkedin.com/in/kevingugelmann/",
           openInNewTab: true,
         }}
       />
@@ -118,7 +123,6 @@
           Kevin Gugelmann
         </h2>
         <h1
-          bind:this={titleWrapper}
           id="title"
           class="text-glacial-blue uppercase
                 mb-8 xl:mb-12"
@@ -144,7 +148,7 @@
         <PrimaryButton
           linkButtonContent={{
             label: "View projects",
-            href: "#projects",
+            destination: scrollToProjects,
           }}
           iconName="arrow-down"
         />
@@ -158,10 +162,14 @@
     </div>
     <!-- On small devices (i.e. phones) show scroll down arrow -->
     <div class="md:hidden mb-1">
-      <a href="#projects">
+      <a href={null} on:click={scrollToProjects}>
         <Icon name="arrow-down" color={whiteColor} size="1rem" />
       </a>
     </div>
   </div>
 </div>
-<div id="projects" style="height: {boundedSeparatorMarginY}px" />
+<div
+  id="projects"
+  bind:this={projectElement}
+  style="height: {boundedSeparatorMarginY}px"
+/>
