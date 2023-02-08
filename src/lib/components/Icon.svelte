@@ -1,6 +1,6 @@
 <script lang="ts">
   export let name: string;
-  export let size = "1rem";
+  export let size = "16px";
   export let color = "#000000";
   export let flipY = false;
 

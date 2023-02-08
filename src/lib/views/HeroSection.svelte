@@ -172,7 +172,7 @@
         on:click={scrollToProjects}
         data-sa-link-event="hero_scrollto_projects"
       >
-        <Icon name="arrow-down" color={whiteColor} size="1rem" />
+        <Icon name="arrow-down" color={whiteColor} />
       </a>
     </div>
   </div>
