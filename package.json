@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
-		"build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build",
+		"build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build && echo \"kevgug.com\" > build/CNAME",
 		"deploy": "touch build/.nojekyll && gh-pages -d build -t true",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

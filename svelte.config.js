@@ -7,7 +7,8 @@ const config = {
   kit: {
     adapter: adapter(),
     paths: {
-      base: dev ? '' : '/portfolio',
+      // INSTRUCTION: only include below if not using custom domain
+      // base: dev ? '' : '/portfolio',
     },
     appDir: 'internal',
   },
