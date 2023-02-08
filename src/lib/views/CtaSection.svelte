@@ -17,6 +17,7 @@
       linkButtonContent={{
         label: "Email",
         destination: "mailto:contact@kevingugelmann.com",
+        eventName: "ctasection_ext_email_primary",
         openInNewTab: true,
       }}
       iconName="arrow-corner-right"
@@ -26,6 +27,7 @@
       linkButtonContent={{
         label: "LinkedIn",
         destination: "https://www.linkedin.com/in/kevingugelmann/",
+        eventName: "ctasection_ext_linkedin",
         openInNewTab: true,
       }}
       iconName="arrow-corner-right"

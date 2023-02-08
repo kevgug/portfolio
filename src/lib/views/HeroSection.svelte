@@ -85,6 +85,7 @@
         linkButtonContent={{
           label: "Email",
           destination: "mailto:contact@kevingugelmann.com",
+          eventName: "hero_ext_email_primary",
           openInNewTab: true,
         }}
       />
@@ -92,6 +93,7 @@
         linkButtonContent={{
           label: "LinkedIn",
           destination: "https://www.linkedin.com/in/kevingugelmann/",
+          eventName: "hero_ext_linkedin",
           openInNewTab: true,
         }}
       />
@@ -151,6 +153,7 @@
           linkButtonContent={{
             label: "View projects",
             destination: scrollToProjects,
+            eventName: "hero_scrollto_projects",
           }}
           iconName="arrow-down"
         />
@@ -164,7 +167,11 @@
     </div>
     <!-- On small devices (i.e. phones) show scroll down arrow -->
     <div class="md:hidden mb-1">
-      <a href={null} on:click={scrollToProjects}>
+      <a
+        href={null}
+        on:click={scrollToProjects}
+        data-sa-link-event="hero_scrollto_projects"
+      >
         <Icon name="arrow-down" color={whiteColor} size="1rem" />
       </a>
     </div>

@@ -15,6 +15,7 @@
   href={typeof linkButtonContent.destination == "string"
     ? linkButtonContent.destination
     : null}
+  data-sa-link-event={linkButtonContent.eventName}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
   on:click={typeof linkButtonContent.destination == "function"
