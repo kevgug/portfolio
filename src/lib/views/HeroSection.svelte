@@ -129,7 +129,7 @@
           class="text-glacial-blue uppercase
                 mb-8 xl:mb-12"
         >
-          Digital Designer & Front-End Developer
+          Digital Designer & <br />Front-End Developer
         </h1>
         <ul>
           <li>
