@@ -48,20 +48,16 @@
           .forEach(function (element) {
             var href = element.getAttribute("href");
             var eventName = element.getAttribute("data-sa-link-event");
-            if (!href || !window.sa_event || !window.sa_loaded) return;
+            if (!window.sa_event || !window.sa_loaded) return;
 
+            /*
+            Add click listener to all <a> elements with the
+            `data-sa-link-event` attribute
+            */
             element.addEventListener("click", function (event) {
               var target = element.getAttribute("target");
-              if (target === "_blank") {
-                event.preventDefault();
-                window.sa_event(eventName, function () {
-                  window.location.href = href;
-                });
-                return false;
-              } else {
-                window.sa_event(eventName);
-                return true;
-              }
+              window.sa_event(eventName);
+              return target !== "_blank";
             });
           });
       }
