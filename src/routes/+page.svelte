@@ -23,15 +23,35 @@
   import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
   import prismaticNewsAvif from "$lib/images/projects/prismatic-news.avif";
   import prismaticNewsWebp from "$lib/images/projects/prismatic-news.webp";
+
+  // Link previews
+  import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
+  const pageTitle = "Kevin Gugelmann | Digital Designer & Front-End Developer";
+  const pageDescription =
+    "Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago designing and building meaningful digital experiences for over 6 years.";
+  const pageUrl = "https://kevingugelmann.com";
+  const pageDomain = "kevingugelmann.com";
 </script>
 
 <svelte:head>
-  <title>Kevin Gugelmann | Digital Designer & Front-End Developer</title>
-  <meta
-    name="description"
-    content="Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago studying Computer Science & Business Economics, designing digital experiences for over 6 years and building meaningful software products."
-  />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={linkPreviewSrc} />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={pageDomain} />
+  <meta property="twitter:url" content={pageUrl} />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={linkPreviewSrc} />
 
   <!-- 100% privacy friendly analytics -->
   <script
