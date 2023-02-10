@@ -5,13 +5,13 @@
 
 <div
   class="flex flex-col w-full
-  		supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
-		py-14 md:py-0
-		items-center justify-center"
+        supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
+        py-12 md:py-0
+        items-center justify-center"
 >
   <h1
     class="text-glacial-blue
-			mt-auto md:mt-0"
+			    mt-auto md:mt-0"
   >
     {$page.status}
   </h1>
