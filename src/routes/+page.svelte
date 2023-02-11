@@ -37,6 +37,7 @@
   <title>{pageTitle}</title>
   <meta name="description" content={pageDescription} />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://kevingugelmann.com" />
 
   <!-- Facebook Meta Tags -->
   <meta property="og:url" content={pageUrl} />
