@@ -168,7 +168,7 @@
     <!-- On small devices (i.e. phones) show scroll down arrow -->
     <div class="md:hidden mb-1">
       <a
-        href={"#"}
+        href={"javascript:;"}
         on:click={scrollToProjects}
         data-sa-link-event="hero_scrollto_projects"
       >
