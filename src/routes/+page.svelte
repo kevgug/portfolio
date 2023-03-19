@@ -234,7 +234,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
 >
 
 <style lang="postcss">
-  :root {
+  :global(body) {
     @apply bg-background;
   }
 
