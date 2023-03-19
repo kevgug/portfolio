@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
-		"build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build && echo \"kevingugelmann.com\" > build/CNAME",
+		"build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build && echo \"kevingugelmann.com\" > build/CNAME && echo \"<?xml version='1.0' encoding='UTF-8'?>\n\n<url>\n  <loc>https://kevingugelmann.com/</loc>\n  <lastmod>yyyy-mm-dd</lastmod>\n</url>\n\n</urlset>\" > build/sitemap.xml",
 		"deploy": "touch build/.nojekyll && gh-pages -d build -t true",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
