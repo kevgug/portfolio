@@ -26,6 +26,9 @@
   import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
   import prismaticNewsAvif from "$lib/images/projects/prismatic-news.avif";
   import prismaticNewsWebp from "$lib/images/projects/prismatic-news.webp";
+  import kevingugelmannPortfolioPreviewSrc from "$lib/images/projects/kevingugelmann-portfolio-preview.jpg";
+  import kevingugelmannPortfolioPreviewAvif from "$lib/images/projects/kevingugelmann-portfolio-preview.avif";
+  import kevingugelmannPortfolioPreviewWebp from "$lib/images/projects/kevingugelmann-portfolio-preview.webp";
 
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
@@ -128,6 +131,33 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={undefined}
     />
     <ProjectCard
+      year={2023}
+      name="My Online Portfolio"
+      outputMedium="Website"
+      role="Design & Development"
+      imgOptions={{
+        src: kevingugelmannPortfolioPreviewSrc,
+        avifSrc: kevingugelmannPortfolioPreviewAvif,
+        webpSrc: kevingugelmannPortfolioPreviewWebp,
+        alt: "Mini preview of Kevin Gugelmann's portfolio website",
+      }}
+      description="This website! Designed in Sketch. Developed with SvelteKit & Tailwind CSS. Deployed on GitHub Pages. 100% privacy-friendly analytics via Simple Analytics."
+      builtWith={[
+        "Sketch App",
+        "SvelteKit",
+        "Tailwind CSS",
+        "TypeScript",
+        "GitHub Pages",
+      ]}
+      linkButtonContent={{
+        label: "Sketch Artboards",
+        destination:
+          "https://sketch.com/s/4e1d6f3b-51c2-47e3-968b-bbdac59ba54d",
+        eventName: "projects_ext_sportvideoanalysis_sketchprototype",
+        openInNewTab: true,
+      }}
+    />
+    <ProjectCard
       year={2022}
       name="Sport Video Analysis"
       outputMedium="Desktop App"
@@ -140,7 +170,13 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       }}
       description="Designed and prototyped ten UI states of a sport video analysis desktop app, which would solve the lack of documented session review I experienced when training for UK rowing national gold in high school. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch App"]}
-      linkButtonContent={undefined}
+      linkButtonContent={{
+        label: "Sketch Prototype",
+        destination:
+          "https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA",
+        eventName: "projects_ext_sportvideoanalysis_sketchprototype",
+        openInNewTab: true,
+      }}
     />
     <ProjectCard
       year={2021}
