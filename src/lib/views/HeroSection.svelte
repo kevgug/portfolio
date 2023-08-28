@@ -68,7 +68,7 @@
   class="flex flex-col justify-between
         py-screen-y
         supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
-        min-h-[38em] md:min-h-[44em] lg:min-h-[45em] xl:min-h-[47em]
+        min-h-[41em] md:min-h-[42em] lg:min-h-[45em] xl:min-h-[47em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
   <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
@@ -105,7 +105,7 @@
         src: atfPhoneSrc,
         avifSrc: atfPhoneAvif,
         webpSrc: atfPhoneWebp,
-        alt: "A tilted iPhone showing Kevin's latest mobile app",
+        alt: "A tilted iPhone showing Kevin's latest mobile app design",
         loading: "eager",
       }}
       class="hidden md:flex 
@@ -128,20 +128,25 @@
         </h2>
         <h1
           id="title"
-          class="text-glacial-blue uppercase
+          class="text-glacial-blue
                 mb-8 xl:mb-12"
         >
-          Digital Designer & <br />Front-End Developer
+          <!-- Meticulous tech optimist designing, developing, and marketing Polished
+          SaaS. -->
+          SaaS designer, developer, marketer, and strategist with a meticulous eye
+          for detail
         </h1>
         <ul>
           <li>
-            Self-driven student at the University of Chicago, studying Computer
-            Science & Business Economics.
+            British sophomore studying Computer Science & Economics at UChicago
           </li>
-          <li>Designing digital experiences for over 6 years.</li>
           <li>
-            Conceptualizing and building meaningful software products using
-            native and cross-platform technologies.
+            7+ years with experiences & projects across fintech, health, sport,
+            productivity, and news
+          </li>
+          <li>
+            Created from scratch: Native & Web Apps, UI/UX Design, Brand
+            Identity Design, Performant Landing Pages
           </li>
         </ul>
       </div>
@@ -151,7 +156,7 @@
       >
         <PrimaryButton
           linkButtonContent={{
-            label: "View projects",
+            label: "View portfolio",
             destination: scrollToProjects,
             eventName: "hero_scrollto_projects",
           }}
