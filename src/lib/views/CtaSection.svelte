@@ -3,9 +3,7 @@
 </script>
 
 <div>
-  <h2 class="text-glacial-blue uppercase">
-    Hire my meticulous approach to commercial software
-  </h2>
+  <h2 class="text-glacial-blue uppercase">Excited to join your team</h2>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
       Open to work as a SaaS Designer, Developer, and/or Marketing Strategist.
