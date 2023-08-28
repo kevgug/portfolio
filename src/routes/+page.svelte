@@ -6,6 +6,9 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
+  import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.png";
+  import zeestaLabsLockupAvif from "$lib/images/projects/zeesta-labs-lockup.avif";
+  import zeestaLabsLockupWebp from "$lib/images/projects/zeesta-labs-lockup.webp";
   import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
   import sportVideoAnalysisAvif from "$lib/images/projects/sport-video-analysis.avif";
   import sportVideoAnalysisWebp from "$lib/images/projects/sport-video-analysis.webp";
@@ -109,6 +112,21 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
     <ProjectCard
+      year={2023}
+      name="Zeesta Labs"
+      outputMedium="Medical AI Startup"
+      role="UI/UX Design, Frontend Dev, Brand Strategy Intern"
+      imgOptions={{
+        src: zeestaLabsLockupSrc,
+        avifSrc: zeestaLabsLockupAvif,
+        webpSrc: zeestaLabsLockupWebp,
+        alt: "Zeesta Labs logo lockup rendered onto an outside wall poster",
+      }}
+      description="Built up unique verbal & visual brand identity from scratch, including logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs."
+      builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
+      linkButtonContent={undefined}
+    />
+    <ProjectCard
       year={2022}
       name="Sport Video Analysis"
       outputMedium="Desktop App"
@@ -119,7 +137,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: sportVideoAnalysisWebp,
         alt: "Visually highlighting an athlete's technique in a sport video analysis desktop UI",
       }}
-      description="Designed and prototyped ten states of a sport video analysis desktop app. Used mainly dark neutrals to keep the user's focus on each video."
+      description="Designed and prototyped ten UI states of a sport video analysis desktop app. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch App"]}
       linkButtonContent={undefined}
     />
