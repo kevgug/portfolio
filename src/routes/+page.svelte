@@ -122,7 +122,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: zeestaLabsLockupWebp,
         alt: "Zeesta Labs logo lockup rendered onto an outside wall poster",
       }}
-      description="Built up unique verbal & visual brand identity from scratch, including logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs."
+      description="Built up unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined onliness statement."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
       linkButtonContent={undefined}
     />
@@ -137,22 +137,22 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: sportVideoAnalysisWebp,
         alt: "Visually highlighting an athlete's technique in a sport video analysis desktop UI",
       }}
-      description="Designed and prototyped ten UI states of a sport video analysis desktop app. Used mainly dark neutrals to keep the user's focus on each video."
+      description="Designed and prototyped ten UI states of a sport video analysis desktop app, which would solve the lack of documented session review I experienced when training for UK rowing national gold in high school. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch App"]}
       linkButtonContent={undefined}
     />
     <ProjectCard
       year={2021}
-      name="TFDi Website Redesign"
-      outputMedium="Website"
-      role="Digital Marketing"
+      name="Trade Finance Distribution Initiative"
+      outputMedium="Website Redesign"
+      role="Digital Marketing Intern"
       imgOptions={{
         src: tfdiSrc,
         avifSrc: tfdiAvif,
         webpSrc: tfdiWebp,
         alt: "Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation",
       }}
-      description="Redesigned the initiative's primary website, doubling site traffic within the first month. Rewrote 1,000+ words of copy across four pages that minimize financial jargon."
+      description="Led the full redesign of their primary website using Figma and Webflow, increasing site traffic by 100% within the first month. Revamped all 1k+ words of the original copy, eliminating financial jargon, leading to a sub-20% bounce rate on 3.7k monthly visits. Determined slogan."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
         label: "TFDi Website",
@@ -171,7 +171,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: mindxoneLandingPageWebp,
         alt: "Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product",
       }}
-      description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage."
+      description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage. Sunset to focus on my studies."
       builtWith={[
         "Adobe XD",
         "HTML/CSS/JS",
@@ -193,7 +193,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: taskTimerAppWebp,
         alt: "Side-by-side iPhone mockups of a task app with a focus timer",
       }}
-      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions."
+      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions. Too young to publish to the App Store (16 years old)."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
     />
@@ -208,7 +208,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: panoramaMailWebp,
         alt: "Side-by-side iPhone screenshots of a concept design mail app",
       }}
-      description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send."
+      description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send. Inspired by Spark Mail."
       builtWith={["Adobe XD"]}
       linkButtonContent={undefined}
     />
@@ -223,7 +223,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: prismaticNewsWebp,
         alt: "Side-by-side promotional Android mockups for an offline news-reading app",
       }}
-      description="Developed and published an Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
+      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
       builtWith={["Android Studio", "Java"]}
       linkButtonContent={{
         label: "Promo Video (YouTube)",
