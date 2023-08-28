@@ -29,9 +29,10 @@
 
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
-  const pageTitle = "Kevin Gugelmann | Digital Designer & Front-End Developer";
+  const pageTitle =
+    "Kevin Gugelmann | SaaS Designer, Developer, Marketer, & Strategist with a Meticulous Eye for Detail";
   const pageDescription =
-    "Portfolio of Kevin Gugelmann, a self-driven student at the University of Chicago designing and building meaningful digital experiences for over 6 years.";
+    "Remarkably meticulous SaaS designer, developer, marketer, and strategist with 7+ years of cross-industry experience, studying CS & Economics at UChicago.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 </script>
