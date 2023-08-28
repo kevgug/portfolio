@@ -246,8 +246,14 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "Side-by-side iPhone screenshots of a concept design mail app",
       }}
       description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send. Inspired by Spark Mail."
-      builtWith={["Adobe XD"]}
-      linkButtonContent={undefined}
+      builtWith={["Adobe XD", "Auto-Animate"]}
+      linkButtonContent={{
+        label: "Adobe XD Prototype",
+        destination:
+          "https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen",
+        eventName: "projects_ext_panoramamail_prototype",
+        openInNewTab: true,
+      }}
     />
     <ProjectCard
       year={2018}
