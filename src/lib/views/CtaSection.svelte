@@ -8,9 +8,9 @@
   </h2>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      Open to work as a SaaS Designer, Developer, or Marketing Strategist.
+      Open to work as a SaaS Designer, Developer, and/or Marketing Strategist.
     </li>
-    <li>Authorized to work in the UK, EU, Switzerland, and USA.</li>
+    <li>Authorized to work in the UK, USA, EU, and Switzerland.</li>
     <li>Native in English and German.</li>
   </ul>
   <div class="flex flex-row space-x-3.5">

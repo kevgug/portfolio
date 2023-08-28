@@ -78,7 +78,10 @@
         color={mutedTextGreyColor}
         size={globeIconSize}
       />
-      <p class="text-muted-text-grey">Chicago, IL</p>
+      <p class="text-muted-text-grey inline md:hidden">LDN / CHI</p>
+      <p class="text-muted-text-grey hidden md:inline">
+        London, UK  /  Chicago, IL
+      </p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton
