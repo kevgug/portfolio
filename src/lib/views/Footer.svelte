@@ -17,19 +17,20 @@
           mb-[1.35rem] md:mb-0
           mt-2 md:mt-0"
   >
+    <a href="https://www.sketch.com/" target="_blank" rel="noreferrer">
+      <img src={sketchSvg} alt="Sketch logo" />
+    </a>
     <a href="https://svelte.dev/" target="_blank" rel="noreferrer">
       <img src={svelteSvg} alt="Svelte logo" />
     </a>
     <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
       <img src={tailwindCssSvg} alt="Tailwind CSS logo" />
     </a>
-    <a href="https://www.sketch.com/" target="_blank" rel="noreferrer">
-      <img src={sketchSvg} alt="Sketch logo" />
-    </a>
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
-      Copyright © 2023 Kevin Gugelmann.<br />All rights reserved.
+      Designed in Sketch. Developed with SvelteKit & TailwindCSS.<br />
+      Copyright © 2023 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
 </div>

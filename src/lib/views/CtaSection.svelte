@@ -3,14 +3,15 @@
 </script>
 
 <div>
-  <h2 class="text-glacial-blue uppercase">Hire me for an internship</h2>
+  <h2 class="text-glacial-blue uppercase">
+    Hire my meticulous approach to commercial software
+  </h2>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      Open to work as a UI/UX Designer, Front-End Developer, or Digital
-      Marketer.
+      Open to work as a SaaS Designer, Developer, or Marketing Strategist.
     </li>
-    <li>Bilingual in English and German.</li>
-    <li>Authorized to work in the UK, EU, and Switzerland.</li>
+    <li>Authorized to work in the UK, EU, Switzerland, and USA.</li>
+    <li>Native in English and German.</li>
   </ul>
   <div class="flex flex-row space-x-3.5">
     <PrimaryButton

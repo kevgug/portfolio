@@ -6,7 +6,7 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
-  import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.png";
+  import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.jpg";
   import zeestaLabsLockupAvif from "$lib/images/projects/zeesta-labs-lockup.avif";
   import zeestaLabsLockupWebp from "$lib/images/projects/zeesta-labs-lockup.webp";
   import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
@@ -30,9 +30,9 @@
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle =
-    "Kevin Gugelmann | SaaS Designer, Developer, Marketer, & Strategist with a Meticulous Eye for Detail";
+    "Kevin Gugelmann | SaaS Designer, Developer, & Marketing Strategist with a Meticulous Eye for Detail";
   const pageDescription =
-    "Remarkably meticulous SaaS designer, developer, marketer, and strategist with 7+ years of cross-industry experience, studying CS & Economics at UChicago.";
+    "Remarkably meticulous SaaS designer, developer, and marketing strategist with 7+ years of cross-industry experience, studying CS & Economics at UChicago.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 </script>
@@ -123,7 +123,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: zeestaLabsLockupWebp,
         alt: "Zeesta Labs logo lockup rendered onto an outside wall poster",
       }}
-      description="Built up unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined onliness statement."
+      description="Built up a unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined unique value proposition."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
       linkButtonContent={undefined}
     />
@@ -179,7 +179,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "JQuery",
         "NodeJS",
         "Express.js",
-        "AWS Elastic Beanstalk",
+        "AWS",
       ]}
       linkButtonContent={undefined}
     />
@@ -224,8 +224,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: prismaticNewsWebp,
         alt: "Side-by-side promotional Android mockups for an offline news-reading app",
       }}
-      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. 1000+ installs on the Google Play Store."
-      builtWith={["Android Studio", "Java"]}
+      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 1000+ installs on the Google Play Store."
+      builtWith={["Android Studio", "Java", "Firebase"]}
       linkButtonContent={{
         label: "Promo Video (YouTube)",
         destination: "https://youtu.be/6lico6jtV5E",
