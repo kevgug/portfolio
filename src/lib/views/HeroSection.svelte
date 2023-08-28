@@ -133,16 +133,17 @@
         >
           <!-- Meticulous tech optimist designing, developing, and marketing Polished
           SaaS. -->
-          SaaS designer, developer, marketer, and strategist with a meticulous eye
-          for detail
+          SaaS Designer, Developer, Marketer, & Strategist with a Meticulous Eye
+          for Detail
         </h1>
         <ul>
           <li>
-            British sophomore studying Computer Science & Economics at UChicago
+            British-German-Swiss sophomore studying Computer Science & Economics
+            at UChicago
           </li>
           <li>
-            7+ years with experiences & projects across fintech, health, sport,
-            productivity, and news
+            7+ years of experiences & projects across fintech, health, sport,
+            news, and productivity
           </li>
           <li>
             Created from scratch: Native & Web Apps, UI/UX Design, Brand
