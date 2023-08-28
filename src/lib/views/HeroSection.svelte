@@ -131,8 +131,6 @@
           class="text-glacial-blue
                 mb-8 xl:mb-12"
         >
-          <!-- Meticulous tech optimist designing, developing, and marketing Polished
-          SaaS. -->
           SaaS Designer, Developer, Marketer, & Strategist with a Meticulous Eye
           for Detail
         </h1>
