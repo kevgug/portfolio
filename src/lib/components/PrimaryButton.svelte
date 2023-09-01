@@ -44,7 +44,8 @@
   }
 
   .button:hover {
-    box-shadow: rgba(255, 255, 255, 0.06) 0 0px 12px;
+    /* box-shadow: rgba(255, 255, 255, 0.5) 0 4px 48px; */
+    box-shadow: rgba(169, 244, 233, 0.6) 0 4px 50px;
 
     @apply transition-all;
     @apply duration-intro;
@@ -52,7 +53,7 @@
   }
 
   .button:active {
-    box-shadow: rgba(255, 255, 255, 0.1) 0 0px 12px;
+    box-shadow: rgba(169, 244, 233, 0.5) 0 0px 32px;
 
     @apply opacity-[75%];
     @apply transition-all;
