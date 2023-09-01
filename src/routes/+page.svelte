@@ -146,7 +146,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       }}
       description="This website! Designed in Sketch. Developed with SvelteKit & Tailwind CSS. Deployed on GitHub Pages. Image lazy-loading and 98% Lighthouse Performance."
       builtWith={[
-        "Sketch App",
+        "Sketch",
         "SvelteKit",
         "Tailwind CSS",
         "TypeScript",
@@ -172,7 +172,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "Visually highlighting an athlete's technique in a sport video analysis desktop UI",
       }}
       description="Designed and prototyped ten UI states of a sport video analysis desktop app, which would solve the lack of documented session review I experienced when training for UK rowing national gold in high school. Used mainly dark neutrals to keep the user's focus on each video."
-      builtWith={["Sketch App"]}
+      builtWith={["Sketch"]}
       linkButtonContent={{
         label: "Sketch Prototype",
         destination:
