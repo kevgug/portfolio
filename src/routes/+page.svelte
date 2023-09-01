@@ -192,7 +192,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: pizzaWebp,
         alt: "Three iPhone mockups of a mobile app prototype for gamified group pizza ordering",
       }}
-      description="Successfully completed a 5-hour Figma designathlon as part of an ad-hoc UChicago team. Our prize-winning mobile app prototype gamified pizza ordering with the Secret Santa concept, answering the prompt 'how can we reimagine the pizza ordering and delivery process?'"
+      description="Successfully completed a 5-hour Figma designathon as part of an ad-hoc UChicago team. Our prize-winning mobile app prototype gamified pizza ordering with the Secret Santa concept, answering the prompt 'how can we reimagine the pizza ordering and delivery process?'"
       builtWith={["Figma", "FigJam"]}
       linkButtonContent={undefined}
     />
