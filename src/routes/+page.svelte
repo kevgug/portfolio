@@ -12,6 +12,9 @@
   import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
   import sportVideoAnalysisAvif from "$lib/images/projects/sport-video-analysis.avif";
   import sportVideoAnalysisWebp from "$lib/images/projects/sport-video-analysis.webp";
+  import pizzaSrc from "$lib/images/projects/pizza-screens.jpg";
+  import pizzaAvif from "$lib/images/projects/pizza-screens.avif";
+  import pizzaWebp from "$lib/images/projects/pizza-screens.webp";
   import tfdiSrc from "$lib/images/projects/tfdi.jpg";
   import tfdiAvif from "$lib/images/projects/tfdi.avif";
   import tfdiWebp from "$lib/images/projects/tfdi.webp";
@@ -177,6 +180,21 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_sportvideoanalysis_sketchprototype",
         openInNewTab: true,
       }}
+    />
+    <ProjectCard
+      year={2022}
+      name="Most Well-Designed App Prize @ UChicago Designathon"
+      outputMedium="Concept Mobile App"
+      role="Figma Designathon"
+      imgOptions={{
+        src: pizzaSrc,
+        avifSrc: pizzaAvif,
+        webpSrc: pizzaWebp,
+        alt: "Three iPhone mockups of a mobile app prototype for gamified group pizza ordering",
+      }}
+      description="Successfully completed a 5-hour Figma designathlon as part of an ad-hoc UChicago team. Our prize-winning mobile app prototype gamified pizza ordering with the Secret Santa concept, answering the prompt 'how can we reimagine the pizza ordering and delivery process?'"
+      builtWith={["Figma", "FigJam"]}
+      linkButtonContent={undefined}
     />
     <ProjectCard
       year={2021}
