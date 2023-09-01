@@ -9,7 +9,7 @@
       Open to work as a SaaS Designer, Developer, and/or Marketing Strategist.
     </li>
     <li>Authorized to work in the UK, USA, EU, and Switzerland.</li>
-    <li>Native in English and German.</li>
+    <li>Natively speak English and German.</li>
   </ul>
   <div class="flex flex-row space-x-3.5">
     <PrimaryButton
