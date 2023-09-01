@@ -52,10 +52,10 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div
-      class="flex justify-center
+      class="flex justify-center items-center
             mt-1 md:mt-0"
     >
-      <Image {imgOptions} class="max-h-full object-contain rounded-md" />
+      <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
     </div>
     <div
       class="flex flex-col md:justify-between
