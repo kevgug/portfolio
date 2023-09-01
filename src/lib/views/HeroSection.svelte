@@ -158,7 +158,7 @@
       >
         <PrimaryButton
           linkButtonContent={{
-            label: "View portfolio",
+            label: "View Portfolio",
             destination: scrollToProjects,
             eventName: "hero_scrollto_projects",
           }}

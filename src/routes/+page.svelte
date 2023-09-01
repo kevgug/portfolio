@@ -153,7 +153,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "GitHub Pages",
       ]}
       linkButtonContent={{
-        label: "Sketch Artboards",
+        label: "View Artboards",
         destination:
           "https://sketch.com/s/4e1d6f3b-51c2-47e3-968b-bbdac59ba54d",
         eventName: "projects_ext_sportvideoanalysis_sketchprototype",
@@ -174,7 +174,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Designed and prototyped ten UI states of a sport video analysis desktop app, which would solve the lack of documented session review I experienced when training for UK rowing national gold in high school. Used mainly dark neutrals to keep the user's focus on each video."
       builtWith={["Sketch"]}
       linkButtonContent={{
-        label: "Sketch Prototype",
+        label: "Play Prototype",
         destination:
           "https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA",
         eventName: "projects_ext_sportvideoanalysis_sketchprototype",
@@ -210,7 +210,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Led the full redesign of their primary website using Figma and Webflow, increasing site traffic by 100% within the first month. Revamped all 1k+ words of the original copy, eliminating financial jargon, leading to a sub-20% bounce rate on 3.7k monthly visits. Determined slogan."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
-        label: "TFDi Website",
+        label: "Open Website",
         destination: "https://www.tradefinancedistribution.com/",
         eventName: "projects_ext_tfdi_landingpage",
         openInNewTab: true,
@@ -266,7 +266,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send. Inspired by Spark Mail."
       builtWith={["Adobe XD", "Auto-Animate"]}
       linkButtonContent={{
-        label: "Adobe XD Prototype",
+        label: "Play Prototype",
         destination:
           "https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen",
         eventName: "projects_ext_panoramamail_prototype",
@@ -287,7 +287,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 1000+ installs on the Google Play Store."
       builtWith={["Android Studio", "Java", "Firebase"]}
       linkButtonContent={{
-        label: "Promo Video (YouTube)",
+        label: "View Promo Video",
         destination: "https://youtu.be/6lico6jtV5E",
         eventName: "projects_ext_prismaticnews_promovideo",
         openInNewTab: true,
