@@ -5,7 +5,7 @@ export const tailwindTheme = {
       'glacial-blue': "#A9F4E9",
       'muted-text-grey': '#C1C1C1',
       'description-text-grey': '#F1F1F1',
-      'bullet-grey': '#4F4F4F',
+      'bullet-grey': '#C1C1C1',
       'separator-grey': "#2D2D2D",
     },
     fontFamily: {
