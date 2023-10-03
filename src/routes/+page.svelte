@@ -123,7 +123,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   >
     <ProjectCard
       year={2023}
-      name="Arc for iOS | Student Redesign"
+      name="Redesign Story: Arc for iOS"
       outputMedium="Medium Story"
       role="UI/UX Design & Writing"
       imgOptions={{
@@ -207,7 +207,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2022}
-      name="Most Well-Designed App Prize | UChicago Designathon"
+      name="Winner: Most Well-Designed App at UChicago's Annual Designathon"
       outputMedium="Concept Mobile App"
       role="Figma Designathon"
       imgOptions={{
