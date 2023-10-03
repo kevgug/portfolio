@@ -134,8 +134,8 @@
           class="text-glacial-blue
                 mb-8 xl:mb-12"
         >
-          SaaS Designer, Developer, & Marketing Strategist with a Meticulous Eye
-          for Detail
+          SaaS Designer, Developer, & Marketing Strategist with an Eye for
+          Detail
         </h1>
         <ul>
           <li>

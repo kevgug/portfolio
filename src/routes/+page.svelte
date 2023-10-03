@@ -36,7 +36,7 @@
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle =
-    "Kevin Gugelmann | SaaS Designer, Developer, & Marketing Strategist with a Meticulous Eye for Detail";
+    "Kevin Gugelmann | SaaS Designer, Developer, & Marketing Strategist with an Eye for Detail";
   const pageDescription =
     "Remarkably meticulous SaaS designer, developer, and marketing strategist with 7+ years of cross-industry experience, studying CS & Economics at UChicago.";
   const pageUrl = "https://kevingugelmann.com";
