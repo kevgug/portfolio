@@ -30,8 +30,8 @@
 <style lang="postcss">
   .button {
     align-items: center;
-    background: linear-gradient(180deg, #3a3c42 0%, #232529 99%);
-    border: 1px solid #434343;
+    background: linear-gradient(180deg, #4b4e56 0%, #282b2f 99%);
+    border: 1px solid #403e3e;
     color: theme(colors.white);
 
     @apply rounded-lg md:rounded-xl;
@@ -44,7 +44,7 @@
   }
 
   .button:hover {
-    box-shadow: rgba(169, 244, 233, 0.2) 0 1px 24px;
+    box-shadow: rgba(169, 244, 233, 0.46) 0 1px 24px;
     @apply border-glacial-blue;
 
     @apply transition-all;

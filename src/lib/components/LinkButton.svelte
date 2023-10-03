@@ -11,9 +11,9 @@
   let isHovering = false;
 
   // Colors
-  const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
+  const textColor = tailwindTheme.colors["white"];
   const hoverColor = tailwindTheme.colors["glacial-blue"];
-  $: iconColor = isHovering ? hoverColor : mutedTextGreyColor;
+  $: iconColor = isHovering ? hoverColor : textColor;
 
   // Calculations
   let innerWidth: number = 0;
@@ -38,7 +38,7 @@
 >
   <div class="group flex flex-row items-center space-x-1.5">
     <p
-      class="text-muted-text-grey group-hover:text-glacial-blue
+      class="text-white font-thin group-hover:text-glacial-blue
 	  duration-100"
     >
       {linkButtonContent.label}
@@ -57,8 +57,8 @@
     <div
       class="
 	  h-[2px] rounded-sm
-  bg-muted-text-grey group-hover:bg-glacial-blue
-  opacity-40 group-hover:opacity-100
+    bg-white group-hover:bg-glacial-blue
+  opacity-[36%] group-hover:opacity-100
   duration-100"
     />
   </div>
