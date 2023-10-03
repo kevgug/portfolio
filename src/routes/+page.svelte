@@ -6,6 +6,9 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
+  import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
+  import arcForIosMediumAvif from "$lib/images/projects/arcforios-medium.avif";
+  import arcForIosMediumWebp from "$lib/images/projects/arcforios-medium.webp";
   import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.jpg";
   import zeestaLabsLockupAvif from "$lib/images/projects/zeesta-labs-lockup.avif";
   import zeestaLabsLockupWebp from "$lib/images/projects/zeesta-labs-lockup.webp";
@@ -120,9 +123,30 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   >
     <ProjectCard
       year={2023}
+      name="Arc for iOS | Student Redesign"
+      outputMedium="Medium Story"
+      role="UI/UX Design & Writing"
+      imgOptions={{
+        src: arcForIosMediumSrc,
+        avifSrc: arcForIosMediumAvif,
+        webpSrc: arcForIosMediumWebp,
+        alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
+      }}
+      description="Published my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the UX Collective—the largest design pub on Medium."
+      builtWith={["Figma", "Artboard Studio"]}
+      linkButtonContent={{
+        label: "Read Story",
+        destination:
+          "https://bootcamp.uxdesign.cc/arc-for-ios-gets-the-student-redesign-it-deserves-in-30-days-5c54decf90af",
+        eventName: "projects_ext_arcforios_mediumstory",
+        openInNewTab: true,
+      }}
+    />
+    <ProjectCard
+      year={2023}
       name="Zeesta Labs"
       outputMedium="Medical AI Startup"
-      role="UI/UX Design, Frontend Dev, Brand Strategy Intern"
+      role="UI/UX Design, Frontend Dev, & Brand Strategy"
       imgOptions={{
         src: zeestaLabsLockupSrc,
         avifSrc: zeestaLabsLockupAvif,
@@ -183,7 +207,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2022}
-      name="Most Well-Designed App Prize @ UChicago Designathon"
+      name="Most Well-Designed App Prize | UChicago Designathon"
       outputMedium="Concept Mobile App"
       role="Figma Designathon"
       imgOptions={{
