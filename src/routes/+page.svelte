@@ -123,9 +123,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   >
     <ProjectCard
       year={2023}
-      name="Redesign Story: Arc for iOS"
-      outputMedium="Medium Story"
-      role="UI/UX Design & Writing"
+      name="30-Day Redesign: Arc for iOS"
+      outputMedium="UX Case Study"
+      role="Research, Design, & Writing"
       imgOptions={{
         src: arcForIosMediumSrc,
         avifSrc: arcForIosMediumAvif,
@@ -133,7 +133,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
       }}
       description="Published my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the UX Collective—the largest design pub on Medium."
-      builtWith={["Figma", "Artboard Studio"]}
+      builtWith={["Figma", "Medium", "Artboard Studio"]}
       linkButtonContent={{
         label: "Read Story",
         destination:
