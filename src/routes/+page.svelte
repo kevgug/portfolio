@@ -176,13 +176,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "TypeScript",
         "GitHub Pages",
       ]}
-      linkButtonContent={{
-        label: "View Artboards",
-        destination:
-          "https://sketch.com/s/4e1d6f3b-51c2-47e3-968b-bbdac59ba54d",
-        eventName: "projects_ext_sportvideoanalysis_sketchprototype",
-        openInNewTab: true,
-      }}
+      linkButtonContent={undefined}
     />
     <ProjectCard
       year={2022}

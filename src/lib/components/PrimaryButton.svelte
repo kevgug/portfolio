@@ -44,7 +44,7 @@
   }
 
   .button:hover {
-    box-shadow: rgba(169, 244, 233, 0.46) 0 1px 24px;
+    box-shadow: rgba(169, 244, 233, 0.2) 0 1px 24px;
     @apply border-glacial-blue;
 
     @apply transition-all;
