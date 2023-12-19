@@ -132,7 +132,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: arcForIosMediumWebp,
         alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
       }}
-      description="Published my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the UX Collective—the largest design pub on Medium."
+      description="Published my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the largest design publication on Medium, the UX Collective."
       builtWith={["Figma", "Medium", "Artboard Studio"]}
       linkButtonContent={{
         label: "Read Story",
