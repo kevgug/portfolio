@@ -147,7 +147,19 @@
       on:mouseleave={onMouseLeaveCard}
     >
       <div class="img3d-content">
-        <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
+        <a
+          href={typeof linkButtonContent?.destination == "string"
+            ? linkButtonContent.destination
+            : null}
+          data-sa-link-event={linkButtonContent?.eventName ?? ""}
+          target={linkButtonContent?.openInNewTab ?? false ? "_blank" : "_self"}
+          rel={linkButtonContent?.openInNewTab ?? false ? "noreferrer" : ""}
+          on:click={typeof linkButtonContent?.destination == "function"
+            ? linkButtonContent.destination
+            : null}
+        >
+          <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
+        </a>
       </div>
     </div>
     <div
@@ -220,7 +232,8 @@
       scale(var(--scale));
     filter: brightness(var(--brightness));
   }
-  .interactive {
-    cursor: pointer;
+  /* default cursor for <a> if not .interactive */
+  .img3d:not(.interactive) a {
+    cursor: default;
   }
 </style>
