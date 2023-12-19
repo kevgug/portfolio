@@ -27,8 +27,12 @@
   // --- 3D HOVER EFFECT ---
   let rotateX = 0;
   let rotateY = 0;
+  let shadowOffsetX = 0;
+  let shadowOffsetY = 0;
   let brightness = 1;
   let scale = 1;
+
+  let isHovering = false;
 
   let maxRotation = 5;
   let width = 0;
@@ -37,6 +41,8 @@
   $: img3dStyle = `
   --rotateX: ${rotateX}deg;
   --rotateY: ${rotateY}deg;
+  --shadowOffsetX: ${shadowOffsetX}px;
+  --shadowOffsetY: ${shadowOffsetY}px;
   --brightness: ${brightness};
   --scale: ${scale};
   `;
@@ -48,6 +54,11 @@
     .range([-maxRotation, maxRotation]);
   $: scaleBrightness = scaleLinear().domain([0, height]).range([1.03, 0.97]);
 
+  const onMouseEnterCard = !linkButtonContent
+    ? () => {}
+    : () => {
+        isHovering = true;
+      };
   const onMouseMoveCard = !linkButtonContent
     ? () => {}
     : (ev: MouseEvent) => {
@@ -56,6 +67,8 @@
 
         rotateY = scaleY(mouseX);
         rotateX = scaleX(mouseY);
+        shadowOffsetX = -rotateY * 0.5;
+        shadowOffsetY = rotateX * 0.5;
         brightness = scaleBrightness(mouseY);
         scale = (width + 12) / width;
       };
@@ -64,15 +77,21 @@
     : () => {
         rotateX = 0;
         rotateY = 0;
+        shadowOffsetX = 0;
+        shadowOffsetY = 0;
         brightness = 1;
         scale = 1;
+
+        isHovering = false;
       };
 
   const onMouseEnterLinkBtn = () => {
-    scale = (width + 12) / width;
+    scale = (width + 6) / width;
+    isHovering = true;
   };
   const onMouseLeaveLinkBtn = () => {
     scale = 1;
+    isHovering = false;
   };
 </script>
 
@@ -116,11 +135,14 @@
   >
     <div
       class="img3d
+            {linkButtonContent ? 'interactive' : ''}
+            {isHovering ? 'hover' : ''}
             flex justify-center items-center
             mt-1 md:mt-0"
       style={img3dStyle}
       bind:clientWidth={width}
       bind:clientHeight={height}
+      on:mouseenter={onMouseEnterCard}
       on:mousemove={onMouseMoveCard}
       on:mouseleave={onMouseLeaveCard}
     >
@@ -187,13 +209,18 @@
 
     perspective: 600px;
   }
-
+  .img3d.interactive.hover .img3d-content {
+    box-shadow: var(--shadowOffsetX) var(--shadowOffsetY) 5rem
+      rgba(0, 0, 0, 0.3);
+  }
   .img3d,
   .img3d .img3d-content {
     transition: all 250ms ease-out;
     transform: rotateX(var(--rotateX)) rotateY(var(--rotateY))
       scale(var(--scale));
     filter: brightness(var(--brightness));
+  }
+  .interactive {
     cursor: pointer;
   }
 </style>
