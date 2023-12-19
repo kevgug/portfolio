@@ -437,7 +437,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   }
 
   :global(li span) {
-    color: #a0aec0;
+    @apply italic;
+    @apply text-bullet-grey;
   }
 
   :global(img) {
