@@ -1,5 +1,6 @@
 <script lang="ts">
   import tinycolor from "tinycolor2";
+  import { scaleLinear } from "d3-scale";
 
   import Image from "$lib/components/Image.svelte";
   import LinkButton from "$lib/components/LinkButton.svelte";
@@ -16,12 +17,65 @@
   export let linkButtonContent: LinkButtonContent | undefined;
   export let bgColor: string | undefined; // hex
 
+  // --- STYLING ---
   if (!bgColor) {
     bgColor = "#0d2860";
   }
-
   // Border color is 10% lighter than bg color
   const borderColor = tinycolor(bgColor).lighten(5).toHexString();
+
+  // --- 3D HOVER EFFECT ---
+  let rotateX = 0;
+  let rotateY = 0;
+  let brightness = 1;
+
+  let maxRotation = 5;
+  let width = 0;
+  let height = 0;
+
+  let isHoveringLinkButton = false;
+
+  $: cardStyle = `
+  --rotateX: ${rotateX}deg;
+  --rotateY: ${rotateY}deg;
+  --brightness: ${brightness};
+  `;
+  $: scaleX = scaleLinear()
+    .domain([0, height])
+    .range([-maxRotation, maxRotation]);
+  $: scaleY = scaleLinear()
+    .domain([0, width])
+    .range([-maxRotation, maxRotation]);
+  $: scaleBrightness = scaleLinear().domain([0, height]).range([1.03, 0.97]);
+
+  const onMouseMoveCard = (ev: MouseEvent) => {
+    if (isHoveringLinkButton) {
+      rotateX = 0;
+      rotateY = 0;
+      brightness = 1;
+      return;
+    }
+
+    const mouseX = ev.offsetX;
+    const mouseY = ev.offsetY;
+
+    rotateY = scaleY(mouseX);
+    rotateX = scaleX(mouseY);
+    brightness = scaleBrightness(mouseY);
+  };
+  const onMouseLeaveCard = () => {
+    rotateX = 0;
+    rotateY = 0;
+    brightness = 1;
+  };
+
+  const onMouseEnterLinkBtn = () => {
+    if (isHoveringLinkButton) return;
+    isHoveringLinkButton = true;
+  };
+  const onMouseLeaveLinkBtn = () => {
+    isHoveringLinkButton = false;
+  };
 </script>
 
 <div>
@@ -53,6 +107,7 @@
       {outputMedium} — {role}
     </p>
   </div>
+
   <div
     style="background-color: {bgColor}; border-color: {borderColor};"
     class="flex flex-col md:flex-row
@@ -62,10 +117,18 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div
-      class="flex justify-center items-center
+      class="img3d
+            flex justify-center items-center
             mt-1 md:mt-0"
+      style={cardStyle}
+      bind:clientWidth={width}
+      bind:clientHeight={height}
+      on:mousemove={onMouseMoveCard}
+      on:mouseleave={onMouseLeaveCard}
     >
-      <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
+      <div class="img3d-content">
+        <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
+      </div>
     </div>
     <div
       class="flex flex-col md:justify-between
@@ -101,6 +164,8 @@
       </div>
       {#if linkButtonContent}
         <div
+          on:mouseenter={onMouseEnterLinkBtn}
+          on:mouseleave={onMouseLeaveLinkBtn}
           class="flex justify-end h-5
               mt-14 md:mt-0"
         >
@@ -113,3 +178,23 @@
     </div>
   </div>
 </div>
+
+<style>
+  .img3d {
+    --rotateX: 0;
+    --rotateY: 0;
+
+    transform: scale(1);
+    perspective: 600px;
+  }
+  .img3d:hover {
+    transform: scale(1.03);
+  }
+
+  .img3d,
+  .img3d .img3d-content {
+    transition: all 250ms ease-out;
+    transform: rotateX(var(--rotateX)) rotateY(var(--rotateY));
+    filter: brightness(var(--brightness));
+  }
+</style>
