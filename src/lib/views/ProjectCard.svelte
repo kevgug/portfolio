@@ -6,6 +6,7 @@
   import LinkButton from "$lib/components/LinkButton.svelte";
   import type { ImageOptions } from "$lib/util/image";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
+  import { tailwindTheme } from "$lib/tailwindTheme";
 
   export let year: number;
   export let name: string;
@@ -23,6 +24,7 @@
   }
   // Border color is 10% lighter than bg color
   const borderColor = tinycolor(bgColor).lighten(5).toHexString();
+  const interactiveIconColor = tailwindTheme.colors["glacial-blue"];
 
   // --- 3D HOVER EFFECT ---
   let rotateX = 0;
@@ -32,7 +34,7 @@
   let brightness = 1;
   let scale = 1;
 
-  let isHovering = false;
+  let isHoveringLinkBtn = false;
 
   let maxRotation = 5;
   let width = 0;
@@ -52,12 +54,12 @@
   $: scaleY = scaleLinear()
     .domain([0, width])
     .range([-maxRotation, maxRotation]);
-  $: scaleBrightness = scaleLinear().domain([0, height]).range([1.03, 0.97]);
+  $: scaleBrightness = scaleLinear().domain([0, height]).range([0.55, 0.4]);
 
   const onMouseEnterCard = !linkButtonContent
     ? () => {}
     : () => {
-        isHovering = true;
+        isHoveringLinkBtn = true;
       };
   const onMouseMoveCard = !linkButtonContent
     ? () => {}
@@ -82,16 +84,18 @@
         brightness = 1;
         scale = 1;
 
-        isHovering = false;
+        isHoveringLinkBtn = false;
       };
 
   const onMouseEnterLinkBtn = () => {
-    scale = (width + 6) / width;
-    isHovering = true;
+    scale = (width + 4) / width;
+    // brightness = 0.85;
+    isHoveringLinkBtn = true;
   };
   const onMouseLeaveLinkBtn = () => {
     scale = 1;
-    isHovering = false;
+    // brightness = 1;
+    isHoveringLinkBtn = false;
   };
 </script>
 
@@ -136,7 +140,7 @@
     <div
       class="img3d
             {linkButtonContent ? 'interactive' : ''}
-            {isHovering ? 'hover' : ''}
+            {isHoveringLinkBtn ? 'hover-link-btn' : ''}
             flex justify-center items-center
             mt-1 md:mt-0"
       style={img3dStyle}
@@ -158,7 +162,37 @@
             ? linkButtonContent.destination
             : null}
         >
-          <Image {imgOptions} class="object-contain rounded-md lg:rounded-xl" />
+          <div class="interactive-img">
+            <Image
+              {imgOptions}
+              class="object-contain rounded-md lg:rounded-xl"
+            />
+          </div>
+          <div class="absolute inset-0 flex justify-center items-center">
+            <svg
+              class="interactive-icon h-1/3 w-1/3"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill={interactiveIconColor}
+            >
+              {#if linkButtonContent?.mediaType == "play"}
+                <path
+                  d="M12 0a12 12 0 1 0 12 12A12 12 0 0 0 12 0Zm4.83 12.89 -7.38 3.69A1 1 0 0 1 8 15.69V8.31a1 1 0 0 1 1.45 -0.9l7.38 3.69a1 1 0 0 1 0 1.79Z"
+                  stroke-width="1"
+                />
+              {:else if linkButtonContent?.mediaType == "read"}
+                <g id="open-book--content-books-book-open"
+                  ><path
+                    id="Subtract"
+                    fill-rule="evenodd"
+                    d="M10.928571428571429 2.8337142857142856C9.233142857142857 1.884 6.061714285714285 0.72 2.5645714285714285 0.30685714285714283 1.1554285714285715 0.14057142857142857 0 1.3028571428571427 0 2.7222857142857144v13.714285714285714c0 1.421142857142857 1.1605714285714286 2.5525714285714285 2.5577142857142854 2.806285714285714 3.1542857142857144 0.5725714285714286 5.7788571428571425 2.0845714285714285 7.453714285714285 3.2811428571428567 0.28114285714285714 0.20057142857142857 0.5914285714285713 0.35142857142857137 0.9171428571428571 0.456V2.8337142857142856Zm2.142857142857143 20.146285714285714c0.3257142857142857 -0.10285714285714284 0.6342857142857142 -0.2554285714285714 0.9154285714285715 -0.4542857142857143 1.6748571428571428 -1.1965714285714284 4.299428571428571 -2.710285714285714 7.4554285714285715 -3.282857142857143 1.397142857142857 -0.25371428571428567 2.5577142857142854 -1.3851428571428572 2.5577142857142854 -2.806285714285714v-13.714285714285714C24 1.3028571428571427 22.844571428571427 0.14057142857142857 21.43542857142857 0.30857142857142855c-3.497142857142857 0.4148571428571428 -6.668571428571428 1.5771428571428572 -8.363999999999999 2.5268571428571427v20.146285714285714Z"
+                    clip-rule="evenodd"
+                    stroke-width="1"
+                  /></g
+                >
+              {/if}
+            </svg>
+          </div>
         </a>
       </div>
     </div>
@@ -221,18 +255,31 @@
 
     perspective: 600px;
   }
-  .img3d.interactive.hover .img3d-content {
+  .img3d.interactive.hover-link-btn .img3d-content {
     box-shadow: var(--shadowOffsetX) var(--shadowOffsetY) 5rem
       rgba(0, 0, 0, 0.3);
+  }
+  .img3d svg {
+    opacity: 0;
+  }
+  .img3d.interactive:hover svg {
+    opacity: 1;
   }
   .img3d,
   .img3d .img3d-content {
     transition: all 250ms ease-out;
     transform: rotateX(var(--rotateX)) rotateY(var(--rotateY))
       scale(var(--scale));
-    filter: brightness(var(--brightness));
   }
-  /* default cursor for <a> if not .interactive */
+  .img3d .img3d-content .interactive-img {
+    filter: brightness(var(--brightness));
+    transition: all 250ms ease-out;
+  }
+  .interactive-icon {
+    /* strong shadow */
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.2));
+    transition: all 250ms ease-out;
+  }
   .img3d:not(.interactive) a {
     cursor: default;
   }

@@ -138,6 +138,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         label: "Read Story",
         destination:
           "https://bootcamp.uxdesign.cc/arc-for-ios-gets-the-student-redesign-it-deserves-in-30-days-5c54decf90af",
+        mediaType: "read",
         eventName: "projects_ext_arcforios_mediumstory",
         openInNewTab: true,
       }}
@@ -198,6 +199,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         label: "Play Prototype",
         destination:
           "https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA",
+        mediaType: "play",
         eventName: "projects_ext_sportvideoanalysis_sketchprototype",
         openInNewTab: true,
       }}
@@ -235,6 +237,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={{
         label: "Open Website",
         destination: "https://www.tradefinancedistribution.com/",
+        mediaType: "play",
         eventName: "projects_ext_tfdi_landingpage",
         openInNewTab: true,
       }}
@@ -295,6 +298,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         label: "Play Prototype",
         destination:
           "https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen",
+        mediaType: "play",
         eventName: "projects_ext_panoramamail_prototype",
         openInNewTab: true,
       }}
@@ -316,6 +320,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={{
         label: "View Promo Video",
         destination: "https://youtu.be/6lico6jtV5E",
+        mediaType: "play",
         eventName: "projects_ext_prismaticnews_promovideo",
         openInNewTab: true,
       }}
