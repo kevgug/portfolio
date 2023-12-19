@@ -28,17 +28,17 @@
   let rotateX = 0;
   let rotateY = 0;
   let brightness = 1;
+  let scale = 1;
 
   let maxRotation = 5;
   let width = 0;
   let height = 0;
 
-  let isHoveringLinkButton = false;
-
-  $: cardStyle = `
+  $: img3dStyle = `
   --rotateX: ${rotateX}deg;
   --rotateY: ${rotateY}deg;
   --brightness: ${brightness};
+  --scale: ${scale};
   `;
   $: scaleX = scaleLinear()
     .domain([0, height])
@@ -48,33 +48,31 @@
     .range([-maxRotation, maxRotation]);
   $: scaleBrightness = scaleLinear().domain([0, height]).range([1.03, 0.97]);
 
-  const onMouseMoveCard = (ev: MouseEvent) => {
-    if (isHoveringLinkButton) {
-      rotateX = 0;
-      rotateY = 0;
-      brightness = 1;
-      return;
-    }
+  const onMouseMoveCard = !linkButtonContent
+    ? () => {}
+    : (ev: MouseEvent) => {
+        const mouseX = ev.offsetX;
+        const mouseY = ev.offsetY;
 
-    const mouseX = ev.offsetX;
-    const mouseY = ev.offsetY;
-
-    rotateY = scaleY(mouseX);
-    rotateX = scaleX(mouseY);
-    brightness = scaleBrightness(mouseY);
-  };
-  const onMouseLeaveCard = () => {
-    rotateX = 0;
-    rotateY = 0;
-    brightness = 1;
-  };
+        rotateY = scaleY(mouseX);
+        rotateX = scaleX(mouseY);
+        brightness = scaleBrightness(mouseY);
+        scale = (width + 12) / width;
+      };
+  const onMouseLeaveCard = !linkButtonContent
+    ? () => {}
+    : () => {
+        rotateX = 0;
+        rotateY = 0;
+        brightness = 1;
+        scale = 1;
+      };
 
   const onMouseEnterLinkBtn = () => {
-    if (isHoveringLinkButton) return;
-    isHoveringLinkButton = true;
+    scale = (width + 12) / width;
   };
   const onMouseLeaveLinkBtn = () => {
-    isHoveringLinkButton = false;
+    scale = 1;
   };
 </script>
 
@@ -120,7 +118,7 @@
       class="img3d
             flex justify-center items-center
             mt-1 md:mt-0"
-      style={cardStyle}
+      style={img3dStyle}
       bind:clientWidth={width}
       bind:clientHeight={height}
       on:mousemove={onMouseMoveCard}
@@ -164,12 +162,15 @@
       </div>
       {#if linkButtonContent}
         <div
-          on:mouseenter={onMouseEnterLinkBtn}
-          on:mouseleave={onMouseLeaveLinkBtn}
           class="flex justify-end h-5
-              mt-14 md:mt-0"
+      mt-14 md:mt-0"
         >
-          <LinkButton {linkButtonContent} />
+          <div
+            on:mouseenter={onMouseEnterLinkBtn}
+            on:mouseleave={onMouseLeaveLinkBtn}
+          >
+            <LinkButton {linkButtonContent} />
+          </div>
         </div>
       {:else}
         <!-- So that justify-between still centers description text (MD+) -->
@@ -184,17 +185,15 @@
     --rotateX: 0;
     --rotateY: 0;
 
-    transform: scale(1);
     perspective: 600px;
-  }
-  .img3d:hover {
-    transform: scale(1.03);
   }
 
   .img3d,
   .img3d .img3d-content {
     transition: all 250ms ease-out;
-    transform: rotateX(var(--rotateX)) rotateY(var(--rotateY));
+    transform: rotateX(var(--rotateX)) rotateY(var(--rotateY))
+      scale(var(--scale));
     filter: brightness(var(--brightness));
+    cursor: pointer;
   }
 </style>
