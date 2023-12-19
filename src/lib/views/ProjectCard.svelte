@@ -170,7 +170,7 @@
           </div>
           <div class="absolute inset-0 flex justify-center items-center">
             <svg
-              class="interactive-icon h-1/3 w-1/3"
+              class="interactive-icon h-1/3 w-1/3 max-h-[8em] max-w-[8em]"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill={interactiveIconColor}
