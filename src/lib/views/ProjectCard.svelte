@@ -259,21 +259,30 @@
     box-shadow: var(--shadowOffsetX) var(--shadowOffsetY) 5rem
       rgba(0, 0, 0, 0.3);
   }
-  .img3d svg {
-    opacity: 0;
-  }
-  .img3d.interactive:hover svg {
-    opacity: 1;
-  }
+
   .img3d,
   .img3d .img3d-content {
     transition: all 250ms ease-out;
     transform: rotateX(var(--rotateX)) rotateY(var(--rotateY))
       scale(var(--scale));
   }
-  .img3d .img3d-content .interactive-img {
-    filter: brightness(var(--brightness));
+
+  /* Brightness only changes on hover interactive project imgs */
+  .img3d.interactive .img3d-content .interactive-img {
+    filter: brightness(1);
     transition: all 250ms ease-out;
+  }
+  .img3d.interactive:hover .interactive-img {
+    /* If on touchscreen, `min` ensures img still fades to 0.55 brightness on hover */
+    filter: brightness(calc(min(var(--brightness), 0.55)));
+  }
+
+  /* Icon only appears on hover interactive project imgs */
+  .img3d svg {
+    opacity: 0;
+  }
+  .img3d.interactive:hover svg {
+    opacity: 1;
   }
   .interactive-icon {
     /* strong shadow */
