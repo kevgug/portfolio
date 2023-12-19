@@ -6,6 +6,9 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
+  import gridLinkSrc from "$lib/images/projects/gridlink_landingpage.jpg";
+  import gridLinkAvif from "$lib/images/projects/gridlink_landingpage.avif";
+  import gridLinkWebp from "$lib/images/projects/gridlink_landingpage.webp";
   import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
   import arcForIosMediumAvif from "$lib/images/projects/arcforios-medium.avif";
   import arcForIosMediumWebp from "$lib/images/projects/arcforios-medium.webp";
@@ -123,6 +126,28 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
   >
     <ProjectCard
       year={2023}
+      name="GridLink"
+      outputMedium="EV Fleet Management SaaS"
+      role="Platform Engineer"
+      imgOptions={{
+        src: gridLinkSrc,
+        avifSrc: gridLinkAvif,
+        webpSrc: gridLinkWebp,
+        alt: "A screenshot of the GridLink EV fleet management platform landing page",
+      }}
+      description="Redesigned the fleet charging schedule page in Figma and implemented my changes in React. Simplified navigation UX with a platform-wide redesign proposal. "
+      builtWith={["React", "TypeScript", "Figma"]}
+      linkButtonContent={{
+        label: "View Website",
+        destination: "https://gridlink.co",
+        mediaType: "play",
+        eventName: "projects_ext_gridlink_landingpage",
+        openInNewTab: true,
+      }}
+      bgColor="#1e2521"
+    />
+    <ProjectCard
+      year={2023}
       name="30-Day Redesign: Arc for iOS"
       outputMedium="UX Case Study"
       role="Research, Design, & Writing"
@@ -132,7 +157,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: arcForIosMediumWebp,
         alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
       }}
-      description="Published my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the largest design publication on Medium, the UX Collective."
+      description="Published an article on my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the largest design publication on Medium, the UX Collective."
       builtWith={["Figma", "Medium", "Artboard Studio"]}
       linkButtonContent={{
         label: "Read Story",
@@ -235,7 +260,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Led the full redesign of their primary website using Figma and Webflow, increasing site traffic by 100% within the first month. Revamped all 1k+ words of the original copy, eliminating financial jargon, leading to a sub-20% bounce rate on 3.7k monthly visits. Determined slogan."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
-        label: "Open Website",
+        label: "View Website",
         destination: "https://www.tradefinancedistribution.com/",
         mediaType: "play",
         eventName: "projects_ext_tfdi_landingpage",
@@ -245,9 +270,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2020}
-      name="Mindxone Co-Founder"
-      outputMedium="Web SaaS"
-      role="Product, Design & Development"
+      name="Mindxone"
+      outputMedium="SaaS Web App"
+      role="Co-Founder"
       imgOptions={{
         src: mindxoneLandingPageSrc,
         webpSrc: mindxoneLandingPageWebp,

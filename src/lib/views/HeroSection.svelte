@@ -88,6 +88,7 @@
         linkButtonContent={{
           label: "Email",
           destination: "mailto:contact@kevingugelmann.com",
+          mediaType: "none",
           eventName: "hero_ext_email_primary",
           openInNewTab: true,
         }}
@@ -96,6 +97,7 @@
         linkButtonContent={{
           label: "LinkedIn",
           destination: "https://www.linkedin.com/in/kevingugelmann/",
+          mediaType: "none",
           eventName: "hero_ext_linkedin",
           openInNewTab: true,
         }}
@@ -160,6 +162,7 @@
           linkButtonContent={{
             label: "View Portfolio",
             destination: scrollToProjects,
+            mediaType: "none",
             eventName: "hero_scrollto_projects",
           }}
           iconName="arrow-down"
