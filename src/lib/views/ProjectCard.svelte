@@ -1,4 +1,6 @@
 <script lang="ts">
+  import tinycolor from "tinycolor2";
+
   import Image from "$lib/components/Image.svelte";
   import LinkButton from "$lib/components/LinkButton.svelte";
   import type { ImageOptions } from "$lib/util/image";
@@ -12,6 +14,14 @@
   export let description: string;
   export let builtWith: string[] | undefined;
   export let linkButtonContent: LinkButtonContent | undefined;
+  export let bgColor: string | undefined; // hex
+
+  if (!bgColor) {
+    bgColor = "#0d2860";
+  }
+
+  // Border color is 10% lighter than bg color
+  const borderColor = tinycolor(bgColor).lighten(5).toHexString();
 </script>
 
 <div>
@@ -44,11 +54,11 @@
     </p>
   </div>
   <div
+    style="background-color: {bgColor}; border-color: {borderColor};"
     class="flex flex-col md:flex-row
           mt-8 md:mt-9 lg:mt-10
           p-7
-          bg-gradient-to-b from-[#1c1d20] to-[#17181b]
-          border-[#1f1f21] border-solid border-[1px]
+          border-solid border-[1px]
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div

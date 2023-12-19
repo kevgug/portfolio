@@ -141,6 +141,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_arcforios_mediumstory",
         openInNewTab: true,
       }}
+      bgColor="#1d252c"
     />
     <ProjectCard
       year={2023}
@@ -156,6 +157,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Built up a unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined unique value proposition."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
       linkButtonContent={undefined}
+      bgColor="#18292d"
     />
     <ProjectCard
       year={2023}
@@ -177,6 +179,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "GitHub Pages",
       ]}
       linkButtonContent={undefined}
+      bgColor="#1a2439"
     />
     <ProjectCard
       year={2022}
@@ -198,6 +201,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_sportvideoanalysis_sketchprototype",
         openInNewTab: true,
       }}
+      bgColor="#262626"
     />
     <ProjectCard
       year={2022}
@@ -213,6 +217,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Successfully completed a 5-hour Figma designathon as part of an ad-hoc UChicago team. Our prize-winning mobile app prototype gamified pizza ordering with the Secret Santa concept, answering the prompt 'how can we reimagine the pizza ordering and delivery process?'"
       builtWith={["Figma", "FigJam"]}
       linkButtonContent={undefined}
+      bgColor="#2b2a24"
     />
     <ProjectCard
       year={2021}
@@ -233,6 +238,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_tfdi_landingpage",
         openInNewTab: true,
       }}
+      bgColor="#08262c"
     />
     <ProjectCard
       year={2020}
@@ -254,6 +260,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "AWS",
       ]}
       linkButtonContent={undefined}
+      bgColor="#2b2b2b"
     />
     <ProjectCard
       year={2019}
@@ -269,6 +276,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions. Too young to publish to the App Store (16 years old)."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
+      bgColor="#17233b"
     />
     <ProjectCard
       year={2018}
@@ -290,6 +298,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_panoramamail_prototype",
         openInNewTab: true,
       }}
+      bgColor="#102436"
     />
     <ProjectCard
       year={2018}
@@ -310,6 +319,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         eventName: "projects_ext_prismaticnews_promovideo",
         openInNewTab: true,
       }}
+      bgColor="#142934"
     />
   </div>
   <div class="pt-20 md:pt-24 lg:pt-32">
