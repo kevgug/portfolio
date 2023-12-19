@@ -140,7 +140,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={{
         label: "View Website",
         destination: "https://gridlink.co",
-        mediaType: "play",
+        mediaType: "webpage",
         eventName: "projects_ext_gridlink_landingpage",
         openInNewTab: true,
       }}
@@ -185,7 +185,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={{
         label: "View Website",
         destination: "https://www.zeestalabs.com",
-        mediaType: "play",
+        mediaType: "webpage",
         eventName: "projects_ext_zeestalabs_landingpage",
         openInNewTab: true,
       }}
@@ -268,7 +268,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       linkButtonContent={{
         label: "View Website",
         destination: "https://www.tradefinancedistribution.com/",
-        mediaType: "play",
+        mediaType: "webpage",
         eventName: "projects_ext_tfdi_landingpage",
         openInNewTab: true,
       }}
@@ -349,7 +349,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 1000+ installs on the Google Play Store."
       builtWith={["Android Studio", "Java", "Firebase"]}
       linkButtonContent={{
-        label: "View Promo Video",
+        label: "Play Video",
         destination: "https://youtu.be/6lico6jtV5E",
         mediaType: "play",
         eventName: "projects_ext_prismaticnews_promovideo",
