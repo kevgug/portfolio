@@ -182,7 +182,13 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       }}
       description="Built up a unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined unique value proposition."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
-      linkButtonContent={undefined}
+      linkButtonContent={{
+        label: "View Website",
+        destination: "https://www.zeestalabs.com",
+        mediaType: "play",
+        eventName: "projects_ext_zeestalabs_landingpage",
+        openInNewTab: true,
+      }}
       bgColor="#18292d"
     />
     <ProjectCard
@@ -428,6 +434,10 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     @apply absolute; /* position bullet relative to list item */
     @apply top-[0.22em] md:top-[0.23em] lg:top-[0.24em] xl:top-[0.23em]; /* vertical align bullet position relative to list item */
     @apply left-[-0.44em] xl:left-[-0.54em]; /* position the bullet L- R relative to list item */
+  }
+
+  :global(li span) {
+    color: #a0aec0;
   }
 
   :global(img) {

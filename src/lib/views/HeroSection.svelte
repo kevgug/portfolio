@@ -136,11 +136,34 @@
           class="text-glacial-blue
                 mb-8 xl:mb-12"
         >
-          SaaS Designer, Developer, & Marketing Strategist with an Eye for
-          Detail
+          Blending Imagination and Engineering into Human-Centric Software
+          <!-- Designer, Developer, & Marketing Strategist with an Eye for Detail -->
         </h1>
         <ul>
           <li>
+            End-to-end software production, from user research and design to
+            multi-platform development and marketing
+          </li>
+          <li>
+            Design that performs, such as my TFDi landing page redesign <span
+              >(2x site traffic in one month)</span
+            >
+            and winning the UChicago designathon
+            <span>(Most Well-Designed App, 2022)</span>
+          </li>
+          <li>
+            Diverse experience across languages <span>(English, German)</span>,
+            industries
+            <span>(Fintech, Health, Sport, News, Productivity)</span>, design
+            tools
+            <span>(Figma, Sketch, Adobe XD)</span>, and programming tools
+            <span
+              >(React, Svelte, TypeScript, Flutter, React Native, TailwindCSS,
+              Python, C, Java)</span
+            >
+          </li>
+
+          <!-- <li>
             British-German-Swiss sophomore studying Computer Science & Economics
             at UChicago
           </li>
@@ -151,7 +174,7 @@
           <li>
             Created from scratch: Native & Web Apps, UI/UX Design, Brand
             Identity Design, Performant Landing Pages
-          </li>
+          </li> -->
         </ul>
       </div>
       <div
