@@ -88,7 +88,7 @@
       };
 
   const onMouseEnterLinkBtn = () => {
-    scale = (width + 4) / width;
+    scale = (width + 6) / width;
     // brightness = 0.85;
     isHoveringLinkBtn = true;
   };
@@ -292,14 +292,10 @@
 
     perspective: 600px;
   }
-  .img3d.interactive.hover-link-btn .img3d-content {
-    box-shadow: var(--shadowOffsetX) var(--shadowOffsetY) 5rem
-      rgba(0, 0, 0, 0.3);
-  }
 
   .img3d,
   .img3d .img3d-content {
-    transition: all 250ms ease-out;
+    transition: all 900ms cubic-bezier(0.16, 1, 0.17, 0.99);
     transform: rotateX(var(--rotateX)) rotateY(var(--rotateY))
       scale(var(--scale));
   }
