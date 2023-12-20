@@ -137,7 +137,6 @@
                 mb-8 xl:mb-12"
         >
           Blending Imagination and Engineering into Human-Centric Software
-          <!-- Designer, Developer, & Marketing Strategist with an Eye for Detail -->
         </h1>
         <ul>
           <li>
@@ -145,7 +144,7 @@
             multi-platform development and marketing
           </li>
           <li>
-            Design that performs, such as my TFDi landing page redesign <span
+            Design that performs, such as redesigning the TFDi's landing page <span
               >(2x site traffic in one month)</span
             >
             and winning the UChicago designathon
@@ -162,19 +161,6 @@
               Python, C, Java)</span
             >
           </li>
-
-          <!-- <li>
-            British-German-Swiss sophomore studying Computer Science & Economics
-            at UChicago
-          </li>
-          <li>
-            7+ years of experiences & projects across fintech, health, sport,
-            news, and productivity
-          </li>
-          <li>
-            Created from scratch: Native & Web Apps, UI/UX Design, Brand
-            Identity Design, Performant Landing Pages
-          </li> -->
         </ul>
       </div>
       <div
