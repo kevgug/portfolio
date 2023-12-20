@@ -67,9 +67,10 @@
 <div
   class="flex flex-col justify-between
         py-screen-y
-        supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
-        min-h-[51em] md:min-h-[52em] lg:min-h-[55em] xl:min-h-[57em]
-        max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
+        md:supports-[height:100cqh]:h-[100cqh] md:supports-[height:100svh]:h-[100svh] md:h-screen
+        supports-[height:100cqh]:min-h-[100cqh] supports-[height:100svh]:min-h-[100svh] min-h-screen
+        md:min-h-[48em] lg:min-h-[50em] xl:min-h-[54em]
+        md:max-h-[52em] lg:max-h-[54em] xl:max-h-[54em]"
 >
   <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
@@ -104,7 +105,11 @@
       />
     </div>
   </div>
-  <div bind:this={heroContent} class="flex flex-row items-center">
+  <div
+    bind:this={heroContent}
+    class="flex flex-row items-center
+         pt-14 pb-14 md:pt-0 md:pb-0"
+  >
     <Image
       imgOptions={{
         src: atfPhoneSrc,
