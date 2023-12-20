@@ -68,7 +68,7 @@
   class="flex flex-col justify-between
         py-screen-y
         supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh] h-screen
-        min-h-[41em] md:min-h-[42em] lg:min-h-[45em] xl:min-h-[47em]
+        min-h-[51em] md:min-h-[52em] lg:min-h-[55em] xl:min-h-[57em]
         max-h-[52em] md:max-h-[54em] lg:max-h-[55em] xl:max-h-[57em]"
 >
   <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
