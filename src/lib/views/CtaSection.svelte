@@ -8,7 +8,7 @@
   </h2>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      While I'm actively working at a startup, I'm always open to future
+      While I'm actively working on a startup, I'm always open to future
       opportunities
     </li>
     <li>
