@@ -51,7 +51,7 @@
     />
   </div>
   <div
-    class="absolute flex flex-col-reverse
+    class="flex flex-col-reverse
 	w-full h-[0.24rem] md:h-[0.25rem]"
   >
     <div
