@@ -145,7 +145,7 @@
         </h1>
         <ul>
           <li>
-            End-to-end software production, from user research and design to
+            End-to-end SaaS production, from user research and design to
             multi-platform development and marketing
           </li>
           <li>

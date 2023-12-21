@@ -44,7 +44,7 @@
   const pageTitle =
     "Kevin Gugelmann | Blending Imagination and Engineering into Human-Centric Software";
   const pageDescription =
-    "Remarkably meticulous SaaS designer, developer, and marketing strategist with 7+ years of cross-industry experience";
+    "Meticulous end-to-end SaaS production with human-centric design that performs";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 </script>
