@@ -211,7 +211,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         "GitHub Pages",
       ]}
       linkButtonContent={undefined}
-      bgColor="#1a2439"
+      bgColor="#182025"
     />
     <ProjectCard
       year={2022}
