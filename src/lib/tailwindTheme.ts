@@ -6,7 +6,7 @@ export const tailwindTheme = {
       'muted-text-grey': '#C1C1C1',
       'description-text-grey': '#F1F1F1',
       'bullet-grey': '#C1C1C1',
-      'separator-grey': "#222222",
+      'separator-grey': "#343434",
     },
     fontFamily: {
       sans: ['Euclid Square'],

@@ -3,9 +3,7 @@
 </script>
 
 <div>
-  <h2 class="text-glacial-blue uppercase">
-    If you made it this far, thank you
-  </h2>
+  <h1 class="text-glacial-blue">Let's Build Something Worth Sharing</h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
       While I'm actively working on a startup, I'm always open to future
