@@ -40,6 +40,16 @@
   let width = 0;
   let height = 0;
 
+  let maxRotateDuration = 900;
+  let minRotateDuration = 100;
+  let rotateDuration = maxRotateDuration;
+  let rotateDurationChangeTimer: NodeJS.Timeout;
+
+  let maxBrightnessDuration = 300;
+  let minBrightnessDuration = 100;
+  let brightnessDuration = maxBrightnessDuration;
+  let brightnessDurationChangeTimer: NodeJS.Timeout;
+
   $: img3dStyle = `
   --rotateX: ${rotateX}deg;
   --rotateY: ${rotateY}deg;
@@ -47,6 +57,8 @@
   --shadowOffsetY: ${shadowOffsetY}px;
   --brightness: ${brightness};
   --scale: ${scale};
+  --rotateDuration: ${rotateDuration}ms;
+  --brightnessDuration: ${brightnessDuration}ms;
   `;
   $: scaleX = scaleLinear()
     .domain([0, height])
@@ -60,6 +72,23 @@
     ? () => {}
     : () => {
         isHoveringLinkBtn = true;
+
+        // Start timer for quickly reducing rotateDuration to min value
+        rotateDurationChangeTimer = setInterval(() => {
+          rotateDuration -= (maxRotateDuration - minRotateDuration) / 20;
+          if (rotateDuration <= minRotateDuration) {
+            clearInterval(rotateDurationChangeTimer);
+          }
+        }, 10);
+
+        // Start timer for quickly reducing brightnessDuration to min value
+        brightnessDurationChangeTimer = setInterval(() => {
+          brightnessDuration -=
+            (maxBrightnessDuration - minBrightnessDuration) / 20;
+          if (brightnessDuration <= minBrightnessDuration) {
+            clearInterval(brightnessDurationChangeTimer);
+          }
+        }, 10);
       };
   const onMouseMoveCard = !linkButtonContent
     ? () => {}
@@ -83,6 +112,15 @@
         shadowOffsetY = 0;
         brightness = 1;
         scale = 1;
+
+        if (rotateDurationChangeTimer) {
+          clearInterval(rotateDurationChangeTimer);
+        }
+        if (brightnessDurationChangeTimer) {
+          clearInterval(brightnessDurationChangeTimer);
+        }
+        rotateDuration = maxRotateDuration;
+        brightnessDuration = maxBrightnessDuration;
 
         isHoveringLinkBtn = false;
       };
@@ -293,6 +331,8 @@
   .img3d {
     --rotateX: 0;
     --rotateY: 0;
+    --scale: 1;
+    --rotateDuration: 900ms;
 
     perspective: 600px;
   }
@@ -305,13 +345,13 @@
 
   .img3d .rotate {
     transform: rotateX(var(--rotateX)) rotateY(var(--rotateY));
-    transition: all 150ms cubic-bezier(0.16, 1, 0.17, 0.99);
+    transition: all var(--rotateDuration) cubic-bezier(0.16, 1, 0.17, 0.99);
   }
 
   /* Brightness only changes on hover interactive project imgs */
   .img3d.interactive .img3d-content .interactive-img {
     filter: brightness(1);
-    transition: all 250ms ease-out;
+    transition: all var(--brightnessDuration) cubic-bezier(0.16, 1, 0.17, 0.99);
   }
   .img3d.interactive:hover .interactive-img {
     /* If on touchscreen, `min` ensures img still fades to 0.55 brightness on hover */
