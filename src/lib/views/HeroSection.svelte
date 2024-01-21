@@ -158,8 +158,10 @@
           <li>
             Diverse experience across languages <span>(English, German)</span>,
             industries
-            <span>(Fintech, Health, Sport, News, Productivity)</span>, design
-            tools
+            <span
+              >(EV Charging, Precision Medicine, Sport, FinTech, Task
+              Management)</span
+            >, design tools
             <span>(Figma, Sketch, Adobe XD)</span>, and programming tools
             <span
               >(React, Svelte, TypeScript, Flutter, React Native, TailwindCSS,
