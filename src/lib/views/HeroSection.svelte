@@ -75,13 +75,13 @@
   <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
       <Icon
-        name="network-pin"
+        name="graduate-cap"
         color={mutedTextGreyColor}
         size={globeIconSize}
       />
-      <p class="text-muted-text-grey inline md:hidden">LDN / CHI</p>
+      <p class="text-muted-text-grey inline md:hidden">UChicago</p>
       <p class="text-muted-text-grey hidden md:inline">
-        London, UK  /  Chicago, IL
+        The University of Chicago
       </p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
