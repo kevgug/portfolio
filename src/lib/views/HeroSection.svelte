@@ -164,8 +164,8 @@
             >, design tools
             <span>(Figma, Sketch, Adobe XD)</span>, and programming tools
             <span
-              >(React, Svelte, TypeScript, Flutter, React Native, TailwindCSS,
-              Python, C, Java)</span
+              >(React, Svelte, TypeScript, Flutter/Dart, React Native,
+              Tailwind CSS, Python, C, Java)</span
             >
           </li>
         </ul>

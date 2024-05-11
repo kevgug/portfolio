@@ -30,7 +30,7 @@
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
       Designed in Sketch. Developed with SvelteKit & TailwindCSS.<br />
-      Copyright © 2023 Kevin Gugelmann. All rights reserved.
+      Copyright © 2024 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
 </div>

@@ -217,7 +217,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: kevingugelmannPortfolioPreviewWebp,
         alt: "Mini preview of Kevin Gugelmann's portfolio website",
       }}
-      description="This website! Designed in Sketch. Developed with SvelteKit & Tailwind CSS. Deployed on GitHub Pages. Image lazy-loading and 98% Lighthouse Performance."
+      description="This website! Designed in Sketch. Developed with SvelteKit & Tailwind CSS. Deployed on GitHub Pages. Fully responsive. Image lazy-loading and 98% Lighthouse Performance."
       builtWith={[
         "Sketch",
         "SvelteKit",
