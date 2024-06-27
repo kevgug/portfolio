@@ -1,8 +1,7 @@
 <script lang="ts">
   // Assets
-  import sketchSvg from "$lib/images/built-with-icons/sketch.svg";
-  import svelteSvg from "$lib/images/built-with-icons/svelte.svg";
-  import tailwindCssSvg from "$lib/images/built-with-icons/tailwind-css.svg";
+  import githubSvg from "$lib/images/built-with-icons/github.svg";
+  import linkedinSvg from "$lib/images/built-with-icons/linkedin.svg";
 </script>
 
 <div
@@ -17,14 +16,15 @@
           mb-[1.35rem] md:mb-0
           mt-2 md:mt-0"
   >
-    <a href="https://www.sketch.com/" target="_blank" rel="noreferrer">
-      <img src={sketchSvg} alt="Sketch logo" />
+    <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
+      <img src={githubSvg} alt="Github logo" />
     </a>
-    <a href="https://svelte.dev/" target="_blank" rel="noreferrer">
-      <img src={svelteSvg} alt="Svelte logo" />
-    </a>
-    <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
-      <img src={tailwindCssSvg} alt="Tailwind CSS logo" />
+    <a
+      href="https://www.linkedin.com/in/kevingugelmann"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <img src={linkedinSvg} alt="LinkedIn logo" />
     </a>
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">

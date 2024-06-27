@@ -6,9 +6,12 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
-  import gridLinkSrc from "$lib/images/projects/gridlink_landingpage.jpg";
-  import gridLinkAvif from "$lib/images/projects/gridlink_landingpage.avif";
-  import gridLinkWebp from "$lib/images/projects/gridlink_landingpage.webp";
+  import freestyleBlogSrc from "$lib/images/projects/freestyle-blog.jpg";
+  import freestyleBlogAvif from "$lib/images/projects/freestyle-blog.avif";
+  import freestyleBlogWebp from "$lib/images/projects/freestyle-blog.webp";
+  import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
+  import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
+  import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
   import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
   import arcForIosMediumAvif from "$lib/images/projects/arcforios-medium.avif";
   import arcForIosMediumWebp from "$lib/images/projects/arcforios-medium.webp";
@@ -140,8 +143,30 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
     <ProjectCard
+      year={2024}
+      name="Freestyle Blog"
+      outputMedium="Technical Blog"
+      role="Lead Developer Advocate"
+      imgOptions={{
+        src: freestyleBlogSrc,
+        avifSrc: freestyleBlogAvif,
+        webpSrc: freestyleBlogWebp,
+        alt: "Freestyle blog homepage header image",
+      }}
+      description="Launched a technical blog for Freestyle, a YC-backed startup unifying TypeScript for full-stack app development. Built using Freestyle."
+      builtWith={["Astro", "React", "TypeScript", "Tailwind", "Freestyle"]}
+      linkButtonContent={{
+        label: "Read Blog",
+        destination: "https://blog.freestyle.dev",
+        mediaType: "webpage",
+        eventName: "projects_ext_freestyleblog_home",
+        openInNewTab: true,
+      }}
+      bgColor="#1e1e1e"
+    />
+    <ProjectCard
       year={2023}
-      name="GridLink"
+      name="GridLink Internship"
       outputMedium="EV Fleet Management SaaS"
       role="Platform Engineer"
       imgOptions={{
@@ -186,9 +211,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2023}
-      name="Zeesta Labs"
+      name="Zeesta Labs Internship"
       outputMedium="Medical AI Startup"
-      role="UI/UX Design, Frontend Dev, & Brand Strategy"
+      role="Frontend Developer & UI/UX Designer"
       imgOptions={{
         src: zeestaLabsLockupSrc,
         avifSrc: zeestaLabsLockupAvif,
@@ -197,20 +222,14 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       }}
       description="Built up a unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined unique value proposition."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
-      linkButtonContent={{
-        label: "View Website",
-        destination: "https://www.zeestalabs.com",
-        mediaType: "webpage",
-        eventName: "projects_ext_zeestalabs_landingpage",
-        openInNewTab: true,
-      }}
+      linkButtonContent={undefined}
       bgColor="#18292d"
     />
     <ProjectCard
       year={2023}
       name="My Online Portfolio"
       outputMedium="Website"
-      role="Design & Development"
+      role="UI Design & Development"
       imgOptions={{
         src: kevingugelmannPortfolioPreviewSrc,
         avifSrc: kevingugelmannPortfolioPreviewAvif,
@@ -230,9 +249,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2022}
-      name="Sport Video Analysis"
+      name="Sport Video Analysis UI Prototype"
       outputMedium="Desktop App"
-      role="Concept Design"
+      role="UI Design & Prototyping"
       imgOptions={{
         src: sportVideoAnalysisSrc,
         avifSrc: sportVideoAnalysisAvif,
@@ -255,7 +274,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       year={2022}
       name="Winner: Most Well-Designed App at UChicago's Annual Designathon"
       outputMedium="Concept Mobile App"
-      role="Figma Designathon"
+      role="Project Lead"
       imgOptions={{
         src: pizzaSrc,
         avifSrc: pizzaAvif,
@@ -269,9 +288,9 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2021}
-      name="Trade Finance Distribution Initiative"
+      name="Trade Finance Distribution Initiative Internship"
       outputMedium="Website Redesign"
-      role="Digital Marketing Intern"
+      role="Digital Marketing Strategist"
       imgOptions={{
         src: tfdiSrc,
         avifSrc: tfdiAvif,
@@ -315,14 +334,14 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       year={2019}
       name="Task App with Focus Timer"
       outputMedium="Mobile App"
-      role="Design & Development"
+      role="UI Design & Development"
       imgOptions={{
         src: taskTimerAppSrc,
         avifSrc: taskTimerAppAvif,
         webpSrc: taskTimerAppWebp,
         alt: "Side-by-side iPhone mockups of a task app with a focus timer",
       }}
-      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions. Too young to publish to the App Store (16 years old)."
+      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions. Was too young to publish to the App Store."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
       bgColor="#17233b"
@@ -458,6 +477,10 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
 
   :global(img) {
     /* For alt text */
+    @apply text-glacial-blue;
+  }
+
+  :global(a) {
     @apply text-glacial-blue;
   }
 </style>

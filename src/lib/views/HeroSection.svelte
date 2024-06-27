@@ -80,9 +80,7 @@
         size={globeIconSize}
       />
       <p class="text-muted-text-grey inline md:hidden">UChicago</p>
-      <p class="text-muted-text-grey hidden md:inline">
-        The University of Chicago
-      </p>
+      <p class="text-muted-text-grey hidden md:inline">UChicago Economics</p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton
@@ -145,28 +143,23 @@
         </h1>
         <ul>
           <li>
-            End-to-end SaaS production, from user research and design to
-            multi-platform development and marketing
+            Lead Developer Advocate at <a href="https://freestyle.sh"
+              >Freestyle</a
+            > (YC S24), where we're unifying app development to eliminate multilingual
+            code fragmentation.
           </li>
           <li>
-            Design that performs, such as redesigning the TFDi's landing page <span
-              >(2x site traffic in one month)</span
+            Previously, interned as Platform Engineer at <a
+              href="https://gridlink.co">Gridlink</a
             >
-            and winning the UChicago designathon
-            <span>(Most Well-Designed App, 2022)</span>
+            (Techstars '23) and Digital Marketing Strategist at
+            <a href="https://www.tradefinancedistribution.com">TFDi</a>.
           </li>
           <li>
-            Diverse experience across languages <span>(English, German)</span>,
-            industries
-            <span
-              >(EV Charging, Precision Medicine, Sport, FinTech, Task
-              Management)</span
-            >, design tools
-            <span>(Figma, Sketch, Adobe XD)</span>, and programming tools
-            <span
-              >(React, Svelte, TypeScript, Flutter/Dart, React Native,
-              Tailwind CSS, Python, C, Java)</span
+            3rd year Economics at the <a href="https://www.uchicago.edu"
+              >University of Chicago</a
             >
+            with a minor in Computer Science. Winner of the 2022 designathon.
           </li>
         </ul>
       </div>
@@ -176,7 +169,7 @@
       >
         <PrimaryButton
           linkButtonContent={{
-            label: "View Portfolio",
+            label: "Explore Portfolio",
             destination: scrollToProjects,
             mediaType: "none",
             eventName: "hero_scrollto_projects",
