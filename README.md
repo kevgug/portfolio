@@ -20,4 +20,4 @@ I provide end-to-end software production, from user research and design to multi
 - Deployed on GitHub Pages
 - 98% Lighthouse Performance
 
-<img width="1200" alt="Kevin Gugelmann portfolio preview" src="https://github.com/kevgug/portfolio/assets/37193648/d867dc5d-62aa-43b5-8eda-6ed993acd5fa">
+[![Kevin Gugelmann portfolio preview](https://github.com/kevgug/portfolio/assets/37193648/d867dc5d-62aa-43b5-8eda-6ed993acd5fa)](https://kevingugelmann.com)
