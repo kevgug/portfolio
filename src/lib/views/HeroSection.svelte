@@ -80,7 +80,7 @@
         size={globeIconSize}
       />
       <p class="text-muted-text-grey inline md:hidden">UChicago</p>
-      <p class="text-muted-text-grey hidden md:inline">UChicago Economics</p>
+      <p class="text-muted-text-grey hidden md:inline">University of Chicago</p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton
@@ -145,8 +145,7 @@
           <li>
             Lead Developer Advocate at <a href="https://freestyle.sh"
               >Freestyle</a
-            > (YC S24), where we're unifying app development to eliminate multilingual
-            code fragmentation.
+            > (YC S24) to bring unified cloud development to enterprise.
           </li>
           <li>
             Previously, interned as Platform Engineer at <a
@@ -156,10 +155,9 @@
             <a href="https://www.tradefinancedistribution.com">TFDi</a>.
           </li>
           <li>
-            3rd year Economics at the <a href="https://www.uchicago.edu"
-              >University of Chicago</a
-            >
-            with a minor in Computer Science. Winner of the 2022 designathon.
+            3rd year Economics and Cognitive Science at the <a
+              href="https://www.uchicago.edu">University of Chicago</a
+            >. Winner of the 2022 designathon.
           </li>
         </ul>
       </div>
@@ -179,7 +177,7 @@
       </div>
     </div>
   </div>
-  <div bind:this={separator}>
+  <div bind:this={separator} class="flex justify-center">
     <!-- Show separator only on MD+ screens -->
     <div class="hidden md:flex">
       <Separator />

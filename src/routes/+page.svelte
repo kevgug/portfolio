@@ -6,6 +6,9 @@
   import HeroSection from "../lib/views/HeroSection.svelte";
 
   // Assets
+  import multiCraftSrc from "$lib/images/projects/multiplayer-infinite-craft.jpg";
+  import multiCraftAvif from "$lib/images/projects/multiplayer-infinite-craft.avif";
+  import multiCraftWebp from "$lib/images/projects/multiplayer-infinite-craft.webp";
   import freestyleBlogSrc from "$lib/images/projects/freestyle-blog.jpg";
   import freestyleBlogAvif from "$lib/images/projects/freestyle-blog.avif";
   import freestyleBlogWebp from "$lib/images/projects/freestyle-blog.webp";
@@ -142,6 +145,36 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     class="flex flex-col
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
+    <ProjectCard
+      year={2024}
+      name="Tutorial: Engineering Infinite Craft with Multiplayer"
+      outputMedium="Web Dev Tutorial"
+      role="Author"
+      imgOptions={{
+        src: multiCraftSrc,
+        avifSrc: multiCraftAvif,
+        webpSrc: multiCraftWebp,
+        alt: "Multiplayer Infinite Craft game screenshot",
+      }}
+      description="Wrote a full-stack web development tutorial on recreating Infinite Craft with real-time multiplayer. All logic written with 100% pure TypeScript—even the database."
+      builtWith={[
+        "Anthropic",
+        "Astro",
+        "React",
+        "TypeScript",
+        "TailwindCSS",
+        "Freestyle",
+      ]}
+      linkButtonContent={{
+        label: "Read Tutorial",
+        destination:
+          "https://blog.freestyle.dev/posts/multiplayer-infinite-craft",
+        mediaType: "webpage",
+        eventName: "projects_ext_freestyleblog_multiplayer-infinite-craft",
+        openInNewTab: true,
+      }}
+      bgColor="#161b1c"
+    />
     <ProjectCard
       year={2024}
       name="Freestyle Blog"
