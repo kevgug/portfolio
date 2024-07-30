@@ -6,8 +6,8 @@
   <h1 class="text-glacial-blue">Let's Build Something Worth Sharing</h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      I'm actively working as Lead Developer Advocate at <a
-        href="https://freestyle.sh">Freestyle</a
+      I'm actively working as an Engineer at <a href="https://freestyle.sh"
+        >Freestyle</a
       > (YC S24).
     </li>
     <li>

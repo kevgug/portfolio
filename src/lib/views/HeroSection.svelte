@@ -143,9 +143,8 @@
         </h1>
         <ul>
           <li>
-            Lead Developer Advocate at <a href="https://freestyle.sh"
-              >Freestyle</a
-            > (YC S24) to bring unified cloud development to enterprise.
+            Engineer at <a href="https://freestyle.sh">Freestyle</a> (YC S24) to
+            bring unified cloud development to enterprise.
           </li>
           <li>
             Previously, interned as Platform Engineer at <a

@@ -179,7 +179,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
       year={2024}
       name="Freestyle Blog"
       outputMedium="Technical Blog"
-      role="Lead Developer Advocate"
+      role="Engineer"
       imgOptions={{
         src: freestyleBlogSrc,
         avifSrc: freestyleBlogAvif,
