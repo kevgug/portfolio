@@ -6,20 +6,20 @@
   <h1 class="text-glacial-blue">Let's Build Something Worth Sharing</h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      I'm actively working as an Engineer at <a href="https://freestyle.sh"
-        >Freestyle</a
-      > (YC S24).
+      I'm a UX Designer at <a href="https://jpmorgan.com">JPMorgan</a>
+      and former Full-Stack Engineer at
+      <a href="https://www.freestyle.sh">Freestyle</a>
+      (YC S24).
     </li>
     <li>
-      To unwind I keep active - along the way I've won <a
-        href="https://hyrox.com/">Hyrox</a
-      > Chicago U24 Men's (2023) and three national gold medals in UK school rowing.
+      To unwind I keep active—I've won <a href="https://hyrox.com/">Hyrox</a> U24
+      in Chicago and three national gold medals in UK school rowing.
     </li>
     <li>
-      Free to just <a
+      Feel free to <a
         href="mailto:contact@kevingugelmann.com?body=Hi%20Kevin!%0A%0AI'm%20reaching%20out%20because%20"
-        >say hi</a
-      >! I always love to hear about new ideas, technologies, and training.
+        >reach out</a
+      > anytime. If I don't respond within 48h, I may be hiking with my dad.
     </li>
   </ul>
   <div class="flex flex-row space-x-3.5">

@@ -111,7 +111,7 @@
             > for Summer 2025.
           </li>
           <li>
-            Previously, Software Engineer at <a href="https://freestyle.sh"
+            Previously, Software Engineer at <a href="https://www.freestyle.sh"
               >Freestyle</a
             >
             (YC S24) and <a href="https://gridlink.co">Gridlink</a>
