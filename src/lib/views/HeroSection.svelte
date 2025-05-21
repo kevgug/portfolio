@@ -65,44 +65,14 @@
 />
 
 <div
-  class="flex flex-col justify-between
-        py-screen-y
+  class="hero-section flex flex-col justify-between
+        pt-8 pb-8 md:pt-12 md:pb-12
         md:supports-[height:100cqh]:h-[100cqh] md:supports-[height:100svh]:h-[100svh] md:h-screen
         supports-[height:100cqh]:min-h-[100cqh] supports-[height:100svh]:min-h-[100svh] min-h-screen
         md:min-h-[48em] lg:min-h-[50em] xl:min-h-[54em]
         md:max-h-[52em] lg:max-h-[54em] xl:max-h-[54em]"
+  style=""
 >
-  <div class="flex flex-row justify-between pt-1 md:pb-5 lg:pb-8">
-    <div class="flex flex-row items-center space-x-2 md:space-x-3">
-      <Icon
-        name="graduate-cap"
-        color={mutedTextGreyColor}
-        size={globeIconSize}
-      />
-      <p class="text-muted-text-grey inline md:hidden">UChicago</p>
-      <p class="text-muted-text-grey hidden md:inline">University of Chicago</p>
-    </div>
-    <div class="flex flex-row space-x-4 md:space-x-5">
-      <LinkButton
-        linkButtonContent={{
-          label: "Email",
-          destination: "mailto:contact@kevingugelmann.com",
-          mediaType: "none",
-          eventName: "hero_ext_email_primary",
-          openInNewTab: true,
-        }}
-      />
-      <LinkButton
-        linkButtonContent={{
-          label: "LinkedIn",
-          destination: "https://www.linkedin.com/in/kevingugelmann/",
-          mediaType: "none",
-          eventName: "hero_ext_linkedin",
-          openInNewTab: true,
-        }}
-      />
-    </div>
-  </div>
   <div
     bind:this={heroContent}
     class="flex flex-row items-center
@@ -127,13 +97,6 @@
     />
     <div>
       <div>
-        <h2
-          id="full-name"
-          class="text-glacial-blue uppercase 
-                mb-2 md:mb-3"
-        >
-          Kevin Gugelmann
-        </h2>
         <h1
           id="title"
           class="text-glacial-blue
@@ -143,20 +106,21 @@
         </h1>
         <ul>
           <li>
-            Engineer at <a href="https://freestyle.sh">Freestyle</a> (YC S24) to
-            bring unified cloud development to enterprise.
+            User Experience Designer at <a href="https://jpmorgan.com"
+              >JPMorgan</a
+            > for Summer 2025.
           </li>
           <li>
-            Previously, interned as Platform Engineer at <a
-              href="https://gridlink.co">Gridlink</a
+            Previously, Software Engineer at <a href="https://freestyle.sh"
+              >Freestyle</a
             >
-            (Techstars '23) and Digital Marketing Strategist at
-            <a href="https://www.tradefinancedistribution.com">TFDi</a>.
+            (YC S24) and <a href="https://gridlink.co">Gridlink</a>
+            (Techstars '23).
           </li>
           <li>
-            3rd year Economics and Cognitive Science at the <a
+            3rd year Cognitive Science and Economics at the <a
               href="https://www.uchicago.edu">University of Chicago</a
-            >. Winner of the 2022 designathon.
+            >. Winner of the designathon and hackathon.
           </li>
         </ul>
       </div>
@@ -198,3 +162,14 @@
   bind:this={projectElement}
   style="height: {boundedSeparatorMarginY}px"
 />
+
+<style>
+  .hero-section {
+    min-height: calc(100vh - 4rem);
+  }
+  @media (min-width: 768px) {
+    .hero-section {
+      min-height: calc(100vh - 5rem);
+    }
+  }
+</style>

@@ -4,6 +4,7 @@
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
+  import NavBar from "$lib/components/NavBar.svelte";
 
   // Assets
   import multiCraftSrc from "$lib/images/projects/multiplayer-infinite-craft.jpg";
@@ -134,7 +135,8 @@
   </script>
 </svelte:head>
 
-<!-- Portfolio website -->
+<NavBar />
+
 <div
   class="flex flex-col mx-auto
 w-screen max-w-screen-2xl
@@ -231,7 +233,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
       }}
       description="Published an article on my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the largest design publication on Medium, the UX Collective."
-      builtWith={["Figma", "Medium", "Artboard Studio"]}
+      builtWith={["Figma", "Medium", "Artboard Studio"]}
       linkButtonContent={{
         label: "Read Story",
         destination:
