@@ -26,6 +26,7 @@
 
   // Calculations
   let screenWidth = 0;
+  let screenHeight = 0;
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
@@ -67,11 +68,14 @@
 
 <svelte:window
   bind:innerWidth={screenWidth}
+  bind:innerHeight={screenHeight}
   on:resize={(_) => calculateSeparatorDistance()}
 />
 
 <div
   class="hero-section flex flex-col justify-between
+    min-h-[100svh] md:min-h-screen
+    max-h-[120vh] md:max-h-[100vh]
     pt-8 pb-8 md:pt-12 md:pb-12"
 >
   <div
@@ -118,77 +122,75 @@
           </li>
         </ul>
       </div>
-
-      <!-- Company logos -->
-      <div
-        class="flex items-center justify-center gap-8 md:gap-12 mt-12 lg:mt-16"
-      >
-        <a
-          href="https://jpmorganchase.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-6"
-        >
-          <img
-            src={jpmcLogo}
-            alt="JPMorgan Chase"
-            class="h-full w-auto object-contain brightness-0 invert opacity-60"
-          />
-        </a>
-        <a
-          href="https://www.freestyle.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-6"
-        >
-          <img
-            src={freestyleLogo}
-            alt="Freestyle"
-            class="h-full w-auto object-contain brightness-0 invert opacity-60"
-          />
-        </a>
-        <a
-          href="https://www.uchicago.edu"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-6"
-        >
-          <img
-            src={uchicagoLogo}
-            alt="University of Chicago"
-            class="h-full w-auto object-contain brightness-0 invert opacity-60"
-          />
-        </a>
-      </div>
-
-      <!-- Project marquee -->
-      <div class="mt-12 -mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem]">
-        <ProjectMarquee />
-      </div>
     </div>
   </div>
+
+  <!-- Bottom section with logos and marquee -->
+  <div class="flex flex-col pb-4 md:pb-6">
+    <!-- Company logos - shifted up 0.25rem from bottom -->
+    <div
+      class="w-full flex items-center justify-center gap-8 md:gap-12 mb-8 md:mb-12 -translate-y-1"
+    >
+      <a
+        href="https://jpmorganchase.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="h-6"
+      >
+        <img
+          src={jpmcLogo}
+          alt="JPMorgan Chase"
+          class="h-full w-auto object-contain brightness-0 invert opacity-60"
+        />
+      </a>
+      <a
+        href="https://www.freestyle.sh"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="h-6"
+      >
+        <img
+          src={freestyleLogo}
+          alt="Freestyle"
+          class="h-full w-auto object-contain brightness-0 invert opacity-60"
+        />
+      </a>
+      <a
+        href="https://www.uchicago.edu"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="h-6"
+      >
+        <img
+          src={uchicagoLogo}
+          alt="University of Chicago"
+          class="h-full w-auto object-contain brightness-0 invert opacity-60"
+        />
+      </a>
+    </div>
+
+    <!-- Project marquee - shifted up 0.25rem from bottom -->
+    <div class="-mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem] -translate-y-1">
+      <ProjectMarquee />
+    </div>
+  </div>
+
   <div bind:this={separator} class="flex justify-center">
     <!-- Show separator only on MD+ screens -->
     <div class="hidden md:flex">
       <Separator />
     </div>
-    <!-- On small devices (i.e. phones) show scroll down arrow -->
-    <!-- <div class="md:hidden mb-1">
-      <a
-        href={"javascript:;"}
-        on:click={scrollToProjects}
-        data-sa-link-event="hero_scrollto_projects"
-      >
-        <Icon name="arrow-down" color={whiteColor} />
-      </a>
-    </div> -->
   </div>
 </div>
-<div
-  id="projects"
-  bind:this={projectElement}
-  style="height: {boundedSeparatorMarginY}px"
-/>
+
+<!-- Shift content below up to account for overlapping marquee -->
+<div class="-mt-1">
+  <div
+    id="projects"
+    bind:this={projectElement}
+    style="height: {boundedSeparatorMarginY}px"
+  />
+</div>
 
 <style>
   /* Removed min-height CSS to allow Tailwind classes to control height */
