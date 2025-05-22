@@ -17,7 +17,6 @@
   import Image from "$lib/components/Image.svelte";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
-  import gridLinkLogo from "$lib/images/logos/gridlink.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
 
   // Colors
@@ -44,8 +43,8 @@
   let bottomSectionHeight = 0;
 
   const checkSpaceForZeigarnik = () => {
-    // Use Zeigarnik effect on all screen sizes unless screen height is > 1000px
-    useZeigarnikEffect = screenHeight <= 1000;
+    // Use Zeigarnik effect on all screen sizes unless screen height is > 1200px
+    useZeigarnikEffect = screenHeight <= 1080;
 
     // Calculate bottom section height for spacing compensation
     if (bottomSection) {
@@ -99,9 +98,8 @@
 <div
   bind:this={heroSection}
   class="hero-section flex flex-col
-    min-h-[100svh] md:min-h-screen
     pt-8 pb-8 md:pt-12 md:pb-12
-    {useZeigarnikEffect ? 'relative' : ''}"
+    {useZeigarnikEffect ? 'relative min-h-[100svh] md:min-h-screen' : ''}"
 >
   <div
     bind:this={heroContent}
@@ -156,7 +154,7 @@
     class="flex flex-col
            {useZeigarnikEffect
       ? 'absolute bottom-0 left-0 right-0 translate-y-28 md:translate-y-20'
-      : 'mt-16 md:mt-20 lg:mt-24'}"
+      : 'mt-32 md:mt-36 lg:mt-40'}"
   >
     <!-- Company logos -->
     <div
@@ -221,7 +219,11 @@
 </div>
 
 <!-- Adjust content below based on layout mode -->
-<div class={useZeigarnikEffect ? "-mt-20 md:-mt-28 lg:-mt-36" : ""}>
+<div
+  class="pt-8 md:pt-10 lg:pt-12 {useZeigarnikEffect
+    ? '-mt-20 md:-mt-28 lg:-mt-36'
+    : ''}"
+>
   <div
     id="projects"
     bind:this={projectElement}
