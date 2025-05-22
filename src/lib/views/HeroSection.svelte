@@ -10,9 +10,9 @@
   import scrollToElement from "scroll-to-element";
 
   // Assets
-  import atfPhoneSrc from "$lib/images/atf-phone.png";
-  import atfPhoneAvif from "$lib/images/atf-phone.avif";
-  import atfPhoneWebp from "$lib/images/atf-phone.webp";
+  import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
+  // import headshotAvif from "$lib/images/kevin-headshot.avif";
+  // import headshotWebp from "$lib/images/kevin-headshot.webp";
   import Image from "$lib/components/Image.svelte";
 
   // Colors
@@ -50,7 +50,8 @@
     scrollToElement(projectElement, {
       duration: breakpoint == BreakpointSizes.sm ? 570 : 630,
       ease: "outQuint",
-    });
+      offset: breakpoint == BreakpointSizes.sm ? -64 : -80,
+    } as any);
 
   // Lifecycle
   onMount(() => {
@@ -67,7 +68,7 @@
 <div
   class="hero-section flex flex-col justify-between
     pt-8 pb-8 md:pt-12 md:pb-12
-    min-h-[36em] h-[calc(100vh-4rem)] max-h-[40em] md:max-h-[42em] lg:max-h-[44em]"
+    min-h-[36em] h-[calc(100vh-4rem)] supports-[height:100svh]:h-[calc(100svh-4rem)] max-h-[40em] md:max-h-[42em] lg:max-h-[44em]"
   style=""
 >
   <div
@@ -75,29 +76,22 @@
     class="flex flex-row items-center
          pt-6 pb-14 md:pt-0 md:pb-0"
   >
-    <Image
-      imgOptions={{
-        src: atfPhoneSrc,
-        avifSrc: atfPhoneAvif,
-        webpSrc: atfPhoneWebp,
-        alt: "A tilted iPhone showing Kevin's latest mobile app design",
-        loading: "eager",
-      }}
-      class="hidden md:flex 
-          object-contain
-          w-auto
-          max-w-[15rem] lg:max-w-[16rem] xl:max-w-[16.5rem]
-          min-h-[35rem]
-          md:pr-10 xl:pr-12
-          mr-2 lg:mr-4 xl:mr-8
-          mb-7 lg:mb-9 xl:mb-7"
-    />
     <div>
       <div>
+        <Image
+          imgOptions={{
+            src: headshotSrc,
+            // avifSrc: headshotAvif,
+            // webpSrc: headshotWebp,
+            alt: "Kevin Gugelmann's headshot",
+            loading: "eager",
+          }}
+          class="w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 rounded-full object-cover mt-4 mb-8 sm:mt-8 xl:mt-12"
+        />
         <h1
           id="title"
           class="text-glacial-blue
-                mb-8 xl:mb-12"
+                mb-8 xl:mb-9"
         >
           UX Designer Building Shippable, Psychology-Backed Products.
         </h1>
@@ -117,7 +111,7 @@
           <li>
             3rd year Cognitive Science and Economics at the <a
               href="https://www.uchicago.edu">University of Chicago</a
-            >. Winner of the designathon and hackathon.
+            > (designathon and hackathon winner).
           </li>
         </ul>
       </div>
