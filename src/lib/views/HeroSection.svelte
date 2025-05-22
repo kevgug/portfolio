@@ -8,12 +8,17 @@
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
   import scrollToElement from "scroll-to-element";
+  import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
 
   // Assets
   import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
   // import headshotAvif from "$lib/images/kevin-headshot.avif";
   // import headshotWebp from "$lib/images/kevin-headshot.webp";
   import Image from "$lib/components/Image.svelte";
+  import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
+  import freestyleLogo from "$lib/images/logos/freestyle.svg";
+  import gridLinkLogo from "$lib/images/logos/gridlink.svg";
+  import uchicagoLogo from "$lib/images/logos/uchicago.svg";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -67,16 +72,14 @@
 
 <div
   class="hero-section flex flex-col justify-between
-    pt-8 pb-8 md:pt-12 md:pb-12
-    min-h-[36em] h-[calc(100vh-4rem)] supports-[height:100svh]:h-[calc(100svh-4rem)] max-h-[40em] md:max-h-[42em] lg:max-h-[44em]"
-  style=""
+    pt-8 pb-8 md:pt-12 md:pb-12"
 >
   <div
     bind:this={heroContent}
-    class="flex flex-row items-center
-         pt-6 pb-14 md:pt-0 md:pb-0"
+    class="flex flex-col
+         pt-2 pb-14 md:pt-0 md:pb-0"
   >
-    <div>
+    <div class="w-full">
       <div>
         <Image
           imgOptions={{
@@ -93,13 +96,13 @@
           class="text-glacial-blue
                 mb-8 xl:mb-9"
         >
-          UX Designer Building Shippable, Psychology-Backed Products.
+          Designer Building UX That Actually Ships.
         </h1>
         <ul>
           <li>
-            User Experience Designer at <a href="https://jpmorgan.com"
-              >JPMorgan</a
-            > for Summer 2025.
+            Incoming UX Designer at <a href="https://jpmorganchase.com"
+              >JPMorganChase</a
+            >.
           </li>
           <li>
             Previously, Software Engineer at <a href="https://www.freestyle.sh"
@@ -109,25 +112,58 @@
             (Techstars '23).
           </li>
           <li>
-            3rd year Cognitive Science and Economics at the <a
+            Cognitive Science and Economics at the <a
               href="https://www.uchicago.edu">University of Chicago</a
             > (designathon and hackathon winner).
           </li>
         </ul>
       </div>
+
+      <!-- Company logos -->
       <div
-        class="mt-[4.5rem] lg:mt-[5.5rem]
-              hidden md:flex"
+        class="flex items-center justify-center gap-8 md:gap-12 mt-12 lg:mt-16"
       >
-        <PrimaryButton
-          linkButtonContent={{
-            label: "Explore Portfolio",
-            destination: scrollToProjects,
-            mediaType: "none",
-            eventName: "hero_scrollto_projects",
-          }}
-          iconName="arrow-down"
-        />
+        <a
+          href="https://jpmorganchase.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-6"
+        >
+          <img
+            src={jpmcLogo}
+            alt="JPMorgan Chase"
+            class="h-full w-auto object-contain brightness-0 invert opacity-60"
+          />
+        </a>
+        <a
+          href="https://www.freestyle.sh"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-6"
+        >
+          <img
+            src={freestyleLogo}
+            alt="Freestyle"
+            class="h-full w-auto object-contain brightness-0 invert opacity-60"
+          />
+        </a>
+        <a
+          href="https://www.uchicago.edu"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-6"
+        >
+          <img
+            src={uchicagoLogo}
+            alt="University of Chicago"
+            class="h-full w-auto object-contain brightness-0 invert opacity-60"
+          />
+        </a>
+      </div>
+
+      <!-- Project marquee -->
+      <div class="mt-12 -mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem]">
+        <ProjectMarquee />
       </div>
     </div>
   </div>
@@ -137,7 +173,7 @@
       <Separator />
     </div>
     <!-- On small devices (i.e. phones) show scroll down arrow -->
-    <div class="md:hidden mb-1">
+    <!-- <div class="md:hidden mb-1">
       <a
         href={"javascript:;"}
         on:click={scrollToProjects}
@@ -145,7 +181,7 @@
       >
         <Icon name="arrow-down" color={whiteColor} />
       </a>
-    </div>
+    </div> -->
   </div>
 </div>
 <div
