@@ -30,11 +30,29 @@
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
+  $: if (screenHeight) checkSpaceForZeigarnik();
 
   let heroContent: HTMLElement;
   let separator: HTMLElement;
   let separatorMarginY = 0;
   let boundedSeparatorMarginY = 0;
+  let heroSection: HTMLElement;
+  let bottomSection: HTMLElement;
+
+  // Determine if we should use Zeigarnik effect based on screen height
+  let useZeigarnikEffect = false;
+  let bottomSectionHeight = 0;
+
+  const checkSpaceForZeigarnik = () => {
+    // Use Zeigarnik effect on all screen sizes unless screen height is > 1000px
+    useZeigarnikEffect = screenHeight <= 1000;
+
+    // Calculate bottom section height for spacing compensation
+    if (bottomSection) {
+      bottomSectionHeight = bottomSection.offsetHeight;
+    }
+  };
+
   $: {
     if (breakpoint == BreakpointSizes.sm) {
       boundedSeparatorMarginY = Math.min(56, Math.max(16, separatorMarginY));
@@ -48,6 +66,8 @@
     separatorMarginY =
       (separator?.getBoundingClientRect().top ?? 0) -
       (heroContent?.getBoundingClientRect().bottom ?? 0);
+
+    checkSpaceForZeigarnik();
   };
 
   // Scrolling
@@ -63,20 +83,25 @@
   onMount(() => {
     // Calculations
     calculateSeparatorDistance();
+    checkSpaceForZeigarnik();
   });
 </script>
 
 <svelte:window
   bind:innerWidth={screenWidth}
   bind:innerHeight={screenHeight}
-  on:resize={(_) => calculateSeparatorDistance()}
+  on:resize={(_) => {
+    calculateSeparatorDistance();
+    checkSpaceForZeigarnik();
+  }}
 />
 
 <div
-  class="hero-section flex flex-col justify-between
+  bind:this={heroSection}
+  class="hero-section flex flex-col
     min-h-[100svh] md:min-h-screen
-    max-h-[120vh] md:max-h-[100vh]
-    pt-8 pb-8 md:pt-12 md:pb-12"
+    pt-8 pb-8 md:pt-12 md:pb-12
+    {useZeigarnikEffect ? 'relative' : ''}"
 >
   <div
     bind:this={heroContent}
@@ -126,10 +151,16 @@
   </div>
 
   <!-- Bottom section with logos and marquee -->
-  <div class="flex flex-col pb-4 md:pb-6">
-    <!-- Company logos - shifted up 0.25rem from bottom -->
+  <div
+    bind:this={bottomSection}
+    class="flex flex-col
+           {useZeigarnikEffect
+      ? 'absolute bottom-0 left-0 right-0 translate-y-28 md:translate-y-20'
+      : 'mt-16 md:mt-20 lg:mt-24'}"
+  >
+    <!-- Company logos -->
     <div
-      class="w-full flex items-center justify-center gap-8 md:gap-12 mb-8 md:mb-12 -translate-y-1"
+      class="w-full flex items-center justify-center gap-8 md:gap-12 mb-8 md:mb-12"
     >
       <a
         href="https://jpmorganchase.com"
@@ -169,26 +200,34 @@
       </a>
     </div>
 
-    <!-- Project marquee - shifted up 0.25rem from bottom -->
-    <div class="-mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem] -translate-y-1">
+    <!-- Project marquee -->
+    <div class="-mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem]">
       <ProjectMarquee />
     </div>
   </div>
 
-  <div bind:this={separator} class="flex justify-center">
-    <!-- Show separator only on MD+ screens -->
+  <div
+    bind:this={separator}
+    class="flex justify-center 
+                                    {useZeigarnikEffect
+      ? 'hidden'
+      : 'mt-8 md:mt-12'}"
+  >
+    <!-- Show separator only on MD+ screens when not using Zeigarnik -->
     <div class="hidden md:flex">
       <Separator />
     </div>
   </div>
 </div>
 
-<!-- Shift content below up to account for overlapping marquee -->
-<div class="-mt-1">
+<!-- Adjust content below based on layout mode -->
+<div class={useZeigarnikEffect ? "-mt-20 md:-mt-28 lg:-mt-36" : ""}>
   <div
     id="projects"
     bind:this={projectElement}
-    style="height: {boundedSeparatorMarginY}px"
+    style="height: {useZeigarnikEffect
+      ? bottomSectionHeight
+      : boundedSeparatorMarginY}px"
   />
 </div>
 
