@@ -66,17 +66,14 @@
 
 <div
   class="hero-section flex flex-col justify-between
-        pt-8 pb-8 md:pt-12 md:pb-12
-        md:supports-[height:100cqh]:h-[100cqh] md:supports-[height:100svh]:h-[100svh] md:h-screen
-        supports-[height:100cqh]:min-h-[100cqh] supports-[height:100svh]:min-h-[100svh] min-h-screen
-        md:min-h-[48em] lg:min-h-[50em] xl:min-h-[54em]
-        md:max-h-[52em] lg:max-h-[54em] xl:max-h-[54em]"
+    pt-8 pb-8 md:pt-12 md:pb-12
+    min-h-[36em] h-[calc(100vh-4rem)] max-h-[40em] md:max-h-[42em] lg:max-h-[44em]"
   style=""
 >
   <div
     bind:this={heroContent}
     class="flex flex-row items-center
-         pt-14 pb-14 md:pt-0 md:pb-0"
+         pt-6 pb-14 md:pt-0 md:pb-0"
   >
     <Image
       imgOptions={{
@@ -102,7 +99,7 @@
           class="text-glacial-blue
                 mb-8 xl:mb-12"
         >
-          Blending Imagination and Engineering into Human-Centric Software
+          UX Designer Building Shippable, Psychology-Backed Products.
         </h1>
         <ul>
           <li>
@@ -114,7 +111,7 @@
             Previously, Software Engineer at <a href="https://www.freestyle.sh"
               >Freestyle</a
             >
-            (YC S24) and <a href="https://gridlink.co">Gridlink</a>
+            (YC S24) and <a href="https://gridlink.co">GridLink</a>
             (Techstars '23).
           </li>
           <li>
@@ -164,12 +161,5 @@
 />
 
 <style>
-  .hero-section {
-    min-height: calc(100vh - 4rem);
-  }
-  @media (min-width: 768px) {
-    .hero-section {
-      min-height: calc(100vh - 5rem);
-    }
-  }
+  /* Removed min-height CSS to allow Tailwind classes to control height */
 </style>

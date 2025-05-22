@@ -49,7 +49,7 @@
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle =
-    "Kevin Gugelmann | Blending Imagination and Engineering into Human-Centric Software";
+    "Kevin Gugelmann | UX Designer Building Shippable, Psychology-Backed Products.";
   const pageDescription =
     "Meticulous end-to-end SaaS production with human-centric design that performs";
   const pageUrl = "https://kevingugelmann.com";
@@ -147,7 +147,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     class="flex flex-col
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
-    <ProjectCard
+    <!-- <ProjectCard
       year={2024}
       name="Tutorial: Engineering Infinite Craft with Multiplayer"
       outputMedium="Web Dev Tutorial"
@@ -176,12 +176,12 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         openInNewTab: true,
       }}
       bgColor="#161b1c"
-    />
+    /> -->
     <ProjectCard
       year={2024}
-      name="Freestyle Blog"
+      name="Freestyle (YC S24)"
       outputMedium="Technical Blog"
-      role="Engineer"
+      role="Software Engineer"
       imgOptions={{
         src: freestyleBlogSrc,
         avifSrc: freestyleBlogAvif,
@@ -189,7 +189,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
         alt: "Freestyle blog homepage header image",
       }}
       description="Launched a technical blog for Freestyle, a YC-backed startup unifying TypeScript for full-stack app development. Built using Freestyle."
-      builtWith={["Astro", "React", "TypeScript", "Tailwind", "Freestyle"]}
+      builtWith={["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"]}
       linkButtonContent={{
         label: "Read Blog",
         destination: "https://blog.freestyle.dev",
@@ -201,8 +201,8 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2023}
-      name="GridLink Internship"
-      outputMedium="EV Fleet Management SaaS"
+      name="GridLink (Techstars '23)"
+      outputMedium="EV Fleet SaaS"
       role="Platform Engineer"
       imgOptions={{
         src: gridLinkSrc,
@@ -223,7 +223,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2023}
-      name="30-Day Redesign: Arc for iOS"
+      name="Arc Browser for iOS"
       outputMedium="UX Case Study"
       role="Research, Design, & Writing"
       imgOptions={{
@@ -246,7 +246,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2023}
-      name="Zeesta Labs Internship"
+      name="Zeesta Labs"
       outputMedium="Medical AI Startup"
       role="Frontend Developer & UI/UX Designer"
       imgOptions={{
@@ -262,7 +262,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2023}
-      name="My Online Portfolio"
+      name="Design Portfolio"
       outputMedium="Website"
       role="UI Design & Development"
       imgOptions={{
@@ -323,7 +323,7 @@ px-[2rem] md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2021}
-      name="Trade Finance Distribution Initiative Internship"
+      name="Trade Finance Distribution Initiative"
       outputMedium="Website Redesign"
       role="Digital Marketing Strategist"
       imgOptions={{
