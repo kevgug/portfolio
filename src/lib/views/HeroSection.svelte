@@ -18,6 +18,7 @@
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
+  import ycLogo from "$lib/images/logos/y-combinator.svg";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -158,7 +159,7 @@
   >
     <!-- Company logos -->
     <div
-      class="w-full flex items-center justify-center gap-8 md:gap-12 mb-8 md:mb-12"
+      class="w-full flex items-center justify-center gap-2.5 sm:gap-6 md:gap-8 mb-8 md:mb-12"
     >
       <a
         href="https://jpmorganchase.com"
@@ -169,21 +170,52 @@
         <img
           src={jpmcLogo}
           alt="JPMorgan Chase"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60"
+          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
         />
       </a>
-      <a
-        href="https://www.freestyle.sh"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="h-6"
-      >
-        <img
-          src={freestyleLogo}
-          alt="Freestyle"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60"
-        />
-      </a>
+      <div class="w-px h-4 bg-white/[0.14]" />
+      <div class="flex items-center gap-1 sm:gap-1.5 h-6">
+        <a
+          href="https://www.freestyle.sh"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-full"
+        >
+          <img
+            src={freestyleLogo}
+            alt="Freestyle"
+            class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
+          />
+        </a>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="opacity-40"
+        >
+          <path
+            d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <a
+          href="https://www.ycombinator.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-full"
+        >
+          <img
+            src={ycLogo}
+            alt="Y Combinator"
+            class="h-full w-auto ml-0.5 object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
+          />
+        </a>
+      </div>
+      <div class="w-px h-4 bg-white/[0.14]" />
       <a
         href="https://www.uchicago.edu"
         target="_blank"
@@ -193,7 +225,7 @@
         <img
           src={uchicagoLogo}
           alt="University of Chicago"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60"
+          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
         />
       </a>
     </div>
