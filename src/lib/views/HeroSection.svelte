@@ -182,7 +182,7 @@
         </h1>
         <ul>
           <li>
-            Incoming UX Designer at <a href="https://jpmorganchase.com"
+            Incoming UX Design intern at <a href="https://jpmorganchase.com"
               >JPMorgan Chase</a
             >.
           </li>

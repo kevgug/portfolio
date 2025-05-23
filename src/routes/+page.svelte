@@ -51,7 +51,7 @@
   const pageTitle =
     "Kevin Gugelmann | Designer Building UX That Actually Ships";
   const pageDescription =
-    "I'm a UX Designer at JPMorgan Chase and ex-Software Engineer at Y Combinator and Techstars startups.";
+    "I'm a UX Designer and Engineer focused on building human-centric products with cognitive insights.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 
