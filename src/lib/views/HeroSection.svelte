@@ -9,6 +9,7 @@
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
   import scrollToElement from "scroll-to-element";
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
+  import { gsap } from "gsap";
 
   // Assets
   import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
@@ -38,6 +39,8 @@
   let boundedSeparatorMarginY = 0;
   let heroSection: HTMLElement;
   let bottomSection: HTMLElement;
+  let companyLogosElement: HTMLElement;
+  let marqueeWrapperElement: HTMLElement;
 
   // Determine if we should use Zeigarnik effect based on screen height
   let useZeigarnikEffect = false;
@@ -79,11 +82,59 @@
       offset: breakpoint == BreakpointSizes.sm ? -64 : -80,
     } as any);
 
+  // Animation function
+  const animateElements = () => {
+    const timeline = gsap.timeline();
+
+    // Initial state for both elements - make them invisible with transform effects
+    gsap.set([companyLogosElement, marqueeWrapperElement], {
+      opacity: 0,
+      y: 30, // Start 30px below final position
+      scale: 0.8, // Start smaller than final size
+      filter: "blur(8px)", // Start blurred
+    });
+
+    // Animate company logos first (fade in, move up, scale up, remove blur)
+    timeline.to(companyLogosElement, {
+      opacity: 1,
+      y: 0, // Move to final position
+      scale: 1, // Scale to full size
+      filter: "blur(0px)", // Remove blur
+      duration: 0.5,
+      ease: "power2.out",
+    });
+
+    // Animate marquee wrapper with 150ms stagger delay (same effects)
+    timeline.to(
+      marqueeWrapperElement,
+      {
+        opacity: 1,
+        y: 0, // Move marquee wrapper up to final position
+        scale: 1, // Scale marquee wrapper to full size
+        filter: "blur(0px)", // Remove blur from marquee wrapper
+        duration: 1,
+        ease: "power4.out", // Steeper ease out with very gentle finish
+        transformOrigin: "center center", // Ensure scale animates from center
+        force3D: true, // Enable hardware acceleration
+      },
+      "-=0.35"
+    );
+
+    return timeline;
+  };
+
   // Lifecycle
   onMount(() => {
     // Calculations
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
+
+    // Start animations after 100ms delay from page load
+    setTimeout(() => {
+      if (companyLogosElement && marqueeWrapperElement) {
+        animateElements();
+      }
+    }, 100);
   });
 </script>
 
@@ -162,7 +213,9 @@
   >
     <!-- Company logos -->
     <div
+      bind:this={companyLogosElement}
       class="w-full flex items-center justify-center gap-2.5 sm:gap-6 md:gap-8 mb-8 md:mb-12"
+      style="opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(8px);"
     >
       <a
         href="https://jpmorganchase.com"
@@ -236,8 +289,24 @@
     </div>
 
     <!-- Project marquee -->
-    <div class="-mx-5 md:-mx-[2.5rem] xl:-mx-[5rem]">
-      <ProjectMarquee />
+    <div class="-mx-5 md:-mx-[2.5rem] xl:-mx-[5rem] relative">
+      <!-- Gradient masks -->
+      <div
+        class="absolute top-0 bottom-0 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none
+               left-0 w-24"
+      />
+      <div
+        class="absolute top-0 bottom-0 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none
+               right-0 w-24"
+      />
+
+      <!-- Animated marquee wrapper -->
+      <div
+        bind:this={marqueeWrapperElement}
+        style="opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(8px);"
+      >
+        <ProjectMarquee />
+      </div>
     </div>
   </div>
 

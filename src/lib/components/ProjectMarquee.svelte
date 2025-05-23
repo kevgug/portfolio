@@ -53,6 +53,7 @@
     if (container) {
       // Wait for images to load and then calculate the actual width
       setTimeout(() => {
+        if (!container) return;
         const children = Array.from(container.children) as HTMLElement[];
         const halfCount = children.length / 2; // Since we duplicate the array
 
@@ -84,14 +85,6 @@
 <svelte:window bind:innerWidth={screenWidth} />
 
 <div class="relative w-full h-[250px] lg:h-[300px] overflow-hidden">
-  <!-- Gradient masks -->
-  <div
-    class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"
-  />
-  <div
-    class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"
-  />
-
   <!-- Marquee container -->
   <div
     bind:this={container}

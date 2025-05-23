@@ -40,6 +40,7 @@
   "dependencies": {
     "d3-scale": "^4.0.2",
     "gh-pages": "^5.0.0",
+    "gsap": "^3.13.0",
     "scroll-to-element": "^2.0.3",
     "tinycolor2": "^1.6.0"
   }
