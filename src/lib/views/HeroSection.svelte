@@ -105,7 +105,10 @@
   <div
     bind:this={heroContent}
     class="flex flex-col
-         pt-2 pb-14 md:pt-0 md:pb-0"
+         pt-2 pb-14 md:pt-0 md:pb-0
+         {useZeigarnikEffect
+      ? 'min-h-[36rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      : ''}"
   >
     <div class="w-full">
       <div>

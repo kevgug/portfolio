@@ -83,7 +83,7 @@
 
 <svelte:window bind:innerWidth={screenWidth} />
 
-<div class="relative w-full h-[250px] overflow-hidden">
+<div class="relative w-full h-[250px] lg:h-[300px] overflow-hidden">
   <!-- Gradient masks -->
   <div
     class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"
@@ -98,10 +98,10 @@
     class="absolute top-0 left-0 h-full flex items-center {gapClass} animate-marquee"
   >
     {#each [...projects, ...projects] as project}
-      <div class="h-[250px] flex-shrink-0">
+      <div class="h-[250px] lg:h-[300px] flex-shrink-0">
         <Image
           imgOptions={project}
-          class="h-[250px] w-auto object-cover rounded-md lg:rounded-xl"
+          class="h-[250px] lg:h-[300px] w-auto object-cover rounded-md lg:rounded-xl"
         />
       </div>
     {/each}
