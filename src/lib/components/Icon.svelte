@@ -19,7 +19,7 @@
       "arrow-down",
       {
         box: 24,
-        svg: `<defs></defs><title>arrow-down</title><line x1="12" y1="0.75" x2="12" y2="23.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="1.5 12.75 12 23.25 22.5 12.75" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
+        svg: `<defs></defs><line x1="12" y1="0.75" x2="12" y2="23.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="1.5 12.75 12 23.25 22.5 12.75" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
       },
     ],
     [
@@ -33,14 +33,14 @@
       "arrow-corner-right",
       {
         box: 24,
-        svg: `<defs></defs><title>arrow-corner-right</title><line x1="4" y1="3.75" x2="19.91" y2="19.66" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="4.91 19.66 19.91 19.66 19.91 4.66" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
+        svg: `<defs></defs><line x1="4" y1="3.75" x2="19.91" y2="19.66" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="4.91 19.66 19.91 19.66 19.91 4.66" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
       },
     ],
     [
       "house-entrance",
       {
         box: 24,
-        svg: `<defs></defs><title>house-entrance</title><path d="M22.868,8.947,12,.747,1.122,8.947a1.177,1.177,0,0,0-.377.8V22.269a.981.981,0,0,0,.978.978H8.245V18a3.75,3.75,0,0,1,7.5,0v5.25h6.521a.982.982,0,0,0,.979-.978V9.747A1.181,1.181,0,0,0,22.868,8.947Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></path>`,
+        svg: `<defs></defs><path d="M22.868,8.947,12,.747,1.122,8.947a1.177,1.177,0,0,0-.377.8V22.269a.981.981,0,0,0,.978.978H8.245V18a3.75,3.75,0,0,1,7.5,0v5.25h6.521a.982.982,0,0,0,.979-.978V9.747A1.181,1.181,0,0,0,22.868,8.947Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></path>`,
       },
     ],
     [
