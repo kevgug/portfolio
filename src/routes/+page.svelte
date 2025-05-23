@@ -10,12 +10,9 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   // Assets
-  import multiCraftSrc from "$lib/images/projects/multiplayer-infinite-craft.jpg";
-  import multiCraftAvif from "$lib/images/projects/multiplayer-infinite-craft.avif";
-  import multiCraftWebp from "$lib/images/projects/multiplayer-infinite-craft.webp";
-  import freestyleBlogSrc from "$lib/images/projects/freestyle-blog.jpg";
-  import freestyleBlogAvif from "$lib/images/projects/freestyle-blog.avif";
-  import freestyleBlogWebp from "$lib/images/projects/freestyle-blog.webp";
+  import freestyleLogoSrc from "$lib/images/projects/freestyle-logo.jpg";
+  import freestyleLogoAvif from "$lib/images/projects/freestyle-logo.avif";
+  import freestyleLogoWebp from "$lib/images/projects/freestyle-logo.webp";
   import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
   import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
   import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
@@ -203,21 +200,28 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
     <ProjectCard
       year={2024}
       name="Freestyle (YC S24)"
-      outputMedium="Technical Blog"
+      outputMedium=""
       role="Software Engineer"
       imgOptions={{
-        src: freestyleBlogSrc,
-        avifSrc: freestyleBlogAvif,
-        webpSrc: freestyleBlogWebp,
-        alt: "Freestyle blog homepage header image",
+        src: freestyleLogoSrc,
+        avifSrc: freestyleLogoAvif,
+        webpSrc: freestyleLogoWebp,
+        alt: "Freestyle logo",
       }}
-      description="Launched a technical blog for Freestyle, a YC-backed startup unifying TypeScript for full-stack app development. Built using Freestyle."
-      builtWith={["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"]}
+      description="Designed and developed company website and blog, driving 2k+ monthly visitors. Engineered JavaScript runtime functionality in Rust/V8, helping secure multi-million funding."
+      builtWith={[
+        "Figma",
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "TailwindCSS",
+        "Rust",
+      ]}
       linkButtonContent={{
-        label: "Read Blog",
-        destination: "https://blog.freestyle.dev",
+        label: "View Website",
+        destination: "https://www.freestyle.sh",
         mediaType: "webpage",
-        eventName: "projects_ext_freestyleblog_home",
+        eventName: "projects_ext_freestyle_landingpage",
         openInNewTab: true,
       }}
       bgColor="#1e1e1e"

@@ -4,30 +4,75 @@
   import type { ImageOptions } from "$lib/util/image";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
 
-  // Import project images
-  import multiCraftSrc from "$lib/images/projects/multiplayer-infinite-craft.jpg";
-  import freestyleBlogSrc from "$lib/images/projects/freestyle-blog.jpg";
+  // Import project images - avif versions
+  import gridLinkAvifSrc from "$lib/images/projects/gridlink-landingpage.avif";
+  import arcForIosMediumAvifSrc from "$lib/images/projects/arcforios-medium.avif";
+  import zeestaLabsLockupAvifSrc from "$lib/images/projects/zeesta-labs-lockup.avif";
+  import sportVideoAnalysisAvifSrc from "$lib/images/projects/sport-video-analysis.avif";
+  import pizzaScreensAvifSrc from "$lib/images/projects/pizza-screens.avif";
+  import taskTimerAvifSrc from "$lib/images/projects/task-timer-app.avif";
+  import prismaticNewsAvifSrc from "$lib/images/projects/prismatic-news.avif";
+
+  // Import project images - webp versions
+  import gridLinkWebpSrc from "$lib/images/projects/gridlink-landingpage.webp";
+  import arcForIosMediumWebpSrc from "$lib/images/projects/arcforios-medium.webp";
+  import zeestaLabsLockupWebpSrc from "$lib/images/projects/zeesta-labs-lockup.webp";
+  import sportVideoAnalysisWebpSrc from "$lib/images/projects/sport-video-analysis.webp";
+  import pizzaScreensWebpSrc from "$lib/images/projects/pizza-screens.webp";
+  import taskTimerWebpSrc from "$lib/images/projects/task-timer-app.webp";
+  import prismaticNewsWebpSrc from "$lib/images/projects/prismatic-news.webp";
+
+  // Import project images - original versions
   import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
   import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
   import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.jpg";
   import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
+  import pizzaScreensSrc from "$lib/images/projects/pizza-screens.jpg";
+  import taskTimerSrc from "$lib/images/projects/task-timer-app.png";
+  import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
 
   const projects: ImageOptions[] = [
     {
       src: gridLinkSrc,
+      webpSrc: gridLinkWebpSrc,
+      avifSrc: gridLinkAvifSrc,
       alt: "GridLink project preview",
     },
     {
       src: arcForIosMediumSrc,
+      webpSrc: arcForIosMediumWebpSrc,
+      avifSrc: arcForIosMediumAvifSrc,
       alt: "Arc for iOS project preview",
     },
     {
       src: zeestaLabsLockupSrc,
+      webpSrc: zeestaLabsLockupWebpSrc,
+      avifSrc: zeestaLabsLockupAvifSrc,
       alt: "Zeesta Labs project preview",
     },
     {
       src: sportVideoAnalysisSrc,
+      webpSrc: sportVideoAnalysisWebpSrc,
+      avifSrc: sportVideoAnalysisAvifSrc,
       alt: "Sport Video Analysis project preview",
+    },
+    {
+      src: pizzaScreensSrc,
+      webpSrc: pizzaScreensWebpSrc,
+      avifSrc: pizzaScreensAvifSrc,
+      alt: "Pizza Screens project preview",
+    },
+    {
+      src: taskTimerSrc,
+      webpSrc: taskTimerWebpSrc,
+      avifSrc: taskTimerAvifSrc,
+      alt: "Task Timer project preview",
+    },
+    {
+      src: prismaticNewsSrc,
+      webpSrc: prismaticNewsWebpSrc,
+      avifSrc: prismaticNewsAvifSrc,
+      alt: "Prismatic News project preview",
     },
   ];
 
