@@ -67,7 +67,7 @@
 
         // Update the CSS custom property for the animation
         container.style.setProperty("--marquee-distance", `-${totalWidth}px`);
-        container.style.animationPlayState = "running";
+        // Don't override the animation play state - let the hover state control it
       }, 100);
     }
   };
@@ -91,10 +91,10 @@
 >
   <!-- Gradient masks -->
   <div
-    class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10"
+    class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"
   />
   <div
-    class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10"
+    class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"
   />
 
   <!-- Marquee container -->
