@@ -16,7 +16,7 @@
   class="w-full sticky top-0 z-50 backdrop-blur-md bg-background/70 border-b border-white/10"
 >
   <div
-    class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-[2rem] md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
+    class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
   >
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
       <p class="text-muted-text-grey">Kevin Gugelmann</p>

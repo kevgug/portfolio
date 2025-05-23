@@ -231,7 +231,7 @@
     </div>
 
     <!-- Project marquee -->
-    <div class="-mx-[2rem] md:-mx-[2.5rem] xl:-mx-[5rem]">
+    <div class="-mx-5 md:-mx-[2.5rem] xl:-mx-[5rem]">
       <ProjectMarquee />
     </div>
   </div>
