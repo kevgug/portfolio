@@ -82,7 +82,7 @@
             ease: "power3.out",
             scrollTrigger: {
               trigger: projectsSectionElement,
-              start: "top bottom-=100",
+              start: "top bottom-=40",
             },
           }
         );
