@@ -24,19 +24,10 @@
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton
         linkButtonContent={{
-          label: "Email",
+          label: "Let's Talk UX",
           destination: "mailto:contact@kevingugelmann.com",
           mediaType: "none",
           eventName: "hero_ext_email_primary",
-          openInNewTab: true,
-        }}
-      />
-      <LinkButton
-        linkButtonContent={{
-          label: "LinkedIn",
-          destination: "https://www.linkedin.com/in/kevingugelmann/",
-          mediaType: "none",
-          eventName: "hero_ext_linkedin",
           openInNewTab: true,
         }}
       />

@@ -29,8 +29,8 @@
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
-      Designed in Sketch. Developed with SvelteKit & TailwindCSS.<br />
-      Copyright © 2024 Kevin Gugelmann. All rights reserved.
+      Designed in Sketch. Developed with Svelte.<br />
+      Copyright © 2025 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
 </div>

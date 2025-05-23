@@ -174,7 +174,9 @@
         />
       </a>
       <div class="w-px h-4 bg-white/[0.14]" />
-      <div class="flex items-center gap-1 sm:gap-1.5 h-6">
+      <div
+        class="flex items-center gap-1 sm:gap-1.5 pl-[0.05rem] pr-[0.15rem] h-6"
+      >
         <a
           href="https://www.freestyle.sh"
           target="_blank"
@@ -220,7 +222,7 @@
         href="https://www.uchicago.edu"
         target="_blank"
         rel="noopener noreferrer"
-        class="h-6"
+        class="h-6 ml-[0.1rem]"
       >
         <img
           src={uchicagoLogo}
