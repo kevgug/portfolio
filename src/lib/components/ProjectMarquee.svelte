@@ -32,7 +32,6 @@
   ];
 
   let container: HTMLElement;
-  let isHovered = false;
   let screenWidth = 0;
 
   // Responsive gap calculation
@@ -84,11 +83,7 @@
 
 <svelte:window bind:innerWidth={screenWidth} />
 
-<div
-  class="relative w-full h-[250px] overflow-hidden"
-  on:mouseenter={() => (isHovered = true)}
-  on:mouseleave={() => (isHovered = false)}
->
+<div class="relative w-full h-[250px] overflow-hidden">
   <!-- Gradient masks -->
   <div
     class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"
@@ -101,7 +96,6 @@
   <div
     bind:this={container}
     class="absolute top-0 left-0 h-full flex items-center {gapClass} animate-marquee"
-    style="animation-play-state: {isHovered ? 'paused' : 'running'}"
   >
     {#each [...projects, ...projects] as project}
       <div class="h-[250px] flex-shrink-0">

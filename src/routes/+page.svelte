@@ -49,9 +49,9 @@
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle =
-    "Kevin Gugelmann | UX Designer Building Shippable, Psychology-Backed Products.";
+    "Kevin Gugelmann | Designer Building UX That Actually Ships";
   const pageDescription =
-    "Meticulous end-to-end SaaS production with human-centric design that performs";
+    "I'm a UX Designer at JPMorgan Chase and ex-Software Engineer at Y Combinator and Techstars startups.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 </script>

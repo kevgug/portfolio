@@ -129,7 +129,7 @@
         <ul>
           <li>
             Incoming UX Designer at <a href="https://jpmorganchase.com"
-              >JPMorganChase</a
+              >JPMorgan Chase</a
             >.
           </li>
           <li>
