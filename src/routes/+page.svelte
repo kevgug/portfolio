@@ -200,7 +200,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
     <ProjectCard
       year={2024}
       name="Freestyle (YC S24)"
-      outputMedium=""
+      outputMedium="AI Infrastructure"
       role="Software Engineer"
       imgOptions={{
         src: freestyleLogoSrc,
@@ -209,14 +209,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         alt: "Freestyle logo",
       }}
       description="Designed and developed company website and blog, driving 2k+ monthly visitors. Engineered JavaScript runtime functionality in Rust/V8, helping secure multi-million funding."
-      builtWith={[
-        "Figma",
-        "React",
-        "JavaScript",
-        "TypeScript",
-        "TailwindCSS",
-        "Rust",
-      ]}
+      builtWith={["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"]}
       linkButtonContent={{
         label: "View Website",
         destination: "https://www.freestyle.sh",
