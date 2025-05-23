@@ -43,7 +43,7 @@
   let marqueeWrapperElement: HTMLElement;
 
   // Determine if we should use Zeigarnik effect based on screen height
-  let useZeigarnikEffect = false;
+  export let useZeigarnikEffect = false;
   let bottomSectionHeight = 0;
 
   const checkSpaceForZeigarnik = () => {

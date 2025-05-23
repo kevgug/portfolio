@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
   import Separator from "$lib/components/Separator.svelte";
   import CtaSection from "$lib/views/CtaSection.svelte";
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
   import NavBar from "$lib/components/NavBar.svelte";
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   // Assets
   import multiCraftSrc from "$lib/images/projects/multiplayer-infinite-craft.jpg";
@@ -54,6 +57,55 @@
     "I'm a UX Designer at JPMorgan Chase and ex-Software Engineer at Y Combinator and Techstars startups.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
+
+  let projectsSectionElement: HTMLDivElement;
+  let heroUsesZeigarnik: boolean;
+
+  onMount(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (projectsSectionElement) {
+      if (heroUsesZeigarnik) {
+        // With Zeigarnik: Animate on scroll with shorter delay
+        gsap.fromTo(
+          projectsSectionElement,
+          {
+            opacity: 0,
+            filter: "blur(5px)",
+          },
+          {
+            opacity: 1,
+            filter: "blur(0px)",
+            y: 0,
+            duration: 0.8,
+            delay: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: projectsSectionElement,
+              start: "top bottom-=100",
+            },
+          }
+        );
+      } else {
+        // Without Zeigarnik: Keep current non-scroll animation
+        gsap.fromTo(
+          projectsSectionElement,
+          {
+            opacity: 0,
+            filter: "blur(5px)",
+          },
+          {
+            opacity: 1,
+            filter: "blur(0px)",
+            y: 0,
+            duration: 0.8,
+            delay: 0.68,
+            ease: "power3.out",
+          }
+        );
+      }
+    }
+  });
 </script>
 
 <svelte:head>
@@ -142,9 +194,10 @@
 w-screen max-w-screen-2xl
 px-5 md:px-[2.5rem] xl:px-[5rem]"
 >
-  <HeroSection />
+  <HeroSection bind:useZeigarnikEffect={heroUsesZeigarnik} />
   <div
-    class="flex flex-col
+    bind:this={projectsSectionElement}
+    class="projects-section-on-load flex flex-col
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
     <ProjectCard
@@ -488,5 +541,11 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
 
   :global(a) {
     @apply text-glacial-blue;
+  }
+
+  .projects-section-on-load {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(20px);
   }
 </style>
