@@ -4,80 +4,69 @@
   import type { ImageOptions } from "$lib/util/image";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
 
-  // Import project images - avif versions
-  import gridLinkAvifSrc from "$lib/images/projects/gridlink-landingpage.avif";
-  import arcForIosMediumAvifSrc from "$lib/images/projects/arcforios-medium.avif";
-  import zeestaLabsLockupAvifSrc from "$lib/images/projects/zeesta-labs-lockup.avif";
-  import sportVideoAnalysisAvifSrc from "$lib/images/projects/sport-video-analysis.avif";
-  import pizzaScreensAvifSrc from "$lib/images/projects/pizza-screens.avif";
-  import taskTimerAvifSrc from "$lib/images/projects/task-timer-app.avif";
-  import prismaticNewsAvifSrc from "$lib/images/projects/prismatic-news.avif";
-
-  // Import project images - webp versions
-  import gridLinkWebpSrc from "$lib/images/projects/gridlink-landingpage.webp";
-  import arcForIosMediumWebpSrc from "$lib/images/projects/arcforios-medium.webp";
-  import zeestaLabsLockupWebpSrc from "$lib/images/projects/zeesta-labs-lockup.webp";
-  import sportVideoAnalysisWebpSrc from "$lib/images/projects/sport-video-analysis.webp";
-  import pizzaScreensWebpSrc from "$lib/images/projects/pizza-screens.webp";
-  import taskTimerWebpSrc from "$lib/images/projects/task-timer-app.webp";
-  import prismaticNewsWebpSrc from "$lib/images/projects/prismatic-news.webp";
-
-  // Import project images - original versions
-  import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
-  import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
-  import zeestaLabsLockupSrc from "$lib/images/projects/zeesta-labs-lockup.jpg";
-  import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
+  // Import all formats for progressive loading (AVIF -> WebP -> Original)
+  // Pizza Screens
   import pizzaScreensSrc from "$lib/images/projects/pizza-screens.jpg";
-  import taskTimerSrc from "$lib/images/projects/task-timer-app.png";
-  import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
+  import pizzaScreensAvif from "$lib/images/projects/pizza-screens.avif";
+  import pizzaScreensWebp from "$lib/images/projects/pizza-screens.webp";
 
+  // Sport Video Analysis
+  import sportVideoAnalysisSrc from "$lib/images/projects/sport-video-analysis.jpg";
+  import sportVideoAnalysisAvif from "$lib/images/projects/sport-video-analysis.avif";
+  import sportVideoAnalysisWebp from "$lib/images/projects/sport-video-analysis.webp";
+
+  // Arc for iOS
+  import arcForIosMediumSrc from "$lib/images/projects/arcforios-medium.jpg";
+  import arcForIosMediumAvif from "$lib/images/projects/arcforios-medium.avif";
+  import arcForIosMediumWebp from "$lib/images/projects/arcforios-medium.webp";
+
+  // Task Timer
+  import taskTimerSrc from "$lib/images/projects/task-timer-app.png";
+  import taskTimerAvif from "$lib/images/projects/task-timer-app.avif";
+  import taskTimerWebp from "$lib/images/projects/task-timer-app.webp";
+
+  // GridLink
+  import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
+  import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
+  import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
+
+  // Optimized project set with progressive loading support
   const projects: ImageOptions[] = [
     {
-      src: gridLinkSrc,
-      webpSrc: gridLinkWebpSrc,
-      avifSrc: gridLinkAvifSrc,
-      alt: "GridLink project preview",
-    },
-    {
-      src: arcForIosMediumSrc,
-      webpSrc: arcForIosMediumWebpSrc,
-      avifSrc: arcForIosMediumAvifSrc,
-      alt: "Arc for iOS project preview",
-    },
-    {
-      src: zeestaLabsLockupSrc,
-      webpSrc: zeestaLabsLockupWebpSrc,
-      avifSrc: zeestaLabsLockupAvifSrc,
-      alt: "Zeesta Labs project preview",
-    },
-    {
       src: sportVideoAnalysisSrc,
-      webpSrc: sportVideoAnalysisWebpSrc,
-      avifSrc: sportVideoAnalysisAvifSrc,
+      avifSrc: sportVideoAnalysisAvif,
+      webpSrc: sportVideoAnalysisWebp,
       alt: "Sport Video Analysis project preview",
     },
     {
+      src: arcForIosMediumSrc,
+      avifSrc: arcForIosMediumAvif,
+      webpSrc: arcForIosMediumWebp,
+      alt: "Arc for iOS project preview",
+    },
+    {
       src: pizzaScreensSrc,
-      webpSrc: pizzaScreensWebpSrc,
-      avifSrc: pizzaScreensAvifSrc,
+      avifSrc: pizzaScreensAvif,
+      webpSrc: pizzaScreensWebp,
       alt: "Pizza Screens project preview",
     },
     {
-      src: taskTimerSrc,
-      webpSrc: taskTimerWebpSrc,
-      avifSrc: taskTimerAvifSrc,
-      alt: "Task Timer project preview",
+      src: gridLinkSrc,
+      avifSrc: gridLinkAvif,
+      webpSrc: gridLinkWebp,
+      alt: "GridLink project preview",
     },
     {
-      src: prismaticNewsSrc,
-      webpSrc: prismaticNewsWebpSrc,
-      avifSrc: prismaticNewsAvifSrc,
-      alt: "Prismatic News project preview",
+      src: taskTimerSrc,
+      avifSrc: taskTimerAvif,
+      webpSrc: taskTimerWebp,
+      alt: "Task Timer project preview",
     },
   ];
 
   let container: HTMLElement;
   let screenWidth = 0;
+  let resizeTimeout: ReturnType<typeof setTimeout>;
 
   // Responsive gap calculation
   $: breakpoint = getCurrentBreakpoint(screenWidth);
@@ -86,7 +75,7 @@
       ? 16
       : breakpoint === BreakpointSizes.md
       ? 20
-      : 24; // gap-4, gap-5, gap-6
+      : 24;
   $: gapClass =
     breakpoint === BreakpointSizes.sm
       ? "gap-4"
@@ -95,35 +84,38 @@
       : "gap-6";
 
   const calculateMarqueeDistance = () => {
-    if (container) {
-      // Wait for images to load and then calculate the actual width
-      setTimeout(() => {
-        if (!container) return;
-        const children = Array.from(container.children) as HTMLElement[];
-        const halfCount = children.length / 2; // Since we duplicate the array
+    if (!container) return;
 
-        let totalWidth = 0;
-        for (let i = 0; i < halfCount; i++) {
-          totalWidth += children[i].offsetWidth;
-          if (i < halfCount - 1) {
-            totalWidth += gapSize; // responsive gap
-          }
-        }
+    const children = Array.from(container.children) as HTMLElement[];
+    const halfCount = children.length / 2;
 
-        // Update the CSS custom property for the animation
-        container.style.setProperty("--marquee-distance", `-${totalWidth}px`);
-        // Don't override the animation play state - let the hover state control it
-      }, 100);
+    let totalWidth = 0;
+    for (let i = 0; i < halfCount; i++) {
+      totalWidth += children[i].offsetWidth;
+      if (i < halfCount - 1) {
+        totalWidth += gapSize;
+      }
     }
+
+    container.style.setProperty("--marquee-distance", `-${totalWidth}px`);
   };
 
-  // Recalculate when gap size changes
+  // Debounced recalculation for performance
+  const debouncedCalculate = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(calculateMarqueeDistance, 100);
+  };
+
+  // Recalculate when gap size changes (debounced)
   $: if (gapSize && container) {
-    calculateMarqueeDistance();
+    debouncedCalculate();
   }
 
   onMount(() => {
-    calculateMarqueeDistance();
+    // Use requestAnimationFrame for better performance
+    requestAnimationFrame(() => {
+      setTimeout(calculateMarqueeDistance, 50);
+    });
   });
 </script>
 
@@ -157,6 +149,6 @@
   }
 
   .animate-marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 30s linear infinite;
   }
 </style>
