@@ -19,8 +19,7 @@
     class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-[2rem] md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
   >
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
-      <p class="text-muted-text-grey inline md:hidden">Kevin Gugelmann</p>
-      <p class="text-muted-text-grey hidden md:inline">Kevin Gugelmann</p>
+      <p class="text-muted-text-grey">Kevin Gugelmann</p>
     </div>
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton

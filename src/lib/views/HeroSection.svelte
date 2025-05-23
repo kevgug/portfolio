@@ -117,7 +117,7 @@
             alt: "Kevin Gugelmann's headshot",
             loading: "eager",
           }}
-          class="w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 rounded-full object-cover mt-4 mb-8 sm:mt-8 xl:mt-12"
+          class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover border border-white/30 mt-4 mb-8 sm:mt-8 xl:mt-12"
         />
         <h1
           id="title"
