@@ -182,8 +182,8 @@
         </h1>
         <ul>
           <li>
-            Incoming UX Design intern at <a href="https://jpmorganchase.com"
-              >JPMorgan Chase</a
+            Design Summer Analyst at <a href="https://jpmorganchase.com"
+              >JPMorganChase</a
             >.
           </li>
           <li>
@@ -225,7 +225,7 @@
       >
         <img
           src={jpmcLogo}
-          alt="JPMorgan Chase"
+          alt="JPMorganChase logo"
           class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
         />
       </a>
@@ -241,7 +241,7 @@
         >
           <img
             src={freestyleLogo}
-            alt="Freestyle"
+            alt="Freestyle logo"
             class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
           />
         </a>
@@ -268,7 +268,7 @@
         >
           <img
             src={ycLogo}
-            alt="Y Combinator"
+            alt="Y Combinator logo"
             class="h-full w-auto ml-0.5 object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
           />
         </a>
@@ -282,7 +282,7 @@
       >
         <img
           src={uchicagoLogo}
-          alt="University of Chicago"
+          alt="University of Chicago logo"
           class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
         />
       </a>
