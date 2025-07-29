@@ -435,7 +435,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: prismaticNewsWebp,
         alt: "Side-by-side promotional Android mockups for an offline news-reading app",
       }}
-      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 1000+ installs on the Google Play Store."
+      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 5,000+ installs on the Google Play Store."
       builtWith={["Android Studio", "Java", "Firebase"]}
       linkButtonContent={{
         label: "Play Video",

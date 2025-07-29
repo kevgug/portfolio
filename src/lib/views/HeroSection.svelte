@@ -182,21 +182,21 @@
         </h1>
         <ul>
           <li>
-            Design Summer Analyst at <a href="https://jpmorganchase.com"
+            UX Engineer Intern at <a href="https://jpmorganchase.com"
               >JPMorganChase</a
             >.
           </li>
           <li>
-            Previously, Software Engineer at <a href="https://www.freestyle.sh"
+            Previously, Engineer at <a href="https://www.freestyle.sh"
               >Freestyle</a
             >
             (YC S24) and <a href="https://gridlink.co">GridLink</a>
             (Techstars '23).
           </li>
           <li>
-            Cognitive Science and Economics at the <a
+            Designathon and Hackathon Winner at the <a
               href="https://www.uchicago.edu">University of Chicago</a
-            > (designathon and hackathon winner).
+            >.
           </li>
         </ul>
       </div>
