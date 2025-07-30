@@ -48,10 +48,9 @@
 
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
-  const pageTitle =
-    "Kevin Gugelmann | Designer Building UX That Actually Ships";
+  const pageTitle = "Kevin Gugelmann | Thoughtful Design. Radical Speed.";
   const pageDescription =
-    "I'm a UX Designer and Engineer focused on building human-centric products with cognitive insights.";
+    "I'm a UX Engineer who combines a background in Cognitive Science with deep technical expertise to ship impactful products for startups and enterprises.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 
@@ -208,7 +207,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: freestyleLogoWebp,
         alt: "Freestyle logo",
       }}
-      description="Designed and developed company website and blog, driving 2k+ monthly visitors. Engineered JavaScript runtime functionality in Rust/V8, helping secure multi-million funding."
+      description="Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust/V8, helping secure multi-million funding."
       builtWith={["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"]}
       linkButtonContent={{
         label: "View Website",
@@ -230,7 +229,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: gridLinkWebp,
         alt: "A screenshot of the GridLink EV fleet management platform landing page",
       }}
-      description="Redesigned the fleet charging schedule page in Figma and implemented my changes in React. Simplified navigation UX with a platform-wide redesign proposal. "
+      description="Redesigned and implemented the fleet charging schedule page, shipping React components from Figma designs. Simplified navigation UX with a platform-wide redesign proposal."
       builtWith={["React", "TypeScript", "Figma"]}
       linkButtonContent={{
         label: "View Website",
@@ -252,7 +251,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: arcForIosMediumWebp,
         alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
       }}
-      description="Published an article on my 30-day unsolicited redesign of Arc for iOS in Bootcamp of the largest design publication on Medium, the UX Collective."
+      description="Designed and prototyped a complete Arc for iOS redesign in 30 days, publishing the case study in Bootcamp, the largest design publication on Medium."
       builtWith={["Figma", "Medium", "Artboard Studio"]}
       linkButtonContent={{
         label: "Read Story",
@@ -268,14 +267,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       year={2023}
       name="Zeesta Labs"
       outputMedium="Medical AI Startup"
-      role="Frontend Developer & UI/UX Designer"
+      role="UX Engineer"
       imgOptions={{
         src: zeestaLabsLockupSrc,
         avifSrc: zeestaLabsLockupAvif,
         webpSrc: zeestaLabsLockupWebp,
         alt: "Zeesta Labs logo lockup rendered onto an outside wall poster",
       }}
-      description="Built up a unique verbal & visual brand identity from scratch, including the logo, documented in a custom brand book. Helped develop an efficient iOS app in React Native based on my Figma UI designs. Determined unique value proposition."
+      description="Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup."
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
       linkButtonContent={undefined}
       bgColor="#18292d"
@@ -284,14 +283,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       year={2023}
       name="Design Portfolio"
       outputMedium="Website"
-      role="UI Design & Development"
+      role="Design & Engineering"
       imgOptions={{
         src: kevingugelmannPortfolioPreviewSrc,
         avifSrc: kevingugelmannPortfolioPreviewAvif,
         webpSrc: kevingugelmannPortfolioPreviewWebp,
         alt: "Mini preview of Kevin Gugelmann's portfolio website",
       }}
-      description="This website! Designed in Sketch. Developed with SvelteKit & Tailwind CSS. Deployed on GitHub Pages. Fully responsive. Image lazy-loading and 98% Lighthouse Performance."
+      description="This website! Designed in Sketch and engineered with SvelteKit & Tailwind CSS. Deployed on GitHub Pages with image lazy-loading, achieving 98% Lighthouse Performance."
       builtWith={[
         "Sketch",
         "SvelteKit",
@@ -306,14 +305,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       year={2022}
       name="Sport Video Analysis UI Prototype"
       outputMedium="Desktop App"
-      role="UI Design & Prototyping"
+      role="Design & Prototyping"
       imgOptions={{
         src: sportVideoAnalysisSrc,
         avifSrc: sportVideoAnalysisAvif,
         webpSrc: sportVideoAnalysisWebp,
         alt: "Visually highlighting an athlete's technique in a sport video analysis desktop UI",
       }}
-      description="Designed and prototyped ten UI states of a sport video analysis desktop app, which would solve the lack of documented session review I experienced when training for UK rowing national gold in high school. Used mainly dark neutrals to keep the user's focus on each video."
+      description="Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals. Used dark neutrals to focus attention on video content."
       builtWith={["Sketch"]}
       linkButtonContent={{
         label: "Play Prototype",
@@ -327,16 +326,16 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
     />
     <ProjectCard
       year={2022}
-      name="Winner: Most Well-Designed App at UChicago's Annual Designathon"
-      outputMedium="Concept Mobile App"
-      role="Project Lead"
+      name="Best Design Prize at UChicago's Designathon"
+      outputMedium="Concept App"
+      role="Lead Designer"
       imgOptions={{
         src: pizzaSrc,
         avifSrc: pizzaAvif,
         webpSrc: pizzaWebp,
         alt: "Three iPhone mockups of a mobile app prototype for gamified group pizza ordering",
       }}
-      description="Successfully completed a 5-hour Figma designathon as part of an ad-hoc UChicago team. Our prize-winning mobile app prototype gamified pizza ordering with the Secret Santa concept, answering the prompt 'how can we reimagine the pizza ordering and delivery process?'"
+      description="Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process."
       builtWith={["Figma", "FigJam"]}
       linkButtonContent={undefined}
       bgColor="#2b2a24"
@@ -352,7 +351,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: tfdiWebp,
         alt: "Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation",
       }}
-      description="Led the full redesign of their primary website using Figma and Webflow, increasing site traffic by 100% within the first month. Revamped all 1k+ words of the original copy, eliminating financial jargon, leading to a sub-20% bounce rate on 3.7k monthly visits. Determined slogan."
+      description="Designed and built complete website redesign in Figma and Webflow, increasing traffic by 100% in first month. Rewrote all 1k+ words of copy, eliminating jargon and achieving sub-20% bounce rate on 3.7k monthly visits."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
         label: "View Website",
@@ -366,14 +365,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
     <ProjectCard
       year={2020}
       name="Mindxone"
-      outputMedium="SaaS Web App"
-      role="Co-Founder"
+      outputMedium="Web App"
+      role="Co-Founder & UX Engineer"
       imgOptions={{
         src: mindxoneLandingPageSrc,
         webpSrc: mindxoneLandingPageWebp,
         alt: "Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product",
       }}
-      description="Co-developed a web app reimagining how people create and manage their digital content, based on a tag–exclusive organisation ideology. Took the product to its MVP stage. Sunset to focus on my studies."
+      description="Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies."
       builtWith={[
         "Adobe XD",
         "HTML/CSS/JS",
@@ -389,14 +388,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       year={2019}
       name="Task App with Focus Timer"
       outputMedium="Mobile App"
-      role="UI Design & Development"
+      role="UX Engineer"
       imgOptions={{
         src: taskTimerAppSrc,
         avifSrc: taskTimerAppAvif,
         webpSrc: taskTimerAppWebp,
         alt: "Side-by-side iPhone mockups of a task app with a focus timer",
       }}
-      description="Designed, prototyped, and built an iOS task app with a focus timer and priority estimation. Swipe-first navigation and duration selection. Custom subtle and playful micro-interactions. Was too young to publish to the App Store."
+      description="Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions. Was too young to publish to App Store."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
       bgColor="#17233b"
@@ -404,15 +403,15 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
     <ProjectCard
       year={2018}
       name="Panorama Mail"
-      outputMedium="Mobile App"
-      role="Concept Design"
+      outputMedium="Concept App"
+      role="Design & Prototyping"
       imgOptions={{
         src: panoramaMailSrc,
         avifSrc: panoramaMailAvif,
         webpSrc: panoramaMailWebp,
         alt: "Side-by-side iPhone screenshots of a concept design mail app",
       }}
-      description="Prototyped 57 animated artboards of a concept mobile mail app. The titular 'Panorama' screen enables rapid email triaging. Features also include: snooze, quick reply, and undo send. Inspired by Spark Mail."
+      description="Designed and prototyped 57 animated artboards for a concept mobile mail app. Built rapid email triaging with 'Panorama' screen, plus snooze, quick reply, and undo send features."
       builtWith={["Adobe XD", "Auto-Animate"]}
       linkButtonContent={{
         label: "Play Prototype",
@@ -428,14 +427,14 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       year={2018}
       name="Prismatic News"
       outputMedium="Android App"
-      role="Native Development"
+      role="Full-Stack Engineer"
       imgOptions={{
         src: prismaticNewsSrc,
         avifSrc: prismaticNewsAvif,
         webpSrc: prismaticNewsWebp,
         alt: "Side-by-side promotional Android mockups for an offline news-reading app",
       }}
-      description="Developed and published a native Android app that fetches trending news via an API, then scrapes webpages for offline reading. Nine reading theme variants. Line-by-line text-to-speech. AI top sentences highlighting. 5,000+ installs on the Google Play Store."
+      description="Engineered and published a native Android app with API integration and web scraping for offline reading. Built nine theme variants, text-to-speech, and AI sentence highlighting. Reached 5,000+ installs on Google Play Store."
       builtWith={["Android Studio", "Java", "Firebase"]}
       linkButtonContent={{
         label: "Play Video",

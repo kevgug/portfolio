@@ -178,25 +178,25 @@
           class="text-glacial-blue
                 mb-8 xl:mb-9"
         >
-          Designer Building UX That Actually Ships.
+          Thoughtful Design. Radical Speed.
         </h1>
         <ul>
           <li>
-            UX Engineer Intern at <a href="https://jpmorganchase.com"
-              >JPMorganChase</a
-            >.
-          </li>
-          <li>
-            Previously, Engineer at <a href="https://www.freestyle.sh"
-              >Freestyle</a
+            I ship full-stack code for AI startups like <a
+              href="https://www.freestyle.sh">Freestyle (YC S24)</a
             >
-            (YC S24) and <a href="https://gridlink.co">GridLink</a>
-            (Techstars '23).
+            and sped up design tools 500x at
+            <a href="https://jpmorganchase.com">JPMorgan</a>.
           </li>
           <li>
-            Designathon and Hackathon Winner at the <a
-              href="https://www.uchicago.edu">University of Chicago</a
-            >.
+            Winner of hackathon and designathon top prizes at <a
+              href="https://www.uchicago.edu">UChicago</a
+            >, majoring in Economics and Cognitive Science.
+          </li>
+          <li>
+            Relentless drive, from building a 5K+ user news app at 15 to winning <a
+              href="https://hyrox.com/">Hyrox</a
+            > by over a minute.
           </li>
         </ul>
       </div>
@@ -208,7 +208,7 @@
     bind:this={bottomSection}
     class="flex flex-col
            {useZeigarnikEffect
-      ? 'absolute bottom-0 left-0 right-0 translate-y-28 md:translate-y-20'
+      ? 'absolute bottom-0 left-0 right-0 translate-y-32 md:translate-y-20'
       : 'mt-32 md:mt-36 lg:mt-40'}"
   >
     <!-- Company logos -->

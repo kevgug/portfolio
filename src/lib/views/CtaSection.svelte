@@ -3,24 +3,21 @@
 </script>
 
 <div>
-  <h1 class="text-glacial-blue">Need UX Design That Actually Ships?</h1>
+  <h1 class="text-glacial-blue">The Designer Who Deploys.</h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      I'm a UX Engineer Intern at <a href="https://jpmorganchase.com"
-        >JPMorganChase</a
-      >
-      who has doubled traffic at AI and fintech startups valued at $30MM+.
+      For companies from <a href="https://jpmorganchase.com">JPMorgan</a>
+      to
+      <a href="https://www.ycombinator.com/companies/freestyle">YC startups</a>,
+      I turn user needs into production-ready code.
     </li>
     <li>
-      To unwind I keep active and creative—from winning <a
-        href="https://hyrox.com/">Hyrox</a
-      > to perfecting my latest bake.
+      My dual expertise in design and engineering has doubled traffic for $30MM+
+      AI & fintech startups.
     </li>
     <li>
-      <a
-        href="mailto:kevin@kevingugelmann.com?body=Hi%20Kevin!%0A%0AI'm%20reaching%20out%20because%20"
-        >Email me</a
-      > to connect. I'll reply to everyone within 48h, unless I'm hiking the Alps.
+      From winning 3 UK school rowing gold medals to building AI-native apps, I
+      bring relentless drive to every endeavour.
     </li>
   </ul>
   <div class="flex flex-row space-x-3.5">
