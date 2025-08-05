@@ -150,7 +150,7 @@
 <div
   bind:this={heroSection}
   class="hero-section flex flex-col
-    pt-8 pb-8 md:pt-12 md:pb-12
+    pt-4 pb-8 md:pt-6 md:pb-20
     {useZeigarnikEffect ? 'relative min-h-[100svh] md:min-h-screen' : ''}"
 >
   <div
@@ -158,7 +158,7 @@
     class="flex flex-col
          pt-2 pb-14 md:pt-0 md:pb-0
          {useZeigarnikEffect
-      ? 'min-h-[36rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      ? 'min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
       : ''}"
   >
     <div class="w-full">
@@ -182,11 +182,10 @@
         </h1>
         <ul>
           <li>
-            I ship full-stack code for AI startups like <a
-              href="https://www.freestyle.sh">Freestyle (YC S24)</a
-            >
-            and sped up design tools 500x at
-            <a href="https://jpmorganchase.com">JPMorgan</a>.
+            I code AI-native products, from 100x faster design tools at Fortune
+            50 companies like <a href="https://jpmorganchase.com">JPMorgan</a>
+            to full-stack apps at YC startups like
+            <a href="https://www.freestyle.sh">Freestyle</a>.
           </li>
           <li>
             Winner of hackathon and designathon top prizes at <a
