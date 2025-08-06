@@ -178,24 +178,28 @@
           class="text-glacial-blue
                 mb-8 xl:mb-9"
         >
-          Thoughtful Design. Radical Speed.
+          <span class="hidden md:inline"
+            >Product Designer. AI-Native Engineer.</span
+          >
+          <span class="inline md:hidden"
+            >Product Designer.<br /> AI-Native Engineer.</span
+          >
         </h1>
         <ul>
           <li>
-            I code AI-native products, from 100x faster design tools at Fortune
-            50 companies like <a href="https://jpmorganchase.com">JPMorgan</a>
-            to full-stack apps at YC startups like
-            <a href="https://www.freestyle.sh">Freestyle</a>.
+            I ship AI-native products, from a designer toolkit for vibe-coding
+            Figma plugins at <a href="https://jpmorganchase.com">JPMorgan</a>
+            to full-stack apps at AI infra startup
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
           </li>
           <li>
-            Winner of hackathon and designathon top prizes at <a
+            Designathon and hackathon winner at <a
               href="https://www.uchicago.edu">UChicago</a
             >, majoring in Economics and Cognitive Science.
           </li>
           <li>
-            Relentless drive, from building a 5K+ user news app at 15 to winning <a
-              href="https://hyrox.com/">Hyrox</a
-            > by over a minute.
+            Relentless drive, from launching a news app with 5K+ users at 15 to
+            winning <a href="https://hyrox.com/">Hyrox</a> by over a minute.
           </li>
         </ul>
       </div>

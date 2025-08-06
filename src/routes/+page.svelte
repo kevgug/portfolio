@@ -48,7 +48,7 @@
 
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
-  const pageTitle = "Kevin Gugelmann | Thoughtful Design. Radical Speed.";
+  const pageTitle = "Kevin Gugelmann | Product Designer. AI-Native Engineer.";
   const pageDescription =
     "I'm a UX Engineer who combines a background in Cognitive Science with deep technical expertise to ship impactful products for startups and enterprises.";
   const pageUrl = "https://kevingugelmann.com";
@@ -351,7 +351,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: tfdiWebp,
         alt: "Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation",
       }}
-      description="Designed and built complete website redesign in Figma and Webflow, increasing traffic by 100% in first month. Rewrote all 1k+ words of copy, eliminating jargon and achieving sub-20% bounce rate on 3.7k monthly visits."
+      description="Designed and built complete website redesign in Figma and Webflow, increasing traffic by 100% in first month. Rewrote all 1k+ words of copy, eliminating jargon and achieving sub-20% bounce rate on 4k monthly visits."
       builtWith={["Figma", "Webflow"]}
       linkButtonContent={{
         label: "View Website",
@@ -395,7 +395,7 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
         webpSrc: taskTimerAppWebp,
         alt: "Side-by-side iPhone mockups of a task app with a focus timer",
       }}
-      description="Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions. Was too young to publish to App Store."
+      description="Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions."
       builtWith={["InVision Studio", "Flutter"]}
       linkButtonContent={undefined}
       bgColor="#17233b"

@@ -3,21 +3,30 @@
 </script>
 
 <div>
-  <h1 class="text-glacial-blue">The Designer Who Deploys.</h1>
+  <h1 class="text-glacial-blue">
+    <span class="hidden md:inline">
+      YC to Fortune 50. AI-Native Software.
+    </span>
+    <span class="inline md:hidden">
+      YC to Fortune 50.<br />AI-Native Software.
+    </span>
+  </h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      For companies from <a href="https://jpmorganchase.com">JPMorgan</a>
-      to
-      <a href="https://www.ycombinator.com/companies/freestyle">YC startups</a>,
-      I turn user needs into production-ready code.
+      From full-stack apps at <a href="https://freestyle.sh"
+        >Freestyle (YC S24)</a
+      >
+      to 500x faster design tools at
+      <a href="https://jpmorganchase.com">JPMorgan</a>, I turn user needs into
+      production-ready code.
     </li>
     <li>
-      My dual expertise in design and engineering has doubled traffic for $30MM+
-      AI & fintech startups.
+      I bring relentless drive to everything, winning 3 UK school rowing gold
+      medals and doubling traffic for two $30MM+ startups.
     </li>
     <li>
-      From winning 3 UK school rowing gold medals to building AI-native apps, I
-      bring relentless drive to every endeavour.
+      I'm currently fascinated by QA automation and voice-first language
+      learning.
     </li>
   </ul>
   <div class="flex flex-row space-x-3.5">
