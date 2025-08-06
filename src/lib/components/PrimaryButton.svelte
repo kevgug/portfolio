@@ -60,10 +60,4 @@
     @apply duration-intro;
     @apply ease-intro;
   }
-
-  @media (max-width: 420px) {
-    .button {
-      height: 48px;
-    }
-  }
 </style>
