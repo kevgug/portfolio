@@ -187,19 +187,19 @@
         </h1>
         <ul>
           <li>
-            I ship AI-native products, from a designer toolkit for vibe-coding
-            Figma plugins at <a href="https://jpmorganchase.com">JPMorgan</a>
-            to full-stack apps at AI infra startup
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
+            Built an AI-native CLI at
+            <a href="https://jpmorganchase.com">JPMorgan</a> turning prompts into
+            500x faster Figma plugins.
+          </li>
+          <li>
+            Shipped full-stack apps at AI infra startup
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> from design
+            to code.
           </li>
           <li>
             Designathon and hackathon winner at <a
               href="https://www.uchicago.edu">UChicago</a
             >, majoring in Economics and Cognitive Science.
-          </li>
-          <li>
-            Relentless drive, from launching a news app with 5K+ users at 15 to
-            winning <a href="https://hyrox.com/">Hyrox</a> by over a minute.
           </li>
         </ul>
       </div>
