@@ -187,17 +187,17 @@
         </h1>
         <ul>
           <li>
-            Built an AI-native CLI at
+            Built a collaborative CLI at
             <a href="https://jpmorganchase.com">JPMorganChase</a>
-            that turns prompts into design tools that save 100s of hours.
+            that turns AI prompts into design tools, saving 1000s of hours.
           </li>
           <li>
-            Shipped full-stack apps at AI infra startup
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> from design
-            to code.
+            Shipped pixel-perfect sites at AI infra startup
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> with full-stack
+            code.
           </li>
           <li>
-            Designathon and hackathon winner at <a
+            Won the designathon and hackathon at <a
               href="https://www.uchicago.edu">UChicago</a
             >, majoring in Economics and Cognitive Science.
           </li>

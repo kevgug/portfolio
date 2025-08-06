@@ -5,36 +5,34 @@
 <div>
   <h1 class="text-glacial-blue">
     <span class="hidden md:inline">
-      YC to Fortune 50. AI-Native Software.
+      YC to Fortune 50. AI-Native Products.
     </span>
     <span class="inline md:hidden">
-      YC to Fortune 50.<br />AI-Native Software.
+      YC to Fortune 50.<br />AI-Native Products.
     </span>
   </h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      From designing websites at <a href="https://freestyle.sh"
-        >Freestyle (YC S24)</a
-      >
-      to coding 500x faster plugins at
-      <a href="https://jpmorganchase.com">JPMorganChase</a>, I turn user needs
-      into enterprise-grade products.
+      Drove a 2x traffic increase for $30MM+ fintech and AI startups by
+      strategically optimizing sitemaps and copy.
     </li>
     <li>
-      I bring relentless drive to everything, winning 3 UK school rowing gold
-      medals and doubling traffic for two $30MM+ startups.
+      Empowering designers to AI-generate Figma plugins at
+      <a href="https://jpmorganchase.com">JPMorganChase</a> by providing a robust
+      scaffold and automating version control.
     </li>
     <li>
-      I'm currently fascinated by QA automation and voice-first language
-      learning.
+      Secured 1st place at <a href="https://hyrox.com">Hyrox</a> U24 and won three
+      national gold medals in UK school rowing, driven by an obsession with marginal
+      gains.
     </li>
   </ul>
   <div class="flex flex-row space-x-3.5">
     <PrimaryButton
       linkButtonContent={{
-        label: "Let's build together",
+        label: "Start a conversation",
         destination:
-          "mailto:kevin@kevingugelmann.com?subject=Let's%20collaborate%20on%20%5BProject%20name%5D&body=Hi%20Kevin%2C%0A%0AI%27m%20reaching%20out%20about%20a%20potential%20collaboration%20in%20UX%20engineering.%20Here%27s%20what%20I%27m%20looking%20for%3A%0A%0A%5BDescribe%20your%20project%20%E2%80%94%20landing%20page%2C%20full%20stack%20help%2C%20startup%20role%2C%20etc.%5D%0A%0AWhy%20I%20think%20you%27d%20be%20a%20great%20fit%3A%0A%0A%5BShare%20your%20thoughts%5D%0A%0ALooking%20forward%20to%20connecting!%0A%0ABest%2C%0A%5BYour%20Name%5D",
+          "mailto:kevin@kevingugelmann.com?subject=Inquiry%20from%20kevingugelmann.com&body=Hi%20Kevin%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20was%20impressed%20by%20your%20work.%20I%27d%20like%20to%20start%20a%20conversation%20about%20a%20potential%20opportunity.%0A%0A%5BBriefly%20describe%20the%20role%20or%20project%20you%20have%20in%20mind%5D%0A%0ALooking%20forward%20to%20connecting.%0A%0ABest%2C%0A%5BYour%20Name%5D",
         mediaType: "none",
         eventName: "ctasection_ext_email_primary",
         openInNewTab: true,
