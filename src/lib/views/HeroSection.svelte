@@ -188,8 +188,8 @@
         <ul>
           <li>
             Built an AI-native CLI at
-            <a href="https://jpmorganchase.com">JPMorgan</a> turning prompts into
-            500x faster Figma plugins.
+            <a href="https://jpmorganchase.com">JPMorganChase</a>
+            that turns prompts into design tools that save 100s of hours.
           </li>
           <li>
             Shipped full-stack apps at AI infra startup

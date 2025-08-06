@@ -13,12 +13,12 @@
   </h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      From full-stack apps at <a href="https://freestyle.sh"
+      From designing websites at <a href="https://freestyle.sh"
         >Freestyle (YC S24)</a
       >
-      to 500x faster design tools at
-      <a href="https://jpmorganchase.com">JPMorgan</a>, I turn user needs into
-      production-ready code.
+      to coding 500x faster plugins at
+      <a href="https://jpmorganchase.com">JPMorganChase</a>, I turn user needs
+      into enterprise-grade products.
     </li>
     <li>
       I bring relentless drive to everything, winning 3 UK school rowing gold
