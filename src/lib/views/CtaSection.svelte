@@ -13,13 +13,13 @@
   </h1>
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
-      Drove a 2x traffic increase for $30MM+ fintech and AI startups by
+      Drove 2x traffic increase for $30MM+ fintech and AI startups by
       strategically optimizing sitemaps and copy.
     </li>
     <li>
-      Empowering designers to AI-generate Figma plugins at
-      <a href="https://jpmorganchase.com">JPMorganChase</a> by providing a robust
-      scaffold and automating version control.
+      Built an AI app builder toolkit for Figma plugins at
+      <a href="https://jpmorganchase.com">JPMorganChase</a> that generates, runs,
+      and git-manages production code through natural language prompts.
     </li>
     <li>
       Secured 1st place at <a href="https://hyrox.com">Hyrox</a> U24 and won three
