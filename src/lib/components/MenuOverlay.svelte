@@ -3,8 +3,17 @@
   import scrollToElement from "scroll-to-element";
   import { fly, fade } from "svelte/transition";
   import { quintOut, quintIn } from "svelte/easing";
+  import { onMount } from "svelte";
+  import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
+  import type { Project } from "$lib/projects";
 
   export let open = false;
+
+  // Floating image state
+  let mouseX = 0;
+  let mouseY = 0;
+  let hoveredProject: Project | null = null;
+  let isDesktop = true;
 
   // Prevent background scrolling when menu is open
   $: if (typeof document !== "undefined") {
@@ -52,10 +61,45 @@
       open = false;
     }
   }
+
+  // Mouse tracking for floating image
+  function handleMouseMove(event: MouseEvent) {
+    if (isDesktop) {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    }
+  }
+
+  // Project hover handlers
+  function handleProjectHover(project: Project) {
+    if (isDesktop) {
+      hoveredProject = project;
+    }
+  }
+
+  function handleProjectLeave() {
+    hoveredProject = null;
+  }
+
+  // Check if device is desktop
+  function checkIsDesktop() {
+    if (typeof window !== "undefined") {
+      isDesktop = window.innerWidth >= 768; // md breakpoint
+    }
+  }
+
+  onMount(() => {
+    checkIsDesktop();
+  });
 </script>
 
-<!-- Global escape key listener -->
-<svelte:window on:keydown={handleKeyDown} />
+<!-- Global event listeners -->
+<svelte:window
+  on:keydown={handleKeyDown}
+  on:mousemove={handleMouseMove}
+  on:resize={checkIsDesktop}
+  on:load={checkIsDesktop}
+/>
 
 {#if open}
   <div
@@ -85,6 +129,8 @@
         >
           <button
             on:click={() => handleProjectClick(project.id)}
+            on:mouseenter={() => handleProjectHover(project)}
+            on:mouseleave={handleProjectLeave}
             class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white px-6 py-2"
           >
             {project.name}
@@ -94,6 +140,15 @@
     </ul>
   </div>
 {/if}
+
+<!-- Floating project image -->
+<FloatingProjectImage
+  imageOptions={hoveredProject?.imgOptions || null}
+  projectId={hoveredProject?.id || null}
+  isVisible={!!hoveredProject && isDesktop && open}
+  {mouseX}
+  {mouseY}
+/>
 
 <style>
   /* Override global list styling for menu items */
