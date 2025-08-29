@@ -29,6 +29,7 @@
   </ul>
   <div class="flex flex-row space-x-3.5">
     <PrimaryButton
+      variant="glacial"
       linkButtonContent={{
         label: "Schedule 15 min",
         destination: "https://cal.com/kevgug/15min",

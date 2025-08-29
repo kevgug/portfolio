@@ -133,7 +133,7 @@
             on:click={() => handleProjectClick(project.id)}
             on:mouseenter={() => handleProjectHover(project)}
             on:mouseleave={handleProjectLeave}
-            class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white px-6 py-2"
+            class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
           >
             {project.name}
           </button>
