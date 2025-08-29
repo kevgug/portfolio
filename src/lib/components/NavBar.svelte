@@ -29,12 +29,13 @@
     <div class="flex flex-row space-x-4 md:space-x-5">
       <LinkButton
         linkButtonContent={{
-          label: "Connect with Kevin",
-          destination: "https://linkedin.com/in/kevingugelmann",
+          label: "Book a call",
+          destination: "https://cal.com/kevgug/15min",
           mediaType: "none",
-          eventName: "navbar_ext_linkedin_primary",
+          eventName: "navbar_ext_cal_primary",
           openInNewTab: true,
         }}
+        usePulsingCircle={true}
       />
     </div>
   </div>

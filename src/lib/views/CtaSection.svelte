@@ -30,15 +30,24 @@
   <div class="flex flex-row space-x-3.5">
     <PrimaryButton
       linkButtonContent={{
-        label: "Discuss an opportunity",
-        destination:
-          "mailto:kevin@kevingugelmann.com?subject=Inquiry%20from%20kevingugelmann.com&body=Hi%20Kevin%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20was%20impressed%20by%20your%20work.%20I%27d%20like%20to%20start%20a%20conversation%20about%20a%20potential%20opportunity.%0A%0A%5BBriefly%20describe%20the%20role%20or%20project%20you%20have%20in%20mind%5D%0A%0ALooking%20forward%20to%20connecting.%0A%0ABest%2C%0A%5BYour%20Name%5D",
+        label: "Schedule 15 min",
+        destination: "https://cal.com/kevgug/15min",
+        mediaType: "none",
+        eventName: "ctasection_ext_cal_primary",
+        openInNewTab: true,
+      }}
+      iconName="phone"
+      iconFlipY={false}
+    />
+    <PrimaryButton
+      linkButtonContent={{
+        label: "Email",
+        destination: "mailto:hello@kevingugelmann.com",
         mediaType: "none",
         eventName: "ctasection_ext_email_primary",
         openInNewTab: true,
       }}
-      iconName="arrow-corner-right"
-      iconFlipY
+      iconName="email"
     />
   </div>
 </div>

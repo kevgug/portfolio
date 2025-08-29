@@ -1,10 +1,10 @@
 <script lang="ts">
   import { tailwindTheme } from "$lib/tailwindTheme";
   import type { LinkButtonContent as LinkButtonContent } from "$lib/util/linkButtonContent";
-  import Icon from "./Icon.svelte";
+  import Icon, { type IconName } from "./Icon.svelte";
 
   export let linkButtonContent: LinkButtonContent;
-  export let iconName: string;
+  export let iconName: IconName;
   export let iconFlipY = false;
 
   const whiteColor = tailwindTheme.colors.white;

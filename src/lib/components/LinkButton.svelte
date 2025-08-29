@@ -2,10 +2,13 @@
   import { tailwindTheme } from "$lib/tailwindTheme";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
-  import Icon from "./Icon.svelte";
+  import Icon, { type IconName } from "./Icon.svelte";
+  import PulsingCircle from "./PulsingCircle.svelte";
 
   // Props
   export let linkButtonContent: LinkButtonContent;
+  export let iconName: IconName = "arrow-corner-right";
+  export let usePulsingCircle: boolean = false;
 
   // Interactions
   let isHovering = false;
@@ -18,6 +21,7 @@
   // Calculations
   let innerWidth: number = 0;
   $: arrowIconSize = responsiveIconSize(SmFontSize.xs, innerWidth);
+  $: arrowIconSizeNumber = parseInt(arrowIconSize.replace("px", ""));
 </script>
 
 <svelte:window bind:innerWidth />
@@ -36,19 +40,27 @@
     ? linkButtonContent.destination
     : null}
 >
-  <div class="group flex flex-row items-center space-x-1.5">
+  <div
+    class="group flex flex-row items-center {usePulsingCircle
+      ? 'space-x-2'
+      : 'space-x-1.5'}"
+  >
     <p
       class="text-white font-thin group-hover:text-glacial-blue
 	  duration-100"
     >
       {linkButtonContent.label}
     </p>
-    <Icon
-      name="arrow-corner-right"
-      color={iconColor}
-      size={arrowIconSize}
-      flipY
-    />
+    {#if usePulsingCircle}
+      <PulsingCircle size={arrowIconSizeNumber} />
+    {:else}
+      <Icon
+        name={iconName}
+        color={iconColor}
+        size={arrowIconSize}
+        flipY={iconName === "arrow-corner-right"}
+      />
+    {/if}
   </div>
   <div
     class="flex flex-col-reverse
