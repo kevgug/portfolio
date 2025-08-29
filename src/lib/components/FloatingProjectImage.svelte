@@ -14,6 +14,11 @@
   let screenHeight = 0;
   let previousProjectId: string | null = null;
   let floatingImageHeight = 220; // Default height
+  let displayImageOptions: ImageOptions | null = null;
+
+  $: if (imageOptions) {
+    displayImageOptions = imageOptions;
+  }
 
   // Calculate smart positioning based on cursor location
   $: isInTopHalf = mouseY < screenHeight / 2;
@@ -46,8 +51,8 @@
             scale: 1,
             opacity: 1,
             rotation: 0,
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 0.6,
+            ease: "expo.out",
           });
         }
 
@@ -70,7 +75,7 @@
             scale: 0.7,
             opacity: 0,
             rotation: 2,
-            duration: 0.25,
+            duration: 0.16,
             ease: "power2.in",
             onComplete: () => {
               gsap.set(containerElement, { x: -1000, y: -1000 });
@@ -88,10 +93,10 @@
 
 <svelte:window bind:innerHeight={screenHeight} />
 
-{#if imageOptions}
+{#if displayImageOptions}
   <div bind:this={containerElement} class="floating-project-image">
     <div class="image-wrapper">
-      <Image imgOptions={imageOptions} class="project-preview-image" />
+      <Image imgOptions={displayImageOptions} class="project-preview-image" />
     </div>
   </div>
 {/if}
