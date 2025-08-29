@@ -53,12 +53,14 @@
     });
 
     open = false;
+    hoveredProject = null;
   }
 
   // Handle escape key to close menu
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
       open = false;
+      hoveredProject = null;
     }
   }
 
