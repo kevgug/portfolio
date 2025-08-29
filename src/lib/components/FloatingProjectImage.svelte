@@ -13,11 +13,12 @@
   let containerElement: HTMLDivElement;
   let screenHeight = 0;
   let previousProjectId: string | null = null;
+  let floatingImageHeight = 220; // Default height
 
   // Calculate smart positioning based on cursor location
   $: isInTopHalf = mouseY < screenHeight / 2;
   $: cardOffsetX = -160; // Center the card horizontally on cursor
-  $: cardOffsetY = isInTopHalf ? 60 : -280; // Below cursor if top half, above if bottom half
+  $: cardOffsetY = isInTopHalf ? 60 : -(floatingImageHeight + 60); // Below cursor if top half, above if bottom half
 
   onMount(() => {
     // Hide it off-screen initially to prevent any flash at (0,0)
@@ -101,7 +102,8 @@
     z-index: 1000;
     pointer-events: none;
     width: 320px;
-    height: 220px;
+    /* height is now auto to adapt to content */
+    height: auto;
     will-change: transform, opacity;
     /* Use transform for positioning instead of left/top */
     top: 0;
@@ -112,14 +114,15 @@
 
   .image-wrapper {
     width: 100%;
-    height: 100%;
+    /* height is now auto to adapt to content */
+    height: auto;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.6),
       0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgb(46, 45, 48);
     position: relative;
   }
 
@@ -141,10 +144,15 @@
 
   :global(.project-preview-image) {
     width: 100%;
-    height: 100%;
+    /* height is auto to maintain aspect ratio */
+    height: auto;
+    /* max-height ensures tall images are capped */
+    max-height: 220px;
     object-fit: cover;
     position: relative;
     z-index: 0;
+    display: block;
+    background-color: #000;
   }
 
   /* Only show on desktop */
