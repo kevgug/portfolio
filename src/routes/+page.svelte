@@ -10,6 +10,7 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   // Assets
+  import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.png";
   import freestyleLogoSrc from "$lib/images/projects/freestyle-logo.jpg";
   import freestyleLogoAvif from "$lib/images/projects/freestyle-logo.avif";
   import freestyleLogoWebp from "$lib/images/projects/freestyle-logo.webp";
@@ -42,9 +43,6 @@
   import prismaticNewsSrc from "$lib/images/projects/prismatic-news.jpg";
   import prismaticNewsAvif from "$lib/images/projects/prismatic-news.avif";
   import prismaticNewsWebp from "$lib/images/projects/prismatic-news.webp";
-  import kevingugelmannPortfolioPreviewSrc from "$lib/images/projects/kevingugelmann-portfolio-preview.jpg";
-  import kevingugelmannPortfolioPreviewAvif from "$lib/images/projects/kevingugelmann-portfolio-preview.avif";
-  import kevingugelmannPortfolioPreviewWebp from "$lib/images/projects/kevingugelmann-portfolio-preview.webp";
 
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
@@ -197,6 +195,26 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
           space-y-20 md:space-y-24 lg:space-y-[7.25rem]"
   >
     <ProjectCard
+      year={2025}
+      name="JPMorganChase"
+      outputMedium="Global Private Bank"
+      role="UX Engineer Intern"
+      imgOptions={{
+        src: jpmcLogoSrc,
+        alt: "JPMorganChase logo in gold",
+      }}
+      description="Brought an existing Figma plugin to worldwide launch through 500x performance improvements and bug fixes, enabling 200+ hours of annual savings. Built a data visualization generator converting CSVs to design system-compliant charts in under 1 second. Engineered an AI-native toolkit that enables designers to collaboratively build their own scalable plugins without touching code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally."
+      builtWith={[
+        "Figma",
+        "TypeScript",
+        "React",
+        "TailwindCSS",
+        "Bash Scripts",
+      ]}
+      linkButtonContent={undefined}
+      bgColor="#28211D"
+    />
+    <ProjectCard
       year={2024}
       name="Freestyle (YC S24)"
       outputMedium="AI Infrastructure"
@@ -278,28 +296,6 @@ px-5 md:px-[2.5rem] xl:px-[5rem]"
       builtWith={["Figma", "Figma Variables", "React Native", "TypeScript"]}
       linkButtonContent={undefined}
       bgColor="#18292d"
-    />
-    <ProjectCard
-      year={2023}
-      name="Design Portfolio"
-      outputMedium="Website"
-      role="Design & Engineering"
-      imgOptions={{
-        src: kevingugelmannPortfolioPreviewSrc,
-        avifSrc: kevingugelmannPortfolioPreviewAvif,
-        webpSrc: kevingugelmannPortfolioPreviewWebp,
-        alt: "Mini preview of Kevin Gugelmann's portfolio website",
-      }}
-      description="This website! Designed in Sketch and engineered with SvelteKit & Tailwind CSS. Deployed on GitHub Pages with image lazy-loading, achieving 98% Lighthouse Performance."
-      builtWith={[
-        "Sketch",
-        "SvelteKit",
-        "Tailwind CSS",
-        "TypeScript",
-        "GitHub Pages",
-      ]}
-      linkButtonContent={undefined}
-      bgColor="#182025"
     />
     <ProjectCard
       year={2022}

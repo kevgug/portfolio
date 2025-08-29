@@ -187,9 +187,9 @@
         </h1>
         <ul>
           <li>
-            Built an AI app builder for
-            <a href="https://jpmorganchase.com">JPMorganChase</a>
-            designers to collaborate on Figma plugins.
+            Built an AI-native tool at
+            <a href="https://jpmorganchase.com">JPMorganChase</a> so designers can
+            collaboratively build Figma plugins.
           </li>
           <li>
             Shipped pixel-perfect sites at AI infra startup
