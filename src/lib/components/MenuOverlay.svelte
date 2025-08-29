@@ -22,11 +22,27 @@
     const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
     const totalOffset = -(navbarOffset + additionalOffset); // Negative to scroll above the element
 
+    // Force projects section to be visible immediately if it's hidden
+    const projectsSection = document.querySelector(
+      ".projects-section-on-load"
+    ) as HTMLElement;
+    if (projectsSection) {
+      const isHidden = window.getComputedStyle(projectsSection).opacity === "0";
+      if (isHidden) {
+        // Force the section to be visible immediately
+        projectsSection.style.opacity = "1";
+        projectsSection.style.filter = "blur(0px)";
+        projectsSection.style.transform = "translateY(0px)";
+      }
+    }
+
+    // Scroll immediately
     scrollToElement(`#${id}`, {
       duration: 1000,
       ease: "out-expo",
       offset: totalOffset,
     });
+
     open = false;
   }
 
