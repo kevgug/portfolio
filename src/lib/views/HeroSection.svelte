@@ -82,6 +82,20 @@
       offset: breakpoint == BreakpointSizes.sm ? -64 : -80,
     } as any);
 
+  // ----- Title animation (masked, staggered characters) -----
+  const oldTitleLine1 = "Hi, I'm Kevin.";
+  const oldTitleLine2 = "Welcome to my site.";
+  const oldTitleDesktopText = `${oldTitleLine1} ${oldTitleLine2}`;
+  const newTitleDesktopText = "Product Designer. AI-Native Engineer.";
+  const newTitleLine1 = "Product Designer.";
+  const newTitleLine2 = "AI-Native Engineer.";
+
+  let oldTitleElement: HTMLElement;
+  let newTitleDesktopElement: HTMLElement;
+  let newTitleMobileElement: HTMLElement;
+
+  const splitChars = (text: string): string[] => Array.from(text);
+
   // Animation function
   const animateElements = () => {
     const timeline = gsap.timeline();
@@ -129,12 +143,84 @@
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
 
+    // Title initial states
+    const oldChars = oldTitleElement
+      ? (oldTitleElement.querySelectorAll(".char") as unknown as HTMLElement[])
+      : null;
+    const newCharsAll = [
+      ...Array.from(
+        (newTitleDesktopElement?.querySelectorAll(
+          ".char"
+        ) as unknown as HTMLElement[]) ?? []
+      ),
+      ...Array.from(
+        (newTitleMobileElement?.querySelectorAll(
+          ".char"
+        ) as unknown as HTMLElement[]) ?? []
+      ),
+    ];
+
+    if (oldChars) {
+      gsap.set(oldChars, { y: "0%" });
+    }
+    if (newCharsAll.length) {
+      gsap.set(newCharsAll, { y: "100%" });
+    }
+
     // Start animations after 100ms delay from page load
     setTimeout(() => {
       if (companyLogosElement && marqueeWrapperElement) {
         animateElements();
       }
     }, 100);
+
+    // Staggered masked character swap after 1.2s
+    setTimeout(() => {
+      const timeline = gsap.timeline();
+
+      if (oldChars) {
+        timeline.to(oldChars, {
+          y: "-110%",
+          duration: 0.55,
+          ease: "power3.in",
+          stagger: 0.009,
+        });
+      }
+
+      const isSmall = breakpoint == BreakpointSizes.sm;
+      const targetNewChars = isSmall
+        ? (newTitleMobileElement?.querySelectorAll(
+            ".char"
+          ) as unknown as HTMLElement[])
+        : (newTitleDesktopElement?.querySelectorAll(
+            ".char"
+          ) as unknown as HTMLElement[]);
+      const otherNewChars = isSmall
+        ? (newTitleDesktopElement?.querySelectorAll(
+            ".char"
+          ) as unknown as HTMLElement[])
+        : (newTitleMobileElement?.querySelectorAll(
+            ".char"
+          ) as unknown as HTMLElement[]);
+
+      if (targetNewChars && targetNewChars.length) {
+        timeline.to(
+          targetNewChars,
+          {
+            y: "0%",
+            duration: 0.9,
+            ease: "expo.out",
+            stagger: 0.012,
+          },
+          oldChars ? "-=0.35" : 0
+        );
+      }
+
+      // Ensure hidden variant (desktop/mobile) is also at rest for future resizes
+      if (otherNewChars && (otherNewChars as any).length) {
+        timeline.set(otherNewChars, { y: "0%" }, ">-=0.1");
+      }
+    }, 1800);
   });
 </script>
 
@@ -176,14 +262,69 @@
         <h1
           id="title"
           class="text-glacial-blue
-                mb-8 xl:mb-9"
+                mb-8 xl:mb-9 grid"
         >
-          <span class="hidden md:inline"
-            >Product Designer. AI-Native Engineer.</span
+          <!-- Final (desktop) title layer -->
+          <span
+            class="title-layer hidden md:inline"
+            bind:this={newTitleDesktopElement}
+            aria-hidden="true"
           >
-          <span class="inline md:hidden"
-            >Product Designer.<br /> AI-Native Engineer.</span
+            {#each splitChars(newTitleDesktopText) as ch, i}
+              <span class="char-mask"
+                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+              >
+            {/each}
+          </span>
+
+          <!-- Final (mobile) title layer -->
+          <span
+            class="title-layer inline md:hidden"
+            bind:this={newTitleMobileElement}
+            aria-hidden="true"
           >
+            {#each splitChars(newTitleLine1) as ch}
+              <span class="char-mask"
+                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+              >
+            {/each}
+            <br />
+            {#each splitChars(newTitleLine2) as ch}
+              <span class="char-mask"
+                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+              >
+            {/each}
+          </span>
+
+          <!-- Initial title layer (visible first) -->
+          <span
+            class="title-layer old"
+            bind:this={oldTitleElement}
+            aria-label={newTitleDesktopText}
+          >
+            <!-- Desktop: single line -->
+            <span class="hidden md:inline">
+              {#each splitChars(oldTitleDesktopText) as ch}
+                <span class="char-mask"
+                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                >
+              {/each}
+            </span>
+            <!-- Mobile: two lines -->
+            <span class="inline md:hidden">
+              {#each splitChars(oldTitleLine1) as ch}
+                <span class="char-mask"
+                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                >
+              {/each}
+              <br />
+              {#each splitChars(oldTitleLine2) as ch}
+                <span class="char-mask"
+                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                >
+              {/each}
+            </span>
+          </span>
         </h1>
         <ul>
           <li>
@@ -344,4 +485,24 @@
 
 <style>
   /* Removed min-height CSS to allow Tailwind classes to control height */
+
+  /* Title layering */
+  #title {
+    position: relative;
+  }
+  #title .title-layer {
+    grid-area: 1 / 1;
+  }
+  #title .char-mask {
+    display: inline-block;
+    overflow: hidden;
+  }
+  #title .char {
+    display: inline-block;
+    transform: translateY(100%);
+    will-change: transform;
+  }
+  #title .title-layer.old .char {
+    transform: translateY(0%);
+  }
 </style>
