@@ -18,7 +18,8 @@
   function handleProjectClick(id: string) {
     // Calculate navbar height offset (64px mobile, 80px desktop)
     const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
-    const additionalOffset = 20; // Extra spacing for better visual positioning
+    // Extra spacing for better visual positioning (36px mobile, 48px desktop)
+    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
     const totalOffset = -(navbarOffset + additionalOffset); // Negative to scroll above the element
 
     scrollToElement(`#${id}`, {
@@ -53,7 +54,7 @@
   />
 
   <div
-    class="fixed left-0 right-0 top-16 md:top-20 bottom-0 z-40 overflow-y-auto px-5 md:px-[2.5rem] xl:px-[5rem] py-12 pointer-events-none"
+    class="fixed left-0 right-0 top-16 md:top-20 bottom-0 z-40 overflow-y-auto px-5 md:px-[2.5rem] xl:px-[5rem] py-12"
   >
     <ul class="flex flex-col items-center space-y-6 list-none">
       {#each projects as project, i}
@@ -68,7 +69,7 @@
         >
           <button
             on:click={() => handleProjectClick(project.id)}
-            class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white px-6 py-2 pointer-events-auto"
+            class="text-xl md:text-2xl xl:text-3xl font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:text-white px-6 py-2"
           >
             {project.name}
           </button>
