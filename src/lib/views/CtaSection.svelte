@@ -32,7 +32,7 @@
       variant="glacial"
       linkButtonContent={{
         label: "Schedule a call",
-        destination: "https://cal.com/kevgug/15min",
+        destination: "https://cal.com/kevgug/intro",
         mediaType: "none",
         eventName: "ctasection_ext_cal_primary",
         openInNewTab: true,

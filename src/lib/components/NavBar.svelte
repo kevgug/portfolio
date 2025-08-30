@@ -30,7 +30,7 @@
       <LinkButton
         linkButtonContent={{
           label: "Book a call",
-          destination: "https://cal.com/kevgug/15min",
+          destination: "https://cal.com/kevgug/intro",
           mediaType: "none",
           eventName: "navbar_ext_cal_primary",
           openInNewTab: true,

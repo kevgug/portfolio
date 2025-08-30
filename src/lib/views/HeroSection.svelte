@@ -174,8 +174,8 @@
       }
     }, 100);
 
-    // Staggered masked character swap after 1.2s
-    setTimeout(() => {
+    // Title swap function
+    const runTitleSwap = () => {
       const timeline = gsap.timeline();
 
       if (oldChars) {
@@ -187,15 +187,18 @@
         });
       }
 
-      const isSmall = breakpoint == BreakpointSizes.sm;
-      const targetNewChars = isSmall
+      const isSmallNow =
+        getCurrentBreakpoint(
+          typeof window !== "undefined" ? window.innerWidth : screenWidth
+        ) == BreakpointSizes.sm;
+      const targetNewChars = isSmallNow
         ? (newTitleMobileElement?.querySelectorAll(
             ".char"
           ) as unknown as HTMLElement[])
         : (newTitleDesktopElement?.querySelectorAll(
             ".char"
           ) as unknown as HTMLElement[]);
-      const otherNewChars = isSmall
+      const otherNewChars = isSmallNow
         ? (newTitleDesktopElement?.querySelectorAll(
             ".char"
           ) as unknown as HTMLElement[])
@@ -220,7 +223,20 @@
       if (otherNewChars && (otherNewChars as any).length) {
         timeline.set(otherNewChars, { y: "0%" }, ">-=0.1");
       }
-    }, 1200);
+    };
+
+    // Wait 850ms, then check current breakpoint and either run immediately or wait 1000ms more
+    setTimeout(() => {
+      const isSmallNow =
+        getCurrentBreakpoint(
+          typeof window !== "undefined" ? window.innerWidth : screenWidth
+        ) == BreakpointSizes.sm;
+      if (isSmallNow) {
+        runTitleSwap();
+      } else {
+        setTimeout(runTitleSwap, 1000);
+      }
+    }, 850);
   });
 </script>
 

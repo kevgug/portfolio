@@ -1,7 +1,9 @@
 import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
 // Assets
-import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.png";
+import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.jpg";
+import jpmcLogoAvif from "$lib/images/projects/jpmc-logo.avif";
+import jpmcLogoWebp from "$lib/images/projects/jpmc-logo.webp";
 import freestyleLogoSrc from "$lib/images/projects/freestyle-logo.jpg";
 import freestyleLogoAvif from "$lib/images/projects/freestyle-logo.avif";
 import freestyleLogoWebp from "$lib/images/projects/freestyle-logo.webp";
@@ -62,6 +64,8 @@ export const projects: Project[] = [
     role: "UX Engineer Intern",
     imgOptions: {
       src: jpmcLogoSrc,
+      avifSrc: jpmcLogoAvif,
+      webpSrc: jpmcLogoWebp,
       alt: "JPMorganChase logo in gold",
     },
     description:

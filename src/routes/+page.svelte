@@ -15,7 +15,7 @@
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle = "Kevin Gugelmann | Product Designer. AI-Native Engineer.";
   const pageDescription =
-    "I'm a UX Engineer who combines a background in Cognitive Science with deep technical expertise to ship impactful products for startups and enterprises.";
+    "I'm an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 
