@@ -39,17 +39,17 @@
     @apply py-2 md:py-2.5;
 
     @apply transition-all;
-    @apply duration-intro;
+    @apply duration-200;
     @apply ease-outro;
   }
 
   .button--glacial {
-    @apply text-[#000];
-    @apply bg-none bg-[#edf2f2];
-    @apply border-solid border-[1px] border-[#babbbb];
+    @apply text-white;
+    @apply bg-none bg-[#097678];
+    @apply border-solid border-[1px] border-[#043131];
 
     @apply transition-all;
-    @apply duration-intro;
+    @apply duration-200;
     @apply ease-outro;
   }
 
@@ -58,18 +58,17 @@
     @apply border-white;
 
     @apply transition-all;
-    @apply duration-intro;
+    @apply duration-200;
     @apply ease-out;
   }
 
   .button--glacial:hover {
     box-shadow: rgba(213, 219, 218, 0.15) 0 8px 28px;
-    @apply bg-[#18999e];
     @apply text-white;
     @apply border-glacial-blue;
 
     @apply transition-all;
-    @apply duration-intro;
+    @apply duration-200;
     @apply ease-out;
   }
 
@@ -78,7 +77,7 @@
 
     @apply opacity-[75%];
     @apply transition-all;
-    @apply duration-intro;
+    @apply duration-200;
     @apply ease-intro;
   }
 
