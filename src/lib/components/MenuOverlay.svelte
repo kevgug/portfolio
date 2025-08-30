@@ -2,7 +2,64 @@
   import { projects } from "$lib/projects";
   import scrollToElement from "scroll-to-element";
   import { fly, fade } from "svelte/transition";
-  import { quintOut, quintIn } from "svelte/easing";
+
+  // Custom logarithmic ease-out curve - super fast start, very slow logarithmic tail
+  const logarithmicEaseOut = (t: number): number => {
+    // Cubic bezier: (0, 0.7, 0, 0.84) - ease-out with fast start, long slow tail
+    const c1x = 0,
+      c1y = 0.7,
+      c2x = 0,
+      c2y = 0.84;
+
+    // Cubic bezier calculation for logarithmic ease-out
+    const u = 1 - t;
+    return 3 * u * u * t * c1y + 3 * u * t * t * c2y + t * t * t;
+  };
+
+  // Custom frontloaded ease-in curve for smooth exit animations
+  const frontloadedEaseIn = (t: number): number => {
+    // Cubic bezier: (0.55, 0, 1, 0.45) - smooth start, accelerates toward end
+    const c1x = 0.55,
+      c1y = 0,
+      c2x = 1,
+      c2y = 0.45;
+
+    // Cubic bezier calculation for frontloaded ease-in
+    const u = 1 - t;
+    return 3 * u * u * t * c1y + 3 * u * t * t * c2y + t * t * t;
+  };
+
+  // Regular ease-in-out curve for fade
+  const easeInOut = (t: number): number => {
+    // Standard ease-in-out curve
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  };
+
+  // Custom exit transition: translation first, then fade with delay
+  const customExit = (node: Element, { duration = 250 }) => {
+    return {
+      duration,
+      css: (t: number) => {
+        const eased = frontloadedEaseIn(1 - t);
+        const translateY = eased * -10;
+
+        // Give translation 100ms to ramp up, then fade for 150ms (t < 0.6)
+        const fadeThreshold = 0.6;
+        let opacity = 1;
+
+        if (t < fadeThreshold) {
+          // Map remaining time to fade progress with ease-in-out
+          const fadeProgress = (fadeThreshold - t) / fadeThreshold;
+          opacity = 1 - easeInOut(fadeProgress);
+        }
+
+        return `
+          transform: translateY(${translateY}px);
+          opacity: ${opacity};
+        `;
+      },
+    };
+  };
   import { onMount } from "svelte";
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
   import Icon from "$lib/components/Icon.svelte";
@@ -143,104 +200,116 @@
     }}
     role="button"
     tabindex="0"
-    transition:fade={{ duration: 300 }}
+    transition:fade={{ duration: 200, delay: 150 }}
   />
 
   <div
-    class="fixed left-0 right-0 top-16 md:top-20 bottom-0 z-40 overflow-y-auto px-5 md:px-[2.5rem] xl:px-[5rem] py-12"
+    class="fixed left-0 right-0 top-16 md:top-20 bottom-0 z-40 overflow-y-auto cursor-default"
+    on:click={() => (open = false)}
+    on:keydown={(e) => {
+      if (e.key === "Enter" || e.key === " ") open = false;
+    }}
+    role="presentation"
   >
-    <ul class="flex flex-col items-center space-y-6 list-none">
-      <li
-        in:fly={{
-          y: 20,
-          duration: 400,
-          delay: 150,
-          easing: quintOut,
-        }}
-        out:fly={{ y: -10, duration: 200, easing: quintIn }}
-      >
-        <button
-          on:click={handleIntroductionClick}
-          on:mouseenter={handleProjectLeave}
-          on:mouseleave={handleProjectLeave}
-          class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-        >
-          <Icon name="wave" size="1em" class="group-hover:text-glacial-blue" />
-          <span class="group-hover:text-glacial-blue not-italic"
-            >Introduction</span
-          >
-        </button>
-      </li>
-      <li
-        in:fly={{
-          y: 20,
-          duration: 400,
-          delay: 175,
-          easing: quintOut,
-        }}
-        out:fly={{ y: -10, duration: 200, easing: quintIn }}
-      >
-        <div
-          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-        />
-      </li>
-      {#each projects as project, i}
+    <div class="px-5 md:px-[2.5rem] xl:px-[5rem] py-12">
+      <ul class="flex flex-col items-center space-y-6 list-none" role="menu">
         <li
           in:fly={{
             y: 20,
-            duration: 400,
-            delay: 200 + i * 50,
-            easing: quintOut,
+            duration: 300,
+            delay: 150,
+            easing: logarithmicEaseOut,
           }}
-          out:fly={{ y: -10, duration: 200, easing: quintIn }}
+          out:customExit={{ duration: 250 }}
         >
           <button
-            on:click={() => handleProjectClick(project.id)}
-            on:mouseenter={() => handleProjectHover(project)}
+            on:click|stopPropagation={handleIntroductionClick}
+            on:mouseenter={handleProjectLeave}
             on:mouseleave={handleProjectLeave}
-            class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+            class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
           >
-            {project.name}
+            <Icon
+              name="wave"
+              size="1em"
+              class="group-hover:text-glacial-blue"
+            />
+            <span class="group-hover:text-glacial-blue not-italic"
+              >Introduction</span
+            >
           </button>
         </li>
-      {/each}
-      <li
-        in:fly={{
-          y: 20,
-          duration: 400,
-          delay: 200 + projects.length * 50 - 25,
-          easing: quintOut,
-        }}
-        out:fly={{ y: -10, duration: 200, easing: quintIn }}
-      >
-        <div
-          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-        />
-      </li>
-      <li
-        in:fly={{
-          y: 20,
-          duration: 400,
-          delay: 200 + projects.length * 50,
-          easing: quintOut,
-        }}
-        out:fly={{ y: -10, duration: 200, easing: quintIn }}
-      >
-        <button
-          on:click={handleContactClick}
-          on:mouseenter={handleProjectLeave}
-          on:mouseleave={handleProjectLeave}
-          class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+        <li
+          in:fly={{
+            y: 20,
+            duration: 300,
+            delay: 160,
+            easing: logarithmicEaseOut,
+          }}
+          out:customExit={{ duration: 250 }}
         >
-          <Icon
-            name="multiple-neutral-2"
-            size="1em"
-            class="group-hover:text-glacial-blue"
+          <div
+            class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
           />
-          <span class="group-hover:text-glacial-blue not-italic">Contact</span>
-        </button>
-      </li>
-    </ul>
+        </li>
+        {#each projects as project, i}
+          <li
+            in:fly={{
+              y: 20,
+              duration: 300,
+              delay: 170 + i * 35,
+              easing: logarithmicEaseOut,
+            }}
+            out:customExit={{ duration: 250 }}
+          >
+            <button
+              on:click|stopPropagation={() => handleProjectClick(project.id)}
+              on:mouseenter={() => handleProjectHover(project)}
+              on:mouseleave={handleProjectLeave}
+              class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+            >
+              {project.name}
+            </button>
+          </li>
+        {/each}
+        <li
+          in:fly={{
+            y: 20,
+            duration: 300,
+            delay: 170 + projects.length * 35 - 10,
+            easing: logarithmicEaseOut,
+          }}
+          out:customExit={{ duration: 250 }}
+        >
+          <div
+            class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
+          />
+        </li>
+        <li
+          in:fly={{
+            y: 20,
+            duration: 300,
+            delay: 170 + projects.length * 35,
+            easing: logarithmicEaseOut,
+          }}
+          out:customExit={{ duration: 250 }}
+        >
+          <button
+            on:click|stopPropagation={handleContactClick}
+            on:mouseenter={handleProjectLeave}
+            on:mouseleave={handleProjectLeave}
+            class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+          >
+            <Icon
+              name="multiple-neutral-2"
+              size="1em"
+              class="group-hover:text-glacial-blue"
+            />
+            <span class="group-hover:text-glacial-blue not-italic">Contact</span
+            >
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 {/if}
 
