@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { tailwindTheme } from "$lib/tailwindTheme";
   import type { LinkButtonContent as LinkButtonContent } from "$lib/util/linkButtonContent";
   import Icon, { type IconName } from "./Icon.svelte";
 
@@ -7,12 +6,6 @@
   export let iconName: IconName;
   export let iconFlipY = false;
   export let variant: "default" | "glacial" = "default";
-
-  const whiteColor = tailwindTheme.colors.white;
-  const glacialColor = tailwindTheme.colors["glacial-blue-darkest"];
-
-  let iconColor: string = whiteColor;
-  $: iconColor = variant === "glacial" ? glacialColor : whiteColor;
 </script>
 
 <a
@@ -29,8 +22,9 @@
     : null}
 >
   {linkButtonContent.label}
-  <div class="mr-[0.4rem] md:mr-[0.6rem]" />
-  <Icon name={iconName} color={iconColor} size="0.75em" flipY={iconFlipY} />
+  <div class="pl-[0.52rem] md:pl-[0.6rem] pr-[0.04rem] md:pr-[0.1rem]">
+    <Icon name={iconName} size="0.75em" flipY={iconFlipY} />
+  </div>
 </a>
 
 <style lang="postcss">
@@ -38,11 +32,11 @@
     align-items: center;
     background: linear-gradient(180deg, #4b4e56 0%, #282b2f 99%);
     border: 1px solid #403e3e;
-    color: theme(colors.white);
+    @apply text-white;
 
-    @apply rounded-lg md:rounded-xl;
-    @apply px-[0.85rem] md:px-4;
-    @apply py-2;
+    @apply rounded-full;
+    @apply px-4 md:px-6;
+    @apply py-2 md:py-2.5;
 
     @apply transition-all;
     @apply duration-intro;
@@ -50,9 +44,9 @@
   }
 
   .button--glacial {
-    @apply bg-none bg-glacial-blue-deep;
-    @apply border-solid border-[1px] border-glacial-blue-deep;
-    @apply text-glacial-blue-darkest;
+    @apply text-[#000];
+    @apply bg-none bg-[#edf2f2];
+    @apply border-solid border-[1px] border-[#babbbb];
 
     @apply transition-all;
     @apply duration-intro;
@@ -60,8 +54,8 @@
   }
 
   .button:hover {
-    box-shadow: rgba(169, 244, 233, 0.2) 0 1px 24px;
-    @apply border-glacial-blue;
+    box-shadow: rgba(213, 219, 218, 0.15) 0 8px 28px;
+    @apply border-white;
 
     @apply transition-all;
     @apply duration-intro;
@@ -69,8 +63,10 @@
   }
 
   .button--glacial:hover {
-    box-shadow: rgba(93, 217, 203, 0.35) 0 8px 28px;
-    @apply border-glacial-blue-darker;
+    box-shadow: rgba(213, 219, 218, 0.15) 0 8px 28px;
+    @apply bg-[#18999e];
+    @apply text-white;
+    @apply border-glacial-blue;
 
     @apply transition-all;
     @apply duration-intro;

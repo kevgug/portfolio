@@ -220,7 +220,7 @@
       if (otherNewChars && (otherNewChars as any).length) {
         timeline.set(otherNewChars, { y: "0%" }, ">-=0.1");
       }
-    }, 1800);
+    }, 1200);
   });
 </script>
 

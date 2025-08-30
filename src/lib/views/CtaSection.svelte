@@ -31,7 +31,7 @@
     <PrimaryButton
       variant="glacial"
       linkButtonContent={{
-        label: "Schedule 15 min",
+        label: "Let's talk",
         destination: "https://cal.com/kevgug/15min",
         mediaType: "none",
         eventName: "ctasection_ext_cal_primary",

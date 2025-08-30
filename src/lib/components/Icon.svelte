@@ -35,7 +35,6 @@
 <script lang="ts">
   export let name: IconName;
   export let size = "16px";
-  export let color = "#000000";
   export let flipY = false;
 
   interface Icon {
@@ -53,8 +52,8 @@
 
 <div style={flipY ? "transform: scaleY(-1);" : ""}>
   <svg
-    class="duration-100 {$$props.class}"
-    style="color: {color}; a"
+    class={"duration-100 " + ($$props.class ?? "")}
+    style="overflow: visible;"
     width={size}
     height={size}
     fill="none"
