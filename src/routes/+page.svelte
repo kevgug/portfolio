@@ -156,7 +156,9 @@ w-screen max-w-screen-2xl
 px-5 md:px-[2.5rem] xl:px-[5rem]
 pt-16 md:pt-20"
 >
-  <HeroSection bind:useZeigarnikEffect={heroUsesZeigarnik} />
+  <div id="introduction">
+    <HeroSection bind:useZeigarnikEffect={heroUsesZeigarnik} />
+  </div>
   <div
     bind:this={projectsSectionElement}
     class="projects-section-on-load flex flex-col

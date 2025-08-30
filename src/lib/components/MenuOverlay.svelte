@@ -84,6 +84,21 @@
     hoveredProject = null;
   }
 
+  function handleIntroductionClick() {
+    const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
+    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
+    const totalOffset = -(navbarOffset + additionalOffset);
+
+    scrollToElement(`#introduction`, {
+      duration: 1000,
+      ease: "out-expo",
+      offset: totalOffset,
+    });
+
+    open = false;
+    hoveredProject = null;
+  }
+
   function handleContactClick() {
     const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
     const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
@@ -135,6 +150,40 @@
     class="fixed left-0 right-0 top-16 md:top-20 bottom-0 z-40 overflow-y-auto px-5 md:px-[2.5rem] xl:px-[5rem] py-12"
   >
     <ul class="flex flex-col items-center space-y-6 list-none">
+      <li
+        in:fly={{
+          y: 20,
+          duration: 400,
+          delay: 150,
+          easing: quintOut,
+        }}
+        out:fly={{ y: -10, duration: 200, easing: quintIn }}
+      >
+        <button
+          on:click={handleIntroductionClick}
+          on:mouseenter={handleProjectLeave}
+          on:mouseleave={handleProjectLeave}
+          class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+        >
+          <Icon name="wave" size="1em" class="group-hover:text-glacial-blue" />
+          <span class="group-hover:text-glacial-blue not-italic"
+            >Introduction</span
+          >
+        </button>
+      </li>
+      <li
+        in:fly={{
+          y: 20,
+          duration: 400,
+          delay: 175,
+          easing: quintOut,
+        }}
+        out:fly={{ y: -10, duration: 200, easing: quintIn }}
+      >
+        <div
+          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
+        />
+      </li>
       {#each projects as project, i}
         <li
           in:fly={{
@@ -165,7 +214,7 @@
         out:fly={{ y: -10, duration: 200, easing: quintIn }}
       >
         <div
-          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-separator-grey opacity-55"
+          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
         />
       </li>
       <li
@@ -184,13 +233,11 @@
           class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
         >
           <Icon
-            name="person"
+            name="multiple-neutral-2"
             size="1em"
             class="group-hover:text-glacial-blue"
           />
-          <span class="group-hover:text-glacial-blue not-italic"
-            >Contact info</span
-          >
+          <span class="group-hover:text-glacial-blue not-italic">Contact</span>
         </button>
       </li>
     </ul>
