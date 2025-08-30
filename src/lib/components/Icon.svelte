@@ -52,7 +52,7 @@
 
 <div style={flipY ? "transform: scaleY(-1);" : ""}>
   <svg
-    class={"duration-100 " + ($$props.class ?? "")}
+    class={$$props.class ?? ""}
     style="overflow: visible;"
     width={size}
     height={size}

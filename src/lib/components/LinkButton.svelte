@@ -36,7 +36,7 @@
   >
     <p
       class="text-white group-hover:!text-glacial-blue font-thin
-	  duration-100"
+	  duration-100 transition-all"
     >
       {linkButtonContent.label}
     </p>
@@ -47,7 +47,7 @@
         name={iconName}
         size={arrowIconSize}
         flipY={iconName === "arrow-corner-right"}
-        class="text-white group-hover:!text-glacial-blue duration-100"
+        class="text-white group-hover:!text-glacial-blue duration-100 transition-all"
       />
     {/if}
   </div>
@@ -60,7 +60,7 @@
 	  h-[2px] rounded-sm
     bg-white group-hover:bg-glacial-blue
   opacity-[36%] group-hover:opacity-100
-  duration-100"
+  duration-100 transition-all"
     />
   </div>
 </a>
