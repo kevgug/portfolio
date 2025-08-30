@@ -83,10 +83,10 @@
     hoveredProject = null;
   }
 
-  // Check if device is desktop
+  // Check if device is desktop - now enabled for all viewport sizes
   function checkIsDesktop() {
     if (typeof window !== "undefined") {
-      isDesktop = window.innerWidth >= 768; // md breakpoint
+      isDesktop = true; // Enable hover effects on all viewport sizes
     }
   }
 

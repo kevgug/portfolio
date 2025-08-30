@@ -160,10 +160,5 @@
     background-color: #000;
   }
 
-  /* Only show on desktop */
-  @media (max-width: 768px) {
-    .floating-project-image {
-      display: none;
-    }
-  }
+  /* Hover effects now enabled on all viewport sizes */
 </style>

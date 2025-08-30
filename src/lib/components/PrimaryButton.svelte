@@ -55,7 +55,7 @@
 
   .button:hover {
     box-shadow: rgba(213, 219, 218, 0.15) 0 8px 28px;
-    @apply border-white;
+    @apply border-[#a7a7a7];
 
     @apply transition-all;
     @apply duration-200;
