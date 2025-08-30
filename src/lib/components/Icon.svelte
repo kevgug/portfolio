@@ -28,6 +28,10 @@
       box: 24,
       svg: `<path d="m1.5 4.75 21 0 0 15 -21 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m22.161 5.3 -8.144 6.264a3.308 3.308 0 0 1 -4.034 0L1.839 5.3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
     },
+    person: {
+      box: 24,
+      svg: `<path d="M0.5 23a10.135 10.135 0 0 1 1 -4.057c0.705 -1.41 3.65 -2.387 7.347 -3.756 1 -0.371 0.836 -2.981 0.393 -3.468C8.2 10.576 7.32 9.235 7.32 6c0 -3.265 2.13 -5 4.68 -5s4.68 1.735 4.68 5c0 3.235 -0.881 4.576 -1.92 5.719 -0.443 0.487 -0.607 3.1 0.393 3.468 3.7 1.369 6.642 2.346 7.347 3.756a10.135 10.135 0 0 1 1 4.057Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>`,
+    },
   } as const;
   export type IconName = keyof typeof icons;
 </script>

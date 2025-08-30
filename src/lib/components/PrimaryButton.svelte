@@ -30,8 +30,8 @@
 <style lang="postcss">
   .button {
     align-items: center;
-    background: linear-gradient(180deg, #4b4e56 0%, #282b2f 99%);
-    border: 1px solid #403e3e;
+    background: transparent;
+    border: 1px solid #5a5a5a;
     @apply text-white;
 
     @apply rounded-full;
@@ -46,7 +46,7 @@
   .button--glacial {
     @apply text-white;
     @apply bg-none bg-[#097678];
-    @apply border-solid border-[1px] border-[#043131];
+    @apply border-solid border-[1px] border-[#195152];
 
     @apply transition-all;
     @apply duration-200;

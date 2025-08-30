@@ -5,6 +5,7 @@
   import { quintOut, quintIn } from "svelte/easing";
   import { onMount } from "svelte";
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
+  import Icon from "$lib/components/Icon.svelte";
   import type { Project } from "$lib/projects";
 
   export let open = false;
@@ -83,6 +84,21 @@
     hoveredProject = null;
   }
 
+  function handleContactClick() {
+    const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
+    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
+    const totalOffset = -(navbarOffset + additionalOffset);
+
+    scrollToElement(`#contact`, {
+      duration: 1000,
+      ease: "out-expo",
+      offset: totalOffset,
+    });
+
+    open = false;
+    hoveredProject = null;
+  }
+
   // Check if device is desktop - now enabled for all viewport sizes
   function checkIsDesktop() {
     if (typeof window !== "undefined") {
@@ -139,6 +155,44 @@
           </button>
         </li>
       {/each}
+      <li
+        in:fly={{
+          y: 20,
+          duration: 400,
+          delay: 200 + projects.length * 50 - 25,
+          easing: quintOut,
+        }}
+        out:fly={{ y: -10, duration: 200, easing: quintIn }}
+      >
+        <div
+          class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-separator-grey opacity-55"
+        />
+      </li>
+      <li
+        in:fly={{
+          y: 20,
+          duration: 400,
+          delay: 200 + projects.length * 50,
+          easing: quintOut,
+        }}
+        out:fly={{ y: -10, duration: 200, easing: quintIn }}
+      >
+        <button
+          on:click={handleContactClick}
+          on:mouseenter={handleProjectLeave}
+          on:mouseleave={handleProjectLeave}
+          class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+        >
+          <Icon
+            name="person"
+            size="1em"
+            class="group-hover:text-glacial-blue"
+          />
+          <span class="group-hover:text-glacial-blue not-italic"
+            >Contact info</span
+          >
+        </button>
+      </li>
     </ul>
   </div>
 {/if}

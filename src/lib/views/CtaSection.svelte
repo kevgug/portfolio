@@ -5,10 +5,10 @@
 <div>
   <h1 class="text-glacial-blue">
     <span class="hidden md:inline">
-      YC to Fortune 50. AI-Native Products.
+      YC to Fortune 50. I'm Kevin Gugelmann.
     </span>
     <span class="inline md:hidden">
-      YC to Fortune 50.<br />AI-Native Products.
+      YC to Fortune 50.<br />I'm Kevin Gugelmann.
     </span>
   </h1>
   <ul class="my-9 md:my-11 lg:my-12">
@@ -27,11 +27,11 @@
       gains.
     </li>
   </ul>
-  <div class="flex flex-row space-x-3.5">
+  <div class="flex flex-row space-x-2.5 md:space-x-3">
     <PrimaryButton
       variant="glacial"
       linkButtonContent={{
-        label: "Let's talk",
+        label: "Schedule a call",
         destination: "https://cal.com/kevgug/15min",
         mediaType: "none",
         eventName: "ctasection_ext_cal_primary",
@@ -42,7 +42,7 @@
     />
     <PrimaryButton
       linkButtonContent={{
-        label: "Email",
+        label: "Email me",
         destination: "mailto:hello@kevingugelmann.com",
         mediaType: "none",
         eventName: "ctasection_ext_email_primary",

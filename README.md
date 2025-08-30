@@ -1,6 +1,7 @@
 # Kevin Gugelmann's Portfolio Website
 
 ## Overview
+
 I designed and built this portfolio website to showcase some of my design & development work.
 
 - Sketch
@@ -8,11 +9,12 @@ I designed and built this portfolio website to showcase some of my design & deve
 - TailwindCSS
 
 ## About Me
+
 Rising Junior at UChicago, blending imagination and engineering into human-centric software. Some of my work includes redesigning the TFDi's landing page (2x site traffic in one month) and winning the UChicago designathon (Most Well-Designed App, 2022).
 
 I provide end-to-end software production, from user research and design to multi-platform development and marketing.
 
-[![Contact me](https://img.shields.io/badge/Reach_out-Email-a9f4e9)](mailto:contact@kevingugelmann.com)
+[![Contact me](https://img.shields.io/badge/Reach_out-Email-a9f4e9)](mailto:kevin@kevingugelmann.com)
 [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-0b66c2)](https://www.linkedin.com/in/kevingugelmann/)
 
 ## Website
