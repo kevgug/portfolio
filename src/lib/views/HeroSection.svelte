@@ -238,7 +238,7 @@
       if (isSmallNow) {
         runTitleSwap();
       } else {
-        setTimeout(runTitleSwap, 1000);
+        setTimeout(runTitleSwap, 500);
       }
     }, 850);
   });
