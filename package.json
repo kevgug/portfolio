@@ -17,7 +17,6 @@
     "@sveltejs/adapter-static": "^1.0.5",
     "@sveltejs/kit": "^1.0.0",
     "@types/d3-scale": "^4.0.8",
-    "@types/scroll-to-element": "^2.0.5",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
@@ -41,7 +40,6 @@
     "d3-scale": "^4.0.2",
     "gh-pages": "^5.0.0",
     "gsap": "^3.13.0",
-    "scroll-to-element": "^2.0.3",
     "tinycolor2": "^1.6.0"
   }
 }

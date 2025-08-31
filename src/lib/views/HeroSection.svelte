@@ -7,7 +7,7 @@
   import LinkButton from "$lib/components/LinkButton.svelte";
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
-  import scrollToElement from "scroll-to-element";
+  import { reliableScrollToElement } from "$lib/util/reliableScroll";
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
   import { gsap } from "gsap";
 
@@ -75,12 +75,16 @@
 
   // Scrolling
   let projectElement: HTMLElement;
-  const scrollToProjects = () =>
-    scrollToElement(projectElement, {
-      duration: breakpoint == BreakpointSizes.sm ? 570 : 630,
+  const scrollToProjects = () => {
+    const duration = breakpoint == BreakpointSizes.sm ? 570 : 630;
+    const offset = breakpoint == BreakpointSizes.sm ? -64 : -80;
+
+    reliableScrollToElement(projectElement, {
+      duration,
       ease: "outQuint",
-      offset: breakpoint == BreakpointSizes.sm ? -64 : -80,
-    } as any);
+      offset,
+    });
+  };
 
   // ----- Title animation (masked, staggered characters) -----
   const oldTitleLine1 = "Hi, I'm Kevin.";

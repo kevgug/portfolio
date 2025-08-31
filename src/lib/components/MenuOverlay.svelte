@@ -1,7 +1,11 @@
 <script lang="ts">
   import { projects } from "$lib/projects";
-  import scrollToElement from "scroll-to-element";
+  import {
+    reliableScrollToElement,
+    getResponsiveOffset,
+  } from "$lib/util/reliableScroll";
   import { fly, fade } from "svelte/transition";
+  import { gsap } from "gsap";
 
   // Custom logarithmic ease-out curve - super fast start, very slow logarithmic tail
   const logarithmicEaseOut = (t: number): number => {
@@ -83,33 +87,17 @@
   }
 
   function handleProjectClick(id: string) {
-    // Calculate navbar height offset (64px mobile, 80px desktop)
-    const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
-    // Extra spacing for better visual positioning (36px mobile, 48px desktop)
-    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
-    const totalOffset = -(navbarOffset + additionalOffset); // Negative to scroll above the element
+    const totalOffset = getResponsiveOffset({ useExtraSpacing: true });
 
-    // Force projects section to be visible immediately if it's hidden
-    const projectsSection = document.querySelector(
-      ".projects-section-on-load"
-    ) as HTMLElement;
-    if (projectsSection) {
-      const isHidden = window.getComputedStyle(projectsSection).opacity === "0";
-      if (isHidden) {
-        // Force the section to be visible immediately
-        projectsSection.style.opacity = "1";
-        projectsSection.style.filter = "blur(0px)";
-        projectsSection.style.transform = "translateY(0px)";
-      }
-    }
-
-    // Scroll immediately
-    scrollToElement(`#${id}`, {
+    // Use reliable scroll that handles GSAP animations properly
+    reliableScrollToElement(`#${id}`, {
       duration: 1000,
       ease: "out-expo",
       offset: totalOffset,
+      // No onComplete callback - let user control menu state independently of scroll
     });
 
+    // Close menu immediately for better UX (but don't force it closed after scroll)
     open = false;
     hoveredProject = null;
   }
@@ -142,14 +130,18 @@
   }
 
   function handleIntroductionClick() {
-    const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
-    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
-    const totalOffset = -(navbarOffset + additionalOffset);
+    // Scroll directly to top of page (position 0)
+    const scrollProxy = {
+      scrollTop: window.pageYOffset || document.documentElement.scrollTop,
+    };
 
-    scrollToElement(`#introduction`, {
-      duration: 1000,
-      ease: "out-expo",
-      offset: totalOffset,
+    gsap.to(scrollProxy, {
+      duration: 1000 / 1000, // Convert to seconds for GSAP
+      scrollTop: 0,
+      ease: "expo.out", // Convert "out-expo" to GSAP format
+      onUpdate: () => {
+        window.scrollTo(0, scrollProxy.scrollTop);
+      },
     });
 
     open = false;
@@ -157,11 +149,9 @@
   }
 
   function handleContactClick() {
-    const navbarOffset = window.innerWidth >= 768 ? 80 : 64;
-    const additionalOffset = window.innerWidth >= 768 ? 48 : 36;
-    const totalOffset = -(navbarOffset + additionalOffset);
+    const totalOffset = getResponsiveOffset({ useExtraSpacing: true });
 
-    scrollToElement(`#contact`, {
+    reliableScrollToElement(`#contact`, {
       duration: 1000,
       ease: "out-expo",
       offset: totalOffset,
@@ -335,6 +325,17 @@
     margin: 0 !important;
     padding: 0 !important;
     position: static !important; /* Override global relative positioning */
+
+    /* Safari-specific fixes for animation rendering */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+
+    /* Improve text rendering during animations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Remove global bullet point pseudo-elements */
@@ -346,5 +347,23 @@
   /* Ensure no margin bottom from global styles */
   li:not(:last-child) {
     margin-bottom: 0 !important;
+  }
+
+  /* Additional Safari-specific fixes for buttons and icons */
+  li button {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Ensure icons don't shift during animations */
+  li button :global(svg) {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: auto;
   }
 </style>
