@@ -3,7 +3,7 @@
 </script>
 
 <div>
-  <h1 id="contact" class="text-glacial-blue">
+  <h1 class="text-glacial-blue">
     <span class="hidden md:inline">
       YC to Fortune 50. I'm Kevin Gugelmann.
     </span>

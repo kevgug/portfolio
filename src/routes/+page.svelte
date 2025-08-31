@@ -183,7 +183,7 @@ pt-16 md:pt-20"
   <div class="pt-20 md:pt-24 lg:pt-32">
     <Separator />
   </div>
-  <div class="py-20 md:py-[6.3rem] lg:py-32">
+  <div id="contact" class="py-20 md:py-[6.3rem] lg:py-32">
     <CtaSection />
   </div>
   <Footer />

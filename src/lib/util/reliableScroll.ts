@@ -31,6 +31,7 @@ function preloadImage(src: string): Promise<void> {
 
 /**
  * Preloads all image formats for a project (modern formats + fallback)
+ * Now properly handles the picture element structure used in the components
  */
 function preloadProjectImages(imgOptions: {
   src: string;
@@ -50,6 +51,8 @@ function preloadProjectImages(imgOptions: {
  * Preloads critical images that could affect scroll calculations
  * Loads all project images from the beginning up to and including the target,
  * since their heights determine the target's final scroll position
+ *
+ * Enhanced to also force-load any lazy-loaded images in the DOM
  */
 async function preloadCriticalImages(
   targetElement: HTMLElement
@@ -62,6 +65,9 @@ async function preloadCriticalImages(
       preloadProjectImages(project.imgOptions)
     );
     await Promise.all(allImagePromises);
+
+    // Also force-load any lazy images in the DOM
+    await forceLoadLazyImages();
     return;
   }
 
@@ -86,10 +92,63 @@ async function preloadCriticalImages(
   );
 
   await Promise.all(imagePromises);
+
+  // Force-load any lazy images in the DOM that might affect layout
+  await forceLoadLazyImages();
+}
+
+/**
+ * Forces lazy-loaded images to load immediately by temporarily changing their loading attribute
+ */
+async function forceLoadLazyImages(): Promise<void> {
+  const lazyImages = document.querySelectorAll(
+    'img[loading="lazy"]'
+  ) as NodeListOf<HTMLImageElement>;
+
+  if (lazyImages.length === 0) {
+    return;
+  }
+
+  const imagePromises: Promise<void>[] = [];
+
+  lazyImages.forEach((img, index) => {
+    const promise = new Promise<void>((resolve) => {
+      if (img.complete) {
+        resolve();
+        return;
+      }
+
+      // Temporarily change loading to eager and force load
+      const originalLoading = img.loading;
+      img.loading = "eager";
+
+      const onLoad = () => {
+        img.removeEventListener("load", onLoad);
+        img.removeEventListener("error", onLoad);
+        img.loading = originalLoading; // Restore original loading attribute
+        resolve();
+      };
+
+      img.addEventListener("load", onLoad);
+      img.addEventListener("error", onLoad);
+
+      // Force load by setting src again if it's not already loading
+      if (!img.complete) {
+        const currentSrc = img.src;
+        img.src = "";
+        img.src = currentSrc;
+      }
+    });
+
+    imagePromises.push(promise);
+  });
+
+  await Promise.all(imagePromises);
 }
 
 /**
  * Finds and preloads images within a specific element
+ * Enhanced to handle picture elements and force-load lazy images
  */
 async function preloadImagesInElement(element: HTMLElement): Promise<void> {
   const images = element.querySelectorAll("img");
@@ -125,6 +184,44 @@ async function preloadImagesInElement(element: HTMLElement): Promise<void> {
   });
 
   await Promise.all(imagePromises);
+
+  // Force-load any lazy images in this element
+  const lazyImages = element.querySelectorAll(
+    'img[loading="lazy"]'
+  ) as NodeListOf<HTMLImageElement>;
+  const lazyImagePromises: Promise<void>[] = [];
+
+  lazyImages.forEach((img) => {
+    const promise = new Promise<void>((resolve) => {
+      if (img.complete) {
+        resolve();
+        return;
+      }
+
+      const originalLoading = img.loading;
+      img.loading = "eager";
+
+      const onLoad = () => {
+        img.removeEventListener("load", onLoad);
+        img.removeEventListener("error", onLoad);
+        img.loading = originalLoading;
+        resolve();
+      };
+
+      img.addEventListener("load", onLoad);
+      img.addEventListener("error", onLoad);
+
+      if (!img.complete) {
+        const currentSrc = img.src;
+        img.src = "";
+        img.src = currentSrc;
+      }
+    });
+
+    lazyImagePromises.push(promise);
+  });
+
+  await Promise.all(lazyImagePromises);
 }
 
 /**
@@ -199,8 +296,33 @@ export async function reliableScrollToElement(
   await prepareElementsForScroll();
 
   // Step 2: Preload critical images that affect layout before calculating position
+  // Always preload project images for accurate scroll calculations, regardless of target
   if (preloadImages) {
-    await preloadCriticalImages(targetElement);
+    if (
+      targetElement.id &&
+      projects.some((project) => project.id === targetElement.id)
+    ) {
+      // Target is a project section - preload images up to this project
+      await preloadCriticalImages(targetElement);
+    } else {
+      // Target is not a project section (e.g., contact) - still preload all project images
+      // because they affect the overall page layout and scroll calculations
+
+      // Preload all project images to ensure accurate layout calculations
+      const allImagePromises = projects.map((project) =>
+        preloadProjectImages(project.imgOptions)
+      );
+      await Promise.all(allImagePromises);
+
+      // Force-load any lazy images in the DOM that might affect layout
+      await forceLoadLazyImages();
+    }
+
+    // Additional wait to ensure layout is fully stable after image loading
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Force a layout recalculation to ensure all image dimensions are properly calculated
+    targetElement.offsetHeight; // Force reflow
   }
 
   // Step 3: Calculate precise target position (now with correct layout)
@@ -286,6 +408,11 @@ async function prepareElementsForScroll(): Promise<void> {
 
   // Additional wait to ensure all animations are truly complete
   await new Promise((resolve) => setTimeout(resolve, 50));
+
+  // Force a layout recalculation to ensure all elements are properly sized
+  if (projectsSection) {
+    projectsSection.offsetHeight; // Force reflow
+  }
 }
 
 /**
@@ -330,23 +457,14 @@ export function getResponsiveOffset(options?: {
     totalSpacing += 64; // Mobile navbar height
   }
 
-  // Base spacing for all sections
-  if (window.innerWidth >= 768) {
-    totalSpacing += 20; // Desktop base spacing
-  } else {
-    totalSpacing += 16; // Mobile base spacing
-  }
-
   // Add extra spacing for projects only
   if (useExtraSpacing) {
     if (window.innerWidth >= 768) {
-      totalSpacing += 28; // Desktop extra spacing
+      totalSpacing += 48; // Desktop extra spacing
     } else {
-      totalSpacing += 20; // Mobile extra spacing
+      totalSpacing += 36; // Mobile extra spacing
     }
   }
-
-  console.log("totalSpacing", totalSpacing);
 
   return -totalSpacing; // Negative to scroll above the element
 }
