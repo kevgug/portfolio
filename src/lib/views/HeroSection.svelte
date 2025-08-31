@@ -229,7 +229,7 @@
       }
     };
 
-    // Wait 850ms, then check current breakpoint and either run immediately or wait 1000ms more
+    // Wait 850ms, then check current breakpoint and either run immediately or wait 500ms more
     setTimeout(() => {
       const isSmallNow =
         getCurrentBreakpoint(
