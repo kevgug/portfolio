@@ -201,7 +201,7 @@
     }}
     role="presentation"
   >
-    <div class="px-5 md:px-[2.5rem] xl:px-[5rem] py-12">
+    <div class="px-5 md:px-[2.5rem] xl:px-[5rem] py-8 md:py-12">
       <ul class="flex flex-col items-center space-y-6 list-none" role="menu">
         <li
           in:fly={{
