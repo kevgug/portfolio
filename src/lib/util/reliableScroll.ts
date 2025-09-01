@@ -14,6 +14,75 @@ interface ReliableScrollOptions extends ScrollOptions {
   preloadImages?: boolean; // Whether to preload images before scrolling (default: true)
 }
 
+// Cache for browser format support to avoid repeated checks
+let formatSupportCache: { [key: string]: boolean } | null = null;
+
+/**
+ * Checks if the browser supports a specific image format
+ */
+function checkImageFormatSupport(format: "avif" | "webp"): Promise<boolean> {
+  return new Promise((resolve) => {
+    const img = new Image();
+
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+
+    // Test images (1x1 pixel transparent images in each format)
+    const testImages = {
+      avif: "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=",
+      webp: "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA",
+    };
+
+    img.src = testImages[format];
+  });
+}
+
+/**
+ * Gets browser format support, with caching
+ */
+async function getBrowserFormatSupport(): Promise<{
+  avif: boolean;
+  webp: boolean;
+}> {
+  if (formatSupportCache) {
+    return formatSupportCache as { avif: boolean; webp: boolean };
+  }
+
+  const [avifSupport, webpSupport] = await Promise.all([
+    checkImageFormatSupport("avif"),
+    checkImageFormatSupport("webp"),
+  ]);
+
+  formatSupportCache = {
+    avif: avifSupport,
+    webp: webpSupport,
+  };
+
+  return formatSupportCache as { avif: boolean; webp: boolean };
+}
+
+/**
+ * Selects the best supported image format
+ */
+async function selectBestImageFormat(imgOptions: {
+  src: string;
+  avifSrc?: string;
+  webpSrc?: string;
+}): Promise<string> {
+  const support = await getBrowserFormatSupport();
+
+  // Priority order: AVIF > WebP > fallback
+  if (support.avif && imgOptions.avifSrc) {
+    return imgOptions.avifSrc;
+  }
+
+  if (support.webp && imgOptions.webpSrc) {
+    return imgOptions.webpSrc;
+  }
+
+  return imgOptions.src; // Fallback to PNG/JPG
+}
+
 /**
  * Preloads a single image and returns a promise that resolves when loaded
  */
@@ -30,21 +99,16 @@ function preloadImage(src: string): Promise<void> {
 }
 
 /**
- * Preloads all image formats for a project (modern formats + fallback)
- * Now properly handles the picture element structure used in the components
+ * Preloads all image formats for a project - OPTIMIZED VERSION
+ * Now only loads the best supported format instead of all formats
  */
-function preloadProjectImages(imgOptions: {
+async function preloadProjectImages(imgOptions: {
   src: string;
   avifSrc?: string;
   webpSrc?: string;
-}): Promise<void[]> {
-  const imagesToLoad: string[] = [imgOptions.src];
-
-  // Add modern formats if they exist
-  if (imgOptions.avifSrc) imagesToLoad.push(imgOptions.avifSrc);
-  if (imgOptions.webpSrc) imagesToLoad.push(imgOptions.webpSrc);
-
-  return Promise.all(imagesToLoad.map((src) => preloadImage(src)));
+}): Promise<void> {
+  const bestImageSrc = await selectBestImageFormat(imgOptions);
+  await preloadImage(bestImageSrc);
 }
 
 /**
