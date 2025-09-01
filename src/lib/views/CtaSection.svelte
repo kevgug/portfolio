@@ -14,7 +14,7 @@
   <ul class="my-9 md:my-11 lg:my-12">
     <li>
       Drove 2x traffic increase for $30MM+ fintech and AI startups by
-      strategically optimizing sitemaps and copy.
+      strategically optimizing sitemaps, design, and copy.
     </li>
     <li>
       Built an AI app builder toolkit for Figma plugins at
