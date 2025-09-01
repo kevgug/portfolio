@@ -45,8 +45,8 @@
 
   .button--glacial {
     @apply text-white;
-    @apply bg-none bg-[#097678];
-    @apply border-solid border-[1px] border-[#195152];
+    @apply bg-none bg-[#175657];
+    @apply border-solid border-[1px] border-[#1d5f60];
 
     @apply transition-all;
     @apply duration-200;
