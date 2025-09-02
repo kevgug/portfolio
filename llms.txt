@@ -1,0 +1,58 @@
+## Site
+
+- Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
+- Tagline: Product Designer. AI-Native Engineer.
+- Description: I'm an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Base URL: https://kevingugelmann.com
+
+## Sitemap
+
+- / — Home
+- /#introduction — Intro headline and highlights
+- /#projects — Projects overview
+- /#contact — Contact CTA
+- Project anchors:
+  - /#jpmorganchase — JPMorganChase (2025)
+  - /#freestyle — Freestyle (2024)
+  - /#gridlink — GridLink (2023)
+  - /#arcbrowser — Arc Browser iOS Redesign (2023)
+  - /#zeestalabs — Zeesta Labs (2023)
+  - /#sportvideoanalysis — Sport Video Analysis App (2022)
+  - /#uchicagodesignathon — UChicago Designathon Winner (2022)
+  - /#tfdi — Trade Finance Distribution Initiative (2021)
+  - /#mindxone — Mindxone (2020)
+  - /#taskapp — Task App with Focus Timer (2019)
+  - /#panoramamail — Panorama Mail (2018)
+  - /#prismaticnews — Prismatic News (2018)
+
+## Key CTAs
+
+- Navigation: Book a call → https://cal.com/kevgug/intro
+- Contact section: Schedule a call → https://cal.com/kevgug/intro; Email me → mailto:hello@kevingugelmann.com
+
+## Section Summaries
+
+- Introduction: Headshot; final title “Product Designer. AI-Native Engineer.”; highlights about JPMC Figma plugins, Freestyle site, UChicago wins.
+- Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
+- Contact: Headline “YC to Fortune 50. I'm Kevin Gugelmann.” with conversion-focused proof points and primary CTAs.
+- Footer: “Designed in Sketch. Developed with Svelte.” and copyright.
+
+## Project Summaries
+
+- JPMorganChase: Launched Figma plugin with 500x perf; chart generator; AI toolkit for designers.
+- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust/V8 runtime contributions.
+- GridLink (Techstars '23): Redesigned EV fleet UI; shipped React components.
+- Arc Browser iOS Redesign: 30‑day redesign; published on Medium.
+- Zeesta Labs: Brand + React Native app for medical AI startup.
+- Sport Video Analysis App: Desktop UI; ten interactive states for training review.
+- UChicago Designathon Winner: Prize‑winning mobile app built in 5 hours.
+- Trade Finance Distribution Initiative: Webflow redesign doubling traffic; rewrote 1k+ words of copy.
+- Mindxone: Co‑founded tag‑based content web app to MVP.
+- Task App with Focus Timer: Flutter iOS task app with micro‑interactions.
+- Panorama Mail: Concept mail app with Panorama triage; 50+ animated artboards.
+- Prismatic News: Android offline news app with TTS and AI highlighting; 5k+ installs.
+
+## Social
+
+- GitHub: https://github.com/kevgug
+- LinkedIn: https://www.linkedin.com/in/kevingugelmann
