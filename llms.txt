@@ -7,23 +7,23 @@
 
 ## Sitemap
 
-- / — Home
-- /#introduction — Intro headline and highlights
-- /#projects — Projects overview
-- /#contact — Contact CTA
+- / - Home
+- /#introduction - Intro headline and highlights
+- /#projects - Projects overview
+- /#contact - Contact CTA
 - Project anchors:
-  - /#jpmorganchase — JPMorganChase (2025)
-  - /#freestyle — Freestyle (2024)
-  - /#gridlink — GridLink (2023)
-  - /#arcbrowser — Arc Browser iOS Redesign (2023)
-  - /#zeestalabs — Zeesta Labs (2023)
-  - /#sportvideoanalysis — Sport Video Analysis App (2022)
-  - /#uchicagodesignathon — UChicago Designathon Winner (2022)
-  - /#tfdi — Trade Finance Distribution Initiative (2021)
-  - /#mindxone — Mindxone (2020)
-  - /#taskapp — Task App with Focus Timer (2019)
-  - /#panoramamail — Panorama Mail (2018)
-  - /#prismaticnews — Prismatic News (2018)
+  - /#jpmorganchase - JPMorganChase (2025)
+  - /#freestyle - Freestyle (2024)
+  - /#gridlink - GridLink (2023)
+  - /#arcbrowser - Arc Browser iOS Redesign (2023)
+  - /#zeestalabs - Zeesta Labs (2023)
+  - /#sportvideoanalysis - Sport Video Analysis App (2022)
+  - /#uchicagodesignathon - UChicago Designathon Winner (2022)
+  - /#tfdi - Trade Finance Distribution Initiative (2021)
+  - /#mindxone - Mindxone (2020)
+  - /#taskapp - Task App with Focus Timer (2019)
+  - /#panoramamail - Panorama Mail (2018)
+  - /#prismaticnews - Prismatic News (2018)
 
 ## Key CTAs
 
@@ -40,7 +40,7 @@
 ## Project Summaries
 
 - JPMorganChase: Launched Figma plugin with 500x perf; chart generator; AI toolkit for designers.
-- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust/V8 runtime contributions.
+- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust-based JS runtime contributions.
 - GridLink (Techstars '23): Redesigned EV fleet UI; shipped React components.
 - Arc Browser iOS Redesign: 30‑day redesign; published on Medium.
 - Zeesta Labs: Brand + React Native app for medical AI startup.

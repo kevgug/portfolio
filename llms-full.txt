@@ -34,7 +34,7 @@
 - Role: UX Engineer Intern
 - Description: Brought an existing Figma plugin to worldwide launch through 500x performance improvements and bug fixes, enabling 200+ hours of annual savings. Built a data visualization generator converting CSVs to design system-compliant charts in under 1 second. Engineered an AI-native toolkit that enables designers to collaboratively build their own scalable plugins without touching code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.
 - Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
-- Link: —
+- Link: (n/a)
 - Image alt: JPMorganChase logo in gold
 - Background color: #28211D
 
@@ -42,7 +42,7 @@
 
 - Output medium: AI Infrastructure
 - Role: Software Engineer
-- Description: Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust/V8, helping secure multi-million funding.
+- Description: Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.
 - Built with: React, JavaScript, TypeScript, TailwindCSS, Rust
 - Link: View Website → https://www.freestyle.sh
 - Image alt: Freestyle logo
@@ -74,7 +74,7 @@
 - Role: UX Engineer
 - Description: Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup.
 - Built with: Figma, Figma Variables, React Native, TypeScript
-- Link: —
+- Link: (n/a)
 - Image alt: Zeesta Labs logo lockup rendered onto an outside wall poster
 - Background color: #18292d
 
@@ -94,7 +94,7 @@
 - Role: Lead Designer
 - Description: Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process.
 - Built with: Figma, FigJam
-- Link: —
+- Link: (n/a)
 - Image alt: Three iPhone mockups of a mobile app prototype for gamified group pizza ordering
 - Background color: #2b2a24
 
@@ -114,7 +114,7 @@
 - Role: Co-Founder & UX Engineer
 - Description: Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies.
 - Built with: Adobe XD, HTML/CSS/JS, JQuery, NodeJS, Express.js, AWS
-- Link: —
+- Link: (n/a)
 - Image alt: Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product
 - Background color: #2b2b2b
 
@@ -124,7 +124,7 @@
 - Role: UX Engineer
 - Description: Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions.
 - Built with: InVision Studio, Flutter
-- Link: —
+- Link: (n/a)
 - Image alt: Side-by-side iPhone mockups of a task app with a focus timer
 - Background color: #17233b
 
