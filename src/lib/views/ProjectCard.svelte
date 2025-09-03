@@ -7,6 +7,7 @@
   import type { ImageOptions } from "$lib/util/image";
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
   import { tailwindTheme } from "$lib/tailwindTheme";
+  import { getCurrentBreakpoint, BreakpointSizes } from "$lib/util/breakpoints";
 
   export let year: number;
   export let name: string;
@@ -36,9 +37,30 @@
 
   let isHoveringLinkBtn = false;
 
+  // Responsive maxRotation based on breakpoint
+  let screenWidth = 0;
   let maxRotation = 5;
   let width = 0;
   let height = 0;
+
+  // Function to get maxRotation based on current breakpoint
+  const getMaxRotation = (screenWidth: number): number => {
+    const breakpoint = getCurrentBreakpoint(screenWidth);
+    switch (breakpoint) {
+      case BreakpointSizes.xl:
+      case BreakpointSizes["2xl"]:
+        return 1.5; // 1.5% for xl and above
+      case BreakpointSizes.lg:
+        return 2; // 2.5% for lg
+      case BreakpointSizes.md:
+        return 5.5; // 5.5% for md
+      default:
+        return 2.5; // 2.5% for sm and below (default/mobile)
+    }
+  };
+
+  // Reactive statement to update maxRotation when screen width changes
+  $: maxRotation = getMaxRotation(screenWidth);
 
   let maxRotateDuration = 900;
   let minRotateDuration = 100;
@@ -137,7 +159,7 @@
   };
 </script>
 
-<div>
+<div bind:clientWidth={screenWidth}>
   <div class="flex flex-col md:flex-row justify-between">
     <div class="flex flex-col md:flex-row">
       <p
