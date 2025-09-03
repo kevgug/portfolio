@@ -1,0 +1,197 @@
+## Site Metadata
+
+- Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
+- Description: I'm an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Domain: kevingugelmann.com
+- Canonical: https://kevingugelmann.com
+
+## Navigation
+
+- Book a call → https://cal.com/kevgug/intro
+
+## Home
+
+### Introduction (id: introduction)
+
+- Title (initial): "Hi, I'm Kevin. Welcome to my site."
+- Title (final): "Product Designer. AI-Native Engineer."
+- Headshot alt: "Kevin Gugelmann's headshot"
+- Highlights:
+  - Built an AI-native tool at JPMorganChase so designers can collaboratively build Figma plugins.
+  - Shipped pixel-perfect sites at AI infra startup Freestyle (YC S24) with full-stack code.
+  - Won the designathon and hackathon at UChicago, majoring in Economics and Cognitive Science.
+- Company logos (alt text):
+  - JPMorganChase logo
+  - Freestyle logo
+  - Y Combinator logo
+  - University of Chicago logo
+
+### Projects (id: projects)
+
+#### Project: JPMorganChase (id: jpmorganchase, year: 2025)
+
+- Output medium: Global Private Bank
+- Role: UX Engineer Intern
+- Description: Brought an existing Figma plugin to worldwide launch through 500x performance improvements and bug fixes, enabling 200+ hours of annual savings. Built a data visualization generator converting CSVs to design system-compliant charts in under 1 second. Engineered an AI-native toolkit that enables designers to collaboratively build their own scalable plugins without touching code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.
+- Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
+- Link: (n/a)
+- Image alt: JPMorganChase logo in gold
+- Background color: #28211D
+
+#### Project: Freestyle (YC S24) (id: freestyle, year: 2024)
+
+- Output medium: AI Infrastructure
+- Role: Software Engineer
+- Description: Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust/V8, helping secure multi-million funding.
+- Built with: React, JavaScript, TypeScript, TailwindCSS, Rust
+- Link: View Website → https://www.freestyle.sh
+- Image alt: Freestyle logo
+- Background color: #1e1e1e
+
+#### Project: GridLink (Techstars '23) (id: gridlink, year: 2023)
+
+- Output medium: EV Fleet SaaS
+- Role: Platform Engineer
+- Description: Redesigned and implemented the fleet charging schedule page, shipping React components from Figma designs. Simplified navigation UX with a platform-wide redesign proposal.
+- Built with: React, TypeScript, Figma
+- Link: View Website → https://gridlink.co
+- Image alt: A screenshot of the GridLink EV fleet management platform landing page
+- Background color: #1e2521
+
+#### Project: Arc Browser iOS Redesign (id: arcbrowser, year: 2023)
+
+- Output medium: UX Case Study
+- Role: Research, Design, & Writing
+- Description: Designed and prototyped a complete Arc for iOS redesign in 30 days, publishing the case study in Bootcamp, the largest design publication on Medium.
+- Built with: Figma, Medium, Artboard Studio
+- Link: Read Story → https://bootcamp.uxdesign.cc/arc-for-ios-gets-the-student-redesign-it-deserves-in-30-days-5c54decf90af
+- Image alt: A showcase of multiple screens from across the whole Arc for iOS redesign
+- Background color: #1d252c
+
+#### Project: Zeesta Labs (id: zeestalabs, year: 2023)
+
+- Output medium: Medical AI Startup
+- Role: UX Engineer
+- Description: Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup.
+- Built with: Figma, Figma Variables, React Native, TypeScript
+- Link: (n/a)
+- Image alt: Zeesta Labs logo lockup rendered onto an outside wall poster
+- Background color: #18292d
+
+#### Project: Sport Video Analysis App (id: sportvideoanalysis, year: 2022)
+
+- Output medium: Desktop App
+- Role: Design & Prototyping
+- Description: Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals. Used dark neutrals to focus attention on video content.
+- Built with: Sketch
+- Link: Play Prototype → https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA
+- Image alt: Visually highlighting an athlete's technique in a sport video analysis desktop UI
+- Background color: #262626
+
+#### Project: UChicago Designathon Winner (id: uchicagodesignathon, year: 2022)
+
+- Output medium: Best Design Prize
+- Role: Lead Designer
+- Description: Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process.
+- Built with: Figma, FigJam
+- Link: (n/a)
+- Image alt: Three iPhone mockups of a mobile app prototype for gamified group pizza ordering
+- Background color: #2b2a24
+
+#### Project: Trade Finance Distribution Initiative (id: tfdi, year: 2021)
+
+- Output medium: Website Redesign
+- Role: Digital Marketing Strategist
+- Description: Designed and built complete website redesign in Figma and Webflow, increasing traffic by 100% in first month. Rewrote all 1k+ words of copy, eliminating jargon and achieving sub-20% bounce rate on 4k monthly visits.
+- Built with: Figma, Webflow
+- Link: View Website → https://www.tradefinancedistribution.com/
+- Image alt: Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation
+- Background color: #08262c
+
+#### Project: Mindxone (id: mindxone, year: 2020)
+
+- Output medium: Web App
+- Role: Co-Founder & UX Engineer
+- Description: Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies.
+- Built with: Adobe XD, HTML/CSS/JS, JQuery, NodeJS, Express.js, AWS
+- Link: (n/a)
+- Image alt: Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product
+- Background color: #2b2b2b
+
+#### Project: Task App with Focus Timer (id: taskapp, year: 2019)
+
+- Output medium: Mobile App
+- Role: UX Engineer
+- Description: Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions.
+- Built with: InVision Studio, Flutter
+- Link: (n/a)
+- Image alt: Side-by-side iPhone mockups of a task app with a focus timer
+- Background color: #17233b
+
+#### Project: Panorama Mail (id: panoramamail, year: 2018)
+
+- Output medium: Concept App
+- Role: Design & Prototyping
+- Description: Designed and prototyped 50+ animated artboards for a concept mobile mail app. Built rapid email triaging with 'Panorama' screen, plus snooze, quick reply, and undo send features.
+- Built with: Adobe XD, Auto-Animate
+- Link: Play Prototype → https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen
+- Image alt: Side-by-side iPhone screenshots of a concept design mail app
+- Background color: #102436
+
+#### Project: Prismatic News (id: prismaticnews, year: 2018)
+
+- Output medium: Android App
+- Role: Full-Stack Engineer
+- Description: Engineered and published a native Android app with API integration and web scraping for offline reading. Built nine theme variants, text-to-speech, and AI sentence highlighting. Reached 5,000+ installs on Google Play Store.
+- Built with: Android Studio, Java, Firebase
+- Link: Play Video → https://youtu.be/6lico6jtV5E
+- Image alt: Side-by-side promotional Android mockups for an offline news-reading app
+- Background color: #142934
+
+### Contact (id: contact)
+
+- Heading: "YC to Fortune 50. I'm Kevin Gugelmann."
+- Proof points:
+  - Drove 2x traffic increase for $30MM+ fintech and AI startups by strategically optimizing sitemaps, design, and copy.
+  - Built an AI app builder toolkit for Figma plugins at JPMorganChase that generates, runs, and git-manages production code through natural language prompts.
+  - Secured 1st place at Hyrox U24 and won three national gold medals in UK school rowing, driven by an obsession with marginal gains.
+- CTAs:
+  - Schedule a call → https://cal.com/kevgug/intro
+  - Email me → mailto:kevin@kevingugelmann.com
+
+### Footer
+
+- Designed in Sketch. Developed with Svelte.
+- Copyright © 2025 Kevin Gugelmann. All rights reserved.
+
+### Menu Overlay (mobile/overlay navigation)
+
+- Items:
+  - Introduction
+  - Projects:
+    - JPMorganChase
+    - Freestyle (YC S24)
+    - GridLink (Techstars '23)
+    - Arc Browser iOS Redesign
+    - Zeesta Labs
+    - Sport Video Analysis App
+    - UChicago Designathon Winner
+    - Trade Finance Distribution Initiative
+    - Mindxone
+    - Task App with Focus Timer
+    - Panorama Mail
+    - Prismatic News
+  - Contact
+
+### Project Marquee (image alt text)
+
+- Sport Video Analysis project preview
+- Arc for iOS project preview
+- Pizza Screens project preview
+- GridLink project preview
+- Task Timer project preview
+
+### Error Page
+
+- Displays the HTTP status code and error message for the current route.
+- CTA: Return home → /

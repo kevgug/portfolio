@@ -43,7 +43,7 @@
     <PrimaryButton
       linkButtonContent={{
         label: "Email me",
-        destination: "mailto:hello@kevingugelmann.com",
+        destination: "mailto:kevin@kevingugelmann.com",
         mediaType: "none",
         eventName: "ctasection_ext_email_primary",
         openInNewTab: true,
