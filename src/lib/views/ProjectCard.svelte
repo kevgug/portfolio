@@ -313,7 +313,7 @@
       {/if}
       <div
         class="flex flex-col h-full justify-center
-              my-0 md:my-10 lg:my-0"
+              my-0 md:my-10"
       >
         <p class="font-serif text-description-text-grey">{description}</p>
         {#if builtWith}
