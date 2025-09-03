@@ -69,7 +69,7 @@ export const projects: Project[] = [
       alt: "JPMorganChase logo in gold",
     },
     description:
-      "Brought an existing Figma plugin to worldwide launch through 500x performance improvements and bug fixes, enabling 200+ hours of annual savings. Built a data visualization generator converting CSVs to design system-compliant charts in under 1 second. Engineered an AI-native toolkit that enables designers to collaboratively build their own scalable plugins without touching code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.",
+      "Delivered 500x performance improvements to launch a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second and built AI-native tool enabling designers to collaboratively build Figma plugins via natural language without code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.",
     builtWith: ["Figma", "TypeScript", "React", "TailwindCSS", "Bash Scripts"],
     linkButtonContent: undefined,
     bgColor: "#28211D",
@@ -87,7 +87,7 @@ export const projects: Project[] = [
       alt: "Freestyle logo",
     },
     description:
-      "Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.",
+      "Designed and engineered end-to-end company website and blog with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.",
     builtWith: ["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"],
     linkButtonContent: {
       label: "View Website",
@@ -111,7 +111,7 @@ export const projects: Project[] = [
       alt: "A screenshot of the GridLink EV fleet management platform landing page",
     },
     description:
-      "Redesigned and implemented the fleet charging schedule page, shipping React components from Figma designs. Simplified navigation UX with a platform-wide redesign proposal.",
+      "First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders. Wireframed a full platform UI redesign proposal, balancing simplified navigation with familiarity bias for older demographic. Redesigned the product-central charging schedule page around Material UI design system, improving information hierarchy and shipping React components from Figma designs.",
     builtWith: ["React", "TypeScript", "Figma"],
     linkButtonContent: {
       label: "View Website",
@@ -135,7 +135,7 @@ export const projects: Project[] = [
       alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
     },
     description:
-      "Designed and prototyped a complete Arc for iOS redesign in 30 days, scouted by Fabricio Teixeira—Partner at Work & Co and founder of UX Collective, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp.",
+      "Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp. Conducted user research yielding novel mental state framework and delivered 4 core UX innovations through complete Arc for iOS redesign in 30 days.",
     builtWith: ["Figma", "Medium", "Artboard Studio"],
     linkButtonContent: {
       label: "Read Story",
@@ -221,7 +221,7 @@ export const projects: Project[] = [
       alt: "Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation",
     },
     description:
-      "Designed and built complete website redesign in Figma and Webflow, increasing traffic by 100% in first month. Rewrote all 1k+ words of copy, eliminating jargon and achieving sub-20% bounce rate on 4k monthly visits.",
+      "Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 500 members with $20T+ AUM. Led three design reviews with C-suite executives, successfully advocating for key brand storytelling elements while rewriting all 1k+ words of copy to eliminate jargon and achieve sub-20% bounce rate.",
     builtWith: ["Figma", "Webflow"],
     linkButtonContent: {
       label: "View Website",
@@ -312,7 +312,7 @@ export const projects: Project[] = [
       alt: "Side-by-side promotional Android mockups for an offline news-reading app",
     },
     description:
-      "Engineered and published a native Android app with API integration and web scraping for offline reading. Built nine theme variants, text-to-speech, and AI sentence highlighting. Reached 5,000+ installs on Google Play Store.",
+      "Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store. Engineered line-by-line text-to-speech playback, content parsing algorithms in Java, nine theme variants, and AI sentence highlighting for comprehensive reading experience.",
     builtWith: ["Android Studio", "Java", "Firebase"],
     linkButtonContent: {
       label: "Play Video",
