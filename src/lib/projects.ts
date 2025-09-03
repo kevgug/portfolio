@@ -135,7 +135,7 @@ export const projects: Project[] = [
       alt: "A showcase of multiple screens from across the whole Arc for iOS redesign",
     },
     description:
-      "Designed and prototyped a complete Arc for iOS redesign in 30 days, publishing the case study in Bootcamp, the largest design publication on Medium.",
+      "Designed and prototyped a complete Arc for iOS redesign in 30 days, scouted by Fabricio Teixeira—Partner at Work & Co and founder of UX Collective, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp.",
     builtWith: ["Figma", "Medium", "Artboard Studio"],
     linkButtonContent: {
       label: "Read Story",
