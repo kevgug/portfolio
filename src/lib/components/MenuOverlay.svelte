@@ -223,7 +223,8 @@
               size="1em"
               class="group-hover:text-glacial-blue"
             />
-            <span class="group-hover:text-glacial-blue not-italic"
+            <span
+              class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
               >Introduction</span
             >
           </button>
@@ -294,7 +295,9 @@
               size="1em"
               class="group-hover:text-glacial-blue"
             />
-            <span class="group-hover:text-glacial-blue not-italic">Contact</span
+            <span
+              class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
+              >Contact</span
             >
           </button>
         </li>

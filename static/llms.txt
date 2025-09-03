@@ -40,7 +40,7 @@
 ## Project Summaries
 
 - JPMorganChase: Launched Figma plugin with 500x perf; chart generator; AI toolkit for designers.
-- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust/V8 runtime contributions.
+- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust-based JS runtime contributions.
 - GridLink (Techstars '23): Redesigned EV fleet UI; shipped React components.
 - Arc Browser iOS Redesign: 30‑day redesign; published on Medium.
 - Zeesta Labs: Brand + React Native app for medical AI startup.

@@ -87,7 +87,7 @@ export const projects: Project[] = [
       alt: "Freestyle logo",
     },
     description:
-      "Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust/V8, helping secure multi-million funding.",
+      "Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.",
     builtWith: ["React", "JavaScript", "TypeScript", "TailwindCSS", "Rust"],
     linkButtonContent: {
       label: "View Website",

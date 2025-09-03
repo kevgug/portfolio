@@ -42,7 +42,7 @@
 
 - Output medium: AI Infrastructure
 - Role: Software Engineer
-- Description: Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust/V8, helping secure multi-million funding.
+- Description: Designed and engineered company website and blog, driving 2k+ monthly visitors. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.
 - Built with: React, JavaScript, TypeScript, TailwindCSS, Rust
 - Link: View Website → https://www.freestyle.sh
 - Image alt: Freestyle logo
