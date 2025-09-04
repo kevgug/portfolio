@@ -68,6 +68,7 @@
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import type { Project } from "$lib/projects";
+  import LinkButton from "$lib/components/LinkButton.svelte";
 
   export let open = false;
 
@@ -284,22 +285,33 @@
           }}
           out:customExit={{ duration: 250 }}
         >
-          <button
-            on:click|stopPropagation={handleContactClick}
-            on:mouseenter={handleProjectLeave}
-            on:mouseleave={handleProjectLeave}
-            class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-          >
-            <Icon
-              name="multiple-neutral-2"
-              size="1em"
-              class="group-hover:text-glacial-blue"
-            />
-            <span
-              class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-              >Contact</span
+          <div class="flex items-center gap-6">
+            <button
+              on:click|stopPropagation={handleContactClick}
+              on:mouseenter={handleProjectLeave}
+              on:mouseleave={handleProjectLeave}
+              class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
             >
-          </button>
+              <Icon
+                name="multiple-neutral-2"
+                size="1em"
+                class="group-hover:text-glacial-blue"
+              />
+              <span
+                class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
+                >Contact</span
+              >
+            </button>
+            <LinkButton
+              linkButtonContent={{
+                label: "Blog",
+                destination: "/blog",
+                mediaType: "none",
+                eventName: "menu_blog",
+                openInNewTab: false,
+              }}
+            />
+          </div>
         </li>
       </ul>
     </div>
