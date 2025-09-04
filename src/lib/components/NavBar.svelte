@@ -5,12 +5,16 @@
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
+  import { subscribeModalOpen } from "$lib/stores/subscribe";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
   let screenWidth = 0;
   $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
   let menuOpen = false;
+
+  export let showBlogLink: boolean = false;
+  export let showPortfolioLink: boolean = false;
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} />
@@ -26,7 +30,38 @@
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
       <HamburgerMenu bind:open={menuOpen} />
     </div>
-    <div class="flex flex-row space-x-4 md:space-x-5">
+    <div class="flex flex-row items-center space-x-4 md:space-x-5">
+      {#if showBlogLink}
+        <LinkButton
+          linkButtonContent={{
+            label: "Blog",
+            destination: "/blog",
+            mediaType: "none",
+            eventName: "navbar_blog",
+            openInNewTab: false,
+          }}
+        />
+      {/if}
+      {#if showPortfolioLink}
+        <LinkButton
+          linkButtonContent={{
+            label: "Portfolio",
+            destination: "/",
+            mediaType: "none",
+            eventName: "navbar_portfolio",
+            openInNewTab: false,
+          }}
+        />
+      {/if}
+      <LinkButton
+        linkButtonContent={{
+          label: "Subscribe",
+          destination: () => subscribeModalOpen.set(true),
+          mediaType: "none",
+          eventName: "navbar_subscribe",
+          openInNewTab: false,
+        }}
+      />
       <LinkButton
         linkButtonContent={{
           label: "Book a call",
