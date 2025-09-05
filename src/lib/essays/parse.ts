@@ -1,0 +1,128 @@
+export interface BlogFootnotesMap {
+  [num: string]: string;
+}
+
+export interface BlogSection {
+  heading: string;
+  paragraphs: string[];
+}
+
+export interface ParsedBlogPost {
+  title: string;
+  date: string;
+  sections: BlogSection[];
+  footnotes: BlogFootnotesMap;
+}
+
+const FOOTNOTE_REF_REGEX = /\[(\d+)\]/g;
+
+export function parseMarkdown(md: string): ParsedBlogPost {
+  const lines = md.split(/\r?\n/);
+
+  // Title
+  let idx = 0;
+  while (idx < lines.length && lines[idx].trim() === "") idx++;
+  const titleLine = lines[idx] || "";
+  const title = titleLine.replace(/^#\s*/, "").trim();
+  idx++;
+
+  // Date (next non-empty line)
+  while (idx < lines.length && lines[idx].trim() === "") idx++;
+  const date = (lines[idx] || "").trim();
+  idx++;
+
+  // Parse sections and footnotes
+  const sections: BlogSection[] = [];
+  const footnotes: BlogFootnotesMap = {};
+
+  let currentSection: BlogSection | null = null;
+  let inNotes = false;
+  let paragraphBuffer: string[] = [];
+
+  const flushParagraph = () => {
+    const text = paragraphBuffer.join(" ").trim();
+    if (text && currentSection) {
+      currentSection.paragraphs.push(text);
+    }
+    paragraphBuffer = [];
+  };
+
+  for (; idx < lines.length; idx++) {
+    const raw = lines[idx] ?? "";
+    const line = raw.replace(/\t/g, "    ");
+
+    // Section heading
+    const h2Match = line.match(/^##\s+(.*)$/);
+    if (h2Match) {
+      flushParagraph();
+      const headingText = (h2Match[1] || "").trim();
+      inNotes = /^notes$/i.test(headingText);
+      if (!inNotes) {
+        currentSection = { heading: headingText, paragraphs: [] };
+        sections.push(currentSection);
+      } else {
+        currentSection = null;
+      }
+      continue;
+    }
+
+    // Inside notes: lines like [1] text
+    if (inNotes) {
+      const noteMatch = line.match(/^\[(\d+)\]\s*(.*)$/);
+      if (noteMatch) {
+        const num = noteMatch[1];
+        const text = (noteMatch[2] || "").trim();
+        if (num) footnotes[num] = text;
+      }
+      continue;
+    }
+
+    // Blank line separates paragraphs
+    if (line.trim() === "") {
+      flushParagraph();
+      continue;
+    }
+
+    // Accumulate paragraph text; collapse inline whitespace a bit
+    paragraphBuffer.push(line.trim());
+  }
+
+  flushParagraph();
+
+  return { title, date, sections, footnotes };
+}
+
+export interface ParagraphTokenText {
+  type: "text";
+  text: string;
+}
+
+export interface ParagraphTokenRef {
+  type: "ref";
+  num: string;
+}
+
+export type ParagraphToken = ParagraphTokenText | ParagraphTokenRef;
+
+export function tokenizeParagraphForFootnotes(text: string): ParagraphToken[] {
+  const tokens: ParagraphToken[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  FOOTNOTE_REF_REGEX.lastIndex = 0;
+  // eslint-disable-next-line no-cond-assign
+  while ((match = FOOTNOTE_REF_REGEX.exec(text))) {
+    const start = match.index;
+    const end = start + match[0].length;
+    if (start > lastIndex) {
+      tokens.push({ type: "text", text: text.slice(lastIndex, start) });
+    }
+    tokens.push({ type: "ref", num: match[1] });
+    lastIndex = end;
+  }
+  if (lastIndex < text.length) {
+    tokens.push({ type: "text", text: text.slice(lastIndex) });
+  }
+  return tokens;
+}
+
+

@@ -40,6 +40,22 @@
       box: 24,
       svg: `<path d="M3.375 7.875a4.125 4.125 0 1 0 8.25 0 4.125 4.125 0 1 0 -8.25 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M0.75 20.25a6.75 6.75 0 0 1 13.5 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M14.352 10.125a3.375 3.375 0 1 0 6.75 0 3.375 3.375 0 1 0 -6.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M15.813 15.068a5.526 5.526 0 0 1 7.437 5.182" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
     },
+    "book-open": {
+      box: 24,
+      svg: `<path d="M11.458 21.269a1.6 1.6 0 0 0 1.085 0 13.66 13.66 0 0 1 8.7 -0.448 1.607 1.607 0 0 0 2.006 -1.559V4.928a1.607 1.607 0 0 0 -1.12 -1.528 13.878 13.878 0 0 0 -9.586 0.2 1.61 1.61 0 0 1 -1.085 0 13.881 13.881 0 0 0 -9.587 -0.2A1.607 1.607 0 0 0 0.75 4.928v14.334a1.607 1.607 0 0 0 2.006 1.559 13.663 13.663 0 0 1 8.702 0.448Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m12 3.682 0 17.682" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
+    },
+    house: {
+      box: 24,
+      svg: `<path d="M22.868 8.947 12 0.747l-10.878 8.2a1.177 1.177 0 0 0 -0.377 0.8v12.522a0.981 0.981 0 0 0 0.978 0.978h6.522V18a3.75 3.75 0 0 1 7.5 0v5.25h6.521a0.982 0.982 0 0 0 0.979 -0.978V9.747a1.181 1.181 0 0 0 -0.377 -0.8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
+    },
+    bell: {
+      box: 24,
+      svg: `<path d="M15.875 5.827a3 3 0 1 0 6 0 3 3 0 1 0 -6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M9.125 21.75a2.087 2.087 0 0 0 4.005 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m11.125 3 0 -2.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M18.648 11.961c0.189 5.756 1.477 6.789 1.477 6.789h-18s1.5 -1.916 1.5 -8.25a7.507 7.507 0 0 1 9.724 -7.165" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
+    },
+    "arrow-left": {
+      box: 24,
+      svg: `<path d="M23.25 12 0.75 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M11.25 1.5 0.75 12l10.5 10.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
+    },
   } as const;
   export type IconName = keyof typeof icons;
 </script>

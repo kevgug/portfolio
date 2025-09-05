@@ -44,9 +44,9 @@
   }
 
   .button--glacial {
-    @apply text-white;
-    @apply bg-none bg-[#175657];
-    @apply border-solid border-[1px] border-[#1d5f60];
+    @apply text-black;
+    @apply bg-glacial-blue;
+    @apply border-solid border-[1px] border-white/40;
 
     @apply transition-all;
     @apply duration-200;
@@ -63,9 +63,8 @@
   }
 
   .button--glacial:hover {
-    box-shadow: rgba(213, 219, 218, 0.15) 0 8px 28px;
-    @apply text-white;
-    @apply border-glacial-blue;
+    @apply opacity-90;
+    @apply border-solid border-[1px] border-white/70;
 
     @apply transition-all;
     @apply duration-200;
@@ -82,6 +81,6 @@
   }
 
   .button--glacial:active {
-    box-shadow: rgba(169, 244, 233, 0.6) 0 0px 32px;
+    @apply opacity-80;
   }
 </style>
