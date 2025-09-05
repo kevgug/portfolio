@@ -29,7 +29,7 @@
       <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
         {post.title}
       </h1>
-      <p class="text-muted-text-grey mt-2">{post.date}</p>
+      <p class="text-muted-text-grey mt-1">{post.date}</p>
     </header>
 
     <div class="mt-6 md:mt-8 space-y-8">

@@ -4,7 +4,7 @@ export interface EssayListItem {
   slug: string;
   title: string;
   date: string;
-  description: string;
+  formattedDate: string;
 }
 
 export const load: PageLoad = async ({ fetch }) => {
@@ -13,5 +13,11 @@ export const load: PageLoad = async ({ fetch }) => {
     return { posts: [] as EssayListItem[] };
   }
   const posts = (await res.json()) as EssayListItem[];
+  posts.forEach((post) => {
+    post.formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    });
+  });
   return { posts };
 };

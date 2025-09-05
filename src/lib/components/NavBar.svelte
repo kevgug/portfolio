@@ -54,8 +54,8 @@
 
     <!-- Right side -->
     <div class="flex flex-row items-center space-x-4 md:space-x-5">
-      {#if isBlogPage || isBlogPostPage}
-        <!-- Blog pages: subscribe button with bell icon -->
+      {#if isBlogPage}
+        <!-- Blog index page: subscribe button with bell icon -->
         <LinkButton
           linkButtonContent={{
             label: "Subscribe",
@@ -64,7 +64,7 @@
             eventName: "navbar_subscribe",
             openInNewTab: false,
           }}
-          usePulsingCircle={false}
+          usePulsingCircle={true}
           iconName="bell"
         />
       {:else}

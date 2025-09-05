@@ -20,7 +20,7 @@
   </p>
 </section>
 
-<div class="space-y-8 md:space-y-10">
+<div class="space-y-8 md:space-y-10 pb-8 md:pb-12">
   {#each posts as post}
     <a
       class="block group"
@@ -36,11 +36,10 @@
           >
             {post.title}
           </h2>
-          <p class="text-description-text-grey font-serif mt-3">
-            {post.description}
-          </p>
         </div>
-        <p class="text-muted-text-grey mt-4 md:mt-0 shrink-0">{post.date}</p>
+        <p class="text-muted-text-grey mt-1 md:mt-0 shrink-0">
+          {post.formattedDate}
+        </p>
       </div>
     </a>
   {/each}
