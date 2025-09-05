@@ -508,9 +508,11 @@ export function ensureElementVisible(element: HTMLElement): Promise<void> {
  * Calculates responsive offset based on viewport size
  */
 export function getResponsiveOffset(options?: {
-  useExtraSpacing?: boolean;
+  spacing?: "default" | "sm" | "md" | "lg";
 }): number {
-  const { useExtraSpacing = false } = options ?? {};
+  const { spacing = "default" } = options ?? {};
+
+  console.log("spacing:", spacing);
 
   let totalSpacing = 0;
 
@@ -521,14 +523,27 @@ export function getResponsiveOffset(options?: {
     totalSpacing += 64; // Mobile navbar height
   }
 
-  // Add extra spacing for projects only
-  if (useExtraSpacing) {
+  // Add spacing based on the selected option
+  if (spacing === "lg") {
     if (window.innerWidth >= 768) {
-      totalSpacing += 48; // Desktop extra spacing
+      totalSpacing += 48; // Desktop large spacing
     } else {
-      totalSpacing += 36; // Mobile extra spacing
+      totalSpacing += 36; // Mobile large spacing
+    }
+  } else if (spacing === "md") {
+    if (window.innerWidth >= 768) {
+      totalSpacing += 20;
+    } else {
+      totalSpacing += 16;
+    }
+  } else if (spacing === "sm") {
+    if (window.innerWidth >= 768) {
+      totalSpacing += 12; // Desktop small spacing
+    } else {
+      totalSpacing += 8; // Mobile small spacing
     }
   }
+  // "default" adds no extra spacing
 
   return -totalSpacing; // Negative to scroll above the element
 }

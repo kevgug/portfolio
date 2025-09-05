@@ -1,3 +1,3 @@
-<div class="flex flex-col mx-auto w-screen max-w-screen-2xl">
+<div class="flex flex-col w-full max-w-screen-sm">
   <slot />
 </div>

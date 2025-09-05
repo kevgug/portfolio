@@ -56,6 +56,10 @@
       box: 24,
       svg: `<path d="M23.25 12 0.75 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M11.25 1.5 0.75 12l10.5 10.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
     },
+    "arrow-up": {
+      box: 24,
+      svg: `<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M1.65448 23.0773c4.14279 -0.2844 8.02223 -2.1342 10.85112 -5.1741 2.8289 -3.0399 4.3953 -7.0422 4.3814 -11.19467 0 -0.27665 0.014 -0.93855 0 -1.21441l0 -4.525371" stroke-width="1.5"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M11.4409 6.375 16.8932 0.922705 22.3455 6.375" stroke-width="1.5"></path>`,
+    },
   } as const;
   export type IconName = keyof typeof icons;
 </script>
@@ -78,7 +82,7 @@
   let displayIcon = icons[name] ?? defaultIcon;
 </script>
 
-<div style={flipY ? "transform: scaleY(-1);" : ""}>
+<span style={flipY ? "transform: scaleY(-1);" : ""}>
   <svg
     class={$$props.class ?? ""}
     style="overflow: visible;"
@@ -90,4 +94,4 @@
   >
     {@html displayIcon.svg}
   </svg>
-</div>
+</span>

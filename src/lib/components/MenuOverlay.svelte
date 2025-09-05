@@ -88,7 +88,7 @@
   }
 
   function handleProjectClick(id: string) {
-    const totalOffset = getResponsiveOffset({ useExtraSpacing: true });
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
 
     // Use reliable scroll that handles GSAP animations properly
     reliableScrollToElement(`#${id}`, {
@@ -150,7 +150,7 @@
   }
 
   function handleContactClick() {
-    const totalOffset = getResponsiveOffset({ useExtraSpacing: false });
+    const totalOffset = getResponsiveOffset();
 
     reliableScrollToElement(`#contact`, {
       duration: 1000,

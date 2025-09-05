@@ -7,10 +7,6 @@
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
   import { subscribeModalOpen } from "$lib/stores/subscribe";
-  import {
-    reliableScrollToElement,
-    getResponsiveOffset,
-  } from "$lib/util/reliableScroll";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
