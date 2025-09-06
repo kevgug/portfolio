@@ -1,0 +1,1 @@
+const n=async({fetch:a})=>{const e=await a("/essays/index.json");if(!e.ok)return{posts:[]};const t=await e.json();return t.forEach(o=>{o.formattedDate=new Date(o.date).toLocaleDateString("en-US",{month:"long",year:"numeric"})}),{posts:t}},r=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{r as _,n as l};
