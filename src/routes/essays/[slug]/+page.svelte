@@ -11,6 +11,13 @@
   export let data: PageData;
   const { post } = data;
 
+  $: formattedDate = post
+    ? new Date(post.date).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      })
+    : "";
+
   async function onClickFootnoteRef(num: string) {
     const totalOffset = getResponsiveOffset({ spacing: "md" });
     await reliableScrollToElement(`#footnote-ref-${num}`, {
@@ -29,7 +36,7 @@
       <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
         {post.title}
       </h1>
-      <p class="text-muted-text-grey mt-1">{post.date}</p>
+      <p class="text-muted-text-grey mt-1">{formattedDate}</p>
     </header>
 
     <div class="mt-6 md:mt-8 space-y-8">

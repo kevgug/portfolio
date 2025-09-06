@@ -5,6 +5,11 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   export let tokens: ParagraphToken[];
+  let firstRefNum: string | undefined;
+
+  $: firstRefNum = (
+    tokens.find((t) => t.type === "ref") as ParagraphTokenRef | undefined
+  )?.num;
 
   async function onClickRef(num: string) {
     const totalOffset = getResponsiveOffset({ spacing: "sm" });
@@ -20,7 +25,10 @@
   }
 </script>
 
-<p class="font-serif text-description-text-grey">
+<p
+  class="font-serif text-description-text-grey"
+  id={firstRefNum ? `footnote-ref-${firstRefNum}` : undefined}
+>
   {#each tokens as t}
     {#if t.type === "text"}
       {@html t.text
@@ -29,19 +37,18 @@
         .replace(/>/g, "&gt;")}
     {:else if t.type === "ref"}
       <button
-        id={`footnote-ref-${getRefNum(t)}`}
-        class="inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"
+        class="group inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"
         on:click={() => onClickRef(getRefNum(t))}
       >
-        <p
-          class="group text-sm text-muted-text-grey hover:text-white transition-colors"
+        <span
+          class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
         >
           [<span class="text-[0.32rem]">{" "}</span>
           <span
             class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
             >{getRefNum(t)}</span
           ><span class="text-[0.32rem]">{" "}</span>]
-        </p>
+        </span>
       </button>
     {/if}
   {/each}

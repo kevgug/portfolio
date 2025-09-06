@@ -6,7 +6,6 @@
   import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
-  import { subscribeModalOpen } from "$lib/stores/subscribe";
 
   // Colors
   const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
@@ -54,33 +53,18 @@
 
     <!-- Right side -->
     <div class="flex flex-row items-center space-x-4 md:space-x-5">
-      {#if isBlogPage}
-        <!-- Blog index page: subscribe button with bell icon -->
+      <!-- Portfolio page -->
+      {#if showBlogLink}
         <LinkButton
           linkButtonContent={{
-            label: "Subscribe",
-            destination: () => subscribeModalOpen.set(true),
+            label: "Essays",
+            destination: "/essays",
             mediaType: "icon",
-            eventName: "navbar_subscribe",
+            eventName: "navbar_blog",
             openInNewTab: false,
           }}
           usePulsingCircle={true}
-          iconName="bell"
         />
-      {:else}
-        <!-- Portfolio page -->
-        {#if showBlogLink}
-          <LinkButton
-            linkButtonContent={{
-              label: "Essays",
-              destination: "/essays",
-              mediaType: "icon",
-              eventName: "navbar_blog",
-              openInNewTab: false,
-            }}
-            usePulsingCircle={true}
-          />
-        {/if}
       {/if}
     </div>
   </div>

@@ -16,20 +16,49 @@ export interface ParsedBlogPost {
 
 const FOOTNOTE_REF_REGEX = /\[(\d+)\]/g;
 
-export function parseMarkdown(md: string): ParsedBlogPost {
+export function parseMarkdown(
+  md: string,
+  title?: string,
+  date?: string
+): ParsedBlogPost {
   const lines = md.split(/\r?\n/);
 
-  // Title
+  // Skip frontmatter if present
   let idx = 0;
-  while (idx < lines.length && lines[idx].trim() === "") idx++;
-  const titleLine = lines[idx] || "";
-  const title = titleLine.replace(/^#\s*/, "").trim();
-  idx++;
+  if (lines[idx]?.trim() === "---") {
+    idx++;
+    while (idx < lines.length && lines[idx]?.trim() !== "---") idx++;
+    idx++; // Skip the closing ---
+  }
 
-  // Date (next non-empty line)
+  // Skip empty lines to find content
   while (idx < lines.length && lines[idx].trim() === "") idx++;
-  const date = (lines[idx] || "").trim();
-  idx++;
+
+  // If title/date not provided, parse from content (fallback)
+  const parsedTitle =
+    title ||
+    (() => {
+      const titleLine = lines[idx] || "";
+      idx++;
+      return titleLine.replace(/^#\s*/, "").trim();
+    })();
+
+  const parsedDate =
+    date ||
+    (() => {
+      while (idx < lines.length && lines[idx].trim() === "") idx++;
+      return (lines[idx] || "").trim();
+    })();
+
+  const finalTitle = parsedTitle;
+  const finalDate = parsedDate;
+
+  // Skip the title and date lines if they were parsed from content
+  if (!title) idx++;
+  if (!date) {
+    while (idx < lines.length && lines[idx].trim() === "") idx++;
+    idx++;
+  }
 
   // Parse sections and footnotes
   const sections: BlogSection[] = [];
@@ -89,7 +118,7 @@ export function parseMarkdown(md: string): ParsedBlogPost {
 
   flushParagraph();
 
-  return { title, date, sections, footnotes };
+  return { title: finalTitle, date: finalDate, sections, footnotes };
 }
 
 export interface ParagraphTokenText {
@@ -124,5 +153,3 @@ export function tokenizeParagraphForFootnotes(text: string): ParagraphToken[] {
   }
   return tokens;
 }
-
-
