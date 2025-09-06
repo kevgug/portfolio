@@ -57,7 +57,7 @@
       {#if showBlogLink}
         <LinkButton
           linkButtonContent={{
-            label: "Essays",
+            label: "Read Essays",
             destination: "/essays",
             mediaType: "icon",
             eventName: "navbar_blog",
