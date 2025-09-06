@@ -46,6 +46,10 @@
   export let useZeigarnikEffect = false;
   let bottomSectionHeight = 0;
 
+  // Animation state tracking
+  let elementAnimationStarted = false;
+  let titleSwapStarted = false;
+
   const checkSpaceForZeigarnik = () => {
     // Use Zeigarnik effect on all screen sizes unless screen height is > 1200px
     useZeigarnikEffect = screenHeight <= 1080;
@@ -102,6 +106,9 @@
 
   // Animation function
   const animateElements = () => {
+    if (elementAnimationStarted) return;
+    elementAnimationStarted = true;
+
     const timeline = gsap.timeline();
 
     // Initial state for both elements - make them invisible with transform effects
@@ -180,6 +187,9 @@
 
     // Title swap function
     const runTitleSwap = () => {
+      if (titleSwapStarted) return;
+      titleSwapStarted = true;
+
       const timeline = gsap.timeline();
 
       if (oldChars) {
@@ -241,6 +251,31 @@
         setTimeout(runTitleSwap, 500);
       }
     }, 850);
+
+    // Add scroll listener to immediately trigger animations if user scrolls
+    const handleScroll = () => {
+      // Trigger both animations immediately if they haven't started
+      if (
+        companyLogosElement &&
+        marqueeWrapperElement &&
+        !elementAnimationStarted
+      ) {
+        animateElements();
+      }
+      if (!titleSwapStarted) {
+        runTitleSwap();
+      }
+
+      // Remove the scroll listener after triggering once
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 </script>
 
