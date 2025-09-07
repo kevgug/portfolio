@@ -1,24 +1,49 @@
 <script lang="ts">
-  import { tailwindTheme } from "$lib/tailwindTheme";
-  import Icon from "$lib/components/Icon.svelte";
-  import LinkButton from "$lib/components/LinkButton.svelte";
-  import IconButton from "$lib/components/IconButton.svelte";
-  import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
+  import { page } from "$app/stores";
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
+  import { onMount } from "svelte";
 
-  // Colors
-  const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
-  let screenWidth = 0;
-  $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
   let menuOpen = false;
 
-  export let showBlogLink: boolean = false;
-  export let isBlogPage: boolean = false;
-  export let isBlogPostPage: boolean = false;
-</script>
+  // Tabs
+  let homeEl: HTMLAnchorElement | null = null;
+  let essaysEl: HTMLAnchorElement | null = null;
+  let tabsEl: HTMLDivElement | null = null;
+  let indicatorLeft = 0;
+  let indicatorWidth = 0;
 
-<svelte:window bind:innerWidth={screenWidth} />
+  function isEssaysIndex(pathname: string): boolean {
+    return pathname === "/essays";
+  }
+
+  function updateIndicator() {
+    if (!homeEl || !essaysEl || !tabsEl) return;
+    const pathname = $page.url.pathname;
+    const target = isEssaysIndex(pathname) ? essaysEl : homeEl;
+    const rect = target.getBoundingClientRect();
+    const containerRect = tabsEl.getBoundingClientRect();
+    indicatorLeft = rect.left - containerRect.left;
+    indicatorWidth = rect.width;
+  }
+
+  $: $page, updateIndicator();
+
+  onMount(() => {
+    updateIndicator();
+    const onResize = () => updateIndicator();
+    window.addEventListener("resize", onResize);
+    try {
+      // Ensure correct sizing after web fonts load
+      // @ts-ignore
+      if (document?.fonts?.ready) {
+        // @ts-ignore
+        document.fonts.ready.then(() => updateIndicator());
+      }
+    } catch {}
+    return () => window.removeEventListener("resize", onResize);
+  });
+</script>
 
 <MenuOverlay bind:open={menuOpen} />
 
@@ -30,42 +55,34 @@
   >
     <!-- Left side -->
     <div class="flex flex-row items-center space-x-2 md:space-x-3">
-      {#if isBlogPage || isBlogPostPage}
-        {#if isBlogPage}
-          <IconButton
-            destination="/"
-            iconName="house"
-            eventName="navbar_home"
-            openInNewTab={false}
-          />
-        {:else if isBlogPostPage}
-          <IconButton
-            destination="/essays"
-            iconName="arrow-left"
-            eventName="navbar_back_to_blog"
-            openInNewTab={false}
-          />
-        {/if}
-      {:else}
-        <HamburgerMenu bind:open={menuOpen} />
-      {/if}
+      <HamburgerMenu bind:open={menuOpen} />
     </div>
 
     <!-- Right side -->
-    <div class="flex flex-row items-center space-x-4 md:space-x-5">
-      <!-- Portfolio page -->
-      {#if showBlogLink}
-        <LinkButton
-          linkButtonContent={{
-            label: "Read Essays",
-            destination: "/essays",
-            mediaType: "icon",
-            eventName: "navbar_blog",
-            openInNewTab: false,
-          }}
-          usePulsingCircle={true}
+    <div class="flex items-center">
+      <div
+        class="relative inline-flex items-center gap-6 md:gap-8"
+        bind:this={tabsEl}
+      >
+        <a
+          bind:this={homeEl}
+          href="/"
+          class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+          aria-current={$page.url.pathname === "/" ? "page" : undefined}>Home</a
+        >
+        <a
+          bind:this={essaysEl}
+          href="/essays"
+          class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+          aria-current={isEssaysIndex($page.url.pathname) ? "page" : undefined}
+          >Essays</a
+        >
+        <div class="absolute -bottom-2 left-0 w-full h-px bg-white/10" />
+        <div
+          class="absolute -bottom-2 h-[2px] bg-white transition-all duration-300 ease-out"
+          style={`transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px;`}
         />
-      {/if}
+      </div>
     </div>
   </div>
 </nav>

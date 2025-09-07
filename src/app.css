@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply bg-background text-white;
+  }
+
   /* Euclid Square */
   @font-face {
     font-family: "Euclid Square";

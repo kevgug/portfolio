@@ -4,7 +4,6 @@
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
-  import NavBar from "$lib/components/NavBar.svelte";
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -148,8 +147,6 @@
   </script>
 </svelte:head>
 
-<NavBar showBlogLink={true} />
-
 <div
   class="flex flex-col mx-auto
 w-screen max-w-screen-2xl
@@ -158,30 +155,6 @@ pt-16 md:pt-20"
 >
   <div id="introduction">
     <HeroSection bind:useZeigarnikEffect={heroUsesZeigarnik} />
-  </div>
-  <div class="mt-6">
-    <a href="/essays" class="inline-block">
-      <div
-        class="inline-flex items-center gap-2 text-white hover:text-glacial-blue transition-colors"
-      >
-        <span class="text-sm md:text-base">Read my essays</span>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          class="opacity-90"
-        >
-          <path
-            d="M7 17L17 7M17 7H8M17 7V16"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-    </a>
   </div>
   <div
     bind:this={projectsSectionElement}

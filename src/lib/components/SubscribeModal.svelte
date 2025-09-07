@@ -6,8 +6,8 @@
 
   let email = "";
 
-  // Apple's signature easing curve
-  const appleEasing = (t: number) => 1 - Math.pow(1 - t, 3);
+  // Smooth cubic easing curve
+  const cubicEasing = (t: number) => 1 - Math.pow(1 - t, 3);
 
   function close() {
     subscribeModalOpen.set(false);
@@ -35,8 +35,8 @@
     <div class="absolute inset-0 flex items-center justify-center px-5">
       <div
         class="w-full max-w-md bg-background/90 border border-white/10 rounded-3xl p-6 md:p-7 shadow-xl"
-        in:scale={{ duration: 400, easing: appleEasing, start: 0.95 }}
-        out:scale={{ duration: 200, easing: appleEasing, start: 0.95 }}
+        in:scale={{ duration: 400, easing: cubicEasing, start: 0.95 }}
+        out:scale={{ duration: 200, easing: cubicEasing, start: 0.95 }}
       >
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-xl md:text-2xl font-semibold text-white">

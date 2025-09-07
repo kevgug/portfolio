@@ -27,26 +27,28 @@
     </div>
   {:else}
     {#each posts as post}
-      <a
-        class="block group"
-        href={`/essays/${post.slug}`}
-        data-sa-link-event="blog_index_post"
-      >
-        <div
-          class="flex flex-col md:flex-row md:items-baseline justify-between border border-white/10 rounded-3xl md:rounded-4xl p-6 md:p-7 hover:border-white/20 transition-colors"
+      <div id={`essay-item-${post.slug}`}>
+        <a
+          class="block group"
+          href={`/essays/${post.slug}`}
+          data-sa-link-event="blog_index_post"
         >
-          <div class="flex-1 pr-0 md:pr-6">
-            <h2
-              class="text-xl md:text-2xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
-            >
-              {post.title}
-            </h2>
+          <div
+            class="flex flex-col md:flex-row md:items-baseline justify-between border border-white/10 rounded-3xl md:rounded-4xl p-6 md:p-7 hover:border-white/20 transition-colors"
+          >
+            <div class="flex-1 pr-0 md:pr-6">
+              <h2
+                class="text-xl md:text-2xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+              >
+                {post.title}
+              </h2>
+            </div>
+            <p class="text-muted-text-grey mt-1 md:mt-0 shrink-0">
+              {post.formattedDate}
+            </p>
           </div>
-          <p class="text-muted-text-grey mt-1 md:mt-0 shrink-0">
-            {post.formattedDate}
-          </p>
-        </div>
-      </a>
+        </a>
+      </div>
     {/each}
   {/if}
 </div>
