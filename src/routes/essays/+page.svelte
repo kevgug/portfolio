@@ -20,7 +20,7 @@
   </p>
 </section>
 
-<div class="space-y-8 md:space-y-10 pb-8 md:pb-12">
+<div class="space-y-4 md:space-y-6 pb-8 md:pb-12">
   {#if posts.length === 0}
     <div class="pt-8 md:pt-12">
       <p class="text-muted-text-grey text-lg">None published yet.</p>

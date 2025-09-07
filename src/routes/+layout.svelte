@@ -5,20 +5,33 @@
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
+  $: isEssaysRoot = $page.url.pathname === "/essays";
+  $: isEssaysRoute = isEssaysRoot || isEssaySlug;
 </script>
 
-{#if !isEssaySlug}
+<div
+  class={isEssaySlug ? "invisible pointer-events-none" : "contents"}
+  aria-hidden={isEssaySlug}
+>
   <NavBar />
-{/if}
+</div>
 
-{#key $page.url.pathname}
-  <div
-    in:fade={{ duration: 180 }}
-    out:fade={{ duration: 130 }}
-    class="contents"
-  >
-    <slot />
-  </div>
-{/key}
+{#if isEssaysRoute}
+  {#key $page.url.pathname}
+    <div class="contents">
+      <slot />
+    </div>
+  {/key}
+{:else}
+  {#key $page.url.pathname}
+    <div
+      in:fade={{ duration: 180 }}
+      out:fade={{ duration: 130 }}
+      class="contents"
+    >
+      <slot />
+    </div>
+  {/key}
+{/if}
 
 <SubscribeModal />

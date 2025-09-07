@@ -12,19 +12,24 @@
   let tabsEl: HTMLDivElement | null = null;
   let indicatorLeft = 0;
   let indicatorWidth = 0;
+  let shouldAnimate = false;
+  let hasMeasured = false;
+  let showIndicator = false;
 
-  function isEssaysIndex(pathname: string): boolean {
-    return pathname === "/essays";
+  function isEssaysRoute(pathname: string): boolean {
+    return pathname.startsWith("/essays");
   }
 
   function updateIndicator() {
     if (!homeEl || !essaysEl || !tabsEl) return;
     const pathname = $page.url.pathname;
-    const target = isEssaysIndex(pathname) ? essaysEl : homeEl;
+    const target = isEssaysRoute(pathname) ? essaysEl : homeEl;
     const rect = target.getBoundingClientRect();
     const containerRect = tabsEl.getBoundingClientRect();
     indicatorLeft = rect.left - containerRect.left;
     indicatorWidth = rect.width;
+    hasMeasured = true;
+    if (!showIndicator) showIndicator = true;
   }
 
   $: $page, updateIndicator();
@@ -33,14 +38,38 @@
     updateIndicator();
     const onResize = () => updateIndicator();
     window.addEventListener("resize", onResize);
+
+    const enableAnimation = () => {
+      // enable after next paint so style binding (no-transition) is applied first
+      requestAnimationFrame(() => {
+        shouldAnimate = true;
+      });
+    };
+
     try {
-      // Ensure correct sizing after web fonts load
+      // Ensure correct sizing after web fonts load to avoid initial slide
       // @ts-ignore
       if (document?.fonts?.ready) {
         // @ts-ignore
-        document.fonts.ready.then(() => updateIndicator());
+        document.fonts.ready.then(() => {
+          updateIndicator();
+          enableAnimation();
+        });
+      } else {
+        // Fallback: enable after a short delay
+        setTimeout(() => {
+          updateIndicator();
+          enableAnimation();
+        }, 150);
       }
-    } catch {}
+    } catch {
+      // Safety fallback
+      setTimeout(() => {
+        updateIndicator();
+        enableAnimation();
+      }, 150);
+    }
+
     return () => window.removeEventListener("resize", onResize);
   });
 </script>
@@ -74,13 +103,17 @@
           bind:this={essaysEl}
           href="/essays"
           class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
-          aria-current={isEssaysIndex($page.url.pathname) ? "page" : undefined}
+          aria-current={isEssaysRoute($page.url.pathname) ? "page" : undefined}
           >Essays</a
         >
         <div class="absolute -bottom-2 left-0 w-full h-px bg-white/10" />
         <div
           class="absolute -bottom-2 h-[2px] bg-white transition-all duration-300 ease-out"
-          style={`transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px;`}
+          style={`opacity: ${
+            showIndicator ? 1 : 0
+          }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${
+            shouldAnimate ? "" : "transition: none;"
+          }`}
         />
       </div>
     </div>

@@ -8,7 +8,6 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import { onMount } from "svelte";
-  import { fade, scale } from "svelte/transition";
   import {
     setSubheaders,
     selectedIndex,
@@ -89,15 +88,8 @@
 {#if !post}
   <p class="text-muted-text-grey">Post not found.</p>
 {:else}
-  <article
-    class="py-8 md:py-12"
-    in:fade={{ duration: 180 }}
-    out:fade={{ duration: 100 }}
-  >
-    <div
-      in:scale={{ duration: 220, start: 0.985 }}
-      out:scale={{ duration: 120, start: 0.985 }}
-    >
+  <article class="py-8 md:py-12">
+    <div>
       <header>
         <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
           {post.title}

@@ -69,7 +69,6 @@
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import type { Project } from "$lib/projects";
-  import LinkButton from "$lib/components/LinkButton.svelte";
 
   export let open = false;
 

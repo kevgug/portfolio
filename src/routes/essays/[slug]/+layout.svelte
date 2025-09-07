@@ -1,7 +1,6 @@
 <script lang="ts">
   import "../../../app.css";
   import { page } from "$app/stores";
-  import { fade } from "svelte/transition";
   import Icon from "$lib/components/Icon.svelte";
   import Dropdown from "$lib/components/Dropdown.svelte";
   import {
@@ -34,8 +33,6 @@
 
 <nav
   class="w-full fixed top-0 z-50 backdrop-blur-md bg-background/70 border-b border-white/10"
-  in:fade={{ duration: 160 }}
-  out:fade={{ duration: 120 }}
 >
   <div
     class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
@@ -62,8 +59,6 @@
 {#key $page.url.pathname}
   <div
     class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-16 md:pt-20"
-    in:fade={{ duration: 180 }}
-    out:fade={{ duration: 120 }}
   >
     <slot />
   </div>
