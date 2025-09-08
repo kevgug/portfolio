@@ -97,7 +97,7 @@
     <div>
       <header>
         <h1
-          class="text-3xl md:text-4xl font-semibold text-glacial-blue leading-[1.175] md:leading-[1.1]"
+          class="text-3xl md:text-4xl font-bold text-glacial-blue leading-[1.175] md:leading-[1.1]"
         >
           {post.title}
         </h1>

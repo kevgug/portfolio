@@ -49,7 +49,7 @@
 
 <section class="py-8 md:py-12">
   <h1
-    class="text-2xl md:text-3xl xl:text-4xl font-semibold text-glacial-blue tracking-tight leading-tight"
+    class="text-2xl md:text-3xl xl:text-4xl font-bold text-glacial-blue tracking-tight leading-tight"
   >
     Essays
   </h1>
@@ -82,7 +82,7 @@
               </h2>
             </div>
             <p
-              class="text-muted-text-grey text-xs md:text-sm mt-1 md:mt-1.5 shrink-0"
+              class="text-muted-text-grey text-xs md:text-sm mt-1 md:mt-0.5 shrink-0"
             >
               {post.formattedDate}
             </p>
