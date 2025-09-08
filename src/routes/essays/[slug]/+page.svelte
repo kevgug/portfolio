@@ -99,7 +99,7 @@
         <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
           {post.title}
         </h1>
-        <p class="text-muted-text-grey mt-1">{formattedDate}</p>
+        <p class="text-muted-text-grey mt-2.5 md:mt-4">{formattedDate}</p>
         <div class="mt-4 md:mt-5">
           <Separator />
         </div>
