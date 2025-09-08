@@ -11,11 +11,11 @@
 
 <section class="py-8 md:py-12">
   <h1
-    class="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight"
+    class="text-2xl md:text-3xl xl:text-4xl font-semibold text-glacial-blue tracking-tight leading-tight"
   >
     Essays
   </h1>
-  <p class="text-muted-text-grey mt-3">
+  <p class="text-muted-text-grey mt-1 md:mt-1.5">
     Writing by <span class="text-white">Kevin Gugelmann</span>
   </p>
 </section>

@@ -93,19 +93,20 @@
 {#if !post}
   <p class="text-muted-text-grey">Post not found.</p>
 {:else}
-  <article class="py-8 md:py-12">
+  <article class="py-8 md:py-12 max-w-screen-sm mx-auto">
     <div>
       <header>
-        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight">
+        <h1
+          class="text-3xl md:text-4xl font-semibold text-glacial-blue leading-[1.175] md:leading-[1.1]"
+        >
           {post.title}
         </h1>
-        <p class="text-muted-text-grey mt-2.5 md:mt-4">{formattedDate}</p>
-        <div class="mt-4 md:mt-5">
-          <Separator />
-        </div>
+        <p class="text-muted-text-grey mt-3.5 md:mt-4">{formattedDate}</p>
       </header>
-
-      <div class="mt-6 md:mt-8 space-y-8">
+      <div class="my-9 md:my-12">
+        <Separator />
+      </div>
+      <div class="space-y-8">
         {#each post.sections as section, i}
           <section id={`section-${i}`} data-essay-section="true">
             <h2 class="text-xl md:text-2xl font-semibold text-white">
@@ -123,7 +124,11 @@
       </div>
 
       {#if Object.keys(post.footnotes).length}
-        <div class="mt-6 md:mt-8" id="section-notes" data-essay-section="true">
+        <div
+          class="mt-[8em] md:mt-[12em]"
+          id="section-notes"
+          data-essay-section="true"
+        >
           <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
           <div class="mt-4 space-y-2">
             {#each Object.entries(post.footnotes) as [num, text]}

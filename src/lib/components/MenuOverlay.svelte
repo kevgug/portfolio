@@ -261,7 +261,7 @@
         >
           {#if currentMenuIsEssays}
             <ul
-              class="flex flex-col items-center space-y-6 list-none"
+              class="flex flex-col items-center space-y-6 list-none font-serif"
               role="menu"
             >
               {#each essays as e, i}
@@ -294,7 +294,7 @@
             </ul>
           {:else}
             <ul
-              class="flex flex-col items-center space-y-6 list-none"
+              class="flex flex-col items-center space-y-6 list-none font-serif"
               role="menu"
             >
               <li
