@@ -1,20 +1,29 @@
-<script>
+<script lang="ts">
   import { page } from "$app/stores";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
+  import type { LinkButtonContent } from "$lib/util/linkButtonContent";
+  import type { IconName } from "$lib/components/Icon.svelte";
+
+  const essayButtonContent: LinkButtonContent = {
+    label: "Browse essays",
+    destination: "/essays",
+    mediaType: "webpage",
+    eventName: "errorpage_navigateto_essays",
+  };
+
+  const homeButtonContent: LinkButtonContent = {
+    label: "Return home",
+    destination: "/",
+    mediaType: "webpage",
+    eventName: "errorpage_navigateto_homepage",
+  };
+
+  const essayIconName: IconName = "book-open";
+  const homeIconName: IconName = "house-entrance";
 
   $: isEssayRoute = $page.url.pathname.startsWith("/essays/");
-  $: buttonContent = isEssayRoute
-    ? {
-        label: "Browse essays",
-        destination: "/essays",
-        eventName: "errorpage_navigateto_essays",
-      }
-    : {
-        label: "Return home",
-        destination: "/",
-        eventName: "errorpage_navigateto_homepage",
-      };
-  $: iconName = isEssayRoute ? "book-open" : "house-entrance";
+  $: buttonContent = isEssayRoute ? essayButtonContent : homeButtonContent;
+  $: iconName = isEssayRoute ? essayIconName : homeIconName;
 </script>
 
 <div

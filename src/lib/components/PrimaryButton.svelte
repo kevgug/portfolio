@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LinkButtonContent as LinkButtonContent } from "$lib/util/linkButtonContent";
+  import type { LinkButtonContent } from "$lib/util/linkButtonContent";
   import Icon, { type IconName } from "./Icon.svelte";
 
   export let linkButtonContent: LinkButtonContent;
@@ -11,15 +11,15 @@
 <a
   class="button flex flex-row"
   class:button--glacial={variant === "glacial"}
-  href={typeof linkButtonContent.destination == "string"
+  href={typeof linkButtonContent.destination === "string"
     ? linkButtonContent.destination
-    : "javascript:;"}
+    : undefined}
   data-sa-link-event={linkButtonContent.eventName}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
-  on:click={typeof linkButtonContent.destination == "function"
+  on:click={typeof linkButtonContent.destination === "function"
     ? linkButtonContent.destination
-    : null}
+    : undefined}
 >
   {linkButtonContent.label}
   <div class="pl-[0.52rem] md:pl-[0.6rem] pr-[0.04rem] md:pr-[0.1rem]">
