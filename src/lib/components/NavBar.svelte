@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page, navigating } from "$app/stores";
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
   import { onMount } from "svelte";
@@ -16,6 +16,11 @@
   let shouldAnimate = false;
   let hasMeasured = false;
   let showIndicator = false;
+
+  // Hide global nav while on or navigating to an essay detail route
+  $: hideNav =
+    $page.url.pathname.startsWith("/essays/") ||
+    (!!$navigating && $navigating.to?.url?.pathname?.startsWith("/essays/"));
 
   function isEssaysRoute(pathname: string): boolean {
     return pathname.startsWith("/essays");
@@ -107,52 +112,56 @@
   });
 </script>
 
-<MenuOverlay bind:open={menuOpen} />
+{#if !hideNav}
+  <MenuOverlay bind:open={menuOpen} />
 
-<nav
-  class="w-full fixed top-0 z-50 backdrop-blur-md bg-background/70 border-b border-white/10"
->
-  <div
-    class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
+  <nav
+    class="w-full fixed top-0 z-50 backdrop-blur-md bg-background/70 border-b border-white/10"
   >
-    <!-- Left side -->
-    <div class="flex flex-row items-center space-x-2 md:space-x-3">
-      <HamburgerMenu bind:open={menuOpen} />
-    </div>
+    <div
+      class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
+    >
+      <!-- Left side -->
+      <div class="flex flex-row items-center space-x-2 md:space-x-3">
+        <HamburgerMenu bind:open={menuOpen} />
+      </div>
 
-    <!-- Right side -->
-    <div class="flex items-center">
-      <div
-        class="relative inline-flex items-center gap-3 md:gap-4"
-        bind:this={tabsEl}
-      >
-        <a
-          bind:this={homeEl}
-          href="/"
-          on:click={(e) => handleTabClick(e, "/")}
-          class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
-          aria-current={$page.url.pathname === "/" ? "page" : undefined}>Home</a
-        >
-        <a
-          bind:this={essaysEl}
-          href="/essays"
-          on:click={(e) => handleTabClick(e, "/essays")}
-          class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
-          aria-current={isEssaysRoute($page.url.pathname) ? "page" : undefined}
-          >Essays</a
-        >
+      <!-- Right side -->
+      <div class="flex items-center">
         <div
-          class="absolute -bottom-[0.4rem] left-0 w-full h-px bg-white/10 rounded-full"
-        />
-        <div
-          class="absolute -bottom-[0.4rem] h-[2px] bg-white transition-all duration-300 ease-out rounded-full"
-          style={`opacity: ${
-            showIndicator ? 1 : 0
-          }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${
-            shouldAnimate ? "" : "transition: none;"
-          }`}
-        />
+          class="relative inline-flex items-center gap-3 md:gap-4"
+          bind:this={tabsEl}
+        >
+          <a
+            bind:this={homeEl}
+            href="/"
+            on:click={(e) => handleTabClick(e, "/")}
+            class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+            aria-current={$page.url.pathname === "/" ? "page" : undefined}
+            >Home</a
+          >
+          <a
+            bind:this={essaysEl}
+            href="/essays"
+            on:click={(e) => handleTabClick(e, "/essays")}
+            class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+            aria-current={isEssaysRoute($page.url.pathname)
+              ? "page"
+              : undefined}>Essays</a
+          >
+          <div
+            class="absolute -bottom-[0.4rem] left-0 w-full h-px bg-white/10 rounded-full"
+          />
+          <div
+            class="absolute -bottom-[0.4rem] h-[2px] bg-white transition-all duration-300 ease-out rounded-full"
+            style={`opacity: ${
+              showIndicator ? 1 : 0
+            }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${
+              shouldAnimate ? "" : "transition: none;"
+            }`}
+          />
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+{/if}
