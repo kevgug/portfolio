@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /essays/
+
+User-agent: ia_archiver
+Disallow: /
+
+
