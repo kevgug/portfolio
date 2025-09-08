@@ -7,11 +7,14 @@
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
   $: isEssaysRoot = $page.url.pathname === "/essays";
   $: isEssaysRoute = isEssaysRoot || isEssaySlug;
+  $: isErrorPage = $page.status >= 400;
 </script>
 
 <div
-  class={isEssaySlug ? "invisible pointer-events-none" : "contents"}
-  aria-hidden={isEssaySlug}
+  class={isEssaySlug || isErrorPage
+    ? "invisible pointer-events-none"
+    : "contents"}
+  aria-hidden={isEssaySlug || isErrorPage}
 >
   <NavBar />
 </div>

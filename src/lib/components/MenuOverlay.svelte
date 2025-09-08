@@ -279,7 +279,7 @@
                       reliableScrollToElement(`#essay-item-${e.slug}`, {
                         duration: 1000,
                         ease: "out-expo",
-                        offset: getResponsiveOffset({ spacing: "lg" }),
+                        offset: getResponsiveOffset({ spacing: "sm" }),
                       });
                       open = false;
                     }}

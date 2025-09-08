@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Footer from "$lib/views/Footer.svelte";
   import type { PageData } from "./$types";
   import { onMount } from "svelte";
   import { gsap } from "gsap";

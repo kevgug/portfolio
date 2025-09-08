@@ -1,6 +1,20 @@
 <script>
   import { page } from "$app/stores";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
+
+  $: isEssayRoute = $page.url.pathname.startsWith("/essays/");
+  $: buttonContent = isEssayRoute
+    ? {
+        label: "Browse essays",
+        destination: "/essays",
+        eventName: "errorpage_navigateto_essays",
+      }
+    : {
+        label: "Return home",
+        destination: "/",
+        eventName: "errorpage_navigateto_homepage",
+      };
+  $: iconName = isEssayRoute ? "book-open" : "house-entrance";
 </script>
 
 <div
@@ -17,14 +31,7 @@
   </h1>
   <h2 class="text-glacial-blue mt-1">{$page.error?.message}</h2>
   <div class="mt-auto md:mt-20">
-    <PrimaryButton
-      linkButtonContent={{
-        label: "Return home",
-        destination: "/",
-        eventName: "errorpage_navigateto_homepage",
-      }}
-      iconName="house-entrance"
-    />
+    <PrimaryButton linkButtonContent={buttonContent} {iconName} />
   </div>
 </div>
 

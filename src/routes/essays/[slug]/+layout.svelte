@@ -3,6 +3,7 @@
   import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
   import Dropdown from "$lib/components/Dropdown.svelte";
+  import Footer from "$lib/views/Footer.svelte";
   import {
     subheaders,
     selectedIndex,
@@ -63,8 +64,9 @@
 
 {#key $page.url.pathname}
   <div
-    class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-16 md:pt-20"
+    class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-16 md:pt-20 space-y-8"
   >
     <slot />
+    <Footer />
   </div>
 {/key}
