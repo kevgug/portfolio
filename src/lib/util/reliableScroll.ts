@@ -12,6 +12,9 @@ interface ReliableScrollOptions extends ScrollOptions {
   onComplete?: () => void;
   maxWaitTime?: number;
   preloadImages?: boolean; // Whether to preload images before scrolling (default: true)
+  // When true, the target element will be centered vertically in the viewport.
+  // If provided together with offset, the offset will be applied after centering.
+  centerInViewport?: boolean;
 }
 
 // Cache for browser format support to avoid repeated checks
@@ -293,11 +296,19 @@ async function preloadImagesInElement(element: HTMLElement): Promise<void> {
  */
 function calculateTargetScrollPosition(
   element: HTMLElement,
-  offset: number
+  offset: number,
+  centerInViewport?: boolean
 ): number {
   const elementRect = element.getBoundingClientRect();
   const currentScrollTop =
     window.pageYOffset || document.documentElement.scrollTop;
+
+  if (centerInViewport) {
+    // Scroll so that the element is vertically centered in the viewport
+    const centerAdjustment = window.innerHeight / 2 - elementRect.height / 2;
+    return currentScrollTop + elementRect.top - centerAdjustment + offset;
+  }
+
   return currentScrollTop + elementRect.top + offset;
 }
 
@@ -343,6 +354,7 @@ export async function reliableScrollToElement(
     offset = 0,
     onComplete,
     preloadImages = true,
+    centerInViewport = false,
   } = options;
 
   // Get the target element
@@ -390,7 +402,11 @@ export async function reliableScrollToElement(
   }
 
   // Step 3: Calculate precise target position (now with correct layout)
-  const targetScrollTop = calculateTargetScrollPosition(targetElement, offset);
+  const targetScrollTop = calculateTargetScrollPosition(
+    targetElement,
+    offset,
+    centerInViewport
+  );
 
   // Step 3.5: Clamp scroll position to prevent overshooting
   const maxScrollTop = Math.max(

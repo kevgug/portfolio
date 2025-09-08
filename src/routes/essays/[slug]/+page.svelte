@@ -26,11 +26,12 @@
     : "";
 
   async function onClickFootnoteRef(num: string) {
-    const totalOffset = getResponsiveOffset({ spacing: "md" });
+    const totalOffset = getResponsiveOffset({ spacing: "default" });
     await reliableScrollToElement(`#footnote-ref-${num}`, {
       duration: 1000,
       ease: "out-expo",
       offset: totalOffset,
+      centerInViewport: true,
     });
   }
 
@@ -57,24 +58,27 @@
       document.querySelectorAll<HTMLElement>(`[data-essay-section="true"]`)
     );
 
-    let lastScrollTop = window.scrollY;
-
     const observer = new IntersectionObserver(() => {
       if ($scrollLock) return; // ignore while locked by programmatic scroll
-      const scrollingDown = window.scrollY >= lastScrollTop;
-      lastScrollTop = window.scrollY;
 
-      // Compute with full list for consistency in both directions
-      const tops = sectionEls.map((el) => el.getBoundingClientRect().top);
-      // first index whose top is in viewport (>= 0)
-      let firstInView = tops.findIndex(
-        (top) => top >= 0 && top <= window.innerHeight
+      const midpoint = window.innerHeight / 2;
+      const rects = sectionEls.map((el) => el.getBoundingClientRect());
+
+      // Prefer the section intersecting the viewport midpoint
+      let nextIndex = rects.findIndex(
+        (rect) => rect.top <= midpoint && rect.bottom >= midpoint
       );
-      if (firstInView === -1) firstInView = sectionEls.length - 1;
 
-      const nextIndex = scrollingDown
-        ? firstInView
-        : Math.max(0, firstInView - 1);
+      if (nextIndex === -1) {
+        // If the midpoint is between sections, choose the last section above it
+        let fallbackIndex = 0;
+        for (let i = 0; i < rects.length; i++) {
+          if (rects[i].top <= midpoint) fallbackIndex = i;
+          else break;
+        }
+        nextIndex = fallbackIndex;
+      }
+
       selectedIndex.update((curr: number) =>
         curr === nextIndex ? curr : nextIndex
       );
