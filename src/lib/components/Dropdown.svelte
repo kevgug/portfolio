@@ -264,7 +264,7 @@
     @apply text-white;
   }
   .dropdown-root.is-subtle .dropdown-label {
-    @apply text-xs md:text-sm;
+    @apply text-sm;
   }
   .dropdown-root.is-subtle .chevron-wrapper {
     @apply text-white/70;

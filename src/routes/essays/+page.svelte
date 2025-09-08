@@ -1,7 +1,45 @@
 <script lang="ts">
   import type { PageData } from "./$types";
+  import { onMount } from "svelte";
+  import { gsap } from "gsap";
   export let data: PageData;
   const { posts } = data;
+
+  let listContainer: HTMLElement;
+
+  onMount(() => {
+    const ctx = gsap.context(() => {
+      const cards = Array.from(
+        (listContainer?.querySelectorAll(
+          ".anim-in"
+        ) as unknown as NodeListOf<HTMLElement>) || []
+      );
+
+      if (cards.length) {
+        gsap.set(cards, {
+          autoAlpha: 0,
+          y: 20,
+          scale: 0.98,
+          filter: "blur(4px)",
+          willChange: "transform, opacity, filter",
+        });
+        gsap.to(cards, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.7,
+          ease: "power2.out",
+          stagger: 0.1,
+          overwrite: "auto",
+          clearProps: "transform,filter,willChange",
+          delay: 0.05,
+        });
+      }
+    }, listContainer);
+
+    return () => ctx.revert();
+  });
 </script>
 
 <svelte:head>
@@ -20,14 +58,14 @@
   </p>
 </section>
 
-<div class="space-y-3 md:space-y-4 pb-8 md:pb-12">
+<div bind:this={listContainer} class="space-y-3 md:space-y-4 pb-8 md:pb-12">
   {#if posts.length === 0}
     <div class="pt-8 md:pt-12">
       <p class="text-muted-text-grey text-lg">None published yet.</p>
     </div>
   {:else}
     {#each posts as post}
-      <div id={`essay-item-${post.slug}`}>
+      <div id={`essay-item-${post.slug}`} class="anim-in">
         <a
           class="block group"
           href={`/essays/${post.slug}`}
@@ -54,3 +92,10 @@
     {/each}
   {/if}
 </div>
+
+<style>
+  .anim-in {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
