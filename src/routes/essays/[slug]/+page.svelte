@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
   import Icon from "$lib/components/Icon.svelte";
+  import Separator from "$lib/components/Separator.svelte";
   import { tokenizeParagraphForFootnotes } from "$lib/essays/parse";
   import {
     reliableScrollToElement,
@@ -95,6 +96,9 @@
           {post.title}
         </h1>
         <p class="text-muted-text-grey mt-1">{formattedDate}</p>
+        <div class="mt-4 md:mt-5">
+          <Separator />
+        </div>
       </header>
 
       <div class="mt-6 md:mt-8 space-y-8">

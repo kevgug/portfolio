@@ -30,6 +30,9 @@
     x2: lerp(downRight.x2, upRight.x2, $t),
     y2: lerp(downRight.y2, upRight.y2, $t),
   };
+
+  // Single path from left end -> apex -> right end to avoid overlap at the tip
+  $: pathD = `M ${left.x1} ${left.y1} L ${left.x2} ${left.y2} L ${right.x1} ${right.y1}`;
 </script>
 
 <svg
@@ -41,24 +44,13 @@
   class="chevron-svg"
   aria-hidden="true"
 >
-  <line
-    x1={left.x1}
-    y1={left.y1}
-    x2={left.x2}
-    y2={left.y2}
+  <path
+    d={pathD}
+    fill="none"
     stroke="currentColor"
     stroke-width={strokeWidth}
     stroke-linecap="round"
-    vector-effect="non-scaling-stroke"
-  />
-  <line
-    x1={right.x1}
-    y1={right.y1}
-    x2={right.x2}
-    y2={right.y2}
-    stroke="currentColor"
-    stroke-width={strokeWidth}
-    stroke-linecap="round"
+    stroke-linejoin="round"
     vector-effect="non-scaling-stroke"
   />
 </svg>

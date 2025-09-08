@@ -3,6 +3,7 @@
   import HamburgerMenu from "$lib/components/HamburgerMenu.svelte";
   import MenuOverlay from "$lib/components/MenuOverlay.svelte";
   import { onMount } from "svelte";
+  import { gsap } from "gsap";
 
   let menuOpen = false;
 
@@ -33,6 +34,38 @@
   }
 
   $: $page, updateIndicator();
+
+  function handleTabClick(event: Event, targetPath: string) {
+    const pathname = $page.url.pathname;
+    const isHomeRoute = pathname === "/";
+    const isEssaysRoute = pathname.startsWith("/essays");
+    const isTargetHome = targetPath === "/";
+    const isTargetEssays = targetPath === "/essays";
+
+    // Check if clicking on the currently active tab
+    const isAlreadyActive =
+      (isTargetHome && isHomeRoute) || (isTargetEssays && isEssaysRoute);
+
+    if (isAlreadyActive) {
+      // Prevent default navigation and scroll to top
+      event.preventDefault();
+
+      // Scroll directly to top of page (position 0) using same logic as MenuOverlay
+      const scrollProxy = {
+        scrollTop: window.pageYOffset || document.documentElement.scrollTop,
+      };
+
+      gsap.to(scrollProxy, {
+        duration: 1000 / 1000, // Convert to seconds for GSAP
+        scrollTop: 0,
+        ease: "expo.out", // Convert "out-expo" to GSAP format
+        onUpdate: () => {
+          window.scrollTo(0, scrollProxy.scrollTop);
+        },
+      });
+    }
+    // If not already active, let the default navigation happen
+  }
 
   onMount(() => {
     updateIndicator();
@@ -90,25 +123,29 @@
     <!-- Right side -->
     <div class="flex items-center">
       <div
-        class="relative inline-flex items-center gap-6 md:gap-8"
+        class="relative inline-flex items-center gap-3 md:gap-4"
         bind:this={tabsEl}
       >
         <a
           bind:this={homeEl}
           href="/"
+          on:click={(e) => handleTabClick(e, "/")}
           class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
           aria-current={$page.url.pathname === "/" ? "page" : undefined}>Home</a
         >
         <a
           bind:this={essaysEl}
           href="/essays"
+          on:click={(e) => handleTabClick(e, "/essays")}
           class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
           aria-current={isEssaysRoute($page.url.pathname) ? "page" : undefined}
           >Essays</a
         >
-        <div class="absolute -bottom-2 left-0 w-full h-px bg-white/10" />
         <div
-          class="absolute -bottom-2 h-[2px] bg-white transition-all duration-300 ease-out"
+          class="absolute -bottom-[0.4rem] left-0 w-full h-px bg-white/10 rounded-full"
+        />
+        <div
+          class="absolute -bottom-[0.4rem] h-[2px] bg-white transition-all duration-300 ease-out rounded-full"
           style={`opacity: ${
             showIndicator ? 1 : 0
           }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${

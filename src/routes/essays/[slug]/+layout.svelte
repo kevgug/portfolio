@@ -31,25 +31,30 @@
   }
 </script>
 
-<nav
-  class="w-full fixed top-0 z-50 backdrop-blur-md bg-background/70 border-b border-white/10"
->
+<nav class="w-full fixed top-0 z-50 bg-transparent pointer-events-none">
+  <!-- Gradient: fades from background at top to transparent at bottom -->
   <div
-    class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
+    class="absolute inset-x-0 top-0 h-28 md:h-32 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"
+  />
+  <div
+    class="relative z-10 flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
   >
     <!-- Left: Back to essays -->
-    <div class="flex flex-row items-center space-x-2 md:space-x-3">
+    <div
+      class="flex flex-row items-center space-x-2 md:space-x-3 pointer-events-auto"
+    >
       <a href="/essays" aria-label="Back to essays" class="p-2 -ml-2">
         <Icon name="arrow-left" size="1em" class="text-white" />
       </a>
     </div>
 
-    <!-- Right: section dropdown -->
-    <div class="flex items-center">
+    <!-- Right: section dropdown (subtle) -->
+    <div class="flex items-center pointer-events-auto">
       <Dropdown
         items={$subheaders}
         selectedIndex={$selectedIndex}
         placeholder="Sections"
+        variant="subtle"
         on:select={(e) => handleDropdownSelect(e.detail.index)}
       />
     </div>

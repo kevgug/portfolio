@@ -11,6 +11,7 @@
   export let items: DropdownItem[] = [];
   export let selectedIndex: number = 0;
   export let placeholder: string = "Select";
+  export let variant: "default" | "subtle" = "default";
 
   const dispatch = createEventDispatcher<{ select: { index: number } }>();
 
@@ -126,7 +127,10 @@
   });
 </script>
 
-<div class="dropdown-root" bind:this={rootEl}>
+<div
+  class="dropdown-root {variant === 'subtle' ? 'is-subtle' : ''}"
+  bind:this={rootEl}
+>
   <button
     type="button"
     class="dropdown-trigger"
@@ -214,5 +218,21 @@
 
   .option-label {
     @apply text-sm md:text-base truncate;
+  }
+
+  /* Subtle variant for low-prominence trigger (e.g., essay reader) */
+  .dropdown-root.is-subtle .dropdown-trigger {
+    @apply border-white/5 px-3 py-1.5 text-white/70 backdrop-blur-md;
+    background: color-mix(in oklab, rgb(255 255 255 / 10%), transparent);
+  }
+  .dropdown-root.is-subtle .dropdown-trigger:hover {
+    background: color-mix(in oklab, rgb(255 255 255 / 16%), transparent);
+    @apply text-white;
+  }
+  .dropdown-root.is-subtle .dropdown-label {
+    @apply text-xs md:text-sm;
+  }
+  .dropdown-root.is-subtle .chevron-wrapper {
+    @apply text-white/70;
   }
 </style>
