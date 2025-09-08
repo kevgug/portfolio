@@ -1,0 +1,1 @@
+import{w as e}from"./index-941f7fbc.js";const c=e([]),n=e(0),t=e(!1);function i(s){c.set(s),n.set(0)}async function u(s,a=180){t.set(!0);try{const o=await s();return await new Promise(r=>setTimeout(r,a)),o}finally{t.set(!1)}}export{c as a,i as b,t as c,n as s,u as w};
