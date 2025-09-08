@@ -20,7 +20,7 @@
   </p>
 </section>
 
-<div class="space-y-4 md:space-y-6 pb-8 md:pb-12">
+<div class="space-y-3 md:space-y-4 pb-8 md:pb-12">
   {#if posts.length === 0}
     <div class="pt-8 md:pt-12">
       <p class="text-muted-text-grey text-lg">None published yet.</p>
@@ -34,16 +34,18 @@
           data-sa-link-event="blog_index_post"
         >
           <div
-            class="flex flex-col md:flex-row md:items-baseline justify-between border border-white/10 rounded-3xl md:rounded-4xl p-6 md:p-7 hover:border-white/20 transition-colors"
+            class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
           >
             <div class="flex-1 pr-0 md:pr-6">
               <h2
-                class="text-xl md:text-2xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+                class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
               >
                 {post.title}
               </h2>
             </div>
-            <p class="text-muted-text-grey mt-1 md:mt-0 shrink-0">
+            <p
+              class="text-muted-text-grey text-xs md:text-sm mt-1 md:mt-1.5 shrink-0"
+            >
               {post.formattedDate}
             </p>
           </div>
