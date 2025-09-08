@@ -75,6 +75,40 @@
     if (!rootEl.contains(target)) close();
   }
 
+  function handleWheel(event: WheelEvent) {
+    if (!menuEl) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = menuEl;
+    const isAtTop = scrollTop === 0;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    const isScrollingUp = event.deltaY < 0;
+    const isScrollingDown = event.deltaY > 0;
+
+    // Allow scrolling if the dropdown can scroll in the intended direction
+    if ((isScrollingUp && !isAtTop) || (isScrollingDown && !isAtBottom)) {
+      return; // Allow the scroll event
+    }
+
+    // If we can't scroll in the intended direction, prevent default to avoid parent scrolling
+    event.preventDefault();
+  }
+
+  function handleTouchMove(event: TouchEvent) {
+    if (!menuEl) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = menuEl;
+    const isAtTop = scrollTop === 0;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+    // Allow touch scrolling if the dropdown has scrollable content
+    if (scrollHeight > clientHeight) {
+      return; // Allow the touch event
+    }
+
+    // If dropdown can't scroll, prevent default to avoid parent scrolling
+    event.preventDefault();
+  }
+
   function smoothTransition(
     node: Element,
     {
@@ -151,8 +185,8 @@
       class="dropdown-menu"
       role="listbox"
       bind:this={menuEl}
-      on:wheel|preventDefault
-      on:touchmove|preventDefault
+      on:wheel={handleWheel}
+      on:touchmove={handleTouchMove}
       style={`top:${menuTop}px; right:${menuRight}px;`}
       in:smoothTransition={{ duration: 300, easing: expoOut }}
       out:smoothTransition={{ duration: 200, easing: expoIn }}
