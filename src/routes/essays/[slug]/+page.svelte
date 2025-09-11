@@ -18,6 +18,28 @@
   export let data: PageData;
   const { post } = data;
 
+  let sectionEls: HTMLElement[] = [];
+
+  /**
+   * Sets the active navigation index by finding the last essay section whose top
+   * is above the vertical midpoint of the viewport.
+   */
+  function updateSelection() {
+    if ($scrollLock) return;
+
+    const midpoint = window.innerHeight / 2;
+    let nextIndex = 0;
+    for (let i = 0; i < sectionEls.length; i++) {
+      if (sectionEls[i].getBoundingClientRect().top <= midpoint) {
+        nextIndex = i;
+      } else {
+        // Since sections are ordered, we can break early
+        break;
+      }
+    }
+    selectedIndex.set(nextIndex);
+  }
+
   $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
@@ -56,46 +78,45 @@
     }
     setSubheaders(list);
 
-    // Intersection-based selection syncing
-    const options: IntersectionObserverInit = {
-      root: null,
-      rootMargin: "0px",
-      threshold: [0, 1.0],
-    };
-
-    const sectionEls = Array.from(
+    sectionEls = Array.from(
       document.querySelectorAll<HTMLElement>(`[data-essay-section="true"]`)
     );
 
-    const observer = new IntersectionObserver(() => {
-      if ($scrollLock) return; // ignore while locked by programmatic scroll
+    let observer: IntersectionObserver;
 
-      const midpoint = window.innerHeight / 2;
-      const rects = sectionEls.map((el) => el.getBoundingClientRect());
+    function setupObserver() {
+      // Disconnect previous observer if it exists
+      if (observer) observer.disconnect();
 
-      // Prefer the section intersecting the viewport midpoint
-      let nextIndex = rects.findIndex(
-        (rect) => rect.top <= midpoint && rect.bottom >= midpoint
-      );
+      const verticalMargin = Math.floor(window.innerHeight / 2);
+      const options: IntersectionObserverInit = {
+        root: null,
+        rootMargin: `-${verticalMargin - 1}px 0px -${verticalMargin}px 0px`,
+        threshold: 0,
+      };
 
-      if (nextIndex === -1) {
-        // If the midpoint is between sections, choose the last section above it
-        let fallbackIndex = 0;
-        for (let i = 0; i < rects.length; i++) {
-          if (rects[i].top <= midpoint) fallbackIndex = i;
-          else break;
-        }
-        nextIndex = fallbackIndex;
-      }
+      observer = new IntersectionObserver(updateSelection, options);
+      sectionEls.forEach((el) => observer.observe(el));
+    }
 
-      selectedIndex.update((curr: number) =>
-        curr === nextIndex ? curr : nextIndex
-      );
-    }, options);
+    // Set up the observer initially
+    setupObserver();
 
-    sectionEls.forEach((el) => observer.observe(el));
+    // Re-run selection logic and re-setup observer on resize
+    function handleResize() {
+      updateSelection();
+      setupObserver();
+    }
 
-    return () => observer.disconnect();
+    window.addEventListener("resize", handleResize);
+
+    // Initial sync to set the correct section on page load.
+    updateSelection();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
+    };
   });
 </script>
 
