@@ -332,6 +332,32 @@
                 }}
                 out:customExit={{ duration: 250 }}
               >
+                <button
+                  on:click|stopPropagation={handleContactClick}
+                  on:mouseenter={handleProjectLeave}
+                  on:mouseleave={handleProjectLeave}
+                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+                >
+                  <Icon
+                    name="multiple-neutral-2"
+                    size="1em"
+                    class="group-hover:text-glacial-blue"
+                  />
+                  <span
+                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
+                    >Contact info</span
+                  >
+                </button>
+              </li>
+              <li
+                in:fly={{
+                  y: 20,
+                  duration: 300,
+                  delay: 170,
+                  easing: logarithmicEaseOut,
+                }}
+                out:customExit={{ duration: 250 }}
+              >
                 <div
                   class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
                 />
@@ -357,45 +383,6 @@
                   </button>
                 </li>
               {/each}
-              <li
-                in:fly={{
-                  y: 20,
-                  duration: 300,
-                  delay: 170 + projects.length * 35 - 10,
-                  easing: logarithmicEaseOut,
-                }}
-                out:customExit={{ duration: 250 }}
-              >
-                <div
-                  class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-                />
-              </li>
-              <li
-                in:fly={{
-                  y: 20,
-                  duration: 300,
-                  delay: 170 + projects.length * 35,
-                  easing: logarithmicEaseOut,
-                }}
-                out:customExit={{ duration: 250 }}
-              >
-                <button
-                  on:click|stopPropagation={handleContactClick}
-                  on:mouseenter={handleProjectLeave}
-                  on:mouseleave={handleProjectLeave}
-                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-                >
-                  <Icon
-                    name="multiple-neutral-2"
-                    size="1em"
-                    class="group-hover:text-glacial-blue"
-                  />
-                  <span
-                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-                    >Contact</span
-                  >
-                </button>
-              </li>
             </ul>
           {/if}
         </div>

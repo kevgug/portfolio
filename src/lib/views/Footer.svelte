@@ -15,21 +15,21 @@
           pb-[1.35rem] md:pb-0
           mt-2 md:mt-0"
   >
-    <a href="mailto:kevin@kevingugelmann.com">
-      <Icon name="email" class="h-5 w-5 lg:h-6 lg:w-6" />
-    </a>
     <a href="https://cal.com/kevgug/intro" target="_blank" rel="noreferrer">
-      <Icon name="phone" class="h-5 w-5 lg:h-6 lg:w-6" />
+      <Icon name="webcam" class="h-4 w-4 lg:h-5 lg:w-5" />
+    </a>
+    <a href="mailto:kevin@kevingugelmann.com">
+      <Icon name="email" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
     <a
       href="https://www.linkedin.com/in/kevingugelmann"
       target="_blank"
       rel="noreferrer"
     >
-      <Icon name="linkedin" class="h-5 w-5 lg:h-6 lg:w-6" />
+      <Icon name="linkedin" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
     <!-- <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
-      <Icon name="github" class="h-5 w-5 lg:h-6 lg:w-6" />
+      <Icon name="github" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a> -->
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">

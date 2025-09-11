@@ -44,7 +44,7 @@
 </script>
 
 <svelte:head>
-  <title>Essays | Kevin Gugelmann</title>
+  <title>Essays</title>
   <meta name="description" content="Thoughts by Kevin Gugelmann" />
 </svelte:head>
 

@@ -87,7 +87,7 @@
   });
 </script>
 
-<article class="py-8 md:py-12 max-w-screen-sm mx-auto">
+<article class="py-8 md:py-12 w-full max-w-screen-sm">
   <div>
     <header>
       <h1
