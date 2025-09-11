@@ -40,9 +40,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/marked": "^5.0.2",
     "d3-scale": "^4.0.2",
     "gh-pages": "^5.0.0",
     "gsap": "^3.13.0",
+    "marked": "^16.2.1",
     "tinycolor2": "^1.6.0"
   }
 }

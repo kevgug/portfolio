@@ -3,7 +3,6 @@
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
-  import { tokenizeParagraphForFootnotes } from "$lib/essays/parse";
   import {
     reliableScrollToElement,
     getResponsiveOffset,
@@ -112,7 +111,7 @@
           </h2>
           <div class="mt-3 space-y-4">
             {#each section.paragraphs as para}
-              <MarkdownParagraph tokens={tokenizeParagraphForFootnotes(para)} />
+              <MarkdownParagraph tokens={para} />
             {/each}
           </div>
         </section>
@@ -131,7 +130,7 @@
             {#each Object.entries(post.footnotes) as [num, text]}
               <div
                 id={`footnote-${num}`}
-                class="text-sm md:text-base text-muted-text-grey"
+                class="font-serif text-sm md:text-base text-muted-text-grey"
               >
                 <button
                   class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
@@ -159,7 +158,9 @@
         {/if}
 
         {#if post.contributionNote}
-          <div class="mt-6 text-sm md:text-base text-muted-text-grey">
+          <div
+            class="mt-6 font-serif text-sm md:text-base text-muted-text-grey"
+          >
             {@html post.contributionNote}
           </div>
         {/if}

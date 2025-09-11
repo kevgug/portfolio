@@ -31,10 +31,7 @@
 >
   {#each tokens as t}
     {#if t.type === "text"}
-      {@html t.text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")}
+      {@html t.text}
     {:else if t.type === "ref"}
       <button
         class="group inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"

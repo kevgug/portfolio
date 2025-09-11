@@ -1,10 +1,12 @@
+import { marked } from "marked";
+
 export interface BlogFootnotesMap {
   [num: string]: string;
 }
 
 export interface BlogSection {
   heading: string;
-  paragraphs: string[];
+  paragraphs: ParagraphToken[][];
 }
 
 export interface ParsedBlogPost {
@@ -73,7 +75,7 @@ export function parseMarkdown(
   const flushParagraph = () => {
     const text = paragraphBuffer.join(" ").trim();
     if (text && currentSection) {
-      currentSection.paragraphs.push(text);
+      currentSection.paragraphs.push(tokenizeAndParseParagraph(text));
     }
     paragraphBuffer = [];
   };
@@ -103,7 +105,7 @@ export function parseMarkdown(
       if (noteMatch) {
         const num = noteMatch[1];
         const text = (noteMatch[2] || "").trim();
-        if (num) footnotes[num] = text;
+        if (num) footnotes[num] = marked.parseInline(text) as string;
       } else if (line.trim()) {
         if (contributionNote) contributionNote += "\n";
         contributionNote += line;
@@ -128,7 +130,9 @@ export function parseMarkdown(
     date: finalDate,
     sections,
     footnotes,
-    contributionNote: contributionNote ? contributionNote : undefined,
+    contributionNote: contributionNote
+      ? (marked.parse(contributionNote) as string)
+      : undefined,
   };
 }
 
@@ -144,7 +148,7 @@ export interface ParagraphTokenRef {
 
 export type ParagraphToken = ParagraphTokenText | ParagraphTokenRef;
 
-export function tokenizeParagraphForFootnotes(text: string): ParagraphToken[] {
+function tokenizeAndParseParagraph(text: string): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;
@@ -154,13 +158,19 @@ export function tokenizeParagraphForFootnotes(text: string): ParagraphToken[] {
     const start = match.index;
     const end = start + match[0].length;
     if (start > lastIndex) {
-      tokens.push({ type: "text", text: text.slice(lastIndex, start) });
+      tokens.push({
+        type: "text",
+        text: marked.parseInline(text.slice(lastIndex, start)) as string,
+      });
     }
     tokens.push({ type: "ref", num: match[1] });
     lastIndex = end;
   }
   if (lastIndex < text.length) {
-    tokens.push({ type: "text", text: text.slice(lastIndex) });
+    tokens.push({
+      type: "text",
+      text: marked.parseInline(text.slice(lastIndex)) as string,
+    });
   }
   return tokens;
 }
