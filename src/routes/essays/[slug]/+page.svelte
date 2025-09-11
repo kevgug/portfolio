@@ -15,8 +15,6 @@
   } from "$lib/stores/essayNav";
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
 
-  import "highlight.js/styles/github-dark.css";
-
   export let data: PageData;
   const { post } = data;
 
@@ -179,12 +177,12 @@
   </div>
 </article>
 
-<style>
+<style lang="postcss">
   article :global(pre) {
     background-color: rgba(203, 213, 225, 0.05);
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    padding: 1rem;
+    border-radius: 0.65rem;
+    font-size: 0.9em;
+    padding: 1.25rem;
     overflow-x: auto;
   }
 
@@ -195,20 +193,16 @@
   /* Inline code */
   article :global(p > code),
   article :global(li > code) {
-    background-color: #3f3f46; /* zinc-700 */
-    color: #ade5ff; /* glacial-blue, approximately */
+    background-color: rgba(203, 213, 225, 0.05);
+    @apply text-glacial-blue;
     padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     font-size: 0.9em;
   }
 
   article :global(pre > code) {
     padding: 0 !important;
     background-color: transparent !important;
-    color: inherit !important;
-  }
-
-  article :global(pre > code .hljs-comment) {
-    color: #a1a1aa; /* zinc-400 */
+    color: white;
   }
 </style>
