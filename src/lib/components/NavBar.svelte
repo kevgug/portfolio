@@ -17,6 +17,11 @@
   let hasMeasured = false;
   let showIndicator = false;
 
+  $: fromEssaySlug =
+    $navigating?.from?.url.pathname.startsWith("/essays/") ?? false;
+  $: toEssays = $navigating?.to?.url.pathname === "/essays";
+  $: noTransition = fromEssaySlug && toEssays;
+
   // Hide global nav while on or navigating to an essay detail route
   $: hideNav =
     $page.url.pathname.startsWith("/essays/") ||
@@ -38,7 +43,7 @@
     if (!showIndicator) showIndicator = true;
   }
 
-  $: $page, updateIndicator();
+  $: homeEl, essaysEl, tabsEl, $page, updateIndicator();
 
   function handleTabClick(event: Event, targetPath: string) {
     const pathname = $page.url.pathname;
@@ -157,7 +162,7 @@
             style={`opacity: ${
               showIndicator ? 1 : 0
             }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${
-              shouldAnimate ? "" : "transition: none;"
+              shouldAnimate && !noTransition ? "" : "transition: none;"
             }`}
           />
         </div>
