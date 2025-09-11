@@ -6,7 +6,8 @@ export interface BlogFootnotesMap {
 
 export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
-  | { type: "code"; lang?: string; code: string };
+  | { type: "code"; lang?: string; code: string }
+  | { type: "list"; items: string[] };
 
 export interface BlogSection {
   heading: string;
@@ -80,6 +81,9 @@ export function parseMarkdown(
   let codeBlockLang = "";
   let codeBlockBuffer: string[] = [];
 
+  let inList = false;
+  let listBuffer: string[] = [];
+
   const flushParagraph = () => {
     const text = paragraphBuffer.join(" ").trim();
     if (text && currentSection) {
@@ -89,6 +93,17 @@ export function parseMarkdown(
       });
     }
     paragraphBuffer = [];
+  };
+
+  const flushList = () => {
+    if (listBuffer.length > 0 && currentSection) {
+      currentSection.content.push({
+        type: "list",
+        items: listBuffer.map((item) => marked.parseInline(item) as string),
+      });
+    }
+    listBuffer = [];
+    inList = false;
   };
 
   for (; idx < lines.length; idx++) {
@@ -116,6 +131,7 @@ export function parseMarkdown(
     const codeBlockMatch = line.match(/^```(\w*)/);
     if (codeBlockMatch) {
       flushParagraph();
+      flushList();
       inCodeBlock = true;
       codeBlockLang = codeBlockMatch[1] || "";
       continue;
@@ -125,6 +141,7 @@ export function parseMarkdown(
     const h2Match = line.match(/^##\s+(.*)$/);
     if (h2Match) {
       flushParagraph();
+      flushList();
       const headingText = (h2Match[1] || "").trim();
       inNotes = /^notes$/i.test(headingText);
       if (!inNotes) {
@@ -150,6 +167,29 @@ export function parseMarkdown(
       continue;
     }
 
+    const listItemMatch = line.match(/^\s*(?:-|\*|\+)\s+(.*)/);
+    if (listItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+      }
+      listBuffer.push((listItemMatch[1] || "").trim());
+      continue;
+    }
+
+    const indentedLineMatch = line.match(/^\s{2,}(.*)/);
+    if (inList && indentedLineMatch && (indentedLineMatch[1] || "").trim()) {
+      if (listBuffer.length > 0) {
+        listBuffer[listBuffer.length - 1] +=
+          " " + (indentedLineMatch[1] || "").trim();
+        continue;
+      }
+    }
+
+    if (inList) {
+      flushList();
+    }
+
     // Blank line separates paragraphs
     if (line.trim() === "") {
       flushParagraph();
@@ -161,6 +201,7 @@ export function parseMarkdown(
   }
 
   flushParagraph();
+  flushList();
 
   return {
     title: finalTitle,

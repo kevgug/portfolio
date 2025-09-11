@@ -13,11 +13,23 @@
 
   async function onClickRef(num: string) {
     const totalOffset = getResponsiveOffset({ spacing: "lg" });
-    await reliableScrollToElement(`#footnote-${num}`, {
-      duration: 1000,
-      ease: "out-expo",
-      offset: totalOffset,
-    });
+    const targetId = `footnote-${num}`;
+    const targetEl = document.getElementById(targetId);
+
+    if (targetEl) {
+      targetEl.classList.add("footnote-bg-anim");
+      targetEl.classList.add("footnote-bg-highlight");
+
+      await reliableScrollToElement(targetEl, {
+        duration: 1000,
+        ease: "out-expo",
+        offset: totalOffset,
+      });
+
+      setTimeout(() => {
+        targetEl.classList.remove("footnote-bg-highlight");
+      }, 0);
+    }
   }
 
   function getRefNum(token: ParagraphToken): string {

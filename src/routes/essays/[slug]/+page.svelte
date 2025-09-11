@@ -25,12 +25,24 @@
 
   async function onClickFootnoteRef(num: string) {
     const totalOffset = getResponsiveOffset();
-    await reliableScrollToElement(`#footnote-ref-${num}`, {
-      duration: 1000,
-      ease: "out-expo",
-      offset: totalOffset,
-      centerInViewport: true,
-    });
+    const targetId = `footnote-ref-${num}`;
+    const targetEl = document.getElementById(targetId);
+
+    if (targetEl) {
+      targetEl.classList.add("footnote-bg-anim");
+      targetEl.classList.add("footnote-bg-highlight");
+
+      await reliableScrollToElement(targetEl, {
+        duration: 1000,
+        ease: "out-expo",
+        offset: totalOffset,
+        centerInViewport: true,
+      });
+
+      setTimeout(() => {
+        targetEl.classList.remove("footnote-bg-highlight");
+      }, 0);
+    }
   }
 
   // Build subheaders and set in store
@@ -119,6 +131,14 @@
                   lang={contentItem.lang}
                   code={contentItem.code}
                 />
+              {:else if contentItem.type === "list"}
+                <ul
+                  class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"
+                >
+                  {#each contentItem.items as item}
+                    <li>{@html item}</li>
+                  {/each}
+                </ul>
               {/if}
             {/each}
           </div>

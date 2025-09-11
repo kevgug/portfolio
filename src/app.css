@@ -161,3 +161,19 @@
     font-style: italic;
   }
 }
+
+@layer components {
+  /* Brief glacial-blue background pulse for focus after scrolling */
+}
+
+@layer utilities {
+  /* Staged highlight behavior */
+  .footnote-bg-anim {
+    transition: background-color 140ms ease-out;
+  }
+
+  .footnote-bg-highlight {
+    background-color: rgba(213, 223, 174, 0.28);
+    @apply rounded-md;
+  }
+}
