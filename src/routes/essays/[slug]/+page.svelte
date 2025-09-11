@@ -39,7 +39,7 @@
       id: `section-${i}`,
       label: section.heading,
     }));
-    if (Object.keys(post.footnotes).length) {
+    if (Object.keys(post.footnotes).length || post.contributionNote) {
       list.push({ id: "section-notes", label: "Notes" });
     }
     setSubheaders(list);
@@ -119,42 +119,50 @@
       {/each}
     </div>
 
-    {#if Object.keys(post.footnotes).length}
+    {#if Object.keys(post.footnotes).length || post.contributionNote}
       <div
         class="mt-[8em] md:mt-[12em]"
         id="section-notes"
         data-essay-section="true"
       >
         <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
-        <div class="mt-4 space-y-2">
-          {#each Object.entries(post.footnotes) as [num, text]}
-            <div
-              id={`footnote-${num}`}
-              class="text-sm md:text-base text-muted-text-grey"
-            >
-              <button
-                class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
-                on:click={() => onClickFootnoteRef(num)}
+        {#if Object.keys(post.footnotes).length}
+          <div class="mt-4 space-y-2">
+            {#each Object.entries(post.footnotes) as [num, text]}
+              <div
+                id={`footnote-${num}`}
+                class="text-sm md:text-base text-muted-text-grey"
               >
-                <p
-                  class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                <button
+                  class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
+                  on:click={() => onClickFootnoteRef(num)}
                 >
-                  [<span class="text-[0.9rem]">{" "}</span>
-                  <span class="text-white underline decoration-glacial-blue"
-                    >{num}</span
-                  ><span class="text-[0.32rem]">{" "}</span>
-                  <Icon
-                    name="arrow-up"
-                    size="12px"
-                    class="inline text-muted-text-grey group-hover:text-white transition-colors"
-                  />
-                  <span class="text-[0.32rem]">{" "}</span>]
-                </p>
-              </button>
-              {text}
-            </div>
-          {/each}
-        </div>
+                  <p
+                    class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                  >
+                    [<span class="text-[0.9rem]">{" "}</span>
+                    <span class="text-white underline decoration-glacial-blue"
+                      >{num}</span
+                    ><span class="text-[0.32rem]">{" "}</span>
+                    <Icon
+                      name="arrow-up"
+                      size="12px"
+                      class="inline text-muted-text-grey group-hover:text-white transition-colors"
+                    />
+                    <span class="text-[0.32rem]">{" "}</span>]
+                  </p>
+                </button>
+                {@html text}
+              </div>
+            {/each}
+          </div>
+        {/if}
+
+        {#if post.contributionNote}
+          <div class="mt-6 text-sm md:text-base text-muted-text-grey">
+            {@html post.contributionNote}
+          </div>
+        {/if}
       </div>
     {/if}
   </div>

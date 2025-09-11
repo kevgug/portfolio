@@ -12,6 +12,7 @@ export interface ParsedBlogPost {
   date: string;
   sections: BlogSection[];
   footnotes: BlogFootnotesMap;
+  contributionNote?: string;
 }
 
 const FOOTNOTE_REF_REGEX = /\[(\d+)\]/g;
@@ -63,6 +64,7 @@ export function parseMarkdown(
   // Parse sections and footnotes
   const sections: BlogSection[] = [];
   const footnotes: BlogFootnotesMap = {};
+  let contributionNote = "";
 
   let currentSection: BlogSection | null = null;
   let inNotes = false;
@@ -102,6 +104,9 @@ export function parseMarkdown(
         const num = noteMatch[1];
         const text = (noteMatch[2] || "").trim();
         if (num) footnotes[num] = text;
+      } else if (line.trim()) {
+        if (contributionNote) contributionNote += "\n";
+        contributionNote += line;
       }
       continue;
     }
@@ -118,7 +123,13 @@ export function parseMarkdown(
 
   flushParagraph();
 
-  return { title: finalTitle, date: finalDate, sections, footnotes };
+  return {
+    title: finalTitle,
+    date: finalDate,
+    sections,
+    footnotes,
+    contributionNote: contributionNote ? contributionNote : undefined,
+  };
 }
 
 export interface ParagraphTokenText {
