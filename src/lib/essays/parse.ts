@@ -1,12 +1,16 @@
-import { marked } from "marked";
+import { marked } from "$lib/util/marked";
 
 export interface BlogFootnotesMap {
   [num: string]: string;
 }
 
+export type BlogSectionContent =
+  | { type: "paragraph"; tokens: ParagraphToken[] }
+  | { type: "code"; lang?: string; code: string };
+
 export interface BlogSection {
   heading: string;
-  paragraphs: ParagraphToken[][];
+  content: BlogSectionContent[];
 }
 
 export interface ParsedBlogPost {
@@ -72,10 +76,17 @@ export function parseMarkdown(
   let inNotes = false;
   let paragraphBuffer: string[] = [];
 
+  let inCodeBlock = false;
+  let codeBlockLang = "";
+  let codeBlockBuffer: string[] = [];
+
   const flushParagraph = () => {
     const text = paragraphBuffer.join(" ").trim();
     if (text && currentSection) {
-      currentSection.paragraphs.push(tokenizeAndParseParagraph(text));
+      currentSection.content.push({
+        type: "paragraph",
+        tokens: tokenizeAndParseParagraph(text),
+      });
     }
     paragraphBuffer = [];
   };
@@ -84,6 +95,32 @@ export function parseMarkdown(
     const raw = lines[idx] ?? "";
     const line = raw.replace(/\t/g, "    ");
 
+    if (inCodeBlock) {
+      if (line.trim() === "```") {
+        if (currentSection) {
+          currentSection.content.push({
+            type: "code",
+            lang: codeBlockLang,
+            code: codeBlockBuffer.join("\n"),
+          });
+        }
+        inCodeBlock = false;
+        codeBlockBuffer = [];
+        codeBlockLang = "";
+      } else {
+        codeBlockBuffer.push(raw);
+      }
+      continue;
+    }
+
+    const codeBlockMatch = line.match(/^```(\w*)/);
+    if (codeBlockMatch) {
+      flushParagraph();
+      inCodeBlock = true;
+      codeBlockLang = codeBlockMatch[1] || "";
+      continue;
+    }
+
     // Section heading
     const h2Match = line.match(/^##\s+(.*)$/);
     if (h2Match) {
@@ -91,7 +128,7 @@ export function parseMarkdown(
       const headingText = (h2Match[1] || "").trim();
       inNotes = /^notes$/i.test(headingText);
       if (!inNotes) {
-        currentSection = { heading: headingText, paragraphs: [] };
+        currentSection = { heading: headingText, content: [] };
         sections.push(currentSection);
       } else {
         currentSection = null;

@@ -13,6 +13,9 @@
     selectedIndex,
     scrollLock,
   } from "$lib/stores/essayNav";
+  import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
+
+  import "highlight.js/styles/github-dark.css";
 
   export let data: PageData;
   const { post } = data;
@@ -110,8 +113,15 @@
             {section.heading}
           </h2>
           <div class="mt-3 space-y-4">
-            {#each section.paragraphs as para}
-              <MarkdownParagraph tokens={para} />
+            {#each section.content as contentItem}
+              {#if contentItem.type === "paragraph"}
+                <MarkdownParagraph tokens={contentItem.tokens} />
+              {:else if contentItem.type === "code"}
+                <MarkdownCodeBlock
+                  lang={contentItem.lang}
+                  code={contentItem.code}
+                />
+              {/if}
             {/each}
           </div>
         </section>
@@ -168,3 +178,37 @@
     {/if}
   </div>
 </article>
+
+<style>
+  article :global(pre) {
+    background-color: rgba(203, 213, 225, 0.05);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  article :global(code) {
+    overflow-x: auto;
+  }
+
+  /* Inline code */
+  article :global(p > code),
+  article :global(li > code) {
+    background-color: #3f3f46; /* zinc-700 */
+    color: #ade5ff; /* glacial-blue, approximately */
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+  }
+
+  article :global(pre > code) {
+    padding: 0 !important;
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+
+  article :global(pre > code .hljs-comment) {
+    color: #a1a1aa; /* zinc-400 */
+  }
+</style>
