@@ -87,6 +87,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>{post.title}</title>
+</svelte:head>
+
 <article class="py-8 md:py-12 w-full max-w-screen-sm">
   <div>
     <header>
