@@ -20,7 +20,7 @@
       const item = list[index];
       if (!item) return;
       await withScrollLock(async () => {
-        const totalOffset = getResponsiveOffset({ spacing: "md" });
+        const totalOffset = getResponsiveOffset({ spacing: "lg" });
         await reliableScrollToElement(`#${item.id}`, {
           duration: 600,
           ease: "out-expo",

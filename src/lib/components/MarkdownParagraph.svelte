@@ -12,7 +12,7 @@
   )?.num;
 
   async function onClickRef(num: string) {
-    const totalOffset = getResponsiveOffset({ spacing: "sm" });
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
     await reliableScrollToElement(`#footnote-${num}`, {
       duration: 1000,
       ease: "out-expo",

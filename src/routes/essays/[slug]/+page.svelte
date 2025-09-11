@@ -24,7 +24,7 @@
   });
 
   async function onClickFootnoteRef(num: string) {
-    const totalOffset = getResponsiveOffset({ spacing: "default" });
+    const totalOffset = getResponsiveOffset();
     await reliableScrollToElement(`#footnote-ref-${num}`, {
       duration: 1000,
       ease: "out-expo",
