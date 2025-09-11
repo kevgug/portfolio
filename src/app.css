@@ -10,34 +10,154 @@
   /* Euclid Square */
   @font-face {
     font-family: "Euclid Square";
-    src: url("/fonts/euclid-square/EuclidSquare-Regular.otf");
+    src: url("/fonts/euclid-square/EuclidSquare-Regular-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-Regular-WebXL.woff") format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-Regular-WebXL.ttf")
+        format("truetype");
     font-weight: normal;
+    font-style: normal;
   }
   @font-face {
     font-family: "Euclid Square";
-    src: url("/fonts/euclid-square/EuclidSquare-Light.otf");
-    font-weight: 300;
+    src: url("/fonts/euclid-square/EuclidSquare-RegularItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-RegularItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-RegularItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: italic;
   }
   @font-face {
     font-family: "Euclid Square";
-    src: url("/fonts/euclid-square/EuclidSquare-Medium.otf");
+    src: url("/fonts/euclid-square/EuclidSquare-Medium-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-Medium-WebXL.woff") format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-Medium-WebXL.ttf")
+        format("truetype");
     font-weight: 500;
+    font-style: normal;
   }
   @font-face {
     font-family: "Euclid Square";
-    src: url("/fonts/euclid-square/EuclidSquare-Semibold.otf");
+    src: url("/fonts/euclid-square/EuclidSquare-MediumItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-MediumItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-MediumItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: 500;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Semibold-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-Semibold-WebXL.woff")
+        format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-Semibold-WebXL.ttf")
+        format("truetype");
     font-weight: 600;
+    font-style: normal;
   }
   @font-face {
     font-family: "Euclid Square";
-    src: url("/fonts/euclid-square/EuclidSquare-Bold.otf");
+    src: url("/fonts/euclid-square/EuclidSquare-SemiboldItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-SemiboldItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-SemiboldItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: 600;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-Bold-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-Bold-WebXL.woff") format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-Bold-WebXL.ttf") format("truetype");
     font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Euclid Square";
+    src: url("/fonts/euclid-square/EuclidSquare-BoldItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/euclid-square/EuclidSquare-BoldItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/euclid-square/EuclidSquare-BoldItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: bold;
+    font-style: italic;
   }
 
   /* SangBleu Sunrise */
   @font-face {
     font-family: "SangBleu Sunrise";
-    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-Regular.otf");
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-Regular-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Regular-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Regular-WebXL.ttf")
+        format("truetype");
     font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-RegularItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-RegularItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-RegularItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-Medium-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Medium-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Medium-WebXL.ttf")
+        format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-MediumItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-MediumItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-MediumItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: 500;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-Bold-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Bold-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-Bold-WebXL.ttf")
+        format("truetype");
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "SangBleu Sunrise";
+    src: url("/fonts/sangbleu-sunrise/SangBleuSunrise-BoldItalic-WebXL.woff2")
+        format("woff2"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-BoldItalic-WebXL.woff")
+        format("woff"),
+      url("/fonts/sangbleu-sunrise/SangBleuSunrise-BoldItalic-WebXL.ttf")
+        format("truetype");
+    font-weight: bold;
+    font-style: italic;
   }
 }
