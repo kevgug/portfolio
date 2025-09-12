@@ -25,15 +25,15 @@ export const tailwindTheme = {
       "5xl": "4rem", // 64px
     },
     screens: {
-      "sm": "640px",
-      "md": "768px",
-      "lg": "1024px",
-      "xl": "1280px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
       "2xl": "1536px",
     },
     extend: {
       borderRadius: {
-        "lg": "0.7rem", // 11.2px
+        lg: "0.7rem", // 11.2px
         "4xl": "1.75em", // 28px
         "5xl": "1.875em", // 30px
         "6xl": "2.25em", // 36px

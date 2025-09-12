@@ -28,6 +28,9 @@
     >
       <Icon name="linkedin" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
+    <a href="/rss.xml" target="_blank" rel="noreferrer">
+      <Icon name="rss" class="h-4 w-4 lg:h-5 lg:w-5" />
+    </a>
     <!-- <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
       <Icon name="github" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a> -->
