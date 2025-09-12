@@ -3,20 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
-    "build": "tailwind-theme-mirror --typescript --output ./src/lib && vite build && echo \"kevingugelmann.com\" > build/CNAME && echo \"<?xml version='1.0' encoding='UTF-8'?>\n\n<url>\n  <loc>https://kevingugelmann.com/</loc>\n  <lastmod>$(date +%Y-%m-%d)</lastmod>\n</url>\n\n</urlset>\" > build/sitemap.xml",
+    "prepare": "npm run gen:essays && svelte-kit sync",
+    "dev": "npm run prepare && tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
+    "build": "npm run prepare && tailwind-theme-mirror --typescript --output ./src/lib && vite build && node scripts/post-build.mjs",
     "deploy": "touch build/.nojekyll && gh-pages -d build -t true",
     "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "check": "npm run prepare && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "npm run prepare && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write ."
+    "format": "prettier --plugin-search-dir . --write .",
+    "gen:essays": "node scripts/generate-essay-index.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.0",
     "@sveltejs/adapter-static": "^1.0.5",
     "@sveltejs/kit": "^1.0.0",
     "@types/d3-scale": "^4.0.8",
+    "@types/highlight.js": "^9.12.4",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
@@ -24,6 +27,8 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
     "postcss": "^8.4.21",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.8.1",
@@ -37,9 +42,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/marked": "^5.0.2",
     "d3-scale": "^4.0.2",
     "gh-pages": "^5.0.0",
     "gsap": "^3.13.0",
+    "marked": "^16.2.1",
     "tinycolor2": "^1.6.0"
   }
 }

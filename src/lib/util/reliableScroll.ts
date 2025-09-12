@@ -12,6 +12,9 @@ interface ReliableScrollOptions extends ScrollOptions {
   onComplete?: () => void;
   maxWaitTime?: number;
   preloadImages?: boolean; // Whether to preload images before scrolling (default: true)
+  // When true, the target element will be centered vertically in the viewport.
+  // If provided together with offset, the offset will be applied after centering.
+  centerInViewport?: boolean;
 }
 
 // Cache for browser format support to avoid repeated checks
@@ -293,11 +296,19 @@ async function preloadImagesInElement(element: HTMLElement): Promise<void> {
  */
 function calculateTargetScrollPosition(
   element: HTMLElement,
-  offset: number
+  offset: number,
+  centerInViewport?: boolean
 ): number {
   const elementRect = element.getBoundingClientRect();
   const currentScrollTop =
     window.pageYOffset || document.documentElement.scrollTop;
+
+  if (centerInViewport) {
+    // Scroll so that the element is vertically centered in the viewport
+    const centerAdjustment = window.innerHeight / 2 - elementRect.height / 2;
+    return currentScrollTop + elementRect.top - centerAdjustment + offset;
+  }
+
   return currentScrollTop + elementRect.top + offset;
 }
 
@@ -343,6 +354,7 @@ export async function reliableScrollToElement(
     offset = 0,
     onComplete,
     preloadImages = true,
+    centerInViewport = false,
   } = options;
 
   // Get the target element
@@ -390,7 +402,11 @@ export async function reliableScrollToElement(
   }
 
   // Step 3: Calculate precise target position (now with correct layout)
-  const targetScrollTop = calculateTargetScrollPosition(targetElement, offset);
+  const targetScrollTop = calculateTargetScrollPosition(
+    targetElement,
+    offset,
+    centerInViewport
+  );
 
   // Step 3.5: Clamp scroll position to prevent overshooting
   const maxScrollTop = Math.max(
@@ -508,9 +524,11 @@ export function ensureElementVisible(element: HTMLElement): Promise<void> {
  * Calculates responsive offset based on viewport size
  */
 export function getResponsiveOffset(options?: {
-  useExtraSpacing?: boolean;
+  spacing?: "default" | "sm" | "md" | "lg";
 }): number {
-  const { useExtraSpacing = false } = options ?? {};
+  const { spacing = "default" } = options ?? {};
+
+  console.log("spacing:", spacing);
 
   let totalSpacing = 0;
 
@@ -521,14 +539,27 @@ export function getResponsiveOffset(options?: {
     totalSpacing += 64; // Mobile navbar height
   }
 
-  // Add extra spacing for projects only
-  if (useExtraSpacing) {
+  // Add spacing based on the selected option
+  if (spacing === "lg") {
     if (window.innerWidth >= 768) {
-      totalSpacing += 48; // Desktop extra spacing
+      totalSpacing += 48; // Desktop large spacing
     } else {
-      totalSpacing += 36; // Mobile extra spacing
+      totalSpacing += 36; // Mobile large spacing
+    }
+  } else if (spacing === "md") {
+    if (window.innerWidth >= 768) {
+      totalSpacing += 20;
+    } else {
+      totalSpacing += 16;
+    }
+  } else if (spacing === "sm") {
+    if (window.innerWidth >= 768) {
+      totalSpacing += 12; // Desktop small spacing
+    } else {
+      totalSpacing += 8; // Mobile small spacing
     }
   }
+  // "default" adds no extra spacing
 
   return -totalSpacing; // Negative to scroll above the element
 }

@@ -4,7 +4,6 @@
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
-  import NavBar from "$lib/components/NavBar.svelte";
   import { onMount } from "svelte";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -147,8 +146,6 @@
     })();
   </script>
 </svelte:head>
-
-<NavBar />
 
 <div
   class="flex flex-col mx-auto

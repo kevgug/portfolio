@@ -1,35 +1,40 @@
 <script lang="ts">
-  // Assets
-  import githubSvg from "$lib/images/built-with-icons/github.svg";
-  import linkedinSvg from "$lib/images/built-with-icons/linkedin.svg";
+  // Components
+  import Icon from "$lib/components/Icon.svelte";
 </script>
 
 <div
   class="flex flex-col
-        mb-11
-        mt-0.5 md:mt-1 lg:mt-2
+        pb-11
+        mt-0.5 md:pt-1 lg:pt-2
         md:justify-between md:items-center md:flex-row-reverse"
 >
   <div
     class="flex flex-row
           space-x-2.5 md:space-x-[0.7rem] lg:space-x-3
-          mb-[1.35rem] md:mb-0
+          pb-[1.35rem] md:pb-0
           mt-2 md:mt-0"
   >
-    <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
-      <img src={githubSvg} alt="Github logo" />
+    <a href="https://cal.com/kevgug/intro" target="_blank" rel="noreferrer">
+      <Icon name="webcam" class="h-4 w-4 lg:h-5 lg:w-5" />
+    </a>
+    <a href="mailto:kevin@kevingugelmann.com">
+      <Icon name="email" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
     <a
       href="https://www.linkedin.com/in/kevingugelmann"
       target="_blank"
       rel="noreferrer"
     >
-      <img src={linkedinSvg} alt="LinkedIn logo" />
+      <Icon name="linkedin" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
+    <!-- <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
+      <Icon name="github" class="h-4 w-4 lg:h-5 lg:w-5" />
+    </a> -->
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
-      Designed in Sketch. Developed with Svelte.<br />
+      Product Designer. AI-Native Engineer.<br />
       Copyright © 2025 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
@@ -37,20 +42,16 @@
 
 <style lang="postcss">
   a {
-    @apply grayscale;
+    @apply text-white/80;
     @apply transition-all;
     @apply ease-outro;
     @apply duration-200;
   }
 
   a:hover {
-    @apply grayscale-0;
+    @apply text-white;
     @apply transition-all;
     @apply ease-intro;
     @apply duration-intro;
-  }
-
-  img {
-    @apply h-5 w-5 lg:h-6 lg:w-6;
   }
 </style>

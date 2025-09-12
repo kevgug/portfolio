@@ -6,6 +6,7 @@
   } from "$lib/util/reliableScroll";
   import { fly, fade } from "svelte/transition";
   import { gsap } from "gsap";
+  import { page } from "$app/stores";
 
   // Custom logarithmic ease-out curve - super fast start, very slow logarithmic tail
   const logarithmicEaseOut = (t: number): number => {
@@ -71,6 +72,45 @@
 
   export let open = false;
 
+  // Essays data for /essays page menu
+  type EssayListItem = { slug: string; title: string };
+  let essays: EssayListItem[] = [];
+  let isEssaysPage = false;
+
+  // Tab switch coordination to avoid overlap between lists
+  let currentMenuIsEssays = false;
+  let showMenuList = true;
+  let pendingMenuIsEssays: boolean | null = null;
+
+  // Initialize current menu on mount
+  onMount(() => {
+    currentMenuIsEssays = $page.url.pathname === "/essays";
+  });
+
+  // Desired state based on route
+  $: desiredMenuIsEssays = $page.url.pathname === "/essays";
+
+  // When route changes while menu open, first run outro of current list, then swap
+  $: if (open && showMenuList && desiredMenuIsEssays !== currentMenuIsEssays) {
+    pendingMenuIsEssays = desiredMenuIsEssays;
+    showMenuList = false; // triggers out transitions of current list
+  }
+
+  function handleMenuOutroEnd() {
+    if (pendingMenuIsEssays !== null) {
+      currentMenuIsEssays = pendingMenuIsEssays;
+      pendingMenuIsEssays = null;
+    }
+    showMenuList = true; // mount the new list and run its intro
+  }
+
+  // If menu closes mid-switch, sync state immediately
+  $: if (!open) {
+    currentMenuIsEssays = desiredMenuIsEssays;
+    showMenuList = true;
+    pendingMenuIsEssays = null;
+  }
+
   // Floating image state
   let mouseX = 0;
   let mouseY = 0;
@@ -87,7 +127,7 @@
   }
 
   function handleProjectClick(id: string) {
-    const totalOffset = getResponsiveOffset({ useExtraSpacing: true });
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
 
     // Use reliable scroll that handles GSAP animations properly
     reliableScrollToElement(`#${id}`, {
@@ -149,7 +189,7 @@
   }
 
   function handleContactClick() {
-    const totalOffset = getResponsiveOffset({ useExtraSpacing: false });
+    const totalOffset = getResponsiveOffset();
 
     reliableScrollToElement(`#contact`, {
       duration: 1000,
@@ -170,6 +210,17 @@
 
   onMount(() => {
     checkIsDesktop();
+    // Fetch essays list for essays menu
+    try {
+      fetch("/essays/index.json")
+        .then((r) => (r.ok ? r.json() : []))
+        .then((json: any) => {
+          if (Array.isArray(json)) {
+            essays = json.map((p) => ({ slug: p.slug, title: p.title }));
+          }
+        })
+        .catch(() => {});
+    } catch (_) {}
   });
 </script>
 
@@ -202,106 +253,140 @@
     role="presentation"
   >
     <div class="px-5 md:px-[2.5rem] xl:px-[5rem] py-8 md:py-12">
-      <ul class="flex flex-col items-center space-y-6 list-none" role="menu">
-        <li
-          in:fly={{
-            y: 20,
-            duration: 300,
-            delay: 150,
-            easing: logarithmicEaseOut,
-          }}
-          out:customExit={{ duration: 250 }}
+      {#if showMenuList}
+        <div
+          out:fade={{ duration: 250 }}
+          in:fade={{ duration: 0 }}
+          on:outroend={handleMenuOutroEnd}
         >
-          <button
-            on:click|stopPropagation={handleIntroductionClick}
-            on:mouseenter={handleProjectLeave}
-            on:mouseleave={handleProjectLeave}
-            class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-          >
-            <Icon
-              name="wave"
-              size="1em"
-              class="group-hover:text-glacial-blue"
-            />
-            <span
-              class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-              >Introduction</span
+          {#if currentMenuIsEssays}
+            <ul
+              class="flex flex-col items-center space-y-6 list-none font-serif"
+              role="menu"
             >
-          </button>
-        </li>
-        <li
-          in:fly={{
-            y: 20,
-            duration: 300,
-            delay: 160,
-            easing: logarithmicEaseOut,
-          }}
-          out:customExit={{ duration: 250 }}
-        >
-          <div
-            class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-          />
-        </li>
-        {#each projects as project, i}
-          <li
-            in:fly={{
-              y: 20,
-              duration: 300,
-              delay: 170 + i * 35,
-              easing: logarithmicEaseOut,
-            }}
-            out:customExit={{ duration: 250 }}
-          >
-            <button
-              on:click|stopPropagation={() => handleProjectClick(project.id)}
-              on:mouseenter={() => handleProjectHover(project)}
-              on:mouseleave={handleProjectLeave}
-              class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+              {#each essays as e, i}
+                <li
+                  in:fly={{
+                    y: 20,
+                    duration: 300,
+                    delay: 150 + i * 35,
+                    easing: logarithmicEaseOut,
+                  }}
+                  out:customExit={{ duration: 250 }}
+                >
+                  <button
+                    on:click|stopPropagation={() => {
+                      reliableScrollToElement(`#essay-item-${e.slug}`, {
+                        duration: 1000,
+                        ease: "out-expo",
+                        offset: getResponsiveOffset({ spacing: "sm" }),
+                      });
+                      open = false;
+                    }}
+                    on:mouseenter={handleProjectLeave}
+                    on:mouseleave={handleProjectLeave}
+                    class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+                  >
+                    {e.title}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <ul
+              class="flex flex-col items-center space-y-6 list-none font-serif"
+              role="menu"
             >
-              {project.name}
-            </button>
-          </li>
-        {/each}
-        <li
-          in:fly={{
-            y: 20,
-            duration: 300,
-            delay: 170 + projects.length * 35 - 10,
-            easing: logarithmicEaseOut,
-          }}
-          out:customExit={{ duration: 250 }}
-        >
-          <div
-            class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-          />
-        </li>
-        <li
-          in:fly={{
-            y: 20,
-            duration: 300,
-            delay: 170 + projects.length * 35,
-            easing: logarithmicEaseOut,
-          }}
-          out:customExit={{ duration: 250 }}
-        >
-          <button
-            on:click|stopPropagation={handleContactClick}
-            on:mouseenter={handleProjectLeave}
-            on:mouseleave={handleProjectLeave}
-            class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-          >
-            <Icon
-              name="multiple-neutral-2"
-              size="1em"
-              class="group-hover:text-glacial-blue"
-            />
-            <span
-              class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-              >Contact</span
-            >
-          </button>
-        </li>
-      </ul>
+              <li
+                in:fly={{
+                  y: 20,
+                  duration: 300,
+                  delay: 150,
+                  easing: logarithmicEaseOut,
+                }}
+                out:customExit={{ duration: 250 }}
+              >
+                <button
+                  on:click|stopPropagation={handleIntroductionClick}
+                  on:mouseenter={handleProjectLeave}
+                  on:mouseleave={handleProjectLeave}
+                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+                >
+                  <Icon
+                    name="wave"
+                    size="1em"
+                    class="group-hover:text-glacial-blue"
+                  />
+                  <span
+                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
+                    >Introduction</span
+                  >
+                </button>
+              </li>
+              <li
+                in:fly={{
+                  y: 20,
+                  duration: 300,
+                  delay: 160,
+                  easing: logarithmicEaseOut,
+                }}
+                out:customExit={{ duration: 250 }}
+              >
+                <button
+                  on:click|stopPropagation={handleContactClick}
+                  on:mouseenter={handleProjectLeave}
+                  on:mouseleave={handleProjectLeave}
+                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
+                >
+                  <Icon
+                    name="multiple-neutral-2"
+                    size="1em"
+                    class="group-hover:text-glacial-blue"
+                  />
+                  <span
+                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
+                    >Contact info</span
+                  >
+                </button>
+              </li>
+              <li
+                in:fly={{
+                  y: 20,
+                  duration: 300,
+                  delay: 170,
+                  easing: logarithmicEaseOut,
+                }}
+                out:customExit={{ duration: 250 }}
+              >
+                <div
+                  class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
+                />
+              </li>
+              {#each projects as project, i}
+                <li
+                  in:fly={{
+                    y: 20,
+                    duration: 300,
+                    delay: 170 + i * 35,
+                    easing: logarithmicEaseOut,
+                  }}
+                  out:customExit={{ duration: 250 }}
+                >
+                  <button
+                    on:click|stopPropagation={() =>
+                      handleProjectClick(project.id)}
+                    on:mouseenter={() => handleProjectHover(project)}
+                    on:mouseleave={handleProjectLeave}
+                    class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+                  >
+                    {project.name}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
+      {/if}
     </div>
   </div>
 {/if}
