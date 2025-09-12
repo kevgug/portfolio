@@ -35,7 +35,7 @@ const siteUrl = "https://kevingugelmann.com";
 const rss = `
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Kevin Gugelmann's Essays</title>
+    <title>Kevin Gugelmann</title>
     <link>${siteUrl}/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
