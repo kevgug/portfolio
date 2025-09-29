@@ -17,10 +17,9 @@
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "svelte"],
   "editor.formatOnSave": true,
-  "prettier.svelteSortOrder": "scripts,styles,options,markup",
   "svelte.plugin.svelte.format.config.svelteSortOrder": "scripts,styles,options,markup",
   "editor.quickSuggestions": {
     "strings": true
   },
-  "java.format.settings.url": ".vscode/java-formatter.xml"
+  "cursor.cpp.disabledLanguages": ["markdown", "plaintext"]
 }

@@ -62,7 +62,7 @@
 <div bind:this={listContainer} class="space-y-3 md:space-y-4 pb-8 md:pb-12">
   {#if posts.length === 0}
     <div class="pt-8 md:pt-12">
-      <p class="text-muted-text-grey text-lg">None published yet.</p>
+      <p class="text-muted-text-grey text-lg">Coming soon.</p>
     </div>
   {:else}
     {#each posts as post}
