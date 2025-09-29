@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Rerun dev server",
+      "type": "shell",
+      "command": "kill $(lsof -t -i:5173) || true && npm run dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
+}

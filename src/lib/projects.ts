@@ -71,7 +71,13 @@ export const projects: Project[] = [
     description:
       "Delivered 500x performance improvements to launch a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second and built AI-native tool enabling designers to collaboratively build Figma plugins via natural language without code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.",
     builtWith: ["Figma", "TypeScript", "React", "TailwindCSS", "Bash Scripts"],
-    linkButtonContent: undefined,
+    linkButtonContent: {
+      label: "View Website",
+      destination: "https://www.jpmorganchase.com",
+      mediaType: "webpage",
+      eventName: "projects_ext_jpmc_landingpage",
+      openInNewTab: true,
+    },
     bgColor: "#28211D",
   },
   {

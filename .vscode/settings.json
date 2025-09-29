@@ -1,3 +1,25 @@
 {
-  "java.format.settings.url": ".vscode/java-formatter.xml"
+  "files.associations": {
+    "**/essays/**/*.md": "markdown"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[markdown]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "files.trimTrailingWhitespace": true
+  },
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#1a1a1a",
+    "statusBar.foreground": "#ffffff"
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "svelte"],
+  "editor.formatOnSave": true,
+  "svelte.plugin.svelte.format.config.svelteSortOrder": "scripts,styles,options,markup",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "cursor.cpp.disabledLanguages": ["markdown", "plaintext"]
 }
