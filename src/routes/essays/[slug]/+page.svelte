@@ -40,9 +40,10 @@
     selectedIndex.set(nextIndex);
   }
 
-  $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+$: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
+  timeZone: "UTC",
   });
 
   async function onClickFootnoteRef(num: string) {

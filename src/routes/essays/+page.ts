@@ -17,6 +17,7 @@ export const load: PageLoad = async ({ fetch }) => {
     post.formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       month: "long",
       year: "numeric",
+      timeZone: "UTC",
     });
   });
   return { posts };
