@@ -170,10 +170,11 @@
   /* Staged highlight behavior */
   .footnote-bg-anim {
     transition: background-color 140ms ease-out;
+    @apply rounded-xl;
+    @apply px-2 mx-[-0.5rem] py-1 my-[-0.25rem];
   }
 
   .footnote-bg-highlight {
-    background-color: rgba(213, 223, 174, 0.28);
-    @apply rounded-md;
+    background-color: rgba(20, 188, 197, 0.174);
   }
 }
