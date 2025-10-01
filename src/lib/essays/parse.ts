@@ -84,23 +84,40 @@ export function parseMarkdown(
   let inList = false;
   let listBuffer: string[] = [];
 
+  // Track if we've seen any h2 sections
+  let hasH2Sections = false;
+  // Buffer for content before first h2
+  let preH2Content: BlogSectionContent[] = [];
+
   const flushParagraph = () => {
     const text = paragraphBuffer.join(" ").trim();
-    if (text && currentSection) {
-      currentSection.content.push({
+    if (text) {
+      const paragraphContent: BlogSectionContent = {
         type: "paragraph",
         tokens: tokenizeAndParseParagraph(text),
-      });
+      };
+      if (currentSection) {
+        currentSection.content.push(paragraphContent);
+      } else if (!hasH2Sections) {
+        // Accumulate content before first h2
+        preH2Content.push(paragraphContent);
+      }
     }
     paragraphBuffer = [];
   };
 
   const flushList = () => {
-    if (listBuffer.length > 0 && currentSection) {
-      currentSection.content.push({
+    if (listBuffer.length > 0) {
+      const listContent: BlogSectionContent = {
         type: "list",
         items: listBuffer.map((item) => marked.parseInline(item) as string),
-      });
+      };
+      if (currentSection) {
+        currentSection.content.push(listContent);
+      } else if (!hasH2Sections) {
+        // Accumulate content before first h2
+        preH2Content.push(listContent);
+      }
     }
     listBuffer = [];
     inList = false;
@@ -112,12 +129,16 @@ export function parseMarkdown(
 
     if (inCodeBlock) {
       if (line.trim() === "```") {
+        const codeContent: BlogSectionContent = {
+          type: "code",
+          lang: codeBlockLang,
+          code: codeBlockBuffer.join("\n"),
+        };
         if (currentSection) {
-          currentSection.content.push({
-            type: "code",
-            lang: codeBlockLang,
-            code: codeBlockBuffer.join("\n"),
-          });
+          currentSection.content.push(codeContent);
+        } else if (!hasH2Sections) {
+          // Accumulate content before first h2
+          preH2Content.push(codeContent);
         }
         inCodeBlock = false;
         codeBlockBuffer = [];
@@ -145,6 +166,7 @@ export function parseMarkdown(
       const headingText = (h2Match[1] || "").trim();
       inNotes = /^notes$/i.test(headingText);
       if (!inNotes) {
+        hasH2Sections = true;
         currentSection = { heading: headingText, content: [] };
         sections.push(currentSection);
       } else {
@@ -202,6 +224,15 @@ export function parseMarkdown(
 
   flushParagraph();
   flushList();
+
+  // If there are no h2 sections found, create a single section with the title
+  // using all the accumulated content
+  if (!hasH2Sections && preH2Content.length > 0) {
+    sections.push({
+      heading: finalTitle,
+      content: preH2Content,
+    });
+  }
 
   return {
     title: finalTitle,

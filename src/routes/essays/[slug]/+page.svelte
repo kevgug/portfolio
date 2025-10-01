@@ -141,10 +141,12 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     <div class="space-y-8">
       {#each post.sections as section, i}
         <section id={`section-${i}`} data-essay-section="true">
-          <h2 class="text-xl md:text-2xl font-semibold text-white">
-            {section.heading}
-          </h2>
-          <div class="mt-3 space-y-4">
+          {#if section.heading !== post.title}
+            <h2 class="text-xl md:text-2xl font-semibold text-white">
+              {section.heading}
+            </h2>
+          {/if}
+          <div class:mt-3={section.heading !== post.title} class="space-y-4">
             {#each section.content as contentItem}
               {#if contentItem.type === "paragraph"}
                 <MarkdownParagraph tokens={contentItem.tokens} />
