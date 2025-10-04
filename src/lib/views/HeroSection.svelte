@@ -538,7 +538,7 @@
   />
 </div>
 
-<style>
+<style lang="postcss">
   /* Removed min-height CSS to allow Tailwind classes to control height */
 
   /* Title layering */
@@ -547,15 +547,17 @@
   }
   #title .title-layer {
     grid-area: 1 / 1;
+    @apply leading-tight;
   }
   #title .char-mask {
-    display: inline-block;
-    overflow: hidden;
+    @apply inline-block overflow-hidden leading-tight;
+    vertical-align: top;
   }
   #title .char {
-    display: inline-block;
+    @apply inline-block leading-tight;
     transform: translateY(100%);
     will-change: transform;
+    vertical-align: top;
   }
   #title .title-layer.old .char {
     transform: translateY(0%);
