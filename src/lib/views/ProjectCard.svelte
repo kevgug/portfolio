@@ -87,7 +87,7 @@
     .range([-maxRotation, maxRotation]);
   $: scaleY = scaleLinear()
     .domain([0, width])
-    .range([-maxRotation, maxRotation]);
+    .range([maxRotation, -maxRotation]);
   $: scaleBrightness = scaleLinear().domain([0, height]).range([0.55, 0.4]);
 
   const onMouseEnterCard = !linkButtonContent
