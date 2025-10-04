@@ -61,7 +61,7 @@ export const projects: Project[] = [
     year: 2025,
     name: "JPMorganChase",
     outputMedium: "Global Private Bank",
-    role: "UX Engineer Intern",
+    role: "UX Engineer",
     imgOptions: {
       src: jpmcLogoSrc,
       avifSrc: jpmcLogoAvif,
