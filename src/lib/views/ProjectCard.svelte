@@ -198,7 +198,7 @@
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
     <div
-      class="img3d
+      class="img3d group
             {linkButtonContent ? 'interactive' : ''}
             {isHoveringLinkBtn ? 'hover-link-btn' : ''}
             flex justify-center items-center
@@ -228,7 +228,7 @@
             <div class="interactive-img">
               <Image
                 {imgOptions}
-                class="object-contain rounded-md lg:rounded-xl"
+                class="object-contain rounded-md lg:rounded-xl group-hover:rounded-xl lg:group-hover:rounded-2xl transition-all"
               />
             </div>
             <div
