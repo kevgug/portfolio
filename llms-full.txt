@@ -31,7 +31,7 @@
 #### Project: JPMorganChase (id: jpmorganchase, year: 2025)
 
 - Output medium: Global Private Bank
-- Role: UX Engineer Intern
+- Role: UX Engineer
 - Description: Brought an existing Figma plugin to worldwide launch through 500x performance improvements and bug fixes, enabling 200+ hours of annual savings. Built a data visualization generator converting CSVs to design system-compliant charts in under 1 second. Engineered an AI-native toolkit that enables designers to collaboratively build their own scalable plugins without touching code or git. Selected as 1 of 5 interns to present these solutions to 460+ JPMC tech interns globally.
 - Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
 - Link: (n/a)
