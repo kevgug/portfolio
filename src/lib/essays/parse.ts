@@ -7,7 +7,8 @@ export interface BlogFootnotesMap {
 export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
   | { type: "code"; lang?: string; code: string }
-  | { type: "list"; items: string[] };
+  | { type: "list"; items: string[] }
+  | { type: "blockquote"; text: string };
 
 export interface BlogSection {
   heading: string;
@@ -84,6 +85,9 @@ export function parseMarkdown(
   let inList = false;
   let listBuffer: string[] = [];
 
+  let inBlockquote = false;
+  let blockquoteBuffer: string[] = [];
+
   // Track if we've seen any h2 sections
   let hasH2Sections = false;
   // Buffer for content before first h2
@@ -123,6 +127,24 @@ export function parseMarkdown(
     inList = false;
   };
 
+  const flushBlockquote = () => {
+    if (blockquoteBuffer.length > 0) {
+      const text = blockquoteBuffer.join(" ").trim();
+      const blockquoteContent: BlogSectionContent = {
+        type: "blockquote",
+        text: marked.parseInline(text) as string,
+      };
+      if (currentSection) {
+        currentSection.content.push(blockquoteContent);
+      } else if (!hasH2Sections) {
+        // Accumulate content before first h2
+        preH2Content.push(blockquoteContent);
+      }
+    }
+    blockquoteBuffer = [];
+    inBlockquote = false;
+  };
+
   for (; idx < lines.length; idx++) {
     const raw = lines[idx] ?? "";
     const line = raw.replace(/\t/g, "    ");
@@ -153,6 +175,7 @@ export function parseMarkdown(
     if (codeBlockMatch) {
       flushParagraph();
       flushList();
+      flushBlockquote();
       inCodeBlock = true;
       codeBlockLang = codeBlockMatch[1] || "";
       continue;
@@ -163,6 +186,7 @@ export function parseMarkdown(
     if (h2Match) {
       flushParagraph();
       flushList();
+      flushBlockquote();
       const headingText = (h2Match[1] || "").trim();
       inNotes = /^notes$/i.test(headingText);
       if (!inNotes) {
@@ -212,6 +236,21 @@ export function parseMarkdown(
       flushList();
     }
 
+    // Blockquote lines start with >
+    const blockquoteMatch = line.match(/^>\s*(.*)$/);
+    if (blockquoteMatch) {
+      if (!inBlockquote) {
+        flushParagraph();
+        inBlockquote = true;
+      }
+      blockquoteBuffer.push((blockquoteMatch[1] || "").trim());
+      continue;
+    }
+
+    if (inBlockquote) {
+      flushBlockquote();
+    }
+
     // Blank line separates paragraphs
     if (line.trim() === "") {
       flushParagraph();
@@ -224,6 +263,7 @@ export function parseMarkdown(
 
   flushParagraph();
   flushList();
+  flushBlockquote();
 
   // If there are no h2 sections found, create a single section with the title
   // using all the accumulated content

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
+  import MarkdownBlockquote from "$lib/components/MarkdownBlockquote.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
   import {
@@ -125,9 +126,9 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   <title>{post.title}</title>
 </svelte:head>
 
-<article class="py-8 md:py-12 w-full max-w-screen-sm">
+<article class="py-8 md:py-12 w-full">
   <div>
-    <header>
+    <header class="max-w-screen-md mx-auto">
       <h1
         class="text-3xl md:text-4xl font-bold text-glacial-blue leading-[1.175] md:leading-[1.1]"
       >
@@ -135,44 +136,52 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       </h1>
       <p class="text-muted-text-grey mt-3.5 md:mt-4">{formattedDate}</p>
     </header>
-    <div class="my-9 md:my-12">
+    <div class="my-9 md:my-12 max-w-screen-md mx-auto">
       <Separator />
     </div>
     <div class="space-y-8">
       {#each post.sections as section, i}
         <section id={`section-${i}`} data-essay-section="true">
           {#if section.heading !== post.title}
-            <h2 class="text-xl md:text-2xl font-semibold text-white">
+            <h2 class="text-xl md:text-2xl font-semibold text-white max-w-screen-md mx-auto">
               {section.heading}
             </h2>
           {/if}
-          <div class:mt-3={section.heading !== post.title} class="space-y-4">
-            {#each section.content as contentItem}
-              {#if contentItem.type === "paragraph"}
-                <MarkdownParagraph tokens={contentItem.tokens} />
-              {:else if contentItem.type === "code"}
-                <MarkdownCodeBlock
-                  lang={contentItem.lang}
-                  code={contentItem.code}
-                />
-              {:else if contentItem.type === "list"}
-                <ul
-                  class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"
-                >
-                  {#each contentItem.items as item}
-                    <li>{@html item}</li>
-                  {/each}
-                </ul>
-              {/if}
-            {/each}
-          </div>
+          {#each section.content as contentItem}
+            {#if contentItem.type === "blockquote"}
+            <div class="w-full max-w-screen-md mx-auto">
+              <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
+                <MarkdownBlockquote text={contentItem.text} />
+              </div>
+            </div>
+            {:else}
+              <div class:mt-3={section.heading !== post.title} class="space-y-4 max-w-screen-md mx-auto">
+                  {#if contentItem.type === "paragraph"}
+                    <MarkdownParagraph tokens={contentItem.tokens} />
+                  {:else if contentItem.type === "code"}
+                    <MarkdownCodeBlock
+                      lang={contentItem.lang}
+                      code={contentItem.code}
+                    />
+                  {:else if contentItem.type === "list"}
+                    <ul
+                      class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"
+                    >
+                      {#each contentItem.items as item}
+                        <li>{@html item}</li>
+                      {/each}
+                    </ul>
+                  {/if}
+                </div>
+            {/if}
+          {/each}
         </section>
       {/each}
     </div>
 
     {#if Object.keys(post.footnotes).length || post.contributionNote}
       <div
-        class="mt-[8em] md:mt-[12em]"
+        class="mt-[8em] md:mt-[12em] max-w-screen-md mx-auto"
         id="section-notes"
         data-essay-section="true"
       >
