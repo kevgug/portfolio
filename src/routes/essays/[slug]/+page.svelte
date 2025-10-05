@@ -136,10 +136,10 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       </h1>
       <p class="text-muted-text-grey mt-3.5 md:mt-4">{formattedDate}</p>
     </header>
-    <div class="my-9 md:my-12 max-w-screen-md mx-auto">
+    <div class="my-12 md:my-14 max-w-screen-md mx-auto">
       <Separator />
     </div>
-    <div class="space-y-8">
+    <div class="space-y-12 md:space-y-14">
       {#each post.sections as section, i}
         <section id={`section-${i}`} data-essay-section="true">
           {#if section.heading !== post.title}
