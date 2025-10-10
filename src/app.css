@@ -7,6 +7,79 @@
     @apply bg-background text-white;
   }
 
+  body {
+    @apply bg-background;
+  }
+
+  /* Global text styles */
+  p,
+  h1,
+  h2,
+  li {
+    @apply text-white;
+  }
+
+  h1 {
+    @apply text-2xl;
+    @apply font-semibold;
+    @apply md:text-3xl;
+    @apply xl:text-4xl;
+    @apply leading-tight;
+  }
+
+  h2 {
+    @apply text-base;
+    @apply md:text-lg;
+  }
+
+  p,
+  li,
+  a {
+    @apply text-sm;
+    @apply md:text-base;
+  }
+
+  a {
+    @apply cursor-pointer;
+    @apply text-glacial-blue;
+  }
+
+  button {
+    @apply text-sm;
+    @apply md:text-base;
+  }
+
+  img {
+    /* For alt text */
+    @apply text-glacial-blue;
+  }
+
+  /* List item styling */
+  li {
+    @apply font-serif;
+    @apply list-none;
+    @apply relative; /* positioning context for bullet */
+  }
+
+  li:not(:last-child) {
+    @apply mb-[0.65rem] lg:mb-3;
+  }
+
+  li::before {
+    content: "";
+    font-size: 2.5em; /* the default unicode bullet size is very small */
+    line-height: 0; /* kills huge line height on resized bullet */
+
+    @apply w-1 xl:w-[0.3rem];
+    @apply h-1 xl:h-[0.3rem];
+    @apply rounded-full;
+    @apply bg-bullet-grey;
+    @apply opacity-50;
+    @apply absolute; /* position bullet relative to list item */
+    @apply top-[0.22em] md:top-[0.23em] lg:top-[0.24em] xl:top-[0.23em]; /* vertical align bullet position relative to list item */
+    @apply left-[-0.34em] xl:left-[-0.54em]; /* position the bullet L- R relative to list item */
+  }
+
   /* Euclid Square */
   @font-face {
     font-family: "Euclid Square";
