@@ -4,9 +4,63 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Oct 2025 17:04:36 GMT</lastBuildDate>
-    <dc:date>2025-10-04T17:04:36.933Z</dc:date>
+    <lastBuildDate>Fri, 10 Oct 2025 01:36:00 GMT</lastBuildDate>
+    <dc:date>2025-10-10T01:36:00.229Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
+          <item>
+            <title>Writing Manifesto</title>
+            <link>https://kevingugelmann.com/essays/manifesto</link>
+            <description>Overview I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&amp;#39;ve put together this manifesto. Effectively, I consider this manifesto the brand guidelines of my personal essays. ...</description>
+            <content:encoded><![CDATA[<h2>Overview</h2>
+<p>I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&#39;ve put together this manifesto.</p>
+<p>Effectively, I consider this manifesto the <strong>brand guidelines</strong> of my personal essays. I will hold myself accountable to the <em>Do’s</em> and <em>Don’ts</em> I write up in this document as best as I can. In turn, I hope I ultimately achieve all my <em>Aims</em>.</p>
+<h2>Aims</h2>
+<p>These are the main outcomes I hope to achieve by publishing essays online.</p>
+<ul>
+<li>Become better at expressing my thoughts.</li>
+<li>Find signal in all the roughness of my natural thinking—largely by resisting the temptation of using AI to perfect my writing.</li>
+<li>Positively influence the creation and adoption of new technologies, in line with society&#39;s best interests—largely by sharing nascent predictions and pragmatic suggestions.</li>
+</ul>
+<h2>Do’s</h2>
+<p>To help me achieve my aims in a consistent manner, I want to put guardrails on how I approach every essay.</p>
+<ul>
+<li>Paint an honest and ideally optimistic view of the future of technology.</li>
+<li>Think both high level and low level. High level thought paints an optimistic view of the future, while low level thought proposes one bridge to get there.</li>
+<li>Be curious.</li>
+<li>Attempt to answer the low level questions. No one holds the answer to every question and I’m no exception. I just view it like this: if everyone shared their imperfect attempts at a realistic path to an optimistic future, then we have more ideas to combine and choose from.</li>
+<li>Force myself to research topics I otherwise wouldn’t.</li>
+<li>Write in my own style. Where college essays generally encourage homogeneity and verbosity, I am aiming for clarity of thought.</li>
+<li>Tree shake before publishing. Cut out all details that add zero or negative value to the essay.</li>
+<li>Read essays aloud before publishing. Rephrase anything that doesn&#39;t sound natural or that I just wouldn&#39;t say in conversation.</li>
+</ul>
+<h2>Don’ts</h2>
+<p>In brand guidelines, it is just as important to enumerate what <em>not</em> to do. I want to exercise the same constraint on my essays.</p>
+<ul>
+<li>Don&#39;t edit the words or paragraph structure to sound smart. Only ever edit the essay to make a point more parsimonious.</li>
+<li>Don&#39;t conform to the writing style of others. Focus first and foremost on getting my thoughts onto the page.</li>
+<li>Don&#39;t try to impress readers with profound sounding ideas. I believe there is a sizeable time lag in how long it takes a reader to register some really profound insights. In any case, the goal isn&#39;t instant validation—the best ideas may simply be obvious in hindsight.</li>
+<li>Don&#39;t spend more than a few days of active writing time on each essay. The more time I have to formulate my words, the more perfectionist I’ll get, and the more I’ll try to perfect even the thoughts going into an essay.</li>
+<li>Don&#39;t filter what I share, as long as I can’t foresee the ideas causing <em>actual</em> hurt to others. I might make predictions that diverge drastically from the status quo, so at most I might share an uncomfortable truth.</li>
+<li>Don&#39;t blindly extrapolate from past essays out of convenience or an assumed necessity to double down on past viewpoints. I <em>should</em> change my opinions when the data changes—it would be irresponsible to perpetuate a belief when an underlying assumption is challenged. Of course, if the data hasn&#39;t changed, then I can shamelessly refer to the conclusions of a past essay.</li>
+<li>Don&#39;t write about what I think others want to hear. I should write about whatever thoughts I naturally have, in whatever distribution I have them. Luckily, I&#39;ve found it impossible to motivate myself on an essay topic by asking friends for inspiration. At best, I&#39;ve been able to ask friends which essay I should write first from a shortlist of topics I&#39;m already interested in.</li>
+<li>Don&#39;t restrict myself to any one topic like &#39;frontend development&#39;. As long as I&#39;ve thought deeply about a topic, I am likely to have some unique perspective that is worth sharing.</li>
+</ul>
+<h2>Inspiration</h2>
+<p>I’m a strong believer in credit where credit is due. Here are my three main reasons for publishing essays online.</p>
+<ul>
+<li>Paul Graham.</li>
+<li>My friends who started writing a few years ago, who have proven that there is really only upside in online publishing. It turns out that all the potential downsides are purely hypothetical. <a href="#note-1">[1]</a></li>
+<li>My friends who still have some unfounded embarrassment in sharing their work on the internet, whether it&#39;s opinion pieces or creative writing. I hope my essays encourage you to start publishing too.</li>
+</ul>
+<h2>Notes</h2>
+<p id="note-1">[1] Thanks, Diego.</p>
+]]></content:encoded>
+            <pubDate>Fri, 12 Sep 2025 00:00:00 GMT</pubDate>
+            <dc:creator><![CDATA[Kevin Gugelmann]]></dc:creator>
+            <dc:date>2025-09-12T00:00:00.000Z</dc:date>
+            <guid>https://kevingugelmann.com/essays/manifesto</guid>
+          </item>
+        
   </channel>
 </rss>
