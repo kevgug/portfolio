@@ -7,7 +7,7 @@ export interface BlogFootnotesMap {
 export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
   | { type: "code"; lang?: string; code: string }
-  | { type: "list"; items: string[] }
+  | { type: "list"; items: ParagraphToken[][] }
   | { type: "blockquote"; text: string };
 
 export interface BlogSection {
@@ -114,7 +114,7 @@ export function parseMarkdown(
     if (listBuffer.length > 0) {
       const listContent: BlogSectionContent = {
         type: "list",
-        items: listBuffer.map((item) => marked.parseInline(item) as string),
+        items: listBuffer.map((item) => tokenizeAndParseParagraph(item)),
       };
       if (currentSection) {
         currentSection.content.push(listContent);

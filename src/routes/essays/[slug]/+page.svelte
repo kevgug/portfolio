@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
+  import MarkdownListItem from "$lib/components/MarkdownListItem.svelte";
   import MarkdownBlockquote from "$lib/components/MarkdownBlockquote.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
@@ -167,8 +168,8 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                     <ul
                       class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"
                     >
-                      {#each contentItem.items as item}
-                        <li>{@html item}</li>
+                      {#each contentItem.items as itemTokens}
+                        <MarkdownListItem tokens={itemTokens} />
                       {/each}
                     </ul>
                   {/if}

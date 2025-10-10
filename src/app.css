@@ -177,4 +177,22 @@
   .footnote-bg-highlight {
     background-color: rgba(20, 188, 197, 0.174);
   }
+
+  /* List item content wrapper for footnote highlighting */
+  li .li-content {
+    display: inline;
+  }
+
+  /* When the li-content has the footnote background animation, apply the styles */
+  li .li-content.footnote-bg-anim {
+    display: inline-block;
+    vertical-align: top;
+    transition: background-color 140ms ease-out;
+    @apply rounded-xl;
+    @apply px-2 mx-[-0.5rem] py-1 my-[-0.25rem];
+  }
+
+  li .li-content.footnote-bg-highlight {
+    background-color: rgba(20, 188, 197, 0.174);
+  }
 }
