@@ -31,6 +31,35 @@ if (isProduction) {
 
 essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+// Helper to process footnotes in HTML content
+function processFootnotes(htmlContent) {
+  // Split content by the Notes section
+  const notesRegex = /(<h2>Notes<\/h2>)/i;
+  const parts = htmlContent.split(notesRegex);
+
+  if (parts.length < 2) {
+    // No Notes section found, just process footnote references
+    return htmlContent.replace(
+      /\[(\d+)\]/g,
+      '<a href="#note-$1">[$1]</a>',
+    );
+  }
+
+  // Process the main content (everything before Notes section)
+  let mainContent = parts[0];
+  mainContent = mainContent.replace(
+    /\[(\d+)\]/g,
+    '<a href="#note-$1">[$1]</a>',
+  );
+
+  // Process the Notes section (everything after the <h2>Notes</h2> header)
+  let notesSection = parts.slice(2).join("");
+  // Add IDs to paragraphs that start with footnote numbers
+  notesSection = notesSection.replace(/<p>\[(\d+)\]/g, '<p id="note-$1">[$1]');
+
+  return mainContent + parts[1] + notesSection;
+}
+
 const siteUrl = "https://kevingugelmann.com";
 const rss = `
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -46,7 +75,8 @@ const rss = `
   essays
     .map((essay) => {
       const url = `${siteUrl}/essays/${essay.slug}`;
-      const htmlContent = marked(essay.content);
+      let htmlContent = marked(essay.content);
+      htmlContent = processFootnotes(htmlContent);
       const summary = htmlContent
         .replace(/<[^>]*>?/gm, " ") // Replace HTML tags with a space
         .replace(/\s+/g, " ") // Collapse multiple whitespace characters
