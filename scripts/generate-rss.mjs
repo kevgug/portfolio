@@ -75,7 +75,7 @@ const rss = `
   essays
     .map((essay) => {
       const url = `${siteUrl}/essays/${essay.slug}`;
-      let htmlContent = marked(essay.content);
+      let htmlContent = `<h1>${essay.title}</h1>\n` + marked(essay.content);
       htmlContent = processFootnotes(htmlContent);
       const summary = htmlContent
         .replace(/<[^>]*>?/gm, " ") // Replace HTML tags with a space
