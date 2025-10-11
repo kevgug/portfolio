@@ -2,8 +2,6 @@ import type { PageLoad } from "./$types";
 import { parseMarkdown } from "$lib/essays/parse";
 import { error } from "@sveltejs/kit";
 
-export const prerender = false;
-
 export const load: PageLoad = async ({ params, fetch }) => {
   const { slug } = params;
 
