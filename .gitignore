@@ -8,4 +8,6 @@ node_modules
 !.env.example
 static/essays/index.json
 static/rss.xml
+static/llms.txt
+static/llms-full.txt
 *.timestamp-*.mjs

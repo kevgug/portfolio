@@ -18,4 +18,6 @@ const sitemapContent = `<?xml version='1.0' encoding='UTF-8'?>
 
 writeFileSync("build/sitemap.xml", sitemapContent);
 
-console.log("Post-build files created successfully");
+console.log("✓ Post-build files created");
+console.log("  - CNAME");
+console.log("  - sitemap.xml");
