@@ -2,19 +2,20 @@
 
 - Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
 - Tagline: Product Designer. AI-Native Engineer.
-- Description: I'm an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Description: Kevin Gugelmann is an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
 - Base URL: https://kevingugelmann.com
 
 ## Sitemap
 
 - / - Home
+- /essays - Essays listing
 - /#introduction - Intro headline and highlights
 - /#projects - Projects overview
 - /#contact - Contact CTA
 - Project anchors:
   - /#jpmorganchase - JPMorganChase (2025)
-  - /#freestyle - Freestyle (2024)
-  - /#gridlink - GridLink (2023)
+  - /#freestyle - Freestyle (YC S24) (2024)
+  - /#gridlink - GridLink (Techstars '23) (2023)
   - /#arcbrowser - Arc Browser iOS Redesign (2023)
   - /#zeestalabs - Zeesta Labs (2023)
   - /#sportvideoanalysis - Sport Video Analysis App (2022)
@@ -29,30 +30,35 @@
 
 - Navigation: Book a call → https://cal.com/kevgug/intro
 - Contact section: Schedule a call → https://cal.com/kevgug/intro; Email me → mailto:kevin@kevingugelmann.com
+- Footer: Book a call → https://cal.com/kevgug/intro; Email → mailto:kevin@kevingugelmann.com; LinkedIn → https://www.linkedin.com/in/kevingugelmann; RSS → /rss.xml
 
 ## Section Summaries
 
-- Introduction: Headshot; final title “Product Designer. AI-Native Engineer.”; highlights about JPMC Figma plugins, Freestyle site, UChicago wins.
+- Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Product Designer. AI-Native Engineer."; highlights about JPMC AI-native tool, Freestyle pixel-perfect sites, UChicago designathon and hackathon wins. Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
 - Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
-- Contact: Headline “YC to Fortune 50. I'm Kevin Gugelmann.” with conversion-focused proof points and primary CTAs.
-- Footer: “Designed in Sketch. Developed with Svelte.” and copyright.
+- Contact: Headline "YC to Fortune 50. I'm Kevin Gugelmann." with conversion-focused proof points and primary CTAs.
+- Footer: "Product Designer. AI-Native Engineer." and copyright.
 
 ## Project Summaries
 
-- JPMorganChase: Launched Figma plugin with 500x perf; chart generator; AI toolkit for designers.
-- Freestyle (YC S24): Website/blog to 2k+ monthly visitors; Rust-based JS runtime contributions.
-- GridLink (Techstars '23): Redesigned EV fleet UI; shipped React components.
-- Arc Browser iOS Redesign: 30‑day redesign; published on Medium.
-- Zeesta Labs: Brand + React Native app for medical AI startup.
-- Sport Video Analysis App: Desktop UI; ten interactive states for training review.
-- UChicago Designathon Winner: Prize‑winning mobile app built in 5 hours.
-- Trade Finance Distribution Initiative: Webflow redesign doubling traffic; rewrote 1k+ words of copy.
-- Mindxone: Co‑founded tag‑based content web app to MVP.
-- Task App with Focus Timer: Flutter iOS task app with micro‑interactions.
-- Panorama Mail: Concept mail app with Panorama triage; 50+ animated artboards.
-- Prismatic News: Android offline news app with TTS and AI highlighting; 5k+ installs.
+- JPMorganChase: Delivered 500x performance improvements to launch a Figma plugin worldwide, enabling 200+ annual hours saved in design.
+- Freestyle (YC S24): Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, ...
+- GridLink (Techstars '23): First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders.
+- Arc Browser iOS Redesign: Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and ...
+- Zeesta Labs: Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs.
+- Sport Video Analysis App: Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals.
+- UChicago Designathon Winner: Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype.
+- Trade Finance Distribution Initiative: Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 5...
+- Mindxone: Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology.
+- Task App with Focus Timer: Designed and built an iOS task app with focus timer and priority estimation in Flutter.
+- Panorama Mail: Designed and prototyped 50+ animated artboards for a concept mobile mail app.
+- Prismatic News: Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store.
 
 ## Social
 
-- GitHub: https://github.com/kevgug
 - LinkedIn: https://www.linkedin.com/in/kevingugelmann
+- RSS Feed: /rss.xml
+
+## Essays
+
+- Writing Manifesto (2025-09-12) → https://kevingugelmann.com/essays/manifesto
