@@ -8,7 +8,8 @@ export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
   | { type: "code"; lang?: string; code: string }
   | { type: "list"; items: ParagraphToken[][] }
-  | { type: "blockquote"; text: string };
+  | { type: "blockquote"; text: string }
+  | { type: "latex"; latex: string };
 
 export interface BlogSection {
   heading: string;
@@ -81,6 +82,9 @@ export function parseMarkdown(
   let inCodeBlock = false;
   let codeBlockLang = "";
   let codeBlockBuffer: string[] = [];
+
+  let inLatexBlock = false;
+  let latexBlockBuffer: string[] = [];
 
   let inList = false;
   let listBuffer: string[] = [];
@@ -171,6 +175,26 @@ export function parseMarkdown(
       continue;
     }
 
+    if (inLatexBlock) {
+      if (line.trim() === "$$") {
+        const latexContent: BlogSectionContent = {
+          type: "latex",
+          latex: latexBlockBuffer.join("\n"),
+        };
+        if (currentSection) {
+          currentSection.content.push(latexContent);
+        } else if (!hasH2Sections) {
+          // Accumulate content before first h2
+          preH2Content.push(latexContent);
+        }
+        inLatexBlock = false;
+        latexBlockBuffer = [];
+      } else {
+        latexBlockBuffer.push(line);
+      }
+      continue;
+    }
+
     const codeBlockMatch = line.match(/^```(\w*)/);
     if (codeBlockMatch) {
       flushParagraph();
@@ -178,6 +202,14 @@ export function parseMarkdown(
       flushBlockquote();
       inCodeBlock = true;
       codeBlockLang = codeBlockMatch[1] || "";
+      continue;
+    }
+
+    if (line.trim() === "$$") {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      inLatexBlock = true;
       continue;
     }
 
@@ -295,31 +327,62 @@ export interface ParagraphTokenRef {
   num: string;
 }
 
-export type ParagraphToken = ParagraphTokenText | ParagraphTokenRef;
+export interface ParagraphTokenLatex {
+  type: "latex";
+  latex: string;
+}
+
+export type ParagraphToken =
+  | ParagraphTokenText
+  | ParagraphTokenRef
+  | ParagraphTokenLatex;
 
 function tokenizeAndParseParagraph(text: string): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
+
+  // Combined regex to match both footnotes and inline LaTeX
+  // Matches [digit] for footnotes or $...$ for inline LaTeX (non-greedy, not preceded by \)
+  const combinedRegex = /(\[\d+\])|(?<!\\)\$([^$\n]+?)\$/g;
+
   let lastIndex = 0;
   let match: RegExpExecArray | null;
-  FOOTNOTE_REF_REGEX.lastIndex = 0;
+
   // eslint-disable-next-line no-cond-assign
-  while ((match = FOOTNOTE_REF_REGEX.exec(text))) {
+  while ((match = combinedRegex.exec(text))) {
     const start = match.index;
     const end = start + match[0].length;
+
+    // Add any text before this match
     if (start > lastIndex) {
+      const textContent = text.slice(lastIndex, start);
       tokens.push({
         type: "text",
-        text: marked.parseInline(text.slice(lastIndex, start)) as string,
+        text: marked.parseInline(textContent) as string,
       });
     }
-    tokens.push({ type: "ref", num: match[1] });
+
+    // Check if it's a footnote reference [digit]
+    if (match[1]) {
+      const numMatch = match[1].match(/\[(\d+)\]/);
+      if (numMatch) {
+        tokens.push({ type: "ref", num: numMatch[1] });
+      }
+    }
+    // Otherwise it's inline LaTeX $...$
+    else if (match[2]) {
+      tokens.push({ type: "latex", latex: match[2] });
+    }
+
     lastIndex = end;
   }
+
+  // Add any remaining text
   if (lastIndex < text.length) {
     tokens.push({
       type: "text",
       text: marked.parseInline(text.slice(lastIndex)) as string,
     });
   }
+
   return tokens;
 }

@@ -3,6 +3,7 @@
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
   import MarkdownListItem from "$lib/components/MarkdownListItem.svelte";
   import MarkdownBlockquote from "$lib/components/MarkdownBlockquote.svelte";
+  import MarkdownLatexBlock from "$lib/components/MarkdownLatexBlock.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
   import {
@@ -164,6 +165,8 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                       lang={contentItem.lang}
                       code={contentItem.code}
                     />
+                  {:else if contentItem.type === "latex"}
+                    <MarkdownLatexBlock latex={contentItem.latex} />
                   {:else if contentItem.type === "list"}
                     <ul
                       class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"

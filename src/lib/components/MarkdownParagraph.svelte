@@ -4,6 +4,7 @@
     reliableScrollToElement,
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
+  import { renderInlineLatex } from "$lib/util/katex";
   export let tokens: ParagraphToken[];
   let firstRefNum: string | undefined;
 
@@ -59,6 +60,8 @@
           ><span class="text-[0.32rem]">{" "}</span>]
         </span>
       </button>
+    {:else if t.type === "latex"}
+      {@html renderInlineLatex(t.latex)}
     {/if}
   {/each}
 </p>
