@@ -148,7 +148,7 @@
       };
 
   const onMouseEnterLinkBtn = () => {
-    scale = (width + 6) / width;
+    scale = (width + 12) / width;
     // brightness = 0.85;
     isHoveringLinkBtn = true;
   };
