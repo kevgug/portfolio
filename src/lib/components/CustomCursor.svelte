@@ -9,6 +9,23 @@
   let isPointer = false;
   let isText = false;
   let mounted = false;
+  let isMobile = false;
+
+  // Detect if device is mobile/touch device
+  function detectMobile(): boolean {
+    if (!browser) return false;
+    
+    // Check for touch support
+    const hasTouch = 'ontouchstart' in window || 
+                     navigator.maxTouchPoints > 0 || 
+                     (navigator as any).msMaxTouchPoints > 0;
+    
+    // Check user agent for mobile keywords
+    const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    const isMobileUA = mobileRegex.test(navigator.userAgent);
+    
+    return hasTouch || isMobileUA;
+  }
 
   // Smooth interpolation with extrapolation for ultra-smooth movement
   function lerp(start: number, end: number, factor: number): number {
@@ -17,6 +34,21 @@
 
   onMount(() => {
     if (!browser) return;
+
+    // Check if device is mobile
+    isMobile = detectMobile();
+    
+    // Don't initialize custom cursor on mobile devices
+    if (isMobile) {
+      mounted = false;
+      return;
+    }
+
+    // Add custom cursor style to hide default cursor
+    const style = document.createElement('style');
+    style.id = 'custom-cursor-style';
+    style.textContent = 'body, html, * { cursor: none !important; }';
+    document.head.appendChild(style);
 
     mounted = true;
     let animationFrameId: number;
@@ -92,19 +124,16 @@
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
+      // Remove custom cursor style on cleanup
+      const style = document.getElementById('custom-cursor-style');
+      if (style) {
+        style.remove();
+      }
     };
   });
 </script>
 
-<svelte:head>
-  <style>
-    body, html, * {
-      cursor: none !important;
-    }
-  </style>
-</svelte:head>
-
-{#if mounted}
+{#if mounted && !isMobile}
   <div
     class="custom-cursor"
     class:is-text={isText}
