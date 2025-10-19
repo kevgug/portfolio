@@ -1,6 +1,27 @@
 <script lang="ts">
   // Components
   import Icon from "$lib/components/Icon.svelte";
+
+  let showToast = false;
+  let toastTimeout: ReturnType<typeof setTimeout>;
+
+  function copyRssLink() {
+    const rssUrl = `${window.location.origin}/rss.xml`;
+    navigator.clipboard.writeText(rssUrl).then(() => {
+      // Clear any existing timeout
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+
+      // Show the toast
+      showToast = true;
+
+      // Hide the toast after 2 seconds
+      toastTimeout = setTimeout(() => {
+        showToast = false;
+      }, 2000);
+    });
+  }
 </script>
 
 <div
@@ -28,9 +49,13 @@
     >
       <Icon name="linkedin" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
-    <a href="/rss.xml" target="_blank" rel="noreferrer">
+    <button
+      on:click={copyRssLink}
+      type="button"
+      class="text-white/80 transition-all ease-outro duration-200 border-none p-0 cursor-pointer bg-transparent hover:text-white hover:ease-intro hover:duration-intro"
+    >
       <Icon name="rss" class="h-4 w-4 lg:h-5 lg:w-5" />
-    </a>
+    </button>
     <!-- <a href="https://github.com/kevgug" target="_blank" rel="noreferrer">
       <Icon name="github" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a> -->
@@ -42,6 +67,14 @@
     </p>
   </div>
 </div>
+
+{#if showToast}
+  <div
+    class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
+  >
+    RSS link copied
+  </div>
+{/if}
 
 <style lang="postcss">
   a {
@@ -56,5 +89,32 @@
     @apply transition-all;
     @apply ease-intro;
     @apply duration-intro;
+  }
+
+  .toast-animate {
+    animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+      toast-out 0.3s cubic-bezier(0.9, 0, 0.51, 1) 1.7s forwards;
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+
+  @keyframes toast-out {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px) scale(0.95);
+    }
   }
 </style>
