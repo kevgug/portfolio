@@ -98,7 +98,7 @@
 
 <svelte:head>
   <style>
-    * {
+    body, html, * {
       cursor: none !important;
     }
   </style>
