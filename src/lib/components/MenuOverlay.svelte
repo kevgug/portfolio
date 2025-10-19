@@ -7,6 +7,7 @@
   import { fly, fade } from "svelte/transition";
   import { gsap } from "gsap";
   import { page } from "$app/stores";
+  import { goto } from "$app/navigation";
 
   // Custom logarithmic ease-out curve - super fast start, very slow logarithmic tail
   const logarithmicEaseOut = (t: number): number => {
@@ -276,11 +277,7 @@
                 >
                   <button
                     on:click|stopPropagation={() => {
-                      reliableScrollToElement(`#essay-item-${e.slug}`, {
-                        duration: 1000,
-                        ease: "out-expo",
-                        offset: getResponsiveOffset({ spacing: "sm" }),
-                      });
+                      goto(`/essays/${e.slug}`);
                       open = false;
                     }}
                     on:mouseenter={handleProjectLeave}

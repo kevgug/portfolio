@@ -2,6 +2,7 @@
   import "../app.css"; // TailwindCSS
   import SubscribeModal from "$lib/components/SubscribeModal.svelte";
   import NavBar from "$lib/components/NavBar.svelte";
+  import CustomCursor from "$lib/components/CustomCursor.svelte";
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
@@ -35,4 +36,5 @@
   {/key}
 {/if}
 
+<CustomCursor />
 <SubscribeModal />
