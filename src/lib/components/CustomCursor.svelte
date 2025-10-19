@@ -63,21 +63,52 @@
     // Detect when cursor is over clickable elements or text
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const computedStyle = window.getComputedStyle(target);
       
       // Check if it's a clickable element
-      const isClickable = computedStyle.cursor === 'pointer' || 
+      const isClickable = 
                           (target.tagName === 'A' && target.getAttribute('href') !== null) || 
                           target.tagName === 'BUTTON' ||
                           target.closest('a[href], button') !== null;
       
       // Check if it's selectable text or an input element
       const hasTextContent = Boolean(target.textContent);
+      const isTextElement = target.tagName === 'P' ||
+                            target.tagName === 'SPAN' ||
+                            target.tagName === 'H1' ||
+                            target.tagName === 'H2' ||
+                            target.tagName === 'H3' ||
+                            target.tagName === 'H4' ||
+                            target.tagName === 'H5' ||
+                            target.tagName === 'H6' ||
+                            target.tagName === 'STRONG' ||
+                            target.tagName === 'EM' ||
+                            target.tagName === 'B' ||
+                            target.tagName === 'I' ||
+                            target.tagName === 'U' ||
+                            target.tagName === 'MARK' ||
+                            target.tagName === 'SMALL' ||
+                            target.tagName === 'DEL' ||
+                            target.tagName === 'INS' ||
+                            target.tagName === 'SUB' ||
+                            target.tagName === 'SUP' ||
+                            target.tagName === 'ABBR' ||
+                            target.tagName === 'CITE' ||
+                            target.tagName === 'CODE' ||
+                            target.tagName === 'KBD' ||
+                            target.tagName === 'SAMP' ||
+                            target.tagName === 'VAR' ||
+                            target.tagName === 'TIME' ||
+                            target.tagName === 'Q' ||
+                            target.tagName === 'BLOCKQUOTE' ||
+                            target.tagName === 'PRE' ||
+                            target.tagName === 'LI' ||
+                            target.tagName === 'DT' ||
+                            target.tagName === 'LABEL';
       const isInputElement = target.tagName === 'INPUT' || 
                             target.tagName === 'TEXTAREA';
-      
       const isSelectableText = !isClickable && 
-                              (isInputElement || (hasTextContent && computedStyle.cursor !== 'default'));
+                              (isTextElement || isInputElement)
+                              && hasTextContent;
       
       isPointer = isClickable;
       isText = isSelectableText && !isClickable;
