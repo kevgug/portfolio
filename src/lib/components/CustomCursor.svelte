@@ -35,9 +35,9 @@
       
       // Check if it's a clickable element
       const isClickable = computedStyle.cursor === 'pointer' || 
-                          target.tagName === 'A' || 
+                          (target.tagName === 'A' && target.getAttribute('href') !== null) || 
                           target.tagName === 'BUTTON' ||
-                          target.closest('a, button') !== null;
+                          target.closest('a[href], button') !== null;
       
       // Check if it's selectable text or an input element
       const hasTextContent = Boolean(target.textContent);
