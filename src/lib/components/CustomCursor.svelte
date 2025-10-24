@@ -10,6 +10,7 @@
   let isText = false;
   let mounted = false;
   let isMobile = false;
+  let isOutsideWindow = false;
 
   // Detect if device is mobile/touch device
   function detectMobile(): boolean {
@@ -114,6 +115,16 @@
       isText = isSelectableText && !isClickable;
     };
 
+    // Handle when cursor leaves the window
+    const handleMouseLeave = () => {
+      isOutsideWindow = true;
+    };
+
+    // Handle when cursor enters the window
+    const handleMouseEnter = () => {
+      isOutsideWindow = false;
+    };
+
     // Animation loop with extrapolation
     const animate = (currentTime: number) => {
       const deltaTime = currentTime - lastTime;
@@ -148,10 +159,14 @@
     window.addEventListener('mousemove', initCursor, { once: true });
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -168,12 +183,13 @@
   <div
     class="custom-cursor"
     class:is-text={isText}
+    class:is-outside={isOutsideWindow}
     style="
       left: {cursorX}px;
       top: {cursorY}px;
       width: {isPointer ? '40px' : isText ? '2px' : '12px'};
       height: {isPointer ? '40px' : isText ? '22px' : '12px'};
-      opacity: {isPointer ? '0.3' : '1'};
+      opacity: {isOutsideWindow ? '0' : isPointer ? '0.3' : '1'};
       border-radius: {isText ? '2px' : '50%'};
       background-color: {isText ? 'black' : 'white'};
       border: {isText ? '1px solid white' : '1px solid none'};
@@ -188,16 +204,21 @@
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     box-sizing: content-box;
     will-change: transform, width, height, opacity, border-radius;
     transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1),
                 height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1),
-                opacity 0.3s ease-out,
+                opacity 0s,
                 border-radius 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1),
                 background-color 0.3s ease-out,
                 border 0.3s ease-out,
-                box-shadow 0.3s ease-out;
+                box-shadow 0.3s ease-out,
+                transform 0s;
+  }
+
+  .custom-cursor.is-outside {
+    transform: translate(-50%, -50%) scale(0);
   }
 </style>
 
