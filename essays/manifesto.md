@@ -1,5 +1,5 @@
 ---
-title: "Writing Manifesto"
+title: "Writing manifesto"
 date: "2025-09-12"
 publish: true
 ---
