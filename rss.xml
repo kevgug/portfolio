@@ -4,8 +4,8 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Oct 2025 16:08:13 GMT</lastBuildDate>
-    <dc:date>2025-10-25T16:08:13.532Z</dc:date>
+    <lastBuildDate>Sat, 25 Oct 2025 16:19:29 GMT</lastBuildDate>
+    <dc:date>2025-10-25T16:19:29.797Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
@@ -65,14 +65,14 @@
 <p>It turns out, accountability is <em>not</em> vital for selling software. The main benefits of accountability—competitive pressure and customer trust—can also be achieved by autonomous AI systems. Competitive pressure is simply shifted from the individual who needs status-based motivation to the company which continuously collects signals—the company being an autonomous AI system. Customer trust is still feasible, but harder to guarantee when there is no human to validate each decision.</p>
 <p>The customer doesn&#39;t need perfect trust in a software product to start using it; it just needs to be <em>promising enough</em>. At the same time, if autonomous AI is misaligned with what the creator would have wanted and neglects a user, they will still eventually offboard the software, factoring in switching costs. This is analogous to how users blindly accept T&amp;Cs and EULAs for modern software, proving that the vast majority of users accept information asymmetry to a degree and simply look for sufficiently promising products. <a href="#note-7">[7]</a></p>
 <p>Counter to our intuition, users will be responsible for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.</p>
-<p>Across thousands of commercial and personal software products doing generally the same thing, there will be at least one high quality option. The main barriers to picking high quality software will be switching costs, which is already relevant today, and evaluating all substitutes well, which is a future problem. I think finding the best option can be solved with a third party QA testing tool for <em>users</em>, which is deserving of its own essay.</p>
+<p>Across thousands of commercial and personal software products doing generally the same thing, there will be at least one high quality option. The main barriers to picking high quality software will be switching costs, which is already relevant today, and evaluating all substitutes well, which is a future problem. To solve finding the best option, I expect someone will build a QA testing tool for <em>users</em> that tests software on their behalf before they onboard the best one, which is deserving of its own essay.</p>
 <p>Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. <em>Letting</em> is a much more suitable word than <em>steering</em>, because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.</p>
 <h2>Notes</h2>
 <p id="note-1">[1] My brother ran a total of about 50km in the months leading up to the marathon. Yes, he&#39;s crazy.</p>
 <p id="note-2">[2] Competitive pressure is mostly about execution, while customer trust is mostly about product direction.</p>
 <p id="note-3">[3] Assuming that the user is using an app builder platform, the platform would be wise to use general context about the user to more effectively solve the user&#39;s needs.</p>
 <p id="note-4">[4] The only chance the user can eliminate information asymmetry about the quality of the software is if there&#39;s an agentic AI solution that QA tests software for the end user. Obviously, this solution has its limits when finances and financial products become involved—good luck third party QA testing large money transfers, for example. However, I imagine it would be really useful to the end user if there&#39;s the equivalent of an undercover food critic who tests if third party software will work as expected, in the form of an autonomous AI agent.</p>
-<p id="note-5">[5] &quot;How Ramp engineering operates at hyperspeed wtih Claude Code&quot;: <a href="https://www.claude.com/customers/ramp">https://www.claude.com/customers/ramp</a>.</p>
+<p id="note-5">[5] &quot;How Ramp engineering operates at hyperspeed with Claude Code&quot;: <a href="https://www.claude.com/customers/ramp">https://www.claude.com/customers/ramp</a>.</p>
 <p id="note-6">[6] AI can continuously monitor changes to and proof read the latest EULA.</p>
 <p id="note-7">[7] Shoutout Adobe, who have the lethal combination of consistently bad UX and high switching costs.</p>
 ]]></content:encoded>
