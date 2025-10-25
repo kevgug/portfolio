@@ -209,6 +209,8 @@
 ## Essays
 
 <Essay title="Will accountability keep us from building autonomous AI?" date="Thu Oct 23 2025 19:00:00 GMT-0500 (Central Daylight Time)">
+# Will accountability keep us from building autonomous AI?
+
 ## The question
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [1]
@@ -315,6 +317,8 @@ Human-AI alignment remains the biggest limiting factor in letting AI design and 
 </Essay>
 
 <Essay title="Writing manifesto" date="2025-09-12">
+# Writing manifesto
+
 ## Overview
 
 I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I've put together this manifesto.
