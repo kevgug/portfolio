@@ -66,7 +66,7 @@ You may reasonably say, "but that doesn't solve the issue of information asymmet
 
 Users cannot definitively know ahead of using software if it will work as advertised. However, even today when there are thousands of close substitutes programs for every use case, the overwhelming majority of users blindly accept terms & conditions (T&Cs) and end user license agreements (EULAs). In other words, 99.99% of consumers are already comfortable with blindly trusting the goodwill of software creators to write fine print that is sufficiently aligned with their own goals. After all, EULAs have become longer and more complex over the last decade, and there has only been an increase in software usage. [4]
 
-I see a parallel in blind trust between human-written and AI-written software. I believe that increased AI use in software production will, ceteris paribus, have no effect on software adoption. Most major companies are already writing their software using AI, representing a nonzero percentage of their code. I'm aware some modern companies, like Ramp, even demand their engineers use AI tools to stay ahead of the curve. The software engineering industry has already dialed up the percentage of code produced by AI and the adoption of software has not been affected at all, at least not to my knowledge. If that’s our analysis at the margin, we also won't expect any difference in adoption between software that is 0%, 50%, 90%, 99.9%, or 100% AI made. 100% percentage represents, of course, our autonomous AI system. Why is that?
+I see a parallel in blind trust between human-written and AI-written software. I believe that increased AI use in software production will, ceteris paribus, have no effect on software adoption. Most major companies are already writing their software using AI, representing a nonzero percentage of their code. I'm aware some modern companies, like Ramp, even demand their engineers use AI tools to stay ahead of the curve. The software engineering industry has already dialed up the percentage of code produced by AI and the adoption of software has not been affected at all, at least not to my knowledge. If that’s our analysis at the margin, we also won't expect any difference in adoption between software that is 0%, 50%, 90%, 99.9%, or 100% AI made. 100% percentage represents, of course, our autonomous AI system. Why is that? [5]
 
 I think this effect is for pragmatic reasons—all customers should take a product at face value to a certain degree. Consider these reasonable user questions:
 
@@ -78,7 +78,7 @@ You could compile a list of valid concerns about using _any_ product, if you put
 
 > We can only know if software works as expected by using it.
 
-As for trusting the _legal_ goodwill of software creators, you might think we largely trust T&Cs and EULAs because we assume at least one other user _does_ read T&Cs and EULAs and would publicly flag any harmful fine print. Firstly, this is a precarious assumption: not everyone is an Edward Snowdon who finds and reports harmful software practices, and not every software program has been subjected to an Edward Snowdon. Especially in the AI age when there are thousands of close substitutes. Secondly, I would expect an AI system to be far more reliable, accurate, and faster at detecting harmful fine print. [5]
+As for trusting the _legal_ goodwill of software creators, you might think we largely trust T&Cs and EULAs because we assume at least one other user _does_ read T&Cs and EULAs and would publicly flag any harmful fine print. Firstly, this is a precarious assumption: not everyone is an Edward Snowdon who finds and reports harmful software practices, and not every software program has been subjected to an Edward Snowdon. Especially in the AI age when there are thousands of close substitutes. Secondly, I would expect an AI system to be far more reliable, accurate, and faster at detecting harmful fine print. [6]
 
 In other words, I don't think the majority of users blindly accept EULAs because they are all free riding on some legal nerd who will read them. No, we just all accept that we can't know for sure if software will work as advertised or breach our trust. We're simply practical creatures: we know the fastest way to find out if software works is to use it, and the fastest way to use software is to skip reading the legal paperwork.
 
@@ -86,7 +86,7 @@ In other words, I don't think the majority of users blindly accept EULAs because
 
 It turns out, accountability is _not_ vital for selling software. The main benefits of accountability—competitive pressure and customer trust—can also be achieved by autonomous AI systems. Competitive pressure is simply shifted from the individual who needs status-based motivation to the company which continuously collects signals—the company being an autonomous AI system. Customer trust is still feasible, but harder to guarantee when there is no human to validate each decision.
 
-The customer doesn't need perfect trust in a software product to start using it; it just needs to be _promising enough_. At the same time, if autonomous AI is misaligned with what the creator would have wanted and neglects a user, they will still eventually offboard the software, factoring in switching costs. This is analogous to how users blindly accept T&Cs and EULAs for modern software, proving that the vast majority of users accept information asymmetry to a degree and simply look for sufficiently promising products. [6]
+The customer doesn't need perfect trust in a software product to start using it; it just needs to be _promising enough_. At the same time, if autonomous AI is misaligned with what the creator would have wanted and neglects a user, they will still eventually offboard the software, factoring in switching costs. This is analogous to how users blindly accept T&Cs and EULAs for modern software, proving that the vast majority of users accept information asymmetry to a degree and simply look for sufficiently promising products. [7]
 
 Counter to our intuition, users will be accountable for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.
 
@@ -102,6 +102,8 @@ Human-AI alignment remains the biggest limiting factor in letting AI design and 
 
 [4] The only chance the user can eliminate information asymmetry about the quality of the software is if there's an agentic AI solution that QA tests software for the end user. Obviously, this solution has its limits when finances and financial products become involved—good luck third party QA testing large money transfers, for example. However, I imagine it would be really useful to the end user if there's the equivalent of an undercover food critic who tests if third party software will work as expected, in the form of an autonomous AI agent.
 
-[5] AI can continuously monitor changes to and proof read the latest EULA.
+[5] "How Ramp engineering operates at hyperspeed wtih Claude Code": https://www.claude.com/customers/ramp.
 
-[6] Shoutout Adobe, who have the lethal combination of consistently bad UX and high switching costs.
+[6] AI can continuously monitor changes to and proof read the latest EULA.
+
+[7] Shoutout Adobe, who have the lethal combination of consistently bad UX and high switching costs.
