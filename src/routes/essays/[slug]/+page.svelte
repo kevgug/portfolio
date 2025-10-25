@@ -184,7 +184,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     </div>
 
     {#if Object.keys(post.footnotes).length || post.contributionNote}
-      <div class="mt-[4em] md:mt-[5em] max-w-screen-md mx-auto" style="min-height: calc(50vh - 10rem);">
+      <div class="mt-[4em] md:mt-[5em] max-w-screen-md mx-auto" style="min-height: calc(50vh - 9rem);">
         <div
           class="-mx-6 md:-mx-8 bg-white/[0.02] rounded-none md:rounded-3xl p-6 md:p-8 border border-white/5"
           id="section-notes"
