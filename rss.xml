@@ -4,8 +4,8 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Oct 2025 05:23:19 GMT</lastBuildDate>
-    <dc:date>2025-10-25T05:23:19.641Z</dc:date>
+    <lastBuildDate>Sat, 25 Oct 2025 06:02:46 GMT</lastBuildDate>
+    <dc:date>2025-10-25T06:02:46.377Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
@@ -65,7 +65,7 @@
 <p>It turns out, accountability is <em>not</em> vital for selling software. The main benefits of accountability—competitive pressure and customer trust—can also be achieved by autonomous AI systems. Competitive pressure is simply shifted from the individual who needs status-based motivation to the company which continuously collects signals—the company being an autonomous AI system. Customer trust is still feasible, but harder to guarantee when there is no human to validate each decision.</p>
 <p>The customer doesn&#39;t need perfect trust in a software product to start using it; it just needs to be <em>promising enough</em>. At the same time, if autonomous AI is misaligned with what the creator would have wanted and neglects a user, they will still eventually offboard the software, factoring in switching costs. This is analogous to how users blindly accept T&amp;Cs and EULAs for modern software, proving that the vast majority of users accept information asymmetry to a degree and simply look for sufficiently promising products. <a href="#note-6">[6]</a></p>
 <p>Counter to our intuition, users will be accountable for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.</p>
-<p>Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. &#39;Letting&#39; is a much more suitable word than &#39;steering&#39;, because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.</p>
+<p>Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. <em>Letting</em> is a much more suitable word than <em>steering</em>, because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.</p>
 <h2>Notes</h2>
 <p id="note-1">[1] My brother ran a total of about 50km in the months leading up to the marathon. Yes, he&#39;s crazy.</p>
 <p id="note-2">[2] Competitive pressure is mostly about execution, while customer trust is mostly about product direction.</p>
