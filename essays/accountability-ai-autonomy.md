@@ -1,5 +1,5 @@
 ---
-title: "Will accountability keep us from building autonomous AI?"
+title: "Selling software without accountability"
 date: 2025-10-24
 publish: true
 ---
@@ -54,11 +54,11 @@ All in all, autonomous AI can achieve the same main benefits as accountability�
 
 But what about our intuition that someone, _anyone_, should be responsible when software goes wrong? We can look back at each scenario for creating software with autonomous AI and point fingers at whoever wrote the AI instructions. For commercial software, we might blame the C-suite. For prompt-based personal software, we might blame the user. And for personal software that anticipates user needs, we might blame the app builder platform. Then again, our previous conclusion hasn't changed: no one can be held fully accountable for how the software turns out. We're just running in circles.
 
-Rather than chasing accountability with the software creators, what if the accountable individual in the AI age is instead the user? This seems backwards and appears to violate every UX principle. The reason is that software markets in the AI age will be highly saturated, due to the rapidly falling barriers for creating software—both skills and cost.
+Rather than chasing accountability with the software creators, what if we can instead shift the responsibility of good software to the user? This seems backwards and appears to violate every UX principle. The reason is that software markets in the AI age will be highly saturated, due to the rapidly falling barriers for creating software—both skills and cost.
 
 > It's not unlikely that a user can choose from thousands of close software substitutes in the near future.
 
-Because users have many options, they have greater responsibility over which software product they decide to use.
+Accountability will disappear as human teams disappear, and the main responsibility of having a good user experience will fall on the users. Because users have many options, they have greater responsibility over which software product they decide to use.
 
 ## Blind trust
 
@@ -88,7 +88,9 @@ It turns out, accountability is _not_ vital for selling software. The main benef
 
 The customer doesn't need perfect trust in a software product to start using it; it just needs to be _promising enough_. At the same time, if autonomous AI is misaligned with what the creator would have wanted and neglects a user, they will still eventually offboard the software, factoring in switching costs. This is analogous to how users blindly accept T&Cs and EULAs for modern software, proving that the vast majority of users accept information asymmetry to a degree and simply look for sufficiently promising products. [7]
 
-Counter to our intuition, users will be accountable for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.
+Counter to our intuition, users will be responsible for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.
+
+Across thousands of commercial and personal software products doing generally the same thing, there will be at least one high quality option. The main barriers to picking high quality software will be switching costs, which is already relevant today, and evaluating all substitutes well, which is a future problem. I think finding the best option can be solved with a third party QA testing tool for _users_, which is deserving of its own essay.
 
 Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. _Letting_ is a much more suitable word than _steering_, because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.
 
