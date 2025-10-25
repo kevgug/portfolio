@@ -204,7 +204,7 @@ ${linkLine}
 // Generate essay content
 const essayContent = essays
   .map((essay) => {
-    return `<Essay title="${essay.title}" date="${essay.date}">\n${essay.content.trim()}\n</Essay>`;
+    return `<Essay title="${essay.title}" date="${essay.date}">\n# ${essay.title}\n\n${essay.content.trim()}\n</Essay>`;
   })
   .join("\n\n");
 

@@ -8,7 +8,7 @@ publish: true
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [1]
 
-If accountability is necessary to running a profitable business, it follows that humans should always have oversight over every product decision and feature implementation; at most, AI would be a coworker, but could never fully displace humans. Alternatively, accountability is not an important part of building software products. In that scenario, AI can successfully decide what to build and then presumably build it too; software engineers and product designers could very well be replaced by fully autonomous AI.
+If accountability is necessary for running a profitable business, it follows that humans should always have oversight over every product decision and feature implementation; at most, AI would be a coworker, but could never fully displace humans. Alternatively, accountability is not an important part of building software products. In that scenario, AI can successfully decide what to build and then presumably build it too; software engineers and product designers could very well be replaced by fully autonomous AI.
 
 I view accountability as the idea that someone owns a product decision and accepts whatever consequences may follow, good or bad. If we let AI autonomously decide what to do and how to implement those changes, then we can't say that any person truly _owns_ those decisions. At best, we can say that someone instructed the AI on how to operate at a high level, which led to some product outcome. But that's not a generalizable argument—sometimes the decision is a direct result of the human's system instructions, while other times the AI has gone rogue. In any case, autonomous AI prevents clear accountability with any person.
 
@@ -54,11 +54,11 @@ All in all, autonomous AI can achieve the same main benefits as accountability�
 
 But what about our intuition that someone, _anyone_, should be responsible when software goes wrong? We can look back at each scenario for creating software with autonomous AI and point fingers at whoever wrote the AI instructions. For commercial software, we might blame the C-suite. For prompt-based personal software, we might blame the user. And for personal software that anticipates user needs, we might blame the app builder platform. Then again, our previous conclusion hasn't changed: no one can be held fully accountable for how the software turns out. We're just running in circles.
 
-Rather than chasing accountability with the software creators, what if the accountable individual in the AI age is instead the user? This seems backwards and appears to violate every UX principle. The reason is that software markets in the AI age will be highly saturated, due to the rapidly falling barriers for creating software—both skills and cost.
+Rather than chasing accountability with the software creators, what if we can instead shift the responsibility of good software to the user? This seems backwards and appears to violate every UX principle. The reason is that software markets in the AI age will be highly saturated, due to the rapidly falling barriers for creating software—both skills and cost.
 
 > It's not unlikely that a user can choose from thousands of close software substitutes in the near future.
 
-Because users have many options, they have greater responsibility over which software product they decide to use.
+Accountability will disappear as human teams disappear, and the main responsibility of having a good user experience will fall on the users. Because users have many options, they have greater responsibility over which software product they decide to use.
 
 ## Blind trust
 
