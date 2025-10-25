@@ -90,7 +90,7 @@ The customer doesn't need perfect trust in a software product to start using it;
 
 Counter to our intuition, users will be accountable for using bad software in the AI age. The falling cost and skills barrier for building software will flood the commercial software market with thousands of close substitutes. Alternatively, users will build their own hyperpersonalized software with AI app builders, meaning they effectively input their needs and also bear responsibility for any poor UX.
 
-Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. 'Letting' is a much more suitable word than 'steering', because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.
+Human-AI alignment remains the biggest limiting factor in letting AI design and code software products autonomously. _Letting_ is a much more suitable word than _steering_, because the alignment of products decisions is highly variable: any language-based instruction set will be grossly inexhaustive and full of interpretative gaps that AI needs to fill.
 
 ## Notes
 

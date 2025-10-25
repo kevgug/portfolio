@@ -169,7 +169,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                     <MarkdownLatexBlock latex={contentItem.latex} />
                   {:else if contentItem.type === "list"}
                     <ul
-                      class="list-disc pl-5 space-y-2 font-serif text-description-text-grey"
+                      class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
                     >
                       {#each contentItem.items as itemTokens}
                         <MarkdownListItem tokens={itemTokens} />
@@ -184,51 +184,53 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     </div>
 
     {#if Object.keys(post.footnotes).length || post.contributionNote}
-      <div
-        class="mt-[8em] md:mt-[12em] max-w-screen-md mx-auto"
-        id="section-notes"
-        data-essay-section="true"
-      >
-        <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
-        {#if Object.keys(post.footnotes).length}
-          <div class="mt-4 space-y-2">
-            {#each Object.entries(post.footnotes) as [num, text]}
-              <div
-                id={`footnote-${num}`}
-                class="font-serif text-sm md:text-base text-muted-text-grey"
-              >
-                <button
-                  class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
-                  on:click={() => onClickFootnoteRef(num)}
+      <div class="mt-[4em] md:mt-[5em] max-w-screen-md mx-auto" style="min-height: calc(50vh - 10rem);">
+        <div
+          class="-mx-6 md:-mx-8 bg-white/[0.02] rounded-none md:rounded-3xl p-6 md:p-8 border border-white/5"
+          id="section-notes"
+          data-essay-section="true"
+        >
+          <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
+          {#if Object.keys(post.footnotes).length}
+            <div class="mt-4 space-y-2">
+              {#each Object.entries(post.footnotes) as [num, text]}
+                <p
+                  id={`footnote-${num}`}
+                  class="font-serif text-sm md:text-base text-muted-text-grey"
                 >
-                  <p
-                    class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                  <button
+                    class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
+                    on:click={() => onClickFootnoteRef(num)}
                   >
-                    [<span class="text-[0.9rem]">{" "}</span>
-                    <span class="text-white underline decoration-glacial-blue"
-                      >{num}</span
-                    ><span class="text-[0.32rem]">{" "}</span>
-                    <Icon
-                      name="arrow-up"
-                      size="12px"
-                      class="inline text-muted-text-grey group-hover:text-white transition-colors"
-                    />
-                    <span class="text-[0.32rem]">{" "}</span>]
-                  </p>
-                </button>
-                {@html text}
-              </div>
-            {/each}
-          </div>
-        {/if}
+                    <span
+                      class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                    >
+                      [<span class="text-[0.9rem]">{" "}</span>
+                      <span class="text-white underline decoration-glacial-blue"
+                        >{num}</span
+                      ><span class="text-[0.32rem]">{" "}</span>
+                      <Icon
+                        name="arrow-up"
+                        size="12px"
+                        class="inline text-muted-text-grey group-hover:text-white transition-colors"
+                      />
+                      <span class="text-[0.32rem]">{" "}</span>]
+                    </span>
+                  </button>
+                  {@html text}
+                </p>
+              {/each}
+            </div>
+          {/if}
 
-        {#if post.contributionNote}
-          <div
-            class="mt-6 font-serif text-sm md:text-base text-muted-text-grey"
-          >
-            {@html post.contributionNote}
-          </div>
-        {/if}
+          {#if post.contributionNote}
+            <div
+              class="mt-6 font-serif text-sm md:text-base text-muted-text-grey"
+            >
+              {@html post.contributionNote}
+            </div>
+          {/if}
+        </div>
       </div>
     {/if}
   </div>
@@ -261,5 +263,10 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     padding: 0 !important;
     background-color: transparent !important;
     color: white;
+  }
+
+  /* Override global li margin for essay content - let space-y handle spacing */
+  article :global(ul li) {
+    margin-bottom: 0;
   }
 </style>
