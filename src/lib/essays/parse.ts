@@ -341,8 +341,8 @@ function tokenizeAndParseParagraph(text: string): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
 
   // Combined regex to match both footnotes and inline LaTeX
-  // Matches [digit] for footnotes or $...$ for inline LaTeX (non-greedy, not preceded by \)
-  const combinedRegex = /(\[\d+\])|(?<!\\)\$([^$\n]+?)\$/g;
+  // Matches [digit] for footnotes or $$...$$ for inline LaTeX (non-greedy, not preceded by \)
+  const combinedRegex = /(\[\d+\])|(?<!\\)\$\$([^\n]+?)\$\$/g;
 
   let lastIndex = 0;
   let match: RegExpExecArray | null;

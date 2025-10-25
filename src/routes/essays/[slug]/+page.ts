@@ -24,5 +24,5 @@ export const load: PageLoad = async ({ params, fetch }) => {
   }
   const md = await mdRes.text();
   const post = parseMarkdown(md, essayMeta.title, essayMeta.date);
-  return { slug, post };
+  return { slug, post, publish: essayMeta.publish };
 };

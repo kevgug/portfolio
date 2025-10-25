@@ -5,6 +5,7 @@ export interface EssayListItem {
   title: string;
   date: string;
   formattedDate: string;
+  publish?: boolean;
 }
 
 export const load: PageLoad = async ({ fetch }) => {

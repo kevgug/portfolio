@@ -65,7 +65,7 @@
 
 {#key $page.url.pathname}
   <div
-    class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-12 md:pt-16 space-y-8"
+    class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-20 md:pt-24 space-y-8"
   >
     <slot />
     <Footer />

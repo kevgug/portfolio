@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
   import { onMount } from "svelte";
   import { gsap } from "gsap";
+  import Icon from "$lib/components/Icon.svelte";
   export let data: PageData;
   const { posts } = data;
 
@@ -81,11 +82,16 @@
                 {post.title}
               </h2>
             </div>
-            <p
-              class="text-muted-text-grey text-xs md:text-sm mt-1 md:mt-0.5 shrink-0"
-            >
-              {post.formattedDate}
-            </p>
+            <div class="flex items-center gap-2 mt-1 md:mt-0.5">
+              <p
+                class="text-muted-text-grey text-xs md:text-sm shrink-0"
+              >
+                {post.formattedDate}
+              </p>
+              {#if post.publish === false}
+                <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+              {/if}
+            </div>
           </div>
         </a>
       </div>

@@ -27,11 +27,7 @@ if (isProduction) {
 }
 
 essays = essays
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .map((essay) => {
-    delete essay.publish;
-    return essay;
-  });
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 
 fs.writeFileSync(outputFile, JSON.stringify(essays, null, 2));
 

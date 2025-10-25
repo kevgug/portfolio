@@ -19,7 +19,7 @@
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
 
   export let data: PageData;
-  const { post } = data;
+  const { post, publish } = data;
 
   let sectionEls: HTMLElement[] = [];
 
@@ -132,11 +132,16 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   <div>
     <header class="max-w-screen-md mx-auto">
       <h1
-        class="text-3xl md:text-4xl font-bold text-glacial-blue leading-[1.175] md:leading-[1.1]"
+        class="text-3xl md:text-5xl font-bold text-glacial-blue leading-[1.175] md:leading-[1.1]"
       >
         {post.title}
       </h1>
-      <p class="text-muted-text-grey mt-3.5 md:mt-4">{formattedDate}</p>
+      <div class="flex items-center gap-2 mt-3.5 md:mt-4">
+        <p class="text-muted-text-grey">{formattedDate}</p>
+        {#if publish === false}
+          <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+        {/if}
+      </div>
     </header>
     <div class="my-12 md:my-14 max-w-screen-md mx-auto">
       <Separator />
