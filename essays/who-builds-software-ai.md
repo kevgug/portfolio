@@ -1,5 +1,5 @@
 ---
-title: "Do we want generalists or specialists to build software in the AI age?"
+title: "The case for specialists in the AI age"
 date: 2025-10-25
 publish: false
 ---
