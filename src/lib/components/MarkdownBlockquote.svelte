@@ -3,6 +3,8 @@
   import { gsap } from "gsap";
 
   export let text: string;
+  export let multiline: boolean = false;
+  export let endsWithBreak: boolean = false;
 
   let blockquoteEl: HTMLElement;
   let paragraphEl: HTMLElement;
@@ -84,11 +86,12 @@
               hasAnimated = true;
 
               // Animate words with stagger
+              // Multiline blockquotes animate twice as fast
               gsap.to(words, {
                 opacity: 1,
                 y: 0,
-                duration: 0.35, // 350ms per word
-                stagger: 0.09, // 90ms stagger delay
+                duration: multiline ? 0.175 : 0.35, // 175ms or 350ms per word
+                stagger: multiline ? 0.045 : 0.09, // 45ms or 90ms stagger delay
                 ease: "power2.out",
               });
 
@@ -115,11 +118,28 @@
 
 <blockquote
   bind:this={blockquoteEl}
-  class="!my-7 md:!my-9 py-3.5 px-4 md:px-6 md:py-4 border-l-4 border-glacial-blue bg-glacial-blue/5 md:rounded-r-lg"
+  class="px-4 md:px-6 border-l-4 md:rounded-r-lg bg-white/5 border-white"
+  class:!my-7={!multiline}
+  class:md:!my-9={!multiline}
+  class:!my-2.5={multiline && !endsWithBreak}
+  class:md:!my-3={multiline && !endsWithBreak}
+  class:!mb-6={multiline && endsWithBreak}
+  class:md:!mb-7={multiline && endsWithBreak}
+  class:!mt-2.5={multiline && endsWithBreak}
+  class:md:!mt-3={multiline && endsWithBreak}
+  class:py-3.5={!multiline}
+  class:md:py-4={!multiline}
+  class:py-2={multiline}
+  class:md:py-2.5={multiline}
 >
   <p 
     bind:this={paragraphEl}
-    class="font-serif text-3xl md:text-4xl font-semibold text-white leading-tight md:leading-snug"
+    class="font-serif text-white"
+    class:font-semibold={!multiline}
+    class:text-3xl={!multiline}
+    class:md:text-4xl={!multiline}
+    class:leading-tight={!multiline}
+    class:md:leading-snug={!multiline}
   >
     {@html text}
   </p>
@@ -136,5 +156,15 @@
 
   blockquote :global(a) {
     @apply text-glacial-blue hover:text-white transition-colors underline;
+  }
+
+  /* Style individual lines in blockquotes with custom spacing */
+  blockquote :global(.blockquote-line) {
+    display: block;
+    margin-bottom: 0.25em;
+  }
+
+  blockquote :global(.blockquote-line:last-child) {
+    margin-bottom: 0;
   }
 </style>

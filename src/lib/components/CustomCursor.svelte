@@ -102,7 +102,6 @@
                             target.tagName === 'Q' ||
                             target.tagName === 'BLOCKQUOTE' ||
                             target.tagName === 'PRE' ||
-                            target.tagName === 'LI' ||
                             target.tagName === 'DT' ||
                             target.tagName === 'LABEL';
       const isInputElement = target.tagName === 'INPUT' || 

@@ -4,6 +4,8 @@
   import MarkdownListItem from "$lib/components/MarkdownListItem.svelte";
   import MarkdownBlockquote from "$lib/components/MarkdownBlockquote.svelte";
   import MarkdownLatexBlock from "$lib/components/MarkdownLatexBlock.svelte";
+  import MarkdownImage from "$lib/components/MarkdownImage.svelte";
+  import MarkdownTable from "$lib/components/MarkdownTable.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
   import {
@@ -150,17 +152,30 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       {#each post.sections as section, i}
         <section id={`section-${i}`} data-essay-section="true">
           {#if section.heading !== post.title}
-            <h2 class="text-xl md:text-2xl font-semibold text-white max-w-screen-md mx-auto">
-              {section.heading}
-            </h2>
+            <div class="max-w-screen-md mx-auto flex justify-start items-start">
+              <h2 class="text-xl md:text-2xl font-semibold text-white">
+                {section.heading}
+              </h2>
+            </div>
           {/if}
           {#each section.content as contentItem}
             {#if contentItem.type === "blockquote"}
             <div class="w-full max-w-screen-md mx-auto">
               <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                <MarkdownBlockquote text={contentItem.text} />
+                <MarkdownBlockquote text={contentItem.text} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} />
               </div>
             </div>
+            {:else if contentItem.type === "image"}
+              <MarkdownImage
+                path={contentItem.path}
+                alt={contentItem.alt}
+                caption={contentItem.caption}
+              />
+            {:else if contentItem.type === "table"}
+              <MarkdownTable
+                headers={contentItem.headers}
+                rows={contentItem.rows}
+              />
             {:else}
               <div class:mt-3={section.heading !== post.title} class="space-y-4 max-w-screen-md mx-auto">
                   {#if contentItem.type === "paragraph"}
@@ -195,7 +210,9 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
           id="section-notes"
           data-essay-section="true"
         >
-          <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
+          <div class="flex justify-start items-start">
+            <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
+          </div>
           {#if Object.keys(post.footnotes).length}
             <div class="mt-4 space-y-2">
               {#each Object.entries(post.footnotes) as [num, text]}

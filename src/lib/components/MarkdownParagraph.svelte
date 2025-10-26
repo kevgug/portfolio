@@ -38,13 +38,15 @@
   }
 </script>
 
-<p
+<div
   class="font-serif text-description-text-grey"
   id={firstRefNum ? `footnote-ref-${firstRefNum}` : undefined}
 >
   {#each tokens as t}
     {#if t.type === "text"}
-      {@html t.text}
+      <span>
+        {@html t.text}
+      </span>
     {:else if t.type === "ref"}
       <button
         class="group inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"
@@ -64,4 +66,4 @@
       {@html renderInlineLatex(t.latex)}
     {/if}
   {/each}
-</p>
+</div>

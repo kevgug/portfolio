@@ -8,8 +8,15 @@ export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
   | { type: "code"; lang?: string; code: string }
   | { type: "list"; items: ParagraphToken[][] }
-  | { type: "blockquote"; text: string }
-  | { type: "latex"; latex: string };
+  | {
+      type: "blockquote";
+      text: string;
+      multiline?: boolean;
+      endsWithBreak?: boolean;
+    }
+  | { type: "latex"; latex: string }
+  | { type: "image"; path: string; alt: string; caption?: string }
+  | { type: "table"; headers: string[]; rows: string[][] };
 
 export interface BlogSection {
   heading: string;
@@ -92,23 +99,49 @@ export function parseMarkdown(
   let inBlockquote = false;
   let blockquoteBuffer: string[] = [];
 
+  let inTable = false;
+  let tableBuffer: string[] = [];
+
   // Track if we've seen any h2 sections
   let hasH2Sections = false;
   // Buffer for content before first h2
   let preH2Content: BlogSectionContent[] = [];
 
   const flushParagraph = () => {
-    const text = paragraphBuffer.join(" ").trim();
-    if (text) {
-      const paragraphContent: BlogSectionContent = {
-        type: "paragraph",
-        tokens: tokenizeAndParseParagraph(text),
-      };
-      if (currentSection) {
-        currentSection.content.push(paragraphContent);
-      } else if (!hasH2Sections) {
-        // Accumulate content before first h2
-        preH2Content.push(paragraphContent);
+    if (paragraphBuffer.length > 0) {
+      // Check if any line ends with backslash (line break indicator)
+      const hasLineBreaks = paragraphBuffer.some((line) => line.endsWith("\\"));
+
+      let text: string;
+
+      if (hasLineBreaks) {
+        // Preserve line breaks: join with <br> tag
+        text = paragraphBuffer
+          .map((line) => {
+            // Remove trailing backslash if present
+            const cleanLine = line.endsWith("\\")
+              ? line.slice(0, -1).trim()
+              : line.trim();
+            return cleanLine;
+          })
+          .join("<br>")
+          .trim();
+      } else {
+        // Join into single line with spaces
+        text = paragraphBuffer.join(" ").trim();
+      }
+
+      if (text) {
+        const paragraphContent: BlogSectionContent = {
+          type: "paragraph",
+          tokens: tokenizeAndParseParagraph(text),
+        };
+        if (currentSection) {
+          currentSection.content.push(paragraphContent);
+        } else if (!hasH2Sections) {
+          // Accumulate content before first h2
+          preH2Content.push(paragraphContent);
+        }
       }
     }
     paragraphBuffer = [];
@@ -133,10 +166,45 @@ export function parseMarkdown(
 
   const flushBlockquote = () => {
     if (blockquoteBuffer.length > 0) {
-      const text = blockquoteBuffer.join(" ").trim();
+      // Check if any line ends with backslash (line break indicator)
+      const hasLineBreaks = blockquoteBuffer.some((line) =>
+        line.endsWith("\\")
+      );
+
+      let text: string;
+      let isMultiline: boolean;
+      let endsWithBreak = false;
+
+      if (hasLineBreaks) {
+        // Check if the last line ends with backslash
+        const lastLine = blockquoteBuffer[blockquoteBuffer.length - 1];
+        endsWithBreak = lastLine.endsWith("\\");
+
+        // Preserve line breaks: wrap each line in a span
+        text = blockquoteBuffer
+          .map((line) => {
+            // Remove trailing backslash if present
+            const cleanLine = line.endsWith("\\")
+              ? line.slice(0, -1).trim()
+              : line;
+            return `<span class="blockquote-line">${
+              marked.parseInline(cleanLine) as string
+            }</span>`;
+          })
+          .join("")
+          .trim();
+        isMultiline = true;
+      } else {
+        // Join into single line with spaces
+        text = marked.parseInline(blockquoteBuffer.join(" ")) as string;
+        isMultiline = false;
+      }
+
       const blockquoteContent: BlogSectionContent = {
         type: "blockquote",
-        text: marked.parseInline(text) as string,
+        text: text,
+        multiline: isMultiline,
+        endsWithBreak: endsWithBreak,
       };
       if (currentSection) {
         currentSection.content.push(blockquoteContent);
@@ -147,6 +215,38 @@ export function parseMarkdown(
     }
     blockquoteBuffer = [];
     inBlockquote = false;
+  };
+
+  const flushTable = () => {
+    if (tableBuffer.length >= 3) {
+      // Need at least header, separator, and one row
+      const parseCells = (line: string): string[] => {
+        const cells = line.split("|").map((cell) => cell.trim());
+        // Remove leading and trailing empty strings from pipes at start/end
+        if (cells[0] === "") cells.shift();
+        if (cells.length > 0 && cells[cells.length - 1] === "") cells.pop();
+        return cells;
+      };
+
+      const headers = parseCells(tableBuffer[0]);
+
+      // Skip the separator line (index 1)
+      const rows = tableBuffer.slice(2).map((row) => parseCells(row));
+
+      const tableContent: BlogSectionContent = {
+        type: "table",
+        headers: headers,
+        rows: rows,
+      };
+
+      if (currentSection) {
+        currentSection.content.push(tableContent);
+      } else if (!hasH2Sections) {
+        preH2Content.push(tableContent);
+      }
+    }
+    tableBuffer = [];
+    inTable = false;
   };
 
   for (; idx < lines.length; idx++) {
@@ -200,6 +300,7 @@ export function parseMarkdown(
       flushParagraph();
       flushList();
       flushBlockquote();
+      flushTable();
       inCodeBlock = true;
       codeBlockLang = codeBlockMatch[1] || "";
       continue;
@@ -209,7 +310,48 @@ export function parseMarkdown(
       flushParagraph();
       flushList();
       flushBlockquote();
+      flushTable();
       inLatexBlock = true;
+      continue;
+    }
+
+    // Standard markdown image syntax: ![alt text](path)
+    // Match standalone image on its own line
+    const imageMatch = line.match(/^\s*!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (imageMatch) {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      flushTable();
+
+      const altText = (imageMatch[1] || "").trim();
+      const path = (imageMatch[2] || "").trim();
+
+      // Look ahead to next line for caption (emphasized text)
+      let caption: string | undefined = undefined;
+      if (idx + 1 < lines.length) {
+        const nextLine = lines[idx + 1] ?? "";
+        const captionMatch = nextLine.match(/^\s*[*_](.+)[*_]\s*$/);
+        if (captionMatch) {
+          // Remove the emphasis markers and use as caption
+          caption = (captionMatch[1] || "").trim();
+          idx++; // Skip the caption line
+        }
+      }
+
+      const imageContent: BlogSectionContent = {
+        type: "image",
+        path: path,
+        alt: altText || path,
+        caption: caption,
+      };
+
+      if (currentSection) {
+        currentSection.content.push(imageContent);
+      } else if (!hasH2Sections) {
+        preH2Content.push(imageContent);
+      }
+
       continue;
     }
 
@@ -219,6 +361,7 @@ export function parseMarkdown(
       flushParagraph();
       flushList();
       flushBlockquote();
+      flushTable();
       const headingText = (h2Match[1] || "").trim();
       inNotes = /^notes$/i.test(headingText);
       if (!inNotes) {
@@ -258,8 +401,17 @@ export function parseMarkdown(
     const indentedLineMatch = line.match(/^\s{2,}(.*)/);
     if (inList && indentedLineMatch && (indentedLineMatch[1] || "").trim()) {
       if (listBuffer.length > 0) {
-        listBuffer[listBuffer.length - 1] +=
-          " " + (indentedLineMatch[1] || "").trim();
+        const lastItem = listBuffer[listBuffer.length - 1];
+        // Check if the last item ends with backslash for line break
+        if (lastItem.endsWith("\\")) {
+          listBuffer[listBuffer.length - 1] =
+            lastItem.slice(0, -1).trim() +
+            "<br>" +
+            (indentedLineMatch[1] || "").trim();
+        } else {
+          listBuffer[listBuffer.length - 1] +=
+            " " + (indentedLineMatch[1] || "").trim();
+        }
         continue;
       }
     }
@@ -283,6 +435,35 @@ export function parseMarkdown(
       flushBlockquote();
     }
 
+    // Table detection: line with pipes and next line is separator
+    const tableLineMatch = line.match(/^\s*\|.*\|\s*$/);
+    if (tableLineMatch && idx + 1 < lines.length) {
+      const nextLine = lines[idx + 1] ?? "";
+      // Check if next line is a separator (contains only |, -, and whitespace)
+      const isSeparator = /^\s*\|[\s\-:|]+\|\s*$/.test(nextLine);
+
+      if (isSeparator) {
+        if (!inTable) {
+          flushParagraph();
+          flushList();
+          inTable = true;
+        }
+        tableBuffer.push(line.trim());
+        continue;
+      }
+    }
+
+    // Continue accumulating table rows
+    if (inTable && tableLineMatch) {
+      tableBuffer.push(line.trim());
+      continue;
+    }
+
+    // End of table
+    if (inTable) {
+      flushTable();
+    }
+
     // Blank line separates paragraphs
     if (line.trim() === "") {
       flushParagraph();
@@ -296,6 +477,7 @@ export function parseMarkdown(
   flushParagraph();
   flushList();
   flushBlockquote();
+  flushTable();
 
   // If there are no h2 sections found, create a single section with the title
   // using all the accumulated content
