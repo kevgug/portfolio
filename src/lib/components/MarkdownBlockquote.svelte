@@ -86,13 +86,13 @@
               hasAnimated = true;
 
               // Animate words with stagger
-              // Multiline blockquotes animate twice as fast
               gsap.to(words, {
                 opacity: 1,
                 y: 0,
-                duration: multiline ? 0.175 : 0.35, // 175ms or 350ms per word
-                stagger: multiline ? 0.045 : 0.09, // 45ms or 90ms stagger delay
+                duration: multiline ? 1.2 : 0.35,
+                stagger: multiline ? 0 : 0.09, // 90ms stagger delay
                 ease: "power2.out",
+                delay: multiline ? 0.2 : 0,
               });
 
               // Unobserve after animation
