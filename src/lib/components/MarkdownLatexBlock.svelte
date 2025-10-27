@@ -41,28 +41,28 @@
   </div>
   <div class="latex-gradient-left"></div>
   {#if footnoteRef}
-    <div class="latex-footnote-bg">
-      <button
-        class="latex-footnote-ref group inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"
-        on:click={() => onClickRef(footnoteRef)}
+    <div class="latex-footnote-bg"></div>
+    <button
+      class="latex-footnote-ref group inline-flex items-baseline border-none bg-transparent p-0 cursor-pointer"
+      on:click={() => onClickRef(footnoteRef)}
+    >
+      <span
+        class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
       >
+        [<span class="text-[0.32rem]">{" "}</span>
         <span
-          class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
-        >
-          [<span class="text-[0.32rem]">{" "}</span>
-          <span
-            class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
-            >{footnoteRef}</span
-          ><span class="text-[0.32rem]">{" "}</span>]
-        </span>
-      </button>
-    </div>
+          class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
+          >{footnoteRef}</span
+        ><span class="text-[0.32rem]">{" "}</span>]
+      </span>
+    </button>
   {/if}
 </div>
 
 <style lang="postcss">
   .latex-display-container {
     @apply w-full my-4 relative;
+    min-height: 3rem;
   }
 
   .latex-scroll-wrapper {
@@ -99,6 +99,7 @@
     width: 3rem;
     background: linear-gradient(to right, #141518, transparent 75%);
     pointer-events: none;
+    transition: opacity 140ms ease-out;
   }
 
   .latex-footnote-bg {
@@ -108,12 +109,13 @@
     width: 4rem;
     background: linear-gradient(to right, transparent, #141518 25%);
     pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    transition: opacity 140ms ease-out;
   }
 
   .latex-footnote-ref {
+    @apply absolute right-0;
+    top: 50%;
+    transform: translateY(-50%);
     pointer-events: auto;
   }
 </style>

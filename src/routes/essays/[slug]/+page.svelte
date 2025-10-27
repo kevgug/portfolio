@@ -60,6 +60,17 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       targetEl.classList.add("footnote-bg-anim");
       targetEl.classList.add("footnote-bg-highlight");
 
+      // Handle LaTeX gradient and footnote background elements
+      const latexGradient = targetEl.querySelector(".latex-gradient-left");
+      const latexFootnoteBg = targetEl.querySelector(".latex-footnote-bg");
+      
+      if (latexGradient) {
+        (latexGradient as HTMLElement).style.opacity = "0";
+      }
+      if (latexFootnoteBg) {
+        (latexFootnoteBg as HTMLElement).style.opacity = "0";
+      }
+
       await reliableScrollToElement(targetEl, {
         duration: 1000,
         ease: "out-expo",
@@ -70,6 +81,16 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       setTimeout(() => {
         targetEl.classList.remove("footnote-bg-highlight");
       }, 0);
+
+      // Restore opacity after animation duration (140ms)
+      setTimeout(() => {
+        if (latexGradient) {
+          (latexGradient as HTMLElement).style.opacity = "1";
+        }
+        if (latexFootnoteBg) {
+          (latexFootnoteBg as HTMLElement).style.opacity = "1";
+        }
+      }, 140);
     }
   }
 

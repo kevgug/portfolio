@@ -285,4 +285,9 @@
   li .li-content.footnote-bg-highlight {
     background-color: rgba(20, 188, 197, 0.174);
   }
+
+  /* LaTeX display containers need different spacing for footnote animation */
+  .latex-display-container.footnote-bg-anim {
+    @apply px-0 mx-0 py-0 my-4;
+  }
 }
