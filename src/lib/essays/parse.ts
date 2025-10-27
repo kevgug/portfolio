@@ -14,7 +14,7 @@ export type BlogSectionContent =
       multiline?: boolean;
       endsWithBreak?: boolean;
     }
-  | { type: "latex"; latex: string }
+  | { type: "latex"; latex: string; footnoteRef?: string }
   | { type: "image"; path: string; alt: string; caption?: string }
   | { type: "table"; headers: string[]; rows: string[][] };
 
@@ -276,10 +276,16 @@ export function parseMarkdown(
     }
 
     if (inLatexBlock) {
-      if (line.trim() === "$$") {
+      // Check for closing $$ with optional footnote reference [number]
+      const latexEndMatch = line.trim().match(/^\$\$(?:\s*\[(\d+)\])?$/);
+      if (latexEndMatch) {
+        const footnoteRef = latexEndMatch[1]; // May be undefined
+        // Unescape underscores in LaTeX blocks (markdown escaping shouldn't apply in LaTeX)
+        const latexText = latexBlockBuffer.join("\n").replace(/\\_/g, "_");
         const latexContent: BlogSectionContent = {
           type: "latex",
-          latex: latexBlockBuffer.join("\n"),
+          latex: latexText,
+          ...(footnoteRef && { footnoteRef }),
         };
         if (currentSection) {
           currentSection.content.push(latexContent);

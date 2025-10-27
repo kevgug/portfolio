@@ -186,7 +186,10 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                       code={contentItem.code}
                     />
                   {:else if contentItem.type === "latex"}
-                    <MarkdownLatexBlock latex={contentItem.latex} />
+                    <MarkdownLatexBlock
+                      latex={contentItem.latex}
+                      footnoteRef={contentItem.footnoteRef}
+                    />
                   {:else if contentItem.type === "list"}
                     <ul
                       class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
