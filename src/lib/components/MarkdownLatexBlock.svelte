@@ -63,7 +63,7 @@
 
 <style lang="postcss">
   .latex-display-container {
-    @apply w-full my-4 relative;
+    @apply w-full my-4 relative flex items-center;
     min-height: 3rem;
   }
 
@@ -75,6 +75,7 @@
     -ms-overflow-style: none; /* IE and Edge */
     padding-left: 3rem;
     padding-right: 3rem;
+    flex: 1;
   }
 
   .latex-scroll-wrapper::-webkit-scrollbar {
