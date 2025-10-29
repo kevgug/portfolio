@@ -11,8 +11,6 @@
   
   // Parse caption as inline markdown
   $: parsedCaption = caption ? (marked.parseInline(caption) as string) : undefined;
-
-  $: console.log(imageSrc);
 </script>
 
 <figure class="w-full max-w-screen-md mx-auto my-8">

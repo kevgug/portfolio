@@ -130,7 +130,6 @@
     // Handle when cursor leaves the window
     const handleMouseLeave = () => {
       isOutsideWindow = true;
-      console.log('handleMouseLeave', isOutsideWindow);
       sessionStorage.removeItem('cursorPosition');
     };
 
@@ -141,7 +140,6 @@
 
     // Restore cursor position from previous session if available
     const savedPosition = sessionStorage.getItem('cursorPosition');
-    console.log('savedPosition', savedPosition);
     if (savedPosition) {
       const { x, y } = JSON.parse(savedPosition);
       cursorX = x;
