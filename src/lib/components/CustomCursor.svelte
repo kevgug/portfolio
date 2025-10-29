@@ -11,6 +11,7 @@
   let mounted = false;
   let isMobile = false;
   let isOutsideWindow = false;
+  let hasInteracted = false;
 
   // Detect if device is mobile/touch device
   function detectMobile(): boolean {
@@ -55,15 +56,8 @@
     let animationFrameId: number;
     let lastTime = performance.now();
 
-    // Track mouse position
-    const handleMouseMove = (e: MouseEvent) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
-    };
-
-    // Detect when cursor is over clickable elements or text
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    // Helper function to determine cursor type based on element
+    const updateCursorType = (target: HTMLElement) => {
       
       // Check if it's a clickable element
       const isClickable = 
@@ -114,15 +108,54 @@
       isText = isSelectableText && !isClickable;
     };
 
+    // Track mouse position
+    const handleMouseMove = (e: MouseEvent) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    };
+
+    // Save cursor position before page unload (only if cursor is inside window)
+    const handleBeforeUnload = () => {
+      if (!isOutsideWindow) {
+        sessionStorage.setItem('cursorPosition', JSON.stringify({ x: cursorX, y: cursorY }));
+      }
+    };
+
+    // Detect when cursor is over clickable elements or text
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      updateCursorType(target);
+    };
+
     // Handle when cursor leaves the window
     const handleMouseLeave = () => {
       isOutsideWindow = true;
+      console.log('handleMouseLeave', isOutsideWindow);
+      sessionStorage.removeItem('cursorPosition');
     };
 
     // Handle when cursor enters the window
     const handleMouseEnter = () => {
       isOutsideWindow = false;
     };
+
+    // Restore cursor position from previous session if available
+    const savedPosition = sessionStorage.getItem('cursorPosition');
+    console.log('savedPosition', savedPosition);
+    if (savedPosition) {
+      const { x, y } = JSON.parse(savedPosition);
+      cursorX = x;
+      cursorY = y;
+      targetX = x;
+      targetY = y;
+      hasInteracted = true;
+      
+      // Recalculate cursor type based on element at saved position
+      const elementAtPosition = document.elementFromPoint(x, y);
+      if (elementAtPosition) {
+        updateCursorType(elementAtPosition as HTMLElement);
+      }
+    }
 
     // Animation loop with extrapolation
     const animate = (currentTime: number) => {
@@ -151,6 +184,7 @@
       cursorY = e.clientY;
       targetX = e.clientX;
       targetY = e.clientY;
+      hasInteracted = true;
       window.removeEventListener('mousemove', initCursor);
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -158,12 +192,14 @@
     window.addEventListener('mousemove', initCursor, { once: true });
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('beforeunload', handleBeforeUnload);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
       if (animationFrameId) {
@@ -188,7 +224,7 @@
       top: {cursorY}px;
       width: {isPointer ? '40px' : isText ? '2px' : '12px'};
       height: {isPointer ? '40px' : isText ? '22px' : '12px'};
-      opacity: {isOutsideWindow ? '0' : isPointer ? '0.3' : '1'};
+      opacity: {!hasInteracted || isOutsideWindow ? '0' : isPointer ? '0.3' : '1'};
       border-radius: {isText ? '2px' : '50%'};
       background-color: {isText ? 'black' : 'white'};
       border: {isText ? '1px solid white' : '1px solid none'};
