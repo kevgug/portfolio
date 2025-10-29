@@ -56,6 +56,8 @@
         ><span class="text-[0.32rem]">{" "}</span>]
       </span>
     </button>
+  {:else}
+    <div class="latex-gradient-right"></div>
   {/if}
 </div>
 
@@ -71,6 +73,8 @@
     text-align: center;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .latex-scroll-wrapper::-webkit-scrollbar {
@@ -78,7 +82,6 @@
   }
 
   .latex-scroll-wrapper.has-footnote {
-    padding-left: 4rem;
     padding-right: 4rem;
   }
 
@@ -98,6 +101,16 @@
     bottom: 0;
     width: 3rem;
     background: linear-gradient(to right, #141518, transparent 75%);
+    pointer-events: none;
+    transition: opacity 140ms ease-out;
+  }
+
+  .latex-gradient-right {
+    @apply absolute right-0;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    background: linear-gradient(to left, #141518, transparent 75%);
     pointer-events: none;
     transition: opacity 140ms ease-out;
   }
