@@ -21,7 +21,7 @@
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
 
   export let data: PageData;
-  const { post, publish } = data;
+  const { slug, post, publish } = data;
 
   let sectionEls: HTMLElement[] = [];
 
@@ -188,6 +188,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             </div>
             {:else if contentItem.type === "image"}
               <MarkdownImage
+                slug={slug}
                 path={contentItem.path}
                 alt={contentItem.alt}
                 caption={contentItem.caption}
