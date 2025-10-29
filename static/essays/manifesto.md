@@ -54,4 +54,4 @@ I’m a strong believer in credit where credit is due. Here are my three main re
 
 ## Notes
 
-[1] Thanks, Ben and Diego.
+[1] Thanks Diego, Yusuf, and Ben.
