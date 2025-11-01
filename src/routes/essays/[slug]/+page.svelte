@@ -213,13 +213,23 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                       footnoteRef={contentItem.footnoteRef}
                     />
                   {:else if contentItem.type === "list"}
-                    <ul
-                      class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
-                    >
-                      {#each contentItem.items as itemTokens}
-                        <MarkdownListItem tokens={itemTokens} />
-                      {/each}
-                    </ul>
+                    {#if contentItem.ordered}
+                      <ol
+                        class="ordered-list space-y-4 font-serif text-description-text-grey my-6"
+                      >
+                        {#each contentItem.items as itemTokens}
+                          <MarkdownListItem tokens={itemTokens} />
+                        {/each}
+                      </ol>
+                    {:else}
+                      <ul
+                        class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
+                      >
+                        {#each contentItem.items as itemTokens}
+                          <MarkdownListItem tokens={itemTokens} />
+                        {/each}
+                      </ul>
+                    {/if}
                   {/if}
                 </div>
             {/if}
@@ -313,7 +323,41 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   }
 
   /* Override global li margin for essay content - let space-y handle spacing */
-  article :global(ul li) {
+  article :global(ul li),
+  article :global(ol li) {
     margin-bottom: 0;
+  }
+
+  /* Ordered list styling with custom circular numbers */
+  article :global(.ordered-list) {
+    counter-reset: list-counter;
+  }
+
+  article :global(.ordered-list li) {
+    counter-increment: list-counter;
+    list-style-type: none;
+    padding-left: 2.5rem;
+  }
+
+  /* Custom circular number indicator */
+  article :global(.ordered-list li::before) {
+    content: counter(list-counter) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    border-radius: 9999px !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-family: "Euclid Square", sans-serif !important;
+    color: #F2F2F2 !important;
+    opacity: 1 !important;
+    line-height: 0 !important;
   }
 </style>

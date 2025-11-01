@@ -7,7 +7,7 @@ export interface BlogFootnotesMap {
 export type BlogSectionContent =
   | { type: "paragraph"; tokens: ParagraphToken[] }
   | { type: "code"; lang?: string; code: string }
-  | { type: "list"; items: ParagraphToken[][] }
+  | { type: "list"; ordered: boolean; items: ParagraphToken[][] }
   | {
       type: "blockquote";
       text: string;
@@ -95,6 +95,7 @@ export function parseMarkdown(
 
   let inList = false;
   let listBuffer: string[] = [];
+  let isOrderedList = false;
 
   let inBlockquote = false;
   let blockquoteBuffer: string[] = [];
@@ -151,6 +152,7 @@ export function parseMarkdown(
     if (listBuffer.length > 0) {
       const listContent: BlogSectionContent = {
         type: "list",
+        ordered: isOrderedList,
         items: listBuffer.map((item) => tokenizeAndParseParagraph(item)),
       };
       if (currentSection) {
@@ -162,6 +164,7 @@ export function parseMarkdown(
     }
     listBuffer = [];
     inList = false;
+    isOrderedList = false;
   };
 
   const flushBlockquote = () => {
@@ -394,13 +397,27 @@ export function parseMarkdown(
       continue;
     }
 
-    const listItemMatch = line.match(/^\s*(?:-|\*|\+)\s+(.*)/);
-    if (listItemMatch) {
+    // Unordered list items (-, *, +)
+    const unorderedListItemMatch = line.match(/^\s*(?:-|\*|\+)\s+(.*)/);
+    if (unorderedListItemMatch) {
       if (!inList) {
         flushParagraph();
         inList = true;
+        isOrderedList = false;
       }
-      listBuffer.push((listItemMatch[1] || "").trim());
+      listBuffer.push((unorderedListItemMatch[1] || "").trim());
+      continue;
+    }
+
+    // Ordered list items (1., 2., etc.)
+    const orderedListItemMatch = line.match(/^\s*\d+\.\s+(.*)/);
+    if (orderedListItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+        isOrderedList = true;
+      }
+      listBuffer.push((orderedListItemMatch[1] || "").trim());
       continue;
     }
 
