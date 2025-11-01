@@ -7,7 +7,7 @@
   export let caption: string | undefined = undefined;
 
   // Ensure path starts with / for proper static asset resolution
-  $: imageSrc = path.startsWith('/') ? path : `/images/essays/${slug}/${path}`;
+  $: imageSrc = path.startsWith('/') ? path : `/assets/essays/${slug}/images/${path}`;
   
   // Parse caption as inline markdown
   $: parsedCaption = caption ? (marked.parseInline(caption) as string) : undefined;

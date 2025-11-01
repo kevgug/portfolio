@@ -1,6 +1,7 @@
 import type { PageLoad } from "./$types";
 import { parseMarkdown } from "$lib/essays/parse";
 import { error } from "@sveltejs/kit";
+import "$lib/essays-reload"; // Import to trigger HMR when essays update
 
 export const load: PageLoad = async ({ params, fetch }) => {
   const { slug } = params;

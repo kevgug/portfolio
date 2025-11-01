@@ -1,4 +1,5 @@
 import type { PageLoad } from "./$types";
+import "$lib/essays-reload"; // Import to trigger HMR when essays update
 
 export interface EssayListItem {
   slug: string;
