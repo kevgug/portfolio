@@ -112,6 +112,21 @@ if (isProduction) {
 
 essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+// Format date as YYYY-MM-DD
+const formatDate = (date) => {
+  // If date is already in YYYY-MM-DD format, return as is
+  if (typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return date;
+  }
+
+  // Otherwise, parse and format the date
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 // ===== GENERATE llms.txt =====
 
 const siteUrl = "https://kevingugelmann.com";
@@ -133,7 +148,9 @@ const projectSummaries = projects
 
 // Generate essay links
 const essayLinks = essays
-  .map((e) => `- ${e.title} (${e.date}) → ${siteUrl}/essays/${e.slug}`)
+  .map((e) =>
+    `- ${e.title} (${formatDate(e.date)}) → ${siteUrl}/essays/${e.slug}`
+  )
   .join("\n");
 
 const llmsContent = `## Site
@@ -204,7 +221,9 @@ ${linkLine}
 // Generate essay content
 const essayContent = essays
   .map((essay) => {
-    return `<Essay title="${essay.title}" date="${essay.date}">\n# ${essay.title}\n\n${essay.content.trim()}\n</Essay>`;
+    return `<Essay title="${essay.title}" date="${
+      formatDate(essay.date)
+    }">\n# ${essay.title}\n\n${essay.content.trim()}\n</Essay>`;
   })
   .join("\n\n");
 
