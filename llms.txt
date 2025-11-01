@@ -61,5 +61,5 @@
 
 ## Essays
 
-- Selling software without accountability (Thu Oct 23 2025 19:00:00 GMT-0500 (Central Daylight Time)) → https://kevingugelmann.com/essays/accountability-ai-autonomy
+- Selling software without accountability (2025-10-23) → https://kevingugelmann.com/essays/accountability-ai-autonomy
 - Writing manifesto (2025-09-12) → https://kevingugelmann.com/essays/manifesto

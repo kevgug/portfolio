@@ -208,7 +208,7 @@
 
 ## Essays
 
-<Essay title="Selling software without accountability" date="Thu Oct 23 2025 19:00:00 GMT-0500 (Central Daylight Time)">
+<Essay title="Selling software without accountability" date="2025-10-23">
 # Selling software without accountability
 
 ## The question
