@@ -39,7 +39,7 @@ const nodemon = spawn("nodemon", [
   "-e",
   "md,jpg,jpeg,png,gif,webp,svg,mp3,wav,mp4,webm",
   "--exec",
-  "node scripts/copy-essays-to-static.mjs && node scripts/generate-essay-index.mjs",
+  "node scripts/copy-essays-to-static.mjs",
 ], {
   stdio: "inherit",
   shell: true,

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import matter from "gray-matter";
 
 // Load environment variables
 dotenv.config();
@@ -17,26 +18,48 @@ const staticAssetsEssaysDir = path.resolve(
   "static/assets/essays",
 );
 
-// Ensure directories exist
-if (!fs.existsSync(staticEssaysDir)) {
-  fs.mkdirSync(staticEssaysDir, { recursive: true });
+// Clear and recreate directories to ensure clean state
+if (fs.existsSync(staticEssaysDir)) {
+  fs.rmSync(staticEssaysDir, { recursive: true, force: true });
 }
-if (!fs.existsSync(staticAssetsEssaysDir)) {
-  fs.mkdirSync(staticAssetsEssaysDir, { recursive: true });
+fs.mkdirSync(staticEssaysDir, { recursive: true });
+
+if (fs.existsSync(staticAssetsEssaysDir)) {
+  fs.rmSync(staticAssetsEssaysDir, { recursive: true, force: true });
 }
+fs.mkdirSync(staticAssetsEssaysDir, { recursive: true });
 
 // Copy markdown files
+const isProduction = process.env.NODE_ENV === "production";
 const mdFiles = fs.readdirSync(essaysDir).filter((file) =>
   file.endsWith(".md")
 );
 
-console.log(`Copying ${mdFiles.length} essay markdown files...`);
+console.log(`Copying essay markdown files...`);
+let copiedCount = 0;
+let skippedCount = 0;
+
 mdFiles.forEach((file) => {
   const srcPath = path.join(essaysDir, file);
+
+  // Check frontmatter for publish status
+  const fileContents = fs.readFileSync(srcPath, "utf8");
+  const { data } = matter(fileContents);
+
+  // Skip unpublished essays in production
+  if (isProduction && data.publish === false) {
+    console.log(`  ⊗ ${file} (unpublished, skipped)`);
+    skippedCount++;
+    return;
+  }
+
   const destPath = path.join(staticEssaysDir, file);
   fs.copyFileSync(srcPath, destPath);
   console.log(`  ✓ ${file}`);
+  copiedCount++;
 });
+
+console.log(`\nCopied ${copiedCount} essays, skipped ${skippedCount}`);
 
 // Copy assets directory if it exists (1:1 copy)
 const assetsDir = path.join(essaysDir, "assets");
@@ -66,7 +89,36 @@ if (fs.existsSync(assetsDir)) {
   console.log("  ✓ Assets copied");
 }
 
-console.log("✅ Essays copied to static/essays");
+console.log("\n✅ Essays copied to static/essays");
+
+// Generate index.json
+console.log("Generating essays/index.json...");
+const mdFilesForIndex = fs
+  .readdirSync(staticEssaysDir)
+  .filter((file) => file.endsWith(".md"));
+
+let essays = mdFilesForIndex.map((file) => {
+  const filePath = path.join(staticEssaysDir, file);
+  const fileContents = fs.readFileSync(filePath, "utf8");
+  const { data } = matter(fileContents);
+
+  return {
+    slug: file.replace(/\.md$/, ""),
+    title: data.title,
+    date: data.date,
+    publish: data.publish,
+  };
+});
+
+if (isProduction) {
+  essays = essays.filter((essay) => essay.publish);
+}
+
+essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const indexPath = path.join(staticEssaysDir, "index.json");
+fs.writeFileSync(indexPath, JSON.stringify(essays, null, 2));
+console.log("  ✓ Generated index.json");
 
 // Trigger browser reload by updating a TypeScript file that Vite watches
 const reloadTriggerPath = path.resolve(
