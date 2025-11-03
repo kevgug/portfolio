@@ -1,6 +1,7 @@
-import { spawn } from "child_process";
+import { spawn, execSync } from "child_process";
 import dotenv from "dotenv";
-import { execSync } from "child_process";
+import chokidar from "chokidar";
+import { resolve } from "path";
 
 // Load environment variables
 dotenv.config();
@@ -12,7 +13,9 @@ if (!essaysDir) {
   process.exit(1);
 }
 
-console.log(`Watching essays directory: ${essaysDir}`);
+// Resolve the full path (important for iCloud paths)
+const resolvedEssaysDir = resolve(essaysDir);
+console.log(`Watching essays directory: ${resolvedEssaysDir}`);
 
 // Copy files initially
 console.log("Copying essays to static/essays...");
@@ -31,45 +34,82 @@ const viteProcess = spawn("npm", ["run", "dev:vite"], {
   detached: false,
 });
 
-// Spawn nodemon with the essays directory to watch
-// On change, copy files and regenerate index
-const nodemon = spawn("nodemon", [
-  "--watch",
-  essaysDir,
-  "-e",
-  "md,jpg,jpeg,png,gif,webp,svg,mp3,wav,mp4,webm",
-  "--exec",
-  "node scripts/copy-essays-to-static.mjs",
-], {
-  stdio: "inherit",
-  shell: true,
-});
-
 viteProcess.on("error", (error) => {
   console.error(`Failed to start vite: ${error.message}`);
   process.exit(1);
 });
 
-nodemon.on("error", (error) => {
-  console.error(`Failed to start nodemon: ${error.message}`);
-  viteProcess.kill();
-  process.exit(1);
+// Watch essays directory with chokidar (better for iCloud)
+let isProcessing = false;
+let pendingReload = false;
+
+const processChanges = () => {
+  if (isProcessing) {
+    pendingReload = true;
+    return;
+  }
+
+  isProcessing = true;
+  console.log("\n📝 Essays changed, copying files...");
+
+  try {
+    execSync("node scripts/copy-essays-to-static.mjs", { stdio: "inherit" });
+    console.log("✅ Essays copied successfully\n");
+  } catch (error) {
+    console.error("❌ Failed to copy essays:", error.message);
+  }
+
+  isProcessing = false;
+
+  if (pendingReload) {
+    pendingReload = false;
+    setTimeout(processChanges, 100);
+  }
+};
+
+const watcher = chokidar.watch(resolvedEssaysDir, {
+  ignored: /(^|[\/\\])\../, // ignore dotfiles
+  persistent: true,
+  ignoreInitial: true,
+  usePolling: true, // Essential for iCloud
+  interval: 1000, // Poll every 1 second
+  binaryInterval: 2000,
+  awaitWriteFinish: {
+    stabilityThreshold: 2000,
+    pollInterval: 500,
+  },
 });
 
-nodemon.on("exit", (code) => {
-  viteProcess.kill();
-  process.exit(code || 0);
-});
+watcher
+  .on("add", (path) => {
+    console.log(`File added: ${path}`);
+    processChanges();
+  })
+  .on("change", (path) => {
+    console.log(`File changed: ${path}`);
+    processChanges();
+  })
+  .on("unlink", (path) => {
+    console.log(`File removed: ${path}`);
+    processChanges();
+  })
+  .on("error", (error) => {
+    console.error(`Watcher error: ${error}`);
+  })
+  .on("ready", () => {
+    console.log("✅ Watching for essay changes...\n");
+  });
 
 // Handle cleanup on process termination
 process.on("SIGINT", () => {
+  console.log("\n🛑 Shutting down...");
+  watcher.close();
   viteProcess.kill();
-  nodemon.kill();
   process.exit(0);
 });
 
 process.on("SIGTERM", () => {
+  watcher.close();
   viteProcess.kill();
-  nodemon.kill();
   process.exit(0);
 });
