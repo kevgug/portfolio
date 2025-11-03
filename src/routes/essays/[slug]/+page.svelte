@@ -199,7 +199,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                 rows={contentItem.rows}
               />
             {:else}
-              <div class:mt-3={section.heading !== post.title} class="space-y-4 max-w-screen-md mx-auto">
+              <div class="mt-3 space-y-4 max-w-screen-md mx-auto">
                   {#if contentItem.type === "paragraph"}
                     <MarkdownParagraph tokens={contentItem.tokens} />
                   {:else if contentItem.type === "code"}
