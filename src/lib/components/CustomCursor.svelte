@@ -97,7 +97,8 @@
                             target.tagName === 'BLOCKQUOTE' ||
                             target.tagName === 'PRE' ||
                             target.tagName === 'DT' ||
-                            target.tagName === 'LABEL';
+                            target.tagName === 'LABEL' ||
+                            target.tagName === 'LI';
       const isInputElement = target.tagName === 'INPUT' || 
                             target.tagName === 'TEXTAREA';
       const isSelectableText = !isClickable && 
