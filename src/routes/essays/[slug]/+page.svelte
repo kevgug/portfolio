@@ -353,11 +353,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     font-size: 0.875rem !important;
     font-weight: 500 !important;
     left: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
+    top: 0 !important;
+    margin-top: -0.1rem !important;
     font-family: "Euclid Square", sans-serif !important;
     color: #F2F2F2 !important;
     opacity: 1 !important;
-    line-height: 0 !important;
+    line-height: 1 !important;
   }
 </style>
