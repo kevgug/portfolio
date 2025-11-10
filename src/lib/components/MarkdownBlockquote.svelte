@@ -69,7 +69,7 @@
     // Check if blockquote is already in view or above viewport on mount
     const rect = blockquoteEl.getBoundingClientRect();
     // If top is above viewport bottom, it's either visible or already scrolled past
-    const shouldShowImmediately = rect.top < window.innerHeight;
+    const shouldShowImmediately = rect.bottom < 0;
 
     if (shouldShowImmediately) {
       // Already visible or above viewport, show immediately without animation
@@ -93,7 +93,7 @@
                 duration: multiline ? 1.2 : 0.35,
                 stagger: multiline ? 0 : 0.09, // 90ms stagger delay
                 ease: "power2.out",
-                delay: multiline ? 0.2 : 0,
+                delay: multiline ? 0.2 : 0.1,
               });
 
               // Unobserve after animation
