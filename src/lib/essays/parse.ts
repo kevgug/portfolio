@@ -13,6 +13,7 @@ export type BlogSectionContent =
       text: string;
       multiline?: boolean;
       endsWithBreak?: boolean;
+      citation?: string;
     }
   | { type: "latex"; latex: string; footnoteRef?: string }
   | { type: "image"; path: string; alt: string; caption?: string }
@@ -169,8 +170,30 @@ export function parseMarkdown(
 
   const flushBlockquote = () => {
     if (blockquoteBuffer.length > 0) {
+      // Check for citation: look for lines starting with "- "
+      let citation: string | undefined;
+      let contentLines = [...blockquoteBuffer];
+
+      // Find the last non-empty line
+      for (let i = contentLines.length - 1; i >= 0; i--) {
+        const line = contentLines[i].trim();
+        if (line) {
+          // Check if this line starts with "- " (citation pattern)
+          if (line.startsWith("- ")) {
+            citation = line.substring(2).trim(); // Remove the "- " prefix
+            contentLines = contentLines.slice(0, i); // Remove citation line from content
+          }
+          break; // Only check the last non-empty line
+        }
+      }
+
+      // If all lines were citation, treat the whole thing as citation
+      if (contentLines.length === 0 && citation) {
+        contentLines = [""]; // Add an empty line so we have something to render
+      }
+
       // Check if any line ends with backslash (line break indicator)
-      const hasLineBreaks = blockquoteBuffer.some((line) =>
+      const hasLineBreaks = contentLines.some((line) =>
         line.endsWith("\\")
       );
 
@@ -180,11 +203,11 @@ export function parseMarkdown(
 
       if (hasLineBreaks) {
         // Check if the last line ends with backslash
-        const lastLine = blockquoteBuffer[blockquoteBuffer.length - 1];
-        endsWithBreak = lastLine.endsWith("\\");
+        const lastLine = contentLines[contentLines.length - 1];
+        endsWithBreak = lastLine ? lastLine.endsWith("\\") : false;
 
         // Preserve line breaks: wrap each line in a span
-        text = blockquoteBuffer
+        text = contentLines
           .map((line) => {
             // Remove trailing backslash if present
             const cleanLine = line.endsWith("\\")
@@ -199,7 +222,7 @@ export function parseMarkdown(
         isMultiline = true;
       } else {
         // Join into single line with spaces
-        text = marked.parseInline(blockquoteBuffer.join(" ")) as string;
+        text = marked.parseInline(contentLines.join(" ")) as string;
         isMultiline = false;
       }
 
@@ -208,6 +231,7 @@ export function parseMarkdown(
         text: text,
         multiline: isMultiline,
         endsWithBreak: endsWithBreak,
+        ...(citation && { citation }),
       };
       if (currentSection) {
         currentSection.content.push(blockquoteContent);

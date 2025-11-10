@@ -183,7 +183,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             {#if contentItem.type === "blockquote"}
             <div class="w-full max-w-screen-md mx-auto">
               <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                <MarkdownBlockquote text={contentItem.text} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} />
+                <MarkdownBlockquote text={contentItem.text} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
               </div>
             </div>
             {:else if contentItem.type === "image"}

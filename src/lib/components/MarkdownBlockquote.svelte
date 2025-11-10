@@ -5,6 +5,7 @@
   export let text: string;
   export let multiline: boolean = false;
   export let endsWithBreak: boolean = false;
+  export let citation: string | undefined = undefined;
 
   let blockquoteEl: HTMLElement;
   let paragraphEl: HTMLElement;
@@ -132,17 +133,21 @@
   class:py-2={multiline}
   class:md:py-2.5={multiline}
 >
-  <p 
+  <p
     bind:this={paragraphEl}
     class="font-serif text-white"
     class:font-semibold={!multiline}
     class:text-3xl={!multiline}
     class:md:text-4xl={!multiline}
     class:leading-tight={!multiline}
-    class:md:leading-snug={!multiline}
   >
     {@html text}
   </p>
+  {#if citation}
+    <cite class="block mt-3.5 md:mt-5 text-base md:text-lg text-muted-text-grey font-serif italic">
+      — {citation}
+    </cite>
+  {/if}
 </blockquote>
 
 <style lang="postcss">
