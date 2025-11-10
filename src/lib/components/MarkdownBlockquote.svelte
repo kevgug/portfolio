@@ -9,6 +9,7 @@
 
   let blockquoteEl: HTMLElement;
   let paragraphEl: HTMLElement;
+  let citationEl: HTMLElement;
   let hasAnimated = false;
 
   /**
@@ -66,6 +67,13 @@
       y: 10,
     });
 
+    // Set initial state for citation if it exists
+    if (citationEl) {
+      gsap.set(citationEl, {
+        opacity: 0,
+      });
+    }
+
     // Check if blockquote is already in view or above viewport on mount
     const rect = blockquoteEl.getBoundingClientRect();
     // If top is above viewport bottom, it's either visible or already scrolled past
@@ -77,6 +85,13 @@
         opacity: 1,
         y: 0,
       });
+      // Also show citation immediately if it exists
+      if (citationEl) {
+        gsap.set(citationEl, {
+          opacity: 1,
+          y: 0,
+        });
+      }
       hasAnimated = true;
     } else {
       // Set up intersection observer to trigger animation
@@ -94,6 +109,18 @@
                 stagger: multiline ? 0 : 0.09, // 90ms stagger delay
                 ease: "power2.out",
                 delay: multiline ? 0.2 : 0.1,
+                onComplete: () => {
+                  // Animate citation after quote animation completes
+                  if (citationEl) {
+                    gsap.to(citationEl, {
+                      opacity: 1,
+                      y: 0,
+                      duration: 0.65,
+                      ease: "power2.out",
+                      delay: 0.1,
+                    });
+                  }
+                },
               });
 
               // Unobserve after animation
@@ -144,7 +171,10 @@
     {@html text}
   </p>
   {#if citation}
-    <cite class="block mt-3.5 md:mt-5 text-base md:text-lg text-muted-text-grey font-serif italic">
+    <cite
+      bind:this={citationEl}
+      class="block mt-3.5 md:mt-5 text-base md:text-lg text-muted-text-grey font-serif italic"
+    >
       — {citation}
     </cite>
   {/if}
