@@ -16,9 +16,13 @@ let essays = files.map((file) => {
 
   return {
     slug: file.replace(/\.md$/, ""),
-    title: data.title,
-    date: data.date,
-    publish: data.publish,
+    title: data.title ||
+      file.replace(/\.md$/, "").replace(/-/g, " ").replace(
+        /\b\w/g,
+        (l) => l.toUpperCase(),
+      ),
+    date: data.date || new Date().toISOString().split("T")[0],
+    publish: data.publish !== undefined ? data.publish : true,
     content: content,
   };
 });
@@ -104,7 +108,9 @@ const rss = `
 
 // Helper to escape XML special characters
 function escapeXml(unsafe) {
-  return unsafe.replace(/[<>&'"]/g, function (c) {
+  if (unsafe == null) return "";
+  const str = String(unsafe);
+  return str.replace(/[<>&'"]/g, function (c) {
     switch (c) {
       case "<":
         return "&lt;";
