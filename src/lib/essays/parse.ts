@@ -180,7 +180,7 @@ export function parseMarkdown(
         if (line) {
           // Check if this line starts with "- " (citation pattern)
           if (line.startsWith("- ")) {
-            citation = line.substring(2).trim(); // Remove the "- " prefix
+            citation = marked.parseInline(line.substring(2).trim()) as string; // Remove the "- " prefix and parse markdown
             contentLines = contentLines.slice(0, i); // Remove citation line from content
           }
           break; // Only check the last non-empty line
@@ -193,9 +193,7 @@ export function parseMarkdown(
       }
 
       // Check if any line ends with backslash (line break indicator)
-      const hasLineBreaks = contentLines.some((line) =>
-        line.endsWith("\\")
-      );
+      const hasLineBreaks = contentLines.some((line) => line.endsWith("\\"));
 
       let text: string;
       let isMultiline: boolean;

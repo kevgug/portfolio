@@ -175,7 +175,7 @@
       bind:this={citationEl}
       class="block mt-3.5 md:mt-5 text-base md:text-lg text-muted-text-grey font-serif italic"
     >
-      — {citation}
+      — {@html citation}
     </cite>
   {/if}
 </blockquote>
@@ -201,5 +201,31 @@
 
   blockquote :global(.blockquote-line:last-child) {
     margin-bottom: 0;
+  }
+
+  /* Style markdown elements in citations */
+  blockquote cite :global(em) {
+    @apply italic;
+  }
+
+  blockquote cite :global(strong) {
+    @apply font-bold;
+  }
+
+  blockquote cite :global(a) {
+    @apply text-muted-text-grey;
+    /* Gray underline by default */
+    background-image: linear-gradient(to right, #C1C1C1, #C1C1C1);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    text-decoration: none;
+    transition: background-image 0.2s ease, color 0.2s ease;
+  }
+
+  blockquote cite :global(a:hover) {
+    @apply text-glacial-blue;
+    /* Animate underline to glacial blue */
+    background-image: linear-gradient(to right, #A9F4E9, #A9F4E9);
   }
 </style>
