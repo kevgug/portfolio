@@ -7,11 +7,10 @@
   export let slug: string;
 
   // Animation timing constants
-  const FADE_OUT_DURATION_MS = 250;
+  const FADE_OUT_DURATION_MS = 240;
   const EXTRA_ANIMATION_DURATION_MS = 550;
-  const FADE_OUT_EARLY_START_MS = 100;
-  const PROGRESS_BAR_FIRST_PLAY_DELAY_MS = 200;
-  const PROGRESS_BAR_START_DELAY_MS = 650;
+  const FADE_OUT_DELAY_MS = 90;
+  const PROGRESS_BAR_START_DELAY_MS = 200;
 
   // Copy timing constants
   const TOAST_DURATION_MS = 2000;
@@ -23,7 +22,6 @@
   let audioDuration = 0;
   let fadeOutTimeout: number | null = null;
   let progressBarDelayTimeout: number | null = null;
-  let hasPlayedOnce = false;
 
   // Copy functionality
   let showToast = false;
@@ -105,26 +103,24 @@
         progress = 0;
       });
       
-      // Delay progress bar animation - shorter delay on first play, longer on subsequent plays
-      const delay = hasPlayedOnce ? PROGRESS_BAR_START_DELAY_MS : PROGRESS_BAR_FIRST_PLAY_DELAY_MS;
+      // Delay progress bar animation
       progressBarDelayTimeout = window.setTimeout(() => {
         // Start animation on next frame to ensure scaleX(0) is rendered first
         requestAnimationFrame(() => {
           isPlaying = true;
           progress = 1; // Non-zero to trigger animating class
           progressBarDelayTimeout = null;
-          hasPlayedOnce = true;
           
-          // Schedule fade-out after: audioDuration + extra animation - early start
+          // Schedule fade-out after: audioDuration + extra animation + delay
           if (audioDuration > 0) {
-            const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS - FADE_OUT_EARLY_START_MS;
+            const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS + FADE_OUT_DELAY_MS;
             fadeOutTimeout = window.setTimeout(() => {
               isPlaying = false;
               fadeOutTimeout = null;
             }, fadeOutDelay);
           }
         });
-      }, delay);
+      }, PROGRESS_BAR_START_DELAY_MS);
     });
   }
 
@@ -229,7 +225,7 @@
     transform: scaleX(0) translateZ(0);
     transform-origin: left;
     transition: opacity var(--fade-out-duration, 180ms) ease-in-out,
-      transform var(--audio-duration, 1s) cubic-bezier(0.38, 0.81, 0.25, 1);
+      transform 100ms cubic-bezier(0.42, 0, 1, 1);
     pointer-events: none;
     will-change: transform;
     z-index: 0;
@@ -246,6 +242,8 @@
 
   .progress-bar.animating {
     transform: scaleX(1) translateZ(0);
+    transition: opacity var(--fade-out-duration, 180ms) ease-in-out,
+      transform var(--audio-duration, 1s) cubic-bezier(0.3,0.36,0.25,1);
   }
 
   .inline-code {
