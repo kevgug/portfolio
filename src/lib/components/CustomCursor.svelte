@@ -12,6 +12,8 @@
   let isMobile = false;
   let isOutsideWindow = false;
   let hasInteracted = false;
+  let zoomLevel = 1;
+  let isSafariEngine = false;
 
   // Detect if device is mobile/touch device
   function detectMobile(): boolean {
@@ -29,6 +31,40 @@
     return hasTouch || isMobileUA;
   }
 
+  // Get current browser zoom level
+  function getZoomLevel(): number {
+    if (!browser) return 1;
+    
+    // Use visualViewport API if available (most accurate)
+    if (window.visualViewport) {
+      return window.visualViewport.scale;
+    }
+    
+    // Fallback to devicePixelRatio method
+    return window.devicePixelRatio / window.devicePixelRatio || 1;
+  }
+
+  // Normalize coordinates based on browser engine behavior
+  function adjustForZoom(e: MouseEvent): { x: number, y: number } {
+    if (!browser) {
+      return { x: e.clientX, y: e.clientY };
+    }
+    
+    if (window.visualViewport && isSafariEngine) {
+      // Safari (and WebKit-based browsers) report client coordinates relative
+      // to the visual viewport when pinch-zoomed, so we need to add offsets
+      const { offsetLeft, offsetTop } = window.visualViewport;
+      return {
+        x: e.clientX + offsetLeft,
+        y: e.clientY + offsetTop
+      };
+    }
+    
+    // Chrome, Firefox, Edge already return layout viewport coordinates that
+    // match fixed positioning, so no extra math is required
+    return { x: e.clientX, y: e.clientY };
+  }
+
   // Smooth interpolation with extrapolation for ultra-smooth movement
   function lerp(start: number, end: number, factor: number): number {
     return start + (end - start) * factor;
@@ -39,12 +75,16 @@
 
     // Check if device is mobile
     isMobile = detectMobile();
+    isSafariEngine = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
     // Don't initialize custom cursor on mobile devices
     if (isMobile) {
       mounted = false;
       return;
     }
+
+    // Initialize zoom level
+    zoomLevel = getZoomLevel();
 
     // Add custom cursor style to hide default cursor
     const style = document.createElement('style');
@@ -111,8 +151,10 @@
 
     // Track mouse position
     const handleMouseMove = (e: MouseEvent) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
+      zoomLevel = getZoomLevel();
+      const adjusted = adjustForZoom(e);
+      targetX = adjusted.x;
+      targetY = adjusted.y;
     };
 
     // Save cursor position before page unload (only if cursor is inside window)
@@ -163,6 +205,8 @@
 
       // Smooth factor - higher = faster following (adjusted for 60fps baseline)
       const smoothFactor = Math.min(deltaTime / 10, 1);
+      const zoomMultiplier = zoomLevel >= 1 ? zoomLevel : 1;
+      const adjustedSmoothFactor = Math.min(smoothFactor * zoomMultiplier, 1);
       
       // Extrapolation - predict slightly ahead for ultra-smooth feel
       const velocityX = (targetX - cursorX) * 0.15;
@@ -171,21 +215,28 @@
       const extrapolatedY = targetY + velocityY;
 
       // Smooth interpolation towards extrapolated position
-      cursorX = lerp(cursorX, extrapolatedX, smoothFactor);
-      cursorY = lerp(cursorY, extrapolatedY, smoothFactor);
+      cursorX = lerp(cursorX, extrapolatedX, adjustedSmoothFactor);
+      cursorY = lerp(cursorY, extrapolatedY, adjustedSmoothFactor);
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
     // Initialize cursor position
     const initCursor = (e: MouseEvent) => {
-      cursorX = e.clientX;
-      cursorY = e.clientY;
-      targetX = e.clientX;
-      targetY = e.clientY;
+      zoomLevel = getZoomLevel();
+      const adjusted = adjustForZoom(e);
+      cursorX = adjusted.x;
+      cursorY = adjusted.y;
+      targetX = adjusted.x;
+      targetY = adjusted.y;
       hasInteracted = true;
       window.removeEventListener('mousemove', initCursor);
       animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Handle zoom changes
+    const handleZoomChange = () => {
+      zoomLevel = getZoomLevel();
     };
 
     window.addEventListener('mousemove', initCursor, { once: true });
@@ -194,6 +245,10 @@
     window.addEventListener('beforeunload', handleBeforeUnload);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('resize', handleZoomChange);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleZoomChange);
+    }
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -201,6 +256,10 @@
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('resize', handleZoomChange);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleZoomChange);
+      }
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
