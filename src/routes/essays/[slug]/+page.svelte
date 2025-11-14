@@ -1,13 +1,16 @@
 <script lang="ts">
   import type { PageData } from "./$types";
+  import type { ParagraphTokenRef } from "$lib/essays/parse";
   import MarkdownParagraph from "$lib/components/MarkdownParagraph.svelte";
   import MarkdownListItem from "$lib/components/MarkdownListItem.svelte";
   import MarkdownBlockquote from "$lib/components/MarkdownBlockquote.svelte";
   import MarkdownLatexBlock from "$lib/components/MarkdownLatexBlock.svelte";
   import MarkdownImage from "$lib/components/MarkdownImage.svelte";
   import MarkdownTable from "$lib/components/MarkdownTable.svelte";
+  import MarkdownInlineCode from "$lib/components/MarkdownInlineCode.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Separator from "$lib/components/Separator.svelte";
+  import { renderInlineLatex } from "$lib/util/katex";
   import {
     reliableScrollToElement,
     getResponsiveOffset,
@@ -50,6 +53,27 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
   timeZone: "UTC",
   });
+
+  async function onClickRef(num: string) {
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
+    const targetId = `footnote-${num}`;
+    const targetEl = document.getElementById(targetId);
+
+    if (targetEl) {
+      targetEl.classList.add("footnote-bg-anim");
+      targetEl.classList.add("footnote-bg-highlight");
+
+      await reliableScrollToElement(targetEl, {
+        duration: 1000,
+        ease: "out-expo",
+        offset: totalOffset,
+      });
+
+      setTimeout(() => {
+        targetEl.classList.remove("footnote-bg-highlight");
+      }, 0);
+    }
+  }
 
   async function onClickFootnoteRef(num: string) {
     const totalOffset = getResponsiveOffset();
@@ -201,7 +225,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             {:else}
               <div class="mt-3 space-y-4 max-w-screen-md mx-auto">
                   {#if contentItem.type === "paragraph"}
-                    <MarkdownParagraph tokens={contentItem.tokens} />
+                    <MarkdownParagraph tokens={contentItem.tokens} slug={slug} />
                   {:else if contentItem.type === "code"}
                     <MarkdownCodeBlock
                       lang={contentItem.lang}
@@ -218,7 +242,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                         class="ordered-list space-y-4 font-serif text-description-text-grey my-6"
                       >
                         {#each contentItem.items as itemTokens}
-                          <MarkdownListItem tokens={itemTokens} />
+                          <MarkdownListItem tokens={itemTokens} slug={slug} />
                         {/each}
                       </ol>
                     {:else}
@@ -226,7 +250,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                         class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
                       >
                         {#each contentItem.items as itemTokens}
-                          <MarkdownListItem tokens={itemTokens} />
+                          <MarkdownListItem tokens={itemTokens} slug={slug} />
                         {/each}
                       </ul>
                     {/if}
@@ -250,7 +274,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
           </div>
           {#if Object.keys(post.footnotes).length}
             <div class="mt-4 space-y-2">
-              {#each Object.entries(post.footnotes) as [num, text]}
+              {#each Object.entries(post.footnotes) as [num, tokens]}
                 <p
                   id={`footnote-${num}`}
                   class="font-serif text-sm md:text-base text-muted-text-grey"
@@ -274,7 +298,33 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                       <span class="text-[0.32rem]">{" "}</span>]
                     </span>
                   </button>
-                  {@html text}
+                  {#each tokens as t}
+                    {#if t.type === "text"}
+                      <span>
+                        {@html t.text}
+                      </span>
+                    {:else if t.type === "ref"}
+                      <button
+                        class="group inline-flex items-baseline border-none bg-transparent cursor-pointer"
+                        style="background-color: transparent; padding: 0;"
+                        on:click={() => onClickRef(t.num)}
+                      >
+                        <span
+                          class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                        >
+                          [<span class="text-[0.32rem]">{" "}</span>
+                          <span
+                            class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
+                            >{t.num}</span
+                          ><span class="text-[0.32rem]">{" "}</span>]
+                        </span>
+                      </button>
+                    {:else if t.type === "latex"}
+                      {@html renderInlineLatex(t.latex)}
+                    {:else if t.type === "code"}
+                      <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+                    {/if}
+                  {/each}
                 </p>
               {/each}
             </div>
@@ -359,5 +409,33 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     color: #F2F2F2 !important;
     opacity: 1 !important;
     line-height: 1 !important;
+  }
+
+  /* Link styling in notes section to match blockquote citation links */
+  #section-notes :global(a) {
+    @apply text-muted-text-grey;
+    /* Gray underline by default */
+    background-image: linear-gradient(to right, #C1C1C1, #C1C1C1);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    text-decoration: none;
+    transition: background-size 0.2s ease, background-image 0.2s ease, color 0.2s ease;
+  }
+
+  #section-notes :global(a:hover) {
+    color: black;
+    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-size: 100% 100%;
+  }
+
+  /* Code block styling in notes section - use white instead of blue */
+  #section-notes :global(pre > code) {
+    @apply text-white;
+  }
+
+  #section-notes :global(p > code),
+  #section-notes :global(li > code) {
+    @apply text-white;
   }
 </style>

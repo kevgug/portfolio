@@ -1,29 +1,43 @@
 import type { PageLoad } from "./$types";
 import { parseMarkdown } from "$lib/essays/parse";
 import { error } from "@sveltejs/kit";
+import {
+  loadEssayIndex,
+  loadEssayMarkdown,
+  loadEssayAudioConfig,
+} from "$lib/essays/load";
 import "$lib/essays-reload"; // Import to trigger HMR when essays update
 
 export const load: PageLoad = async ({ params, fetch }) => {
+  // Note: fetch is still used for audio config from static/assets
   const { slug } = params;
 
-  // Fetch essay metadata from index
-  const indexRes = await fetch("/essays/index.json");
-  if (!indexRes.ok) {
-    throw error(404, "Essay not found");
-  }
-  const essays = await indexRes.json();
-  const essayMeta = essays.find((essay: any) => essay.slug === slug);
+  try {
+    // Load essay metadata from index
+    const essays = await loadEssayIndex(fetch);
+    const essayMeta = essays.find((essay) => essay.slug === slug);
 
-  if (!essayMeta) {
-    throw error(404, "Essay not found");
-  }
+    if (!essayMeta) {
+      throw error(404, "Essay not found");
+    }
 
-  // Fetch and parse markdown content
-  const mdRes = await fetch(`/essays/${slug}.md`);
-  if (!mdRes.ok) {
+    // Load and parse markdown content
+    const md = await loadEssayMarkdown(slug, fetch);
+
+    // Load audio config if it exists (still uses fetch since it's in static/assets)
+    const audioConfig = await loadEssayAudioConfig(slug, fetch);
+
+    const post = parseMarkdown(
+      md,
+      essayMeta.title,
+      essayMeta.date,
+      audioConfig
+    );
+    return { slug, post, publish: essayMeta.publish };
+  } catch (err) {
+    if (err && typeof err === "object" && "status" in err) {
+      throw err;
+    }
     throw error(404, "Essay not found");
   }
-  const md = await mdRes.text();
-  const post = parseMarkdown(md, essayMeta.title, essayMeta.date);
-  return { slug, post, publish: essayMeta.publish };
 };

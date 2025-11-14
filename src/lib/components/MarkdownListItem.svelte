@@ -5,7 +5,9 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import { renderInlineLatex } from "$lib/util/katex";
+  import MarkdownInlineCode from "$lib/components/MarkdownInlineCode.svelte";
   export let tokens: ParagraphToken[];
+  export let slug: string;
   let firstRefNum: string | undefined;
 
   $: firstRefNum = (
@@ -63,6 +65,8 @@
         </button>
       {:else if t.type === "latex"}
         {@html renderInlineLatex(t.latex)}
+      {:else if t.type === "code"}
+        <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
       {/if}
     {/each}
   </span>

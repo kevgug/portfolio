@@ -1,4 +1,4 @@
-import { spawn, execSync } from "child_process";
+import { execSync, spawn } from "child_process";
 import dotenv from "dotenv";
 import chokidar from "chokidar";
 import { resolve } from "path";

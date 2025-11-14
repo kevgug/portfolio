@@ -220,12 +220,12 @@
     background-repeat: no-repeat;
     background-size: 100% 1px;
     text-decoration: none;
-    transition: background-image 0.2s ease, color 0.2s ease;
+    transition: background-size 0.2s ease, background-image 0.2s ease, color 0.2s ease;
   }
 
   blockquote cite :global(a:hover) {
-    @apply text-glacial-blue;
-    /* Animate underline to glacial blue */
-    background-image: linear-gradient(to right, #A9F4E9, #A9F4E9);
+    color: black;
+    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-size: 100% 100%;
   }
 </style>

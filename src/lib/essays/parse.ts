@@ -1,7 +1,7 @@
 import { marked } from "$lib/util/marked";
 
 export interface BlogFootnotesMap {
-  [num: string]: string;
+  [num: string]: ParagraphToken[];
 }
 
 export type BlogSectionContent =
@@ -30,6 +30,7 @@ export interface ParsedBlogPost {
   sections: BlogSection[];
   footnotes: BlogFootnotesMap;
   contributionNote?: string;
+  audioConfig?: { [code: string]: string };
 }
 
 const FOOTNOTE_REF_REGEX = /\[(\d+)\]/g;
@@ -37,7 +38,8 @@ const FOOTNOTE_REF_REGEX = /\[(\d+)\]/g;
 export function parseMarkdown(
   md: string,
   title?: string,
-  date?: string
+  date?: string,
+  audioConfig?: { [code: string]: string }
 ): ParsedBlogPost {
   const lines = md.split(/\r?\n/);
 
@@ -136,7 +138,7 @@ export function parseMarkdown(
       if (text) {
         const paragraphContent: BlogSectionContent = {
           type: "paragraph",
-          tokens: tokenizeAndParseParagraph(text),
+          tokens: tokenizeAndParseParagraph(text, audioConfig),
         };
         if (currentSection) {
           currentSection.content.push(paragraphContent);
@@ -154,7 +156,9 @@ export function parseMarkdown(
       const listContent: BlogSectionContent = {
         type: "list",
         ordered: isOrderedList,
-        items: listBuffer.map((item) => tokenizeAndParseParagraph(item)),
+        items: listBuffer.map((item) =>
+          tokenizeAndParseParagraph(item, audioConfig)
+        ),
       };
       if (currentSection) {
         currentSection.content.push(listContent);
@@ -411,7 +415,7 @@ export function parseMarkdown(
       if (noteMatch) {
         const num = noteMatch[1];
         const text = (noteMatch[2] || "").trim();
-        if (num) footnotes[num] = marked.parseInline(text) as string;
+        if (num) footnotes[num] = tokenizeAndParseParagraph(text, audioConfig);
       } else if (line.trim()) {
         if (contributionNote) contributionNote += "\n";
         contributionNote += line;
@@ -541,6 +545,7 @@ export function parseMarkdown(
     contributionNote: contributionNote
       ? (marked.parse(contributionNote) as string)
       : undefined,
+    audioConfig,
   };
 }
 
@@ -559,12 +564,81 @@ export interface ParagraphTokenLatex {
   latex: string;
 }
 
+export interface ParagraphTokenCode {
+  type: "code";
+  code: string;
+  audio?: string;
+}
+
 export type ParagraphToken =
   | ParagraphTokenText
   | ParagraphTokenRef
-  | ParagraphTokenLatex;
+  | ParagraphTokenLatex
+  | ParagraphTokenCode;
 
-function tokenizeAndParseParagraph(text: string): ParagraphToken[] {
+function tokenizeAndParseParagraph(
+  text: string,
+  audioConfig?: { [code: string]: string }
+): ParagraphToken[] {
+  const tokens: ParagraphToken[] = [];
+
+  // Regex to match inline code blocks (backticks)
+  // Matches `code` but not `` (empty) or ``` (code block start)
+  const codeRegex = /`([^`\n]+)`/g;
+
+  // Extract all code blocks with their positions
+  const codeMatches: Array<{ start: number; end: number; code: string }> = [];
+  let codeMatch: RegExpExecArray | null;
+
+  // eslint-disable-next-line no-cond-assign
+  while ((codeMatch = codeRegex.exec(text))) {
+    codeMatches.push({
+      start: codeMatch.index,
+      end: codeMatch.index + codeMatch[0].length,
+      code: codeMatch[1],
+    });
+  }
+
+  // Process text segments between code blocks
+  let lastIndex = 0;
+  for (const codeMatch of codeMatches) {
+    // Add text before this code block
+    if (codeMatch.start > lastIndex) {
+      const textSegment = text.slice(lastIndex, codeMatch.start);
+      tokens.push(...processTextSegment(textSegment));
+    }
+
+    // Process the code block
+    const codeText = codeMatch.code;
+    const audioFile = audioConfig?.[codeText];
+    if (audioFile) {
+      // Create code token with audio
+      tokens.push({
+        type: "code",
+        code: codeText,
+        audio: audioFile,
+      });
+    } else {
+      // No audio match, include as regular text (marked will handle it)
+      tokens.push({
+        type: "text",
+        text: marked.parseInline(`\`${codeText}\``) as string,
+      });
+    }
+
+    lastIndex = codeMatch.end;
+  }
+
+  // Add any remaining text after the last code block
+  if (lastIndex < text.length) {
+    const textSegment = text.slice(lastIndex);
+    tokens.push(...processTextSegment(textSegment));
+  }
+
+  return tokens;
+}
+
+function processTextSegment(text: string): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
 
   // Combined regex to match both footnotes and inline LaTeX
