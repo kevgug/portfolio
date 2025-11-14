@@ -171,9 +171,13 @@
     };
 
     // Handle when cursor leaves the window
-    const handleMouseLeave = () => {
-      isOutsideWindow = true;
-      sessionStorage.removeItem('cursorPosition');
+    const handleMouseLeave = (e: MouseEvent) => {
+      // Check if the mouse is actually leaving the document bounds
+      // This is more reliable cross-browser, especially for Safari
+      if (!e.relatedTarget || e.relatedTarget === null) {
+        isOutsideWindow = true;
+        sessionStorage.removeItem('cursorPosition');
+      }
     };
 
     // Handle when cursor enters the window
@@ -243,8 +247,11 @@
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
     window.addEventListener('beforeunload', handleBeforeUnload);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
+    // Use documentElement for better Safari compatibility
+    document.documentElement.addEventListener('mouseleave', handleMouseLeave);
+    document.documentElement.addEventListener('mouseenter', handleMouseEnter);
+    // Add mouseout as fallback for Safari (fires more reliably)
+    document.addEventListener('mouseout', handleMouseLeave);
     window.addEventListener('resize', handleZoomChange);
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', handleZoomChange);
@@ -254,8 +261,9 @@
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
+      document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
+      document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
+      document.removeEventListener('mouseout', handleMouseLeave);
       window.removeEventListener('resize', handleZoomChange);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener('resize', handleZoomChange);
