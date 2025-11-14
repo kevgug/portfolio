@@ -17,12 +17,18 @@ let essays = files.map((file) => {
   const filePath = path.join(essaysDir, file);
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data } = matter(fileContents);
+  const slug = file.replace(/\.md$/, "");
+
+  // Check if essay has a config file
+  const configPath = path.resolve(process.cwd(), `static/assets/essays/${slug}/config.json`);
+  const hasConfig = fs.existsSync(configPath);
 
   return {
-    slug: file.replace(/\.md$/, ""),
+    slug,
     title: data.title,
     date: data.date,
     publish: data.publish,
+    hasConfig,
   };
 });
 

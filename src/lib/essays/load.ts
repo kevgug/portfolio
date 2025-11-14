@@ -3,6 +3,7 @@ export interface EssayMetadata {
   title: string;
   date: string;
   publish?: boolean;
+  hasConfig?: boolean;
 }
 
 export async function loadEssayIndex(
@@ -35,19 +36,24 @@ export async function loadEssayMarkdown(
 export async function loadEssayAudioConfig(
   slug: string,
   fetch?: typeof globalThis.fetch
-): Promise<{ [code: string]: string } | undefined> {
+): Promise<{ [code: string]: string }> {
   // Audio config is still in static/assets, so we need fetch to access it
   if (!fetch) {
-    return undefined;
+    return {};
   }
   try {
-    const configRes = await fetch(`/assets/essays/${slug}/config.json`);
+    const configRes = await fetch(`/assets/essays/${slug}/config.json`, {
+      // Don't throw on 404 - config is optional
+      headers: { Accept: "application/json" },
+    });
     if (configRes.ok) {
       const configData = await configRes.json();
-      return configData.audio;
+      return configData.audio || {};
     }
+    // Return empty config for 404 or any other non-ok status
+    return {};
   } catch {
-    // Config file doesn't exist, which is fine - audio is optional
+    // Config file doesn't exist or fetch failed, which is fine - audio is optional
+    return {};
   }
-  return undefined;
 }

@@ -24,8 +24,10 @@ export const load: PageLoad = async ({ params, fetch }) => {
     // Load and parse markdown content
     const md = await loadEssayMarkdown(slug, fetch);
 
-    // Load audio config if it exists (still uses fetch since it's in static/assets)
-    const audioConfig = await loadEssayAudioConfig(slug, fetch);
+    // Load audio config only if the essay has a config file
+    const audioConfig = essayMeta.hasConfig
+      ? await loadEssayAudioConfig(slug, fetch)
+      : {};
 
     const post = parseMarkdown(
       md,
