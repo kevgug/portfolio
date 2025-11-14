@@ -126,13 +126,22 @@
     position: relative;
     background-color: rgba(203, 213, 225, 0.05);
     padding: calc(0.2rem - 1px) 0.4rem;
-    @apply border border-white/20;
+    @apply border border-glacial-blue/20;
     transition: border-color 200ms ease-in-out;
     isolation: isolate;
     overflow: hidden;
   }
 
   .inline-code-wrapper:has(.play-button:hover) {
+    @apply border-glacial-blue;
+  }
+
+  /* Override border colors in footnotes section */
+  :global(#section-notes) .inline-code-wrapper {
+    @apply border-white/20;
+  }
+
+  :global(#section-notes) .inline-code-wrapper:has(.play-button:hover) {
     @apply border-white/70;
   }
 
@@ -151,6 +160,11 @@
     z-index: 0;
   }
 
+  /* Override progress bar color in footnotes section */
+  :global(#section-notes) .progress-bar {
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+
   .progress-bar.visible {
     opacity: 1;
   }
@@ -167,6 +181,17 @@
     position: relative;
     transform: translateZ(0);
     z-index: 1;
+    transition: color 100ms ease-in-out;
+  }
+
+  /* Animate inline-code to white when play button is hovered */
+  .inline-code-wrapper:has(.play-button:hover) .inline-code {
+    @apply text-white !important;
+  }
+
+  /* Override color in footnotes section */
+  :global(#section-notes) .inline-code {
+    @apply text-muted-text-grey;
   }
 
   .play-button {
@@ -188,6 +213,15 @@
 
   .play-button:hover {
     @apply text-glacial-blue;
+  }
+
+  /* Override play button color in footnotes section */
+  :global(#section-notes) .play-button {
+    @apply text-white/90;
+  }
+
+  :global(#section-notes) .play-button:hover {
+    @apply text-white;
   }
 
   .play-button :global(svg) {
