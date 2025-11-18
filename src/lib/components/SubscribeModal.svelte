@@ -16,8 +16,6 @@
   function submitForm(e: Event) {
     e.preventDefault();
     // TODO: Implement real subscription
-    // For now, simply close and show a console message
-    console.log("Subscribe:", email);
     subscribeModalOpen.set(false);
   }
 </script>
