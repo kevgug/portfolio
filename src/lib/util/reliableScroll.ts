@@ -165,6 +165,37 @@ async function preloadCriticalImages(
 }
 
 /**
+ * Helper function to force-load a single lazy image
+ */
+function forceLoadLazyImage(img: HTMLImageElement): Promise<void> {
+  return new Promise<void>((resolve) => {
+    if (img.complete) {
+      resolve();
+      return;
+    }
+
+    const originalLoading = img.loading;
+    img.loading = "eager";
+
+    const onLoad = () => {
+      img.removeEventListener("load", onLoad);
+      img.removeEventListener("error", onLoad);
+      img.loading = originalLoading;
+      resolve();
+    };
+
+    img.addEventListener("load", onLoad);
+    img.addEventListener("error", onLoad);
+
+    if (!img.complete) {
+      const currentSrc = img.src;
+      img.src = "";
+      img.src = currentSrc;
+    }
+  });
+}
+
+/**
  * Forces lazy-loaded images to load immediately by temporarily changing their loading attribute
  */
 async function forceLoadLazyImages(): Promise<void> {
@@ -176,40 +207,7 @@ async function forceLoadLazyImages(): Promise<void> {
     return;
   }
 
-  const imagePromises: Promise<void>[] = [];
-
-  lazyImages.forEach((img, index) => {
-    const promise = new Promise<void>((resolve) => {
-      if (img.complete) {
-        resolve();
-        return;
-      }
-
-      // Temporarily change loading to eager and force load
-      const originalLoading = img.loading;
-      img.loading = "eager";
-
-      const onLoad = () => {
-        img.removeEventListener("load", onLoad);
-        img.removeEventListener("error", onLoad);
-        img.loading = originalLoading; // Restore original loading attribute
-        resolve();
-      };
-
-      img.addEventListener("load", onLoad);
-      img.addEventListener("error", onLoad);
-
-      // Force load by setting src again if it's not already loading
-      if (!img.complete) {
-        const currentSrc = img.src;
-        img.src = "";
-        img.src = currentSrc;
-      }
-    });
-
-    imagePromises.push(promise);
-  });
-
+  const imagePromises = Array.from(lazyImages).map(forceLoadLazyImage);
   await Promise.all(imagePromises);
 }
 
@@ -256,39 +254,11 @@ async function preloadImagesInElement(element: HTMLElement): Promise<void> {
   const lazyImages = element.querySelectorAll(
     'img[loading="lazy"]'
   ) as NodeListOf<HTMLImageElement>;
-  const lazyImagePromises: Promise<void>[] = [];
 
-  lazyImages.forEach((img) => {
-    const promise = new Promise<void>((resolve) => {
-      if (img.complete) {
-        resolve();
-        return;
-      }
-
-      const originalLoading = img.loading;
-      img.loading = "eager";
-
-      const onLoad = () => {
-        img.removeEventListener("load", onLoad);
-        img.removeEventListener("error", onLoad);
-        img.loading = originalLoading;
-        resolve();
-      };
-
-      img.addEventListener("load", onLoad);
-      img.addEventListener("error", onLoad);
-
-      if (!img.complete) {
-        const currentSrc = img.src;
-        img.src = "";
-        img.src = currentSrc;
-      }
-    });
-
-    lazyImagePromises.push(promise);
-  });
-
-  await Promise.all(lazyImagePromises);
+  if (lazyImages.length > 0) {
+    const lazyImagePromises = Array.from(lazyImages).map(forceLoadLazyImage);
+    await Promise.all(lazyImagePromises);
+  }
 }
 
 /**
@@ -527,8 +497,6 @@ export function getResponsiveOffset(options?: {
   spacing?: "default" | "sm" | "md" | "lg";
 }): number {
   const { spacing = "default" } = options ?? {};
-
-  console.log("spacing:", spacing);
 
   let totalSpacing = 0;
 
