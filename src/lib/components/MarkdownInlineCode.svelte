@@ -61,21 +61,10 @@
   function handlePlay() {
     if (!audio || !slug) return;
 
-    // Create audio element if it doesn't exist
-    if (!audioElement) {
-      audioElement = new Audio(`/assets/essays/${slug}/audio/${audio}`);
-      
-      audioElement.addEventListener("loadedmetadata", () => {
-        if (audioElement) {
-          audioDuration = audioElement.duration;
-        }
-      });
-      
-      audioElement.addEventListener("error", () => {
-        isPlaying = false;
-        progress = 0;
-        console.error(`Failed to load audio: /assets/essays/${slug}/audio/${audio}`);
-      });
+    // Cleanup existing element if it exists to avoid Safari replay delays
+    if (audioElement) {
+      audioElement.pause();
+      audioElement = null;
     }
 
     // Clear any existing timeouts
@@ -88,10 +77,17 @@
       progressResetTimeout = null;
     }
     
-    // Pause audio if currently playing to ensure clean restart
-    if (audioElement && !audioElement.paused) {
-      audioElement.pause();
-    }
+    // Always create a new audio element
+    const currentAudio = new Audio(`/assets/essays/${slug}/audio/${audio}`);
+    audioElement = currentAudio;
+    
+    currentAudio.addEventListener("error", () => {
+      if (audioElement === currentAudio) {
+        isPlaying = false;
+        progress = 0;
+        console.error(`Failed to load audio: /assets/essays/${slug}/audio/${audio}`);
+      }
+    });
     
     // Reset animation immediately
     progress = 0;
@@ -100,33 +96,46 @@
     // Force a reflow to ensure the reset is applied
     requestAnimationFrame(() => {
       // Start playback from beginning
-      audioElement!.currentTime = 0;
-      audioElement!.play().catch((error) => {
-        console.error("Error playing audio:", error);
-        isPlaying = false;
-        progress = 0;
-      });
-      
-      // Start animation on next frame to ensure scaleX(0) is rendered first
-      requestAnimationFrame(() => {
-        isPlaying = true;
-        progress = 1; // Non-zero to trigger animating class
-        
-        // Schedule fade-out after: audioDuration + extra animation + delay
-        if (audioDuration > 0) {
-          const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS + FADE_OUT_DELAY_MS;
-          fadeOutTimeout = window.setTimeout(() => {
-            isPlaying = false;
-            fadeOutTimeout = null;
+      currentAudio.play()
+        .then(() => {
+          // Guard against race conditions if played again rapidly
+          if (audioElement !== currentAudio) return;
+
+          // Update duration just in case it wasn't ready before
+          if (currentAudio.duration && !isNaN(currentAudio.duration)) {
+            audioDuration = currentAudio.duration;
+          }
+
+          // Start animation on next frame to ensure scaleX(0) is rendered first
+          requestAnimationFrame(() => {
+            if (audioElement !== currentAudio) return;
             
-            // Reset progress bar width to 0 after fade-out completes
-            progressResetTimeout = window.setTimeout(() => {
-              progress = 0;
-              progressResetTimeout = null;
-            }, FADE_OUT_DURATION_MS);
-          }, fadeOutDelay);
-        }
-      });
+            isPlaying = true;
+            progress = 1; // Non-zero to trigger animating class
+            
+            // Schedule fade-out after: audioDuration + extra animation + delay
+            if (audioDuration > 0) {
+              const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS + FADE_OUT_DELAY_MS;
+              fadeOutTimeout = window.setTimeout(() => {
+                isPlaying = false;
+                fadeOutTimeout = null;
+                
+                // Reset progress bar width to 0 after fade-out completes
+                progressResetTimeout = window.setTimeout(() => {
+                  progress = 0;
+                  progressResetTimeout = null;
+                }, FADE_OUT_DURATION_MS);
+              }, fadeOutDelay);
+            }
+          });
+        })
+        .catch((error) => {
+          if (audioElement === currentAudio) {
+            console.error("Error playing audio:", error);
+            isPlaying = false;
+            progress = 0;
+          }
+        });
     });
   }
 
