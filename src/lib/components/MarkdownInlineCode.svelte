@@ -10,7 +10,6 @@
   const FADE_OUT_DURATION_MS = 240;
   const EXTRA_ANIMATION_DURATION_MS = 550;
   const FADE_OUT_DELAY_MS = 90;
-  const PROGRESS_BAR_START_DELAY_MS = 200;
 
   // Copy timing constants
   const TOAST_DURATION_MS = 2000;
@@ -21,7 +20,7 @@
   let progress = 0; // 0 to 100
   let audioDuration = 0;
   let fadeOutTimeout: number | null = null;
-  let progressBarDelayTimeout: number | null = null;
+  let progressResetTimeout: number | null = null;
 
   // Copy functionality
   let showToast = false;
@@ -84,9 +83,14 @@
       clearTimeout(fadeOutTimeout);
       fadeOutTimeout = null;
     }
-    if (progressBarDelayTimeout !== null) {
-      clearTimeout(progressBarDelayTimeout);
-      progressBarDelayTimeout = null;
+    if (progressResetTimeout !== null) {
+      clearTimeout(progressResetTimeout);
+      progressResetTimeout = null;
+    }
+    
+    // Pause audio if currently playing to ensure clean restart
+    if (audioElement && !audioElement.paused) {
+      audioElement.pause();
     }
     
     // Reset animation immediately
@@ -95,7 +99,7 @@
     
     // Force a reflow to ensure the reset is applied
     requestAnimationFrame(() => {
-      // Start playback
+      // Start playback from beginning
       audioElement!.currentTime = 0;
       audioElement!.play().catch((error) => {
         console.error("Error playing audio:", error);
@@ -103,24 +107,26 @@
         progress = 0;
       });
       
-      // Delay progress bar animation
-      progressBarDelayTimeout = window.setTimeout(() => {
-        // Start animation on next frame to ensure scaleX(0) is rendered first
-        requestAnimationFrame(() => {
-          isPlaying = true;
-          progress = 1; // Non-zero to trigger animating class
-          progressBarDelayTimeout = null;
-          
-          // Schedule fade-out after: audioDuration + extra animation + delay
-          if (audioDuration > 0) {
-            const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS + FADE_OUT_DELAY_MS;
-            fadeOutTimeout = window.setTimeout(() => {
-              isPlaying = false;
-              fadeOutTimeout = null;
-            }, fadeOutDelay);
-          }
-        });
-      }, PROGRESS_BAR_START_DELAY_MS);
+      // Start animation on next frame to ensure scaleX(0) is rendered first
+      requestAnimationFrame(() => {
+        isPlaying = true;
+        progress = 1; // Non-zero to trigger animating class
+        
+        // Schedule fade-out after: audioDuration + extra animation + delay
+        if (audioDuration > 0) {
+          const fadeOutDelay = (audioDuration * 1000) + EXTRA_ANIMATION_DURATION_MS + FADE_OUT_DELAY_MS;
+          fadeOutTimeout = window.setTimeout(() => {
+            isPlaying = false;
+            fadeOutTimeout = null;
+            
+            // Reset progress bar width to 0 after fade-out completes
+            progressResetTimeout = window.setTimeout(() => {
+              progress = 0;
+              progressResetTimeout = null;
+            }, FADE_OUT_DURATION_MS);
+          }, fadeOutDelay);
+        }
+      });
     });
   }
 
@@ -129,9 +135,9 @@
       clearTimeout(fadeOutTimeout);
       fadeOutTimeout = null;
     }
-    if (progressBarDelayTimeout !== null) {
-      clearTimeout(progressBarDelayTimeout);
-      progressBarDelayTimeout = null;
+    if (progressResetTimeout !== null) {
+      clearTimeout(progressResetTimeout);
+      progressResetTimeout = null;
     }
     if (toastTimeout !== null) {
       clearTimeout(toastTimeout);
@@ -225,7 +231,7 @@
     transform: scaleX(0) translateZ(0);
     transform-origin: left;
     transition: opacity var(--fade-out-duration, 180ms) ease-in-out,
-      transform 100ms cubic-bezier(0.42, 0, 1, 1);
+      transform 50ms cubic-bezier(0.42, 0, 1, 1);
     pointer-events: none;
     will-change: transform;
     z-index: 0;
@@ -242,7 +248,7 @@
 
   .progress-bar.animating {
     transform: scaleX(1) translateZ(0);
-    transition: opacity var(--fade-out-duration, 180ms) ease-in-out,
+    transition: opacity var(--fade-out-duration, 50ms) ease-in-out,
       transform var(--audio-duration, 1s) cubic-bezier(0.3,0.36,0.25,1);
   }
 
