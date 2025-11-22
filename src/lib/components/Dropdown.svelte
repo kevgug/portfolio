@@ -1,11 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import ChevronMorph from "$lib/components/ChevronMorph.svelte";
+  import Icon, { type IconName } from "$lib/components/Icon.svelte";
   import { expoIn, expoOut } from "svelte/easing";
   import type { EasingFunction } from "svelte/transition";
 
   interface DropdownItem {
     label: string;
+    icon?: IconName;
   }
 
   export let items: DropdownItem[] = [];
@@ -146,6 +148,10 @@
     };
   }
 
+  function getIconName(item: DropdownItem): IconName {
+    return item.icon!;
+  }
+
   onMount(() => {
     document.addEventListener("click", onDocumentClick);
     document.addEventListener("keydown", handleKeydown);
@@ -172,9 +178,16 @@
     aria-expanded={open}
     on:click={toggleOpen}
   >
-    <span class="dropdown-label"
-      >{items[selectedIndex]?.label ?? placeholder}</span
-    >
+    <div class="dropdown-label-wrapper self-center">
+      {#if items[selectedIndex]?.icon}
+        <span class="dropdown-icon">
+          <Icon name={getIconName(items[selectedIndex])} size="14px" class="shrink-0" />
+        </span>
+      {/if}
+      <span class="dropdown-label"
+        >{items[selectedIndex]?.label ?? placeholder}</span
+      >
+    </div>
     <span class="chevron-wrapper">
       <ChevronMorph {open} size="18px" />
     </span>
@@ -225,6 +238,20 @@
     background: color-mix(in oklab, rgb(255 255 255 / 28%), transparent);
   }
 
+  .dropdown-label-wrapper {
+    @apply flex items-center gap-1.5 self-center;
+  }
+
+  .dropdown-icon {
+    @apply ml-0.5;
+    color: #BDBDBE;
+    transform: translateY(1px);
+  }
+
+  .dropdown-trigger:hover .dropdown-icon {
+    @apply text-white;
+  }
+
   .dropdown-label {
     @apply text-sm md:text-base whitespace-nowrap max-w-[60vw] md:max-w-none truncate;
   }
@@ -239,7 +266,7 @@
   }
 
   .dropdown-option {
-    @apply w-full text-left flex items-center gap-3 px-3 py-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 focus:outline-none transition-colors;
+    @apply w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 focus:outline-none transition-colors;
   }
 
   .dropdown-option.is-active {
@@ -261,6 +288,12 @@
   }
   .dropdown-root.is-subtle .dropdown-trigger:hover {
     background: color-mix(in oklab, rgb(255 255 255 / 16%), transparent);
+    @apply text-white;
+  }
+  .dropdown-root.is-subtle .dropdown-icon {
+    color: #BDBDBE;
+  }
+  .dropdown-root.is-subtle .dropdown-trigger:hover .dropdown-icon {
     @apply text-white;
   }
   .dropdown-root.is-subtle .dropdown-label {

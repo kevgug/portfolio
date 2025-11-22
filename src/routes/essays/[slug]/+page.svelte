@@ -118,14 +118,24 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     }
   }
 
+  // Helper to get consistent section IDs
+  function getSectionId(index: number) {
+    const hasForeword = post.sections[0]?.heading === "Foreword";
+    if (hasForeword) {
+      return `section-${index}`;
+    }
+    return `section-${index + 1}`;
+  }
+
   // Build subheaders and set in store
   onMount(() => {
     const list = post.sections.map((section, i) => ({
-      id: `section-${i}`,
+      id: getSectionId(i),
       label: section.heading,
+      icon: section.heading === "Foreword" ? "sticky-note" : undefined,
     }));
     if (Object.keys(post.footnotes).length || post.contributionNote) {
-      list.push({ id: "section-notes", label: "Notes" });
+      list.push({ id: "section-notes", label: "Notes", icon: undefined });
     }
     setSubheaders(list);
 
@@ -195,8 +205,8 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     </div>
     <div class="space-y-12 md:space-y-14">
       {#each post.sections as section, i}
-        <section id={`section-${i}`} data-essay-section="true">
-          {#if section.heading !== post.title}
+        <section id={getSectionId(i)} data-essay-section="true">
+          {#if section.heading !== post.title && section.heading !== "Foreword"}
             <div class="max-w-screen-md mx-auto flex justify-start items-start">
               <h2 class="text-xl md:text-2xl font-semibold text-white">
                 {section.heading}

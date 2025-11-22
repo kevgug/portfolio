@@ -535,6 +535,13 @@ export function parseMarkdown(
       heading: finalTitle,
       content: preH2Content,
     });
+  } else if (hasH2Sections && preH2Content.length > 0) {
+    // If there are H2 sections, but also content before the first one,
+    // treat it as a Foreword section
+    sections.unshift({
+      heading: "Foreword",
+      content: preH2Content,
+    });
   }
 
   return {
@@ -611,13 +618,20 @@ function tokenizeAndParseParagraph(
     // Process the code block
     const codeText = codeMatch.code;
     const audioFile = audioConfig?.[codeText];
-
-    // Always create a code token (with or without audio)
-    tokens.push({
-      type: "code",
-      code: codeText,
-      audio: audioFile,
-    });
+    if (audioFile) {
+      // Create code token with audio
+      tokens.push({
+        type: "code",
+        code: codeText,
+        audio: audioFile,
+      });
+    } else {
+      // No audio match, include as regular text (marked will handle it)
+      tokens.push({
+        type: "text",
+        text: marked.parseInline(`\`${codeText}\``) as string,
+      });
+    }
 
     lastIndex = codeMatch.end;
   }

@@ -3,6 +3,7 @@ import { writable, type Writable } from "svelte/store";
 export interface EssaySubheader {
   id: string; // element id to scroll to
   label: string; // display label
+  icon?: string;
 }
 
 export const subheaders: Writable<EssaySubheader[]> = writable([]);
