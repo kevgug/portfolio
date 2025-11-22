@@ -6,6 +6,13 @@
   export let data: PageData;
   const { posts } = data;
 
+  // Social media metadata
+  const siteUrl = "https://kevingugelmann.com";
+  const pageUrl = `${siteUrl}/essays`;
+  const pageTitle = "Essays | Kevin Gugelmann";
+  const pageDescription = "Essays and thoughts by Kevin Gugelmann on design, AI, and building products";
+  const pageDomain = "kevingugelmann.com";
+
   let listContainer: HTMLElement;
 
   onMount(() => {
@@ -44,8 +51,23 @@
 </script>
 
 <svelte:head>
-  <title>Essays</title>
-  <meta name="description" content="Thoughts by Kevin Gugelmann" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href={pageUrl} />
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:domain" content={pageDomain} />
+  <meta property="twitter:url" content={pageUrl} />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
 </svelte:head>
 
 <section class="py-8 md:py-12">

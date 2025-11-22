@@ -26,6 +26,14 @@
   export let data: PageData;
   const { slug, post, publish } = data;
 
+  // Social media metadata
+  const siteUrl = "https://kevingugelmann.com";
+  const pageUrl = `${siteUrl}/essays/${slug}`;
+  const pageTitle = post.title;
+  const pageDescription = `An essay by Kevin Gugelmann`;
+  const thumbnailUrl = `${siteUrl}/assets/thumbnails/${slug}.png`;
+  const pageDomain = "kevingugelmann.com";
+
   let sectionEls: HTMLElement[] = [];
 
   /**
@@ -182,7 +190,26 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
 </script>
 
 <svelte:head>
-  <title>{post.title}</title>
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href={pageUrl} />
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={thumbnailUrl} />
+  <meta property="article:published_time" content={post.date} />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={pageDomain} />
+  <meta property="twitter:url" content={pageUrl} />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={thumbnailUrl} />
 </svelte:head>
 
 <article class="py-8 md:py-12 w-full">

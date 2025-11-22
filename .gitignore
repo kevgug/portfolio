@@ -10,6 +10,7 @@ src/lib/essays-reload.ts
 static/essays/index.json
 static/essays/*.md
 static/assets/essays/
+static/assets/thumbnails/
 static/rss.xml
 static/llms.txt
 static/llms-full.txt
