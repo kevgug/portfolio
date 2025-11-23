@@ -61,5 +61,6 @@
 
 ## Essays
 
+- Maxims of software (2025-11-23) → https://kevingugelmann.com/essays/software-maxims
 - Selling software without accountability (2025-10-23) → https://kevingugelmann.com/essays/accountability-ai-autonomy
 - Writing manifesto (2025-09-12) → https://kevingugelmann.com/essays/manifesto
