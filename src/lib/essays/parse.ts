@@ -10,7 +10,7 @@ export type BlogSectionContent =
   | { type: "list"; ordered: boolean; items: ParagraphToken[][] }
   | {
       type: "blockquote";
-      text: string;
+      tokens: ParagraphToken[];
       multiline?: boolean;
       endsWithBreak?: boolean;
       citation?: string;
@@ -208,29 +208,30 @@ export function parseMarkdown(
         const lastLine = contentLines[contentLines.length - 1];
         endsWithBreak = lastLine ? lastLine.endsWith("\\") : false;
 
-        // Preserve line breaks: wrap each line in a span
+        // Preserve line breaks: join with <br> tag
         text = contentLines
           .map((line) => {
             // Remove trailing backslash if present
             const cleanLine = line.endsWith("\\")
               ? line.slice(0, -1).trim()
-              : line;
-            return `<span class="blockquote-line">${
-              marked.parseInline(cleanLine) as string
-            }</span>`;
+              : line.trim();
+            return cleanLine;
           })
-          .join("")
+          .join("<br>")
           .trim();
         isMultiline = true;
       } else {
         // Join into single line with spaces
-        text = marked.parseInline(contentLines.join(" ")) as string;
+        text = contentLines.join(" ").trim();
         isMultiline = false;
       }
 
+      // Tokenize the blockquote text to handle footnote references
+      const tokens = tokenizeAndParseParagraph(text, audioConfig);
+
       const blockquoteContent: BlogSectionContent = {
         type: "blockquote",
-        text: text,
+        tokens: tokens,
         multiline: isMultiline,
         endsWithBreak: endsWithBreak,
         ...(citation && { citation }),

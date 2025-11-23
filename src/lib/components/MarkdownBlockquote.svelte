@@ -1,8 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { gsap } from "gsap";
+  import type { ParagraphToken } from "$lib/essays/parse";
+  import {
+    reliableScrollToElement,
+    getResponsiveOffset,
+  } from "$lib/util/reliableScroll";
 
-  export let text: string;
+  export let tokens: ParagraphToken[];
   export let multiline: boolean = false;
   export let endsWithBreak: boolean = false;
   export let citation: string | undefined = undefined;
@@ -11,6 +16,31 @@
   let paragraphEl: HTMLElement;
   let citationEl: HTMLElement;
   let hasAnimated = false;
+  
+  // Find the first footnote reference number for the ID
+  let firstRefNum: string | undefined;
+  $: firstRefNum = (tokens.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined)?.num;
+
+  async function onClickRef(num: string) {
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
+    const targetId = `footnote-${num}`;
+    const targetEl = document.getElementById(targetId);
+
+    if (targetEl) {
+      targetEl.classList.add("footnote-bg-anim");
+      targetEl.classList.add("footnote-bg-highlight");
+
+      await reliableScrollToElement(targetEl, {
+        duration: 1000,
+        ease: "out-expo",
+        offset: totalOffset,
+      });
+
+      setTimeout(() => {
+        targetEl.classList.remove("footnote-bg-highlight");
+      }, 0);
+    }
+  }
 
   /**
    * Splits HTML text into words while preserving HTML tags
@@ -53,10 +83,50 @@
       .join("");
   }
 
+  /**
+   * Convert tokens to HTML string for processing
+   */
+  function tokensToHtml(tokens: ParagraphToken[]): string {
+    return tokens
+      .map((token) => {
+        if (token.type === "text") {
+          return token.text;
+        } else if (token.type === "ref") {
+          // Match the main body footnote styling exactly
+          return `<button class="footnote-ref group" data-ref="${token.num}">
+            <span class="footnote-ref-inner">
+              [<span class="footnote-space">\u00A0</span><span class="footnote-num">${token.num}</span><span class="footnote-space">\u00A0</span>]
+            </span>
+          </button>`;
+        } else if (token.type === "latex") {
+          // Note: LaTeX in blockquotes would need KaTeX rendering
+          return `<span class="latex-inline">$$${token.latex}$$</span>`;
+        } else if (token.type === "code") {
+          return `<code>${token.code}</code>`;
+        }
+        return "";
+      })
+      .join("");
+  }
+
   onMount(() => {
+    // Convert tokens to HTML
+    const htmlText = tokensToHtml(tokens);
+    
     // Replace paragraph content with word-wrapped version
-    const wrappedHtml = wrapWordsInSpans(text);
+    const wrappedHtml = wrapWordsInSpans(htmlText);
     paragraphEl.innerHTML = wrappedHtml;
+
+    // Add event listeners to footnote reference buttons
+    const footnoteRefs = paragraphEl.querySelectorAll(".footnote-ref");
+    footnoteRefs.forEach((ref) => {
+      const num = ref.getAttribute("data-ref");
+      if (num) {
+        ref.addEventListener("click", () => {
+          onClickRef(num);
+        });
+      }
+    });
 
     // Get all word spans
     const words = paragraphEl.querySelectorAll(".word-anim");
@@ -146,6 +216,7 @@
 
 <blockquote
   bind:this={blockquoteEl}
+  id={firstRefNum ? `footnote-ref-${firstRefNum}` : undefined}
   class="px-4 md:px-6 border-l-4 md:rounded-r-lg bg-white/5 border-white"
   class:!my-7={!multiline}
   class:md:!my-9={!multiline}
@@ -168,7 +239,7 @@
     class:md:text-4xl={!multiline}
     class:leading-tight={!multiline}
   >
-    {@html text}
+    <!-- Content will be populated by onMount -->
   </p>
   {#if citation}
     <cite
@@ -227,5 +298,35 @@
     color: black;
     background-image: linear-gradient(to right, #ffffff, #ffffff);
     background-size: 100% 100%;
+  }
+
+  /* Footnote reference styling in blockquotes - match main body styling */
+  blockquote :global(.footnote-ref) {
+    @apply inline-flex items-baseline border-none cursor-pointer p-0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  blockquote :global(.footnote-ref-inner) {
+    @apply text-muted-text-grey transition-colors;
+    font-size: inherit; /* Match blockquote font size */
+  }
+
+  blockquote :global(.group:hover .footnote-ref-inner) {
+    @apply text-white;
+  }
+
+  blockquote :global(.footnote-space) {
+    @apply text-[0.32rem];
+  }
+
+  blockquote :global(.footnote-num) {
+    @apply underline decoration-glacial-blue/60 transition-colors;
+  }
+
+  blockquote :global(.group:hover .footnote-num) {
+    @apply decoration-glacial-blue;
   }
 </style>

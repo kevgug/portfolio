@@ -262,7 +262,7 @@
 
 @layer utilities {
   /* Staged highlight behavior */
-  .footnote-bg-anim {
+  .footnote-bg-anim:not(blockquote) {
     transition: background-color 140ms ease-out;
     @apply rounded-xl;
     @apply px-2 mx-[-0.5rem] py-1 my-[-0.25rem];
@@ -293,5 +293,10 @@
   /* LaTeX display containers need different spacing for footnote animation */
   .latex-display-container.footnote-bg-anim {
     @apply px-0 mx-0 py-0 my-4;
+  }
+
+  /* Blockquotes - only animate background color, no other styling changes */
+  blockquote.footnote-bg-anim {
+    transition: background-color 140ms ease-out;
   }
 }

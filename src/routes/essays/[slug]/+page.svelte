@@ -244,7 +244,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             {#if contentItem.type === "blockquote"}
             <div class="w-full max-w-screen-md mx-auto">
               <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                <MarkdownBlockquote text={contentItem.text} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
+                <MarkdownBlockquote tokens={contentItem.tokens} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
               </div>
             </div>
             {:else if contentItem.type === "image"}
@@ -341,25 +341,31 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                         {@html t.text}
                       </span>
                     {:else if t.type === "ref"}
-                      <button
-                        class="group inline-flex items-baseline border-none bg-transparent cursor-pointer"
-                        style="background-color: transparent; padding: 0;"
-                        on:click={() => onClickRef(t.num)}
-                      >
-                        <span
-                          class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                      {#if "num" in t}
+                        <button
+                          class="group inline-flex items-baseline border-none bg-transparent cursor-pointer"
+                          style="background-color: transparent; padding: 0;"
+                          on:click={() => onClickRef(t.num)}
                         >
-                          [<span class="text-[0.32rem]">{" "}</span>
                           <span
-                            class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
-                            >{t.num}</span
-                          ><span class="text-[0.32rem]">{" "}</span>]
-                        </span>
-                      </button>
+                            class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                          >
+                            [<span class="text-[0.32rem]">{" "}</span>
+                            <span
+                              class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
+                              >{t.num}</span
+                            ><span class="text-[0.32rem]">{" "}</span>]
+                          </span>
+                        </button>
+                      {/if}
                     {:else if t.type === "latex"}
-                      {@html renderInlineLatex(t.latex)}
+                      {#if "latex" in t}
+                        {@html renderInlineLatex(t.latex)}
+                      {/if}
                     {:else if t.type === "code"}
-                      <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+                      {#if "code" in t}
+                        <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+                      {/if}
                     {/if}
                   {/each}
                 </p>
