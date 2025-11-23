@@ -4,6 +4,7 @@ export interface EssaySubheader {
   id: string; // element id to scroll to
   label: string; // display label
   icon?: string;
+  iconOffsetY?: string;
 }
 
 export const subheaders: Writable<EssaySubheader[]> = writable([]);

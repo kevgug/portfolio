@@ -8,6 +8,7 @@
   interface DropdownItem {
     label: string;
     icon?: IconName;
+    iconOffsetY?: string;
   }
 
   export let items: DropdownItem[] = [];
@@ -180,8 +181,15 @@
   >
     <div class="dropdown-label-wrapper self-center">
       {#if items[selectedIndex]?.icon}
-        <span class="dropdown-icon">
-          <Icon name={getIconName(items[selectedIndex])} size="14px" class="shrink-0" />
+        <span 
+          class="dropdown-icon"
+          style="transform: translateY({items[selectedIndex]?.iconOffsetY ?? '0px'});"
+        >
+          <Icon 
+            name={getIconName(items[selectedIndex])} 
+            size="14px" 
+            class="shrink-0" 
+          />
         </span>
       {/if}
       <span class="dropdown-label"
@@ -245,7 +253,6 @@
   .dropdown-icon {
     @apply ml-0.5;
     color: #BDBDBE;
-    transform: translateY(1px);
   }
 
   .dropdown-trigger:hover .dropdown-icon {

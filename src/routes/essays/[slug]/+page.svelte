@@ -20,6 +20,7 @@
     setSubheaders,
     selectedIndex,
     scrollLock,
+    type EssaySubheader,
   } from "$lib/stores/essayNav";
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
 
@@ -137,13 +138,18 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
 
   // Build subheaders and set in store
   onMount(() => {
-    const list = post.sections.map((section, i) => ({
+    const list: EssaySubheader[] = post.sections.map((section, i) => ({
       id: getSectionId(i),
       label: section.heading,
-      icon: section.heading === "Foreword" ? "sticky-note" : undefined,
+      icon: section.heading === "Foreword" ? "feather-pen" : undefined,
     }));
     if (Object.keys(post.footnotes).length || post.contributionNote) {
-      list.push({ id: "section-notes", label: "Notes", icon: undefined });
+      list.push({ 
+        id: "section-notes", 
+        label: "Notes", 
+        icon: "format-text-notes",
+        iconOffsetY: "0.6px"
+      });
     }
     setSubheaders(list);
 

@@ -50,10 +50,14 @@
     const temp = document.createElement("div");
     temp.innerHTML = htmlText;
 
-    function processNode(node: Node): string {
+    function processNode(node: Node, insideButton: boolean = false): string {
       if (node.nodeType === Node.TEXT_NODE) {
-        // Split text into words and wrap each in a span
         const text = node.textContent || "";
+        // If inside a button, don't split into words
+        if (insideButton) {
+          return text;
+        }
+        // Split text into words and wrap each in a span
         const words = text.split(/(\s+)/); // Split on whitespace but keep whitespace
         return words
           .map((word) => {
@@ -70,8 +74,22 @@
           .map((attr) => `${attr.name}="${attr.value}"`)
           .join(" ");
         const attributeStr = attributes ? ` ${attributes}` : "";
+        
+        // Check if this is a sup element containing a button (footnote)
+        const isFootnoteSup = tagName === "sup" && el.querySelector("button.footnote-ref");
+        
+        if (isFootnoteSup) {
+          // Wrap the entire sup element in a word-anim span
+          const childrenHtml = Array.from(el.childNodes)
+            .map((child) => processNode(child, true))
+            .join("");
+          return `<span class="word-anim"><${tagName}${attributeStr}>${childrenHtml}</${tagName}></span>`;
+        }
+        
+        // Check if we're entering a button
+        const isButton = tagName === "button";
         const childrenHtml = Array.from(el.childNodes)
-          .map((child) => processNode(child))
+          .map((child) => processNode(child, insideButton || isButton))
           .join("");
         return `<${tagName}${attributeStr}>${childrenHtml}</${tagName}>`;
       }
@@ -95,7 +113,7 @@
           // Match the main body footnote styling exactly
           return `<sup><button class="footnote-ref group" data-ref="${token.num}">
             <span class="footnote-ref-inner">
-              <span class="footnote-num">${token.num}</span>
+              [<span class="footnote-space">\u00A0</span><span class="footnote-num">${token.num}</span><span class="footnote-space">\u00A0</span>]
             </span>
           </button></sup>`;
         } else if (token.type === "latex") {
@@ -302,7 +320,7 @@
 
   /* Footnote reference styling in blockquotes - match main body styling */
   blockquote :global(.footnote-ref) {
-    @apply inline-flex items-baseline border-none cursor-pointer p-0 -ml-1.5;
+    @apply inline-flex items-baseline border-none cursor-pointer p-0 -ml-[0.375rem];
     background: transparent;
     font-family: inherit;
     font-size: inherit;
@@ -310,7 +328,11 @@
   }
 
   blockquote :global(.footnote-ref-inner) {
-    @apply text-sm font-normal;
+    @apply text-sm font-normal text-muted-text-grey transition-colors;
+  }
+
+  blockquote :global(.group:hover .footnote-ref-inner) {
+    @apply text-white;
   }
 
   blockquote :global(.footnote-space) {
@@ -318,11 +340,10 @@
   }
 
   blockquote :global(.footnote-num) {
-    @apply text-glacial-blue underline decoration-glacial-blue/60;
-    transition: color 0.2s, text-decoration-color 0.2s;
+    @apply underline decoration-glacial-blue/60;
   }
 
   blockquote :global(.group:hover .footnote-num) {
-    @apply text-glacial-blue decoration-glacial-blue;
+    @apply decoration-glacial-blue;
   }
 </style>
