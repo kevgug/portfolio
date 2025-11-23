@@ -310,65 +310,95 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
           </div>
           {#if Object.keys(post.footnotes).length}
-            <div class="mt-4 space-y-2">
-              {#each Object.entries(post.footnotes) as [num, tokens]}
-                <p
+            <div class="mt-4 space-y-4">
+              {#each Object.entries(post.footnotes) as [num, contentBlocks]}
+                <div
                   id={`footnote-${num}`}
-                  class="font-serif text-sm md:text-base text-muted-text-grey"
+                  class="font-serif text-sm md:text-base text-muted-text-grey space-y-3"
                 >
-                  <button
-                    class="group inline-flex items-center px-1 py-0.5 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors"
-                    on:click={() => onClickFootnoteRef(num)}
-                  >
-                    <span
-                      class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                  <div class="flex items-start gap-2">
+                    <button
+                      class="group inline-flex items-center px-1 rounded border-none bg-transparent cursor-pointer hover:bg-gray-700 transition-colors shrink-0"
+                      on:click={() => onClickFootnoteRef(num)}
                     >
-                      [<span class="text-[0.9rem]">{" "}</span>
-                      <span class="text-white underline decoration-glacial-blue"
-                        >{num}</span
-                      ><span class="text-[0.32rem]">{" "}</span>
-                      <Icon
-                        name="arrow-up"
-                        size="12px"
-                        class="inline text-muted-text-grey group-hover:text-white transition-colors"
-                      />
-                      <span class="text-[0.32rem]">{" "}</span>]
-                    </span>
-                  </button>
-                  {#each tokens as t}
-                    {#if t.type === "text"}
-                      <span>
-                        {@html t.text}
+                      <span
+                        class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                      >
+                        [<span class="text-[0.9rem]">{" "}</span>
+                        <span class="text-white underline decoration-glacial-blue"
+                          >{num}</span
+                        ><span class="text-[0.32rem]">{" "}</span>
+                        <Icon
+                          name="arrow-up"
+                          size="12px"
+                          class="inline text-muted-text-grey group-hover:text-white transition-colors"
+                        />
+                        <span class="text-[0.32rem]">{" "}</span>]
                       </span>
-                    {:else if t.type === "ref"}
-                      {#if "num" in t}
-                        <button
-                          class="group inline-flex items-baseline border-none bg-transparent cursor-pointer"
-                          style="background-color: transparent; padding: 0;"
-                          on:click={() => onClickRef(t.num)}
-                        >
-                          <span
-                            class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
-                          >
-                            [<span class="text-[0.32rem]">{" "}</span>
-                            <span
-                              class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
-                              >{t.num}</span
-                            ><span class="text-[0.32rem]">{" "}</span>]
-                          </span>
-                        </button>
-                      {/if}
-                    {:else if t.type === "latex"}
-                      {#if "latex" in t}
-                        {@html renderInlineLatex(t.latex)}
-                      {/if}
-                    {:else if t.type === "code"}
-                      {#if "code" in t}
-                        <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
-                      {/if}
-                    {/if}
-                  {/each}
-                </p>
+                    </button>
+                    <div class="flex-1 space-y-3">
+                      {#each contentBlocks as contentItem, idx}
+                        {#if contentItem.type === "paragraph"}
+                          <p class:mt-0={idx === 0}>
+                            {#each contentItem.tokens as t}
+                              {#if t.type === "text"}
+                                <span>
+                                  {@html t.text}
+                                </span>
+                              {:else if t.type === "ref"}
+                                {#if "num" in t}
+                                  <button
+                                    class="group inline-flex items-baseline border-none bg-transparent cursor-pointer"
+                                    style="background-color: transparent; padding: 0;"
+                                    on:click={() => onClickRef(t.num)}
+                                  >
+                                    <span
+                                      class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                                    >
+                                      [<span class="text-[0.32rem]">{" "}</span>
+                                      <span
+                                        class="underline decoration-glacial-blue/60 group-hover:decoration-glacial-blue"
+                                        >{t.num}</span
+                                      ><span class="text-[0.32rem]">{" "}</span>]
+                                    </span>
+                                  </button>
+                                {/if}
+                              {:else if t.type === "latex"}
+                                {#if "latex" in t}
+                                  {@html renderInlineLatex(t.latex)}
+                                {/if}
+                              {:else if t.type === "code"}
+                                {#if "code" in t}
+                                  <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+                                {/if}
+                              {/if}
+                            {/each}
+                          </p>
+                        {:else if contentItem.type === "list"}
+                          <div class:mt-0={idx === 0}>
+                            {#if contentItem.ordered}
+                              <ol
+                                class="ordered-list space-y-4 font-serif text-muted-text-grey"
+                              >
+                                {#each contentItem.items as itemTokens}
+                                  <MarkdownListItem tokens={itemTokens} slug={slug} />
+                                {/each}
+                              </ol>
+                            {:else}
+                              <ul
+                                class="list-disc pl-5 space-y-2 font-serif text-muted-text-grey"
+                              >
+                                {#each contentItem.items as itemTokens}
+                                  <MarkdownListItem tokens={itemTokens} slug={slug} />
+                                {/each}
+                              </ul>
+                            {/if}
+                          </div>
+                        {/if}
+                      {/each}
+                    </div>
+                  </div>
+                </div>
               {/each}
             </div>
           {/if}

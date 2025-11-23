@@ -1,7 +1,7 @@
 import { marked } from "$lib/util/marked";
 
 export interface BlogFootnotesMap {
-  [num: string]: ParagraphToken[];
+  [num: string]: BlogSectionContent[];
 }
 
 export type BlogSectionContent =
@@ -88,6 +88,11 @@ export function parseMarkdown(
   let currentSection: BlogSection | null = null;
   let inNotes = false;
   let paragraphBuffer: string[] = [];
+
+  // For multiline footnote support
+  let currentFootnoteNum: string | null = null;
+  let currentFootnoteBuffer: string[] = [];
+  let inContributionNote = false;
 
   let inCodeBlock = false;
   let codeBlockLang = "";
@@ -410,16 +415,53 @@ export function parseMarkdown(
       continue;
     }
 
-    // Inside notes: lines like [1] text
+    // Inside notes: lines like [1] text (with support for multiline)
     if (inNotes) {
-      const noteMatch = line.match(/^\[(\d+)\]\s*(.*)$/);
-      if (noteMatch) {
-        const num = noteMatch[1];
-        const text = (noteMatch[2] || "").trim();
-        if (num) footnotes[num] = tokenizeAndParseParagraph(text, audioConfig);
-      } else if (line.trim()) {
+      // Check for --- separator (start of contribution note)
+      if (line.trim() === "---") {
+        // Flush any existing footnote buffer
+        if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
+          footnotes[currentFootnoteNum] = parseFootnoteContent(
+            currentFootnoteBuffer,
+            audioConfig
+          );
+          currentFootnoteBuffer = [];
+          currentFootnoteNum = null;
+        }
+        inContributionNote = true;
+        continue;
+      }
+
+      // If in contribution note mode, accumulate all text
+      if (inContributionNote) {
         if (contributionNote) contributionNote += "\n";
         contributionNote += line;
+        continue;
+      }
+
+      // Parse footnotes
+      const noteMatch = line.match(/^\[(\d+)\]\s*(.*)$/);
+      if (noteMatch) {
+        // New footnote starts - flush any existing footnote buffer
+        if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
+          footnotes[currentFootnoteNum] = parseFootnoteContent(
+            currentFootnoteBuffer,
+            audioConfig
+          );
+          currentFootnoteBuffer = [];
+        }
+
+        currentFootnoteNum = noteMatch[1];
+        const text = (noteMatch[2] || "").trim();
+        if (text) {
+          currentFootnoteBuffer.push(text);
+        }
+      } else if (currentFootnoteNum && line.trim()) {
+        // Continue accumulating footnote content
+        currentFootnoteBuffer.push(line.trim());
+      } else if (line.trim() === "" && currentFootnoteNum) {
+        // Blank line within a footnote - preserve it for paragraph separation
+        currentFootnoteBuffer.push("");
       }
       continue;
     }
@@ -528,6 +570,14 @@ export function parseMarkdown(
   flushList();
   flushBlockquote();
   flushTable();
+
+  // Flush any remaining footnote
+  if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
+    footnotes[currentFootnoteNum] = parseFootnoteContent(
+      currentFootnoteBuffer,
+      audioConfig
+    );
+  }
 
   // If there are no h2 sections found, create a single section with the title
   // using all the accumulated content
@@ -694,4 +744,129 @@ function processTextSegment(text: string): ParagraphToken[] {
   }
 
   return tokens;
+}
+
+function parseFootnoteContent(
+  lines: string[],
+  audioConfig?: { [code: string]: string }
+): BlogSectionContent[] {
+  const content: BlogSectionContent[] = [];
+  let paragraphBuffer: string[] = [];
+  let inList = false;
+  let listBuffer: string[] = [];
+  let isOrderedList = false;
+
+  const flushParagraph = () => {
+    if (paragraphBuffer.length > 0) {
+      // Check if any line ends with backslash (line break indicator)
+      const hasLineBreaks = paragraphBuffer.some((line) => line.endsWith("\\"));
+
+      let text: string;
+
+      if (hasLineBreaks) {
+        // Preserve line breaks: join with <br> tag
+        text = paragraphBuffer
+          .map((line) => {
+            // Remove trailing backslash if present
+            const cleanLine = line.endsWith("\\")
+              ? line.slice(0, -1).trim()
+              : line.trim();
+            return cleanLine;
+          })
+          .join("<br>")
+          .trim();
+      } else {
+        // Join into single line with spaces
+        text = paragraphBuffer.join(" ").trim();
+      }
+
+      if (text) {
+        content.push({
+          type: "paragraph",
+          tokens: tokenizeAndParseParagraph(text, audioConfig),
+        });
+      }
+    }
+    paragraphBuffer = [];
+  };
+
+  const flushList = () => {
+    if (listBuffer.length > 0) {
+      content.push({
+        type: "list",
+        ordered: isOrderedList,
+        items: listBuffer.map((item) =>
+          tokenizeAndParseParagraph(item, audioConfig)
+        ),
+      });
+    }
+    listBuffer = [];
+    inList = false;
+    isOrderedList = false;
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Unordered list items (-, *, +)
+    const unorderedListItemMatch = line.match(/^\s*(?:-|\*|\+)\s+(.*)/);
+    if (unorderedListItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+        isOrderedList = false;
+      }
+      listBuffer.push((unorderedListItemMatch[1] || "").trim());
+      continue;
+    }
+
+    // Ordered list items (1., 2., etc.)
+    const orderedListItemMatch = line.match(/^\s*\d+\.\s+(.*)/);
+    if (orderedListItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+        isOrderedList = true;
+      }
+      listBuffer.push((orderedListItemMatch[1] || "").trim());
+      continue;
+    }
+
+    // Handle indented lines (continuation of list items)
+    const indentedLineMatch = line.match(/^\s{2,}(.*)/);
+    if (inList && indentedLineMatch && (indentedLineMatch[1] || "").trim()) {
+      if (listBuffer.length > 0) {
+        const lastItem = listBuffer[listBuffer.length - 1];
+        // Check if the last item ends with backslash for line break
+        if (lastItem.endsWith("\\")) {
+          listBuffer[listBuffer.length - 1] =
+            lastItem.slice(0, -1).trim() +
+            "<br>" +
+            (indentedLineMatch[1] || "").trim();
+        } else {
+          listBuffer[listBuffer.length - 1] +=
+            " " + (indentedLineMatch[1] || "").trim();
+        }
+        continue;
+      }
+    }
+
+    if (inList) {
+      flushList();
+    }
+
+    // Blank line separates paragraphs
+    if (line.trim() === "") {
+      flushParagraph();
+      continue;
+    }
+
+    // Accumulate paragraph text
+    paragraphBuffer.push(line);
+  }
+
+  flushParagraph();
+  flushList();
+
+  return content;
 }

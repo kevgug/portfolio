@@ -93,11 +93,11 @@
           return token.text;
         } else if (token.type === "ref") {
           // Match the main body footnote styling exactly
-          return `<button class="footnote-ref group" data-ref="${token.num}">
+          return `<sup><button class="footnote-ref group" data-ref="${token.num}">
             <span class="footnote-ref-inner">
-              [<span class="footnote-space">\u00A0</span><span class="footnote-num">${token.num}</span><span class="footnote-space">\u00A0</span>]
+              <span class="footnote-num">${token.num}</span>
             </span>
-          </button>`;
+          </button></sup>`;
         } else if (token.type === "latex") {
           // Note: LaTeX in blockquotes would need KaTeX rendering
           return `<span class="latex-inline">$$${token.latex}$$</span>`;
@@ -302,7 +302,7 @@
 
   /* Footnote reference styling in blockquotes - match main body styling */
   blockquote :global(.footnote-ref) {
-    @apply inline-flex items-baseline border-none cursor-pointer p-0;
+    @apply inline-flex items-baseline border-none cursor-pointer p-0 -ml-1.5;
     background: transparent;
     font-family: inherit;
     font-size: inherit;
@@ -310,12 +310,7 @@
   }
 
   blockquote :global(.footnote-ref-inner) {
-    @apply text-muted-text-grey transition-colors;
-    font-size: inherit; /* Match blockquote font size */
-  }
-
-  blockquote :global(.group:hover .footnote-ref-inner) {
-    @apply text-white;
+    @apply text-sm font-normal;
   }
 
   blockquote :global(.footnote-space) {
@@ -323,10 +318,11 @@
   }
 
   blockquote :global(.footnote-num) {
-    @apply underline decoration-glacial-blue/60 transition-colors;
+    @apply text-glacial-blue underline decoration-glacial-blue/60;
+    transition: color 0.2s, text-decoration-color 0.2s;
   }
 
   blockquote :global(.group:hover .footnote-num) {
-    @apply decoration-glacial-blue;
+    @apply text-glacial-blue decoration-glacial-blue;
   }
 </style>
