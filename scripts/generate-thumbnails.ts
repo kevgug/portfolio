@@ -124,6 +124,7 @@ function renderTokensToHtml(tokens: any[], slug: string): string {
           t.code
         )}</div>`;
       } else if (t.type === "latex") {
+        // Show plain LaTeX text instead of rendering
         return `<div style="display: flex;">${t.latex}</div>`;
       }
       return "";
@@ -140,38 +141,70 @@ async function generateThumbnail(slug: string, content: string) {
   const parsedPost = parseMarkdown(content, title, date);
   const { sections } = parsedPost;
 
-  // Debug: Check for foreword sections
-  if (sections.length > 0 && sections[0].heading === "Foreword") {
-    console.log(`${slug}: Has foreword section`);
-  } else if (sections.length > 0) {
-    console.log(`${slug}: First section is "${sections[0].heading}"`);
-  }
-
   // Extract content for thumbnail
-  const maxParagraphs = 5;
-  let paragraphCount = 0;
+  // Limit by total word count to prevent Resvg crashes
+  const maxWords = 150;
+  const maxHeadings = 4; // Avoid stacking too many headings if paragraphs are skipped
+  let totalWords = 0;
+  let headingCount = 0;
   const renderContent: { type: "h2" | "paragraph"; html: string }[] = [];
 
   for (const section of sections) {
     // Don't render h2 for the main title or for foreword sections (content before first h2)
     if (section.heading !== title && section.heading !== "Foreword") {
+      if (headingCount >= maxHeadings) break;
+
+      const headingWords = section.heading
+        .trim()
+        .split(/\s+/)
+        .filter((w) => w.length > 0).length;
+      if (totalWords + headingWords > maxWords) break;
+
       renderContent.push({
         type: "h2",
         html: decodeHtmlEntities(section.heading),
       });
+      totalWords += headingWords;
+      headingCount++;
     }
 
     for (const item of section.content) {
       if (item.type === "paragraph") {
+        // Count words in this paragraph's tokens
+        let paragraphWords = 0;
+        for (const token of item.tokens) {
+          if (token.type === "text") {
+            // Strip HTML tags and count words
+            const textOnly = token.text.replace(/<[^>]*>/g, " ");
+            paragraphWords += textOnly
+              .trim()
+              .split(/\s+/)
+              .filter((w) => w.length > 0).length;
+          } else if (token.type === "code") {
+            paragraphWords += token.code
+              .trim()
+              .split(/\s+/)
+              .filter((w) => w.length > 0).length;
+          } else if (token.type === "latex") {
+            paragraphWords += token.latex
+              .trim()
+              .split(/\s+/)
+              .filter((w) => w.length > 0).length;
+          }
+          // refs don't count as words
+        }
+
+        // Stop if adding this paragraph would exceed word limit
+        if (totalWords + paragraphWords > maxWords) break;
+
         renderContent.push({
           type: "paragraph",
           html: renderTokensToHtml(item.tokens, slug),
         });
-        paragraphCount++;
-        if (paragraphCount >= maxParagraphs) break;
+        totalWords += paragraphWords;
       }
     }
-    if (paragraphCount >= maxParagraphs) break;
+    if (totalWords >= maxWords) break;
   }
 
   const contentHtml = renderContent
@@ -188,9 +221,9 @@ async function generateThumbnail(slug: string, content: string) {
     .join("");
 
   const markup = html(
-    `<div style="display: flex; width: 1200px; height: 675px; background-color: #141517; position: relative; overflow: hidden;"><div style="display: flex; position: absolute; top: 90px; left: 56px; width: 1088px; height: 721px; background-color: #2a2a2e; border: 2px solid #3c3f4a; border-radius: 64px;"></div><div style="display: flex; flex-direction: column; position: absolute; top: 180px; left: 120px; width: 960px;"><div style="display: flex; color: #aaf4e9; font-family: 'Euclid Square'; font-weight: bold; font-size: 85px; line-height: 95px; margin-bottom: 64px;">${decodeHtmlEntities(
+    `<div style="display: flex; width: 1200px; height: 675px; background-color: #141517; position: relative; overflow: hidden;"><div style="display: flex; position: absolute; top: 120px; left: 56px; width: 1088px; height: 721px; background-color: #2a2a2e; border: 2px solid #353842; border-radius: 64px;"></div><div style="display: flex; flex-direction: column; position: absolute; top: 210px; left: 120px; width: 960px;"><div style="display: flex; color: #aaf4e9; font-family: 'Euclid Square'; font-weight: bold; font-size: 85px; line-height: 95px; margin-bottom: 64px;">${decodeHtmlEntities(
       title
-    )}</div><div style="display: flex; width: 100%; height: 2px; background-color: #464646; border-radius: 1px; margin-bottom: 64px;"></div><div style="display: flex; flex-direction: column; gap: 12px;">${contentHtml}</div></div><div style="display: flex; position: absolute; top: 498px; left: 83px; width: 1033px; height: 182px; background: linear-gradient(to bottom, rgba(42, 42, 46, 0) 0%, #2a2a2e 100%); pointer-events: none;"></div></div>`
+    )}</div><div style="display: flex; width: 100%; height: 2px; background-color: #464646; border-radius: 1px; margin-bottom: 64px;"></div><div style="display: flex; flex-direction: column; gap: 12px;">${contentHtml}</div></div><div style="display: flex; position: absolute; top: 528px; left: 83px; width: 1033px; height: 182px; background: linear-gradient(to bottom, rgba(42, 42, 46, 0) 0%, #2a2a2e 100%); pointer-events: none;"></div></div>`
   );
 
   const svg = await satori(markup, {
