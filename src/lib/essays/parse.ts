@@ -669,20 +669,13 @@ function tokenizeAndParseParagraph(
     // Process the code block
     const codeText = codeMatch.code;
     const audioFile = audioConfig?.[codeText];
-    if (audioFile) {
-      // Create code token with audio
-      tokens.push({
-        type: "code",
-        code: codeText,
-        audio: audioFile,
-      });
-    } else {
-      // No audio match, include as regular text (marked will handle it)
-      tokens.push({
-        type: "text",
-        text: marked.parseInline(`\`${codeText}\``) as string,
-      });
-    }
+
+    // Always create code token - audio will be undefined if no match, which triggers copy button
+    tokens.push({
+      type: "code",
+      code: codeText,
+      audio: audioFile,
+    });
 
     lastIndex = codeMatch.end;
   }
