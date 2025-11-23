@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
+  import { fade } from "svelte/transition";
   import Icon from "./Icon.svelte";
 
   export let code: string;
@@ -27,6 +28,9 @@
   let isCopied = false;
   let toastTimeout: ReturnType<typeof setTimeout> | null = null;
   let copyIconTimeout: ReturnType<typeof setTimeout> | null = null;
+  let activeIcon: "copy" | "check" = "copy";
+  let showIcon = true;
+  let pendingIcon: "copy" | "check" | null = null;
 
   function handleCopy() {
     navigator.clipboard.writeText(code).then(() => {
@@ -56,6 +60,24 @@
     }).catch((error) => {
       console.error("Failed to copy code:", error);
     });
+  }
+
+  $: {
+    const targetIcon = isCopied ? "check" : "copy";
+    if (targetIcon !== activeIcon) {
+      pendingIcon = targetIcon;
+      if (showIcon) {
+        showIcon = false;
+      }
+    }
+  }
+
+  function handleIconOutroEnd() {
+    if (pendingIcon) {
+      activeIcon = pendingIcon;
+      pendingIcon = null;
+      showIcon = true;
+    }
   }
 
   function handlePlay() {
@@ -188,9 +210,16 @@
       aria-label={isCopied ? "Copied" : "Copy code"}
       type="button"
     >
-      {#key isCopied}
-        <Icon name={isCopied ? "check" : "copy"} size="14px" />
-      {/key}
+      {#if showIcon}
+        <span
+          class="icon-transition"
+          on:outroend={handleIconOutroEnd}
+          out:fade={{ duration: 100 }}
+          in:fade={{ duration: 100 }}
+        >
+          <Icon name={activeIcon} size="14px" />
+        </span>
+      {/if}
     </button>
   {/if}
 </span>
@@ -352,6 +381,10 @@
 
   .copy-button :global(svg) {
     @apply w-full h-full;
+  }
+
+  .icon-transition {
+    @apply inline-flex items-center justify-center;
   }
 
   .toast-animate {
