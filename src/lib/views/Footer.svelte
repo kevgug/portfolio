@@ -43,6 +43,13 @@
       <Icon name="email" class="h-4 w-4 lg:h-5 lg:w-5" />
     </a>
     <a
+      href="https://x.com/kevingugelmann"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Icon name="x" class="h-4 w-4 lg:h-5 lg:w-5" />
+    </a>
+    <a
       href="https://www.linkedin.com/in/kevingugelmann"
       target="_blank"
       rel="noreferrer"
