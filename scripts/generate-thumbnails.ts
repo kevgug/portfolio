@@ -221,7 +221,7 @@ async function generateThumbnail(slug: string, content: string) {
     .join("");
 
   const markup = html(
-    `<div style="display: flex; width: 1200px; height: 675px; background-color: #141517; position: relative; overflow: hidden;"><div style="display: flex; position: absolute; top: 120px; left: 56px; width: 1088px; height: 721px; background-color: #2a2a2e; border: 2px solid #353842; border-radius: 64px;"></div><div style="display: flex; flex-direction: column; position: absolute; top: 210px; left: 120px; width: 960px;"><div style="display: flex; color: #aaf4e9; font-family: 'Euclid Square'; font-weight: bold; font-size: 85px; line-height: 95px; margin-bottom: 64px;">${decodeHtmlEntities(
+    `<div style="display: flex; width: 1200px; height: 675px; background-color: #141517; position: relative; overflow: hidden;"><div style="display: flex; position: absolute; top: 120px; left: 56px; width: 1088px; height: 721px; background-color: #2a2a2e; border: 2px solid #353842; border-radius: 16px;"></div><div style="display: flex; flex-direction: column; position: absolute; top: 200px; left: 120px; width: 960px;"><div style="display: flex; color: #aaf4e9; font-family: 'Euclid Square'; font-weight: bold; font-size: 85px; line-height: 95px; margin-bottom: 64px;">${decodeHtmlEntities(
       title
     )}</div><div style="display: flex; width: 100%; height: 2px; background-color: #464646; border-radius: 1px; margin-bottom: 64px;"></div><div style="display: flex; flex-direction: column; gap: 12px;">${contentHtml}</div></div><div style="display: flex; position: absolute; top: 528px; left: 83px; width: 1033px; height: 182px; background: linear-gradient(to bottom, rgba(42, 42, 46, 0) 0%, #2a2a2e 100%); pointer-events: none;"></div></div>`
   );
