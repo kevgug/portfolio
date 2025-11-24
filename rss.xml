@@ -4,8 +4,8 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Nov 2025 22:54:19 GMT</lastBuildDate>
-    <dc:date>2025-11-23T22:54:19.484Z</dc:date>
+    <lastBuildDate>Mon, 24 Nov 2025 02:26:20 GMT</lastBuildDate>
+    <dc:date>2025-11-24T02:26:20.942Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
@@ -66,7 +66,7 @@
 <ul>
 <li>Thinking it&#39;s a pull door based on the handle but it&#39;s actually a push door.</li>
 <li>Waving your hand under an automatic tap and the initial pressure is so high that water sprays over you, enough to make it look like you arrived late to the bathroom.</li>
-<li>Pressing stop on an empty microwave with <code>00:05</code> flashing because the last person who used it took their food out five seconds early.</li>
+<li>Pressing stop on an empty microwave with &quot;00:05&quot; flashing because the last person who used it took their food out five seconds early.</li>
 </ul>
 <p>They&#39;re all problems that are frequent enough to be design issues rather than user issues. But I currently lack the expertise in door handles, plumbing, and microwave design to do anything about such problems. So the best thing I can do is to let them go, at least for now. I&#39;ll stay an optimist for problems that can be solved with software.</p>
 <p id="note-8">[8] If the operating system is the world, then applications are the environments. But even worlds are different meta-environments that set the tone for applications it runs: we operate differently when running the same apps on a watch versus a phone versus a tablet versus a laptop versus a desktop versus a headset and so on. This is analogous to living in different places in the physical world.</p>

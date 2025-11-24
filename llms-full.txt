@@ -291,7 +291,7 @@ As for first principles thinking, I discovered [impact mapping](https://www.impa
 
 - Thinking it's a pull door based on the handle but it's actually a push door.
 - Waving your hand under an automatic tap and the initial pressure is so high that water sprays over you, enough to make it look like you arrived late to the bathroom.
-- Pressing stop on an empty microwave with `00:05` flashing because the last person who used it took their food out five seconds early.
+- Pressing stop on an empty microwave with "00:05" flashing because the last person who used it took their food out five seconds early.
 
 They're all problems that are frequent enough to be design issues rather than user issues. But I currently lack the expertise in door handles, plumbing, and microwave design to do anything about such problems. So the best thing I can do is to let them go, at least for now. I'll stay an optimist for problems that can be solved with software.
 
