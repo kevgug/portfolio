@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from "svelte";
   import ChevronMorph from "$lib/components/ChevronMorph.svelte";
   import Icon, { type IconName } from "$lib/components/Icon.svelte";
-  import { expoIn, expoOut } from "svelte/easing";
+  import { expoIn, expoOut, cubicOut, cubicIn } from "svelte/easing";
   import type { EasingFunction } from "svelte/transition";
 
   interface DropdownItem {
@@ -23,6 +23,78 @@
   let menuEl: HTMLDivElement | null = null;
   let menuTop = 0;
   let menuRight = 0;
+  
+  // Track transition direction for horizontal slide
+  let prevIndex = selectedIndex;
+  let slideDirection: 'left' | 'right' = 'left';
+  
+  // Width animation
+  let labelContainerEl: HTMLDivElement | null = null;
+  let currentWidth: number | null = null;
+  
+  $: {
+    if (selectedIndex !== prevIndex) {
+      slideDirection = selectedIndex > prevIndex ? 'left' : 'right';
+      prevIndex = selectedIndex;
+    }
+  }
+  
+  // Measure and animate width when selection changes
+  function measureAndAnimateWidth(node: Element) {
+    // Measure immediately after mount
+    requestAnimationFrame(() => {
+      const rect = node.getBoundingClientRect();
+      // Add space for chevron (18px) + gap (8px)
+      const chevronSpace = 26;
+      const width = rect.width + chevronSpace;
+      
+      if (currentWidth !== null && labelContainerEl) {
+        // Animate from old width to new width
+        labelContainerEl.style.width = `${currentWidth}px`;
+        requestAnimationFrame(() => {
+          if (labelContainerEl) {
+            labelContainerEl.style.width = `${width}px`;
+          }
+        });
+      } else if (labelContainerEl) {
+        labelContainerEl.style.width = `${width}px`;
+      }
+      currentWidth = width;
+    });
+  }
+
+  // Horizontal blur fade transition
+  function blurSlideIn(node: Element, { duration = 250, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+    const xOffset = direction === 'left' ? 12 : -12;
+    return {
+      duration,
+      css: (t: number) => {
+        const eased = cubicOut(t);
+        return `
+          opacity: ${eased};
+          filter: blur(${(1 - eased) * 4}px);
+          transform: translateX(${(1 - eased) * xOffset}px);
+        `;
+      }
+    };
+  }
+
+  function blurSlideOut(node: Element, { duration = 200, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+    const xOffset = direction === 'left' ? -12 : 12;
+    return {
+      duration,
+      css: (t: number) => {
+        const eased = cubicIn(1 - t);
+        return `
+          position: absolute;
+          left: 0;
+          opacity: ${t};
+          filter: blur(${eased * 4}px);
+          transform: translateX(${eased * xOffset}px);
+        `;
+      }
+    };
+  }
 
   function updateMenuPosition() {
     if (!rootEl) return;
@@ -179,22 +251,31 @@
     aria-expanded={open}
     on:click={toggleOpen}
   >
-    <div class="dropdown-label-wrapper self-center">
-      {#if items[selectedIndex]?.icon}
-        <span 
-          class="dropdown-icon"
-          style="transform: translateY({items[selectedIndex]?.iconOffsetY ?? '0px'});"
+    <div class="dropdown-label-container" bind:this={labelContainerEl}>
+      {#key selectedIndex}
+        <div 
+          class="dropdown-label-wrapper"
+          use:measureAndAnimateWidth
+          in:blurSlideIn={{ duration: 250, direction: slideDirection }}
+          out:blurSlideOut={{ duration: 200, direction: slideDirection }}
         >
-          <Icon 
-            name={getIconName(items[selectedIndex])} 
-            size="14px" 
-            class="shrink-0" 
-          />
-        </span>
-      {/if}
-      <span class="dropdown-label"
-        >{items[selectedIndex]?.label ?? placeholder}</span
-      >
+          {#if items[selectedIndex]?.icon}
+            <span 
+              class="dropdown-icon"
+              style="transform: translateY({items[selectedIndex]?.iconOffsetY ?? '0px'});"
+            >
+              <Icon 
+                name={getIconName(items[selectedIndex])} 
+                size="14px" 
+                class="shrink-0" 
+              />
+            </span>
+          {/if}
+          <span class="dropdown-label"
+            >{items[selectedIndex]?.label ?? placeholder}</span
+          >
+        </div>
+      {/key}
     </div>
     <span class="chevron-wrapper">
       <ChevronMorph {open} size="18px" />
@@ -238,7 +319,7 @@
   }
 
   .dropdown-trigger {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 backdrop-blur-md transition-colors;
+    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 backdrop-blur-md transition-colors;
     background: color-mix(in oklab, rgb(255 255 255 / 22%), transparent);
   }
 
@@ -246,8 +327,16 @@
     background: color-mix(in oklab, rgb(255 255 255 / 28%), transparent);
   }
 
+  .dropdown-label-container {
+    @apply relative flex items-center overflow-hidden pr-[26px];
+    transition: width 250ms cubic-bezier(0.33, 1, 0.68, 1);
+    /* Fade out content in the chevron area */
+    mask-image: linear-gradient(to right, black calc(100% - 26px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 26px), transparent 100%);
+  }
+
   .dropdown-label-wrapper {
-    @apply flex items-center gap-1.5 self-center;
+    @apply flex items-center gap-1.5 self-center will-change-transform;
   }
 
   .dropdown-icon {
@@ -264,7 +353,7 @@
   }
 
   .chevron-wrapper {
-    @apply inline-flex items-center text-white/80;
+    @apply absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center text-white/80 pointer-events-none;
   }
 
   .dropdown-menu {
@@ -307,6 +396,6 @@
     @apply text-sm;
   }
   .dropdown-root.is-subtle .chevron-wrapper {
-    @apply text-white/70;
+    @apply text-white/70 right-3;
   }
 </style>
