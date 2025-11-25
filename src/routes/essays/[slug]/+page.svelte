@@ -468,7 +468,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     padding-left: 2.5rem;
   }
 
-  /* Custom circular number indicator */
+  /* Custom circular number indicator - vertically centered with first line of text */
   article :global(.ordered-list li::before) {
     content: counter(list-counter) !important;
     display: flex !important;
@@ -482,12 +482,21 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     font-size: 0.875rem !important;
     font-weight: 500 !important;
     left: 0 !important;
-    top: 0 !important;
-    margin-top: -0.1rem !important;
+    /* Center circle (1.75rem) with first line of text at each breakpoint */
+    /* Formula: top = (line-height / 2) - (circle-height / 2) */
+    /* Mobile (text-sm 0.9rem, ~1.35rem line-height): (1.35 - 1.75) / 2 = -0.2rem */
+    top: -0.2rem !important;
     font-family: "Euclid Square", sans-serif !important;
     color: #F2F2F2 !important;
     opacity: 1 !important;
     line-height: 1 !important;
+  }
+
+  /* md+: text-base 1rem, ~1.5rem line-height: (1.5 - 1.75) / 2 = -0.125rem */
+  @media (min-width: 768px) {
+    article :global(.ordered-list li::before) {
+      top: -0.125rem !important;
+    }
   }
 
   /* Link styling in notes section to match blockquote citation links */
