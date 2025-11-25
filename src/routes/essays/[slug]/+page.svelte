@@ -250,7 +250,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
             {#if contentItem.type === "blockquote"}
             <div class="w-full max-w-screen-md mx-auto">
               <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                <MarkdownBlockquote tokens={contentItem.tokens} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
+                <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
               </div>
             </div>
             {:else if contentItem.type === "image"}
@@ -410,10 +410,62 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
           {/if}
 
           {#if post.contributionNote}
-            <div
-              class="mt-6 font-serif text-sm md:text-base text-muted-text-grey"
-            >
-              {@html post.contributionNote}
+            <div class="space-y-4" class:mt-6={!Object.keys(post.footnotes).length} class:mt-12={Object.keys(post.footnotes).length} class:md:mt-14={Object.keys(post.footnotes).length}>
+              {#each post.contributionNote as contentItem}
+                {#if contentItem.type === "blockquote"}
+                  <div class="w-full max-w-screen-md mx-auto">
+                    <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
+                      <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
+                    </div>
+                  </div>
+                {:else if contentItem.type === "image"}
+                  <MarkdownImage
+                    slug={slug}
+                    path={contentItem.path}
+                    alt={contentItem.alt}
+                    caption={contentItem.caption}
+                  />
+                {:else if contentItem.type === "table"}
+                  <MarkdownTable
+                    headers={contentItem.headers}
+                    rows={contentItem.rows}
+                  />
+                {:else}
+                  <div class="space-y-4 max-w-screen-md mx-auto">
+                    {#if contentItem.type === "paragraph"}
+                      <MarkdownParagraph tokens={contentItem.tokens} slug={slug} />
+                    {:else if contentItem.type === "code"}
+                      <MarkdownCodeBlock
+                        lang={contentItem.lang}
+                        code={contentItem.code}
+                      />
+                    {:else if contentItem.type === "latex"}
+                      <MarkdownLatexBlock
+                        latex={contentItem.latex}
+                        footnoteRef={contentItem.footnoteRef}
+                      />
+                    {:else if contentItem.type === "list"}
+                      {#if contentItem.ordered}
+                        <ol
+                          class="ordered-list space-y-4 font-serif text-description-text-grey my-6"
+                        >
+                          {#each contentItem.items as itemTokens}
+                            <MarkdownListItem tokens={itemTokens} slug={slug} />
+                          {/each}
+                        </ol>
+                      {:else}
+                        <ul
+                          class="list-disc pl-5 space-y-2 font-serif text-description-text-grey my-6"
+                        >
+                          {#each contentItem.items as itemTokens}
+                            <MarkdownListItem tokens={itemTokens} slug={slug} />
+                          {/each}
+                        </ul>
+                      {/if}
+                    {/if}
+                  </div>
+                {/if}
+              {/each}
             </div>
           {/if}
         </div>

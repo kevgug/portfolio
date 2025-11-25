@@ -8,18 +8,32 @@
   } from "$lib/util/reliableScroll";
 
   export let tokens: ParagraphToken[];
+  export let paragraphs: ParagraphToken[][] | undefined = undefined;
   export let multiline: boolean = false;
   export let endsWithBreak: boolean = false;
   export let citation: string | undefined = undefined;
 
   let blockquoteEl: HTMLElement;
   let paragraphEl: HTMLElement;
+  let paragraphsContainerEl: HTMLElement;
   let citationEl: HTMLElement;
   let hasAnimated = false;
   
-  // Find the first footnote reference number for the ID
+  // Find the first footnote reference number for the ID (check paragraphs first, then tokens)
   let firstRefNum: string | undefined;
-  $: firstRefNum = (tokens.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined)?.num;
+  $: {
+    if (paragraphs) {
+      for (const para of paragraphs) {
+        const ref = para.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined;
+        if (ref) {
+          firstRefNum = ref.num;
+          break;
+        }
+      }
+    } else {
+      firstRefNum = (tokens.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined)?.num;
+    }
+  }
 
   async function onClickRef(num: string) {
     const totalOffset = getResponsiveOffset({ spacing: "lg" });
@@ -128,29 +142,54 @@
   }
 
   onMount(() => {
-    // Convert tokens to HTML
-    const htmlText = tokensToHtml(tokens);
-    
-    // Replace paragraph content with word-wrapped version
-    const wrappedHtml = wrapWordsInSpans(htmlText);
-    paragraphEl.innerHTML = wrappedHtml;
+    let animationTargets: NodeListOf<Element>;
 
-    // Add event listeners to footnote reference buttons
-    const footnoteRefs = paragraphEl.querySelectorAll(".footnote-ref");
-    footnoteRefs.forEach((ref) => {
-      const num = ref.getAttribute("data-ref");
-      if (num) {
-        ref.addEventListener("click", () => {
-          onClickRef(num);
-        });
-      }
-    });
+    if (multiline && paragraphs && paragraphsContainerEl) {
+      // For multiline: render each paragraph as a separate span
+      paragraphs.forEach((paraTokens) => {
+        const span = document.createElement("span");
+        span.className = "paragraph-anim block";
+        const htmlText = tokensToHtml(paraTokens);
+        span.innerHTML = htmlText;
+        paragraphsContainerEl.appendChild(span);
+      });
 
-    // Get all word spans
-    const words = paragraphEl.querySelectorAll(".word-anim");
+      // Add event listeners to footnote reference buttons
+      const footnoteRefs = paragraphsContainerEl.querySelectorAll(".footnote-ref");
+      footnoteRefs.forEach((ref) => {
+        const num = ref.getAttribute("data-ref");
+        if (num) {
+          ref.addEventListener("click", () => {
+            onClickRef(num);
+          });
+        }
+      });
+
+      // Get all paragraph spans for animation
+      animationTargets = paragraphsContainerEl.querySelectorAll(".paragraph-anim");
+    } else {
+      // For single line: wrap each word in spans
+      const htmlText = tokensToHtml(tokens);
+      const wrappedHtml = wrapWordsInSpans(htmlText);
+      paragraphEl.innerHTML = wrappedHtml;
+
+      // Add event listeners to footnote reference buttons
+      const footnoteRefs = paragraphEl.querySelectorAll(".footnote-ref");
+      footnoteRefs.forEach((ref) => {
+        const num = ref.getAttribute("data-ref");
+        if (num) {
+          ref.addEventListener("click", () => {
+            onClickRef(num);
+          });
+        }
+      });
+
+      // Get all word spans
+      animationTargets = paragraphEl.querySelectorAll(".word-anim");
+    }
 
     // Set initial state for animation
-    gsap.set(words, {
+    gsap.set(animationTargets, {
       opacity: 0,
       y: 10,
     });
@@ -169,7 +208,7 @@
 
     if (shouldShowImmediately) {
       // Already visible or above viewport, show immediately without animation
-      gsap.set(words, {
+      gsap.set(animationTargets, {
         opacity: 1,
         y: 0,
       });
@@ -189,14 +228,14 @@
             if (entry.isIntersecting && !hasAnimated) {
               hasAnimated = true;
 
-              // Animate words with stagger
-              gsap.to(words, {
+              // Animate with stagger
+              gsap.to(animationTargets, {
                 opacity: 1,
                 y: 0,
-                duration: multiline ? 1.2 : 0.35,
-                stagger: multiline ? 0 : 0.09, // 90ms stagger delay
+                duration: multiline ? 0.8 : 0.35,
+                stagger: multiline ? 0.15 : 0.09, // Stagger paragraphs or words
                 ease: "power2.out",
-                delay: multiline ? 0.2 : 0.1,
+                delay: multiline ? 0.1 : 0.1,
                 onComplete: () => {
                   // Animate citation after quote animation completes
                   if (citationEl) {
@@ -246,19 +285,23 @@
   class:md:!mt-3={multiline && endsWithBreak}
   class:py-3.5={!multiline}
   class:md:py-4={!multiline}
-  class:py-2={multiline}
-  class:md:py-2.5={multiline}
+  class:py-[1.2rem]={multiline}
 >
-  <p
-    bind:this={paragraphEl}
-    class="font-serif text-white"
-    class:font-semibold={!multiline}
-    class:text-3xl={!multiline}
-    class:md:text-4xl={!multiline}
-    class:leading-tight={!multiline}
-  >
-    <!-- Content will be populated by onMount -->
-  </p>
+  {#if multiline && paragraphs}
+    <div
+      bind:this={paragraphsContainerEl}
+      class="space-y-4 font-serif text-white"
+    >
+      <!-- Paragraphs will be populated by onMount -->
+    </div>
+  {:else}
+    <p
+      bind:this={paragraphEl}
+      class="font-serif text-white font-semibold text-3xl md:text-4xl leading-tight"
+    >
+      <!-- Content will be populated by onMount -->
+    </p>
+  {/if}
   {#if citation}
     <cite
       bind:this={citationEl}

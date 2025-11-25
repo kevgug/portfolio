@@ -11,6 +11,7 @@ export type BlogSectionContent =
   | {
       type: "blockquote";
       tokens: ParagraphToken[];
+      paragraphs?: ParagraphToken[][]; // For multiline: array of paragraphs, each paragraph is an array of tokens
       multiline?: boolean;
       endsWithBreak?: boolean;
       citation?: string;
@@ -29,7 +30,7 @@ export interface ParsedBlogPost {
   date: string;
   sections: BlogSection[];
   footnotes: BlogFootnotesMap;
-  contributionNote?: string;
+  contributionNote?: BlogSectionContent[];
   audioConfig?: { [code: string]: string };
 }
 
@@ -201,28 +202,44 @@ export function parseMarkdown(
         contentLines = [""]; // Add an empty line so we have something to render
       }
 
+      // Filter out empty lines and check for multiline patterns
+      const nonEmptyLines = contentLines.filter((line) => line.trim() !== "");
+      const hasMultipleNonEmptyLines = nonEmptyLines.length > 1;
+
       // Check if any line ends with backslash (line break indicator)
       const hasLineBreaks = contentLines.some((line) => line.endsWith("\\"));
 
       let text: string;
       let isMultiline: boolean;
       let endsWithBreak = false;
+      let paragraphs: ParagraphToken[][] | undefined;
 
-      if (hasLineBreaks) {
-        // Check if the last line ends with backslash
-        const lastLine = contentLines[contentLines.length - 1];
-        endsWithBreak = lastLine ? lastLine.endsWith("\\") : false;
+      // Multiline if: has backslashes OR has multiple non-empty lines
+      if (hasLineBreaks || hasMultipleNonEmptyLines) {
+        // Check if the last non-empty line ends with backslash
+        const lastNonEmptyLine = nonEmptyLines[nonEmptyLines.length - 1];
+        endsWithBreak = lastNonEmptyLine
+          ? lastNonEmptyLine.endsWith("\\")
+          : false;
 
-        // Preserve line breaks: join with <br> tag
-        text = contentLines
+        // Create array of paragraph tokens (one per line/paragraph)
+        paragraphs = nonEmptyLines.map((line) => {
+          // Remove trailing backslash if present
+          const cleanLine = line.endsWith("\\")
+            ? line.slice(0, -1).trim()
+            : line.trim();
+          return tokenizeAndParseParagraph(cleanLine, audioConfig);
+        });
+
+        // For backwards compatibility, also create a combined text
+        text = nonEmptyLines
           .map((line) => {
-            // Remove trailing backslash if present
             const cleanLine = line.endsWith("\\")
               ? line.slice(0, -1).trim()
               : line.trim();
             return cleanLine;
           })
-          .join("<br>")
+          .join(" ")
           .trim();
         isMultiline = true;
       } else {
@@ -237,6 +254,7 @@ export function parseMarkdown(
       const blockquoteContent: BlogSectionContent = {
         type: "blockquote",
         tokens: tokens,
+        ...(paragraphs && { paragraphs }),
         multiline: isMultiline,
         endsWithBreak: endsWithBreak,
         ...(citation && { citation }),
@@ -435,7 +453,7 @@ export function parseMarkdown(
       // If in contribution note mode, accumulate all text
       if (inContributionNote) {
         if (contributionNote) contributionNote += "\n";
-        contributionNote += line;
+        contributionNote += raw; // Use raw to preserve original formatting
         continue;
       }
 
@@ -595,14 +613,19 @@ export function parseMarkdown(
     });
   }
 
+  const parsedContributionNote = contributionNote
+    ? parseMarkdownContent(contributionNote, audioConfig)
+    : undefined;
+
   return {
     title: finalTitle,
     date: finalDate,
     sections,
     footnotes,
-    contributionNote: contributionNote
-      ? (marked.parse(contributionNote) as string)
-      : undefined,
+    contributionNote:
+      parsedContributionNote && parsedContributionNote.length > 0
+        ? parsedContributionNote
+        : undefined,
     audioConfig,
   };
 }
@@ -737,6 +760,358 @@ function processTextSegment(text: string): ParagraphToken[] {
   }
 
   return tokens;
+}
+
+function parseMarkdownContent(
+  content: string,
+  audioConfig?: { [code: string]: string }
+): BlogSectionContent[] {
+  const lines = content.split(/\r?\n/);
+  const result: BlogSectionContent[] = [];
+
+  let paragraphBuffer: string[] = [];
+  let inCodeBlock = false;
+  let codeBlockLang = "";
+  let codeBlockBuffer: string[] = [];
+  let inLatexBlock = false;
+  let latexBlockBuffer: string[] = [];
+  let inList = false;
+  let listBuffer: string[] = [];
+  let isOrderedList = false;
+  let inBlockquote = false;
+  let blockquoteBuffer: string[] = [];
+  let inTable = false;
+  let tableBuffer: string[] = [];
+
+  const flushParagraph = () => {
+    if (paragraphBuffer.length > 0) {
+      const hasLineBreaks = paragraphBuffer.some((line) => line.endsWith("\\"));
+      let text: string;
+
+      if (hasLineBreaks) {
+        text = paragraphBuffer
+          .map((line) => {
+            const cleanLine = line.endsWith("\\")
+              ? line.slice(0, -1).trim()
+              : line.trim();
+            return cleanLine;
+          })
+          .join("<br>")
+          .trim();
+      } else {
+        text = paragraphBuffer.join(" ").trim();
+      }
+
+      if (text) {
+        result.push({
+          type: "paragraph",
+          tokens: tokenizeAndParseParagraph(text, audioConfig),
+        });
+      }
+    }
+    paragraphBuffer = [];
+  };
+
+  const flushList = () => {
+    if (listBuffer.length > 0) {
+      result.push({
+        type: "list",
+        ordered: isOrderedList,
+        items: listBuffer.map((item) =>
+          tokenizeAndParseParagraph(item, audioConfig)
+        ),
+      });
+    }
+    listBuffer = [];
+    inList = false;
+    isOrderedList = false;
+  };
+
+  const flushBlockquote = () => {
+    if (blockquoteBuffer.length > 0) {
+      let citation: string | undefined;
+      let contentLines = [...blockquoteBuffer];
+
+      for (let i = contentLines.length - 1; i >= 0; i--) {
+        const line = contentLines[i].trim();
+        if (line) {
+          if (line.startsWith("- ")) {
+            citation = marked.parseInline(line.substring(2).trim()) as string;
+            contentLines = contentLines.slice(0, i);
+          }
+          break;
+        }
+      }
+
+      if (contentLines.length === 0 && citation) {
+        contentLines = [""];
+      }
+
+      // Filter out empty lines and check for multiline patterns
+      const nonEmptyLines = contentLines.filter((line) => line.trim() !== "");
+      const hasMultipleNonEmptyLines = nonEmptyLines.length > 1;
+
+      // Check if any line ends with backslash (line break indicator)
+      const hasLineBreaks = contentLines.some((line) => line.endsWith("\\"));
+
+      let text: string;
+      let isMultiline: boolean;
+      let endsWithBreak = false;
+      let paragraphs: ParagraphToken[][] | undefined;
+
+      // Multiline if: has backslashes OR has multiple non-empty lines
+      if (hasLineBreaks || hasMultipleNonEmptyLines) {
+        // Check if the last non-empty line ends with backslash
+        const lastNonEmptyLine = nonEmptyLines[nonEmptyLines.length - 1];
+        endsWithBreak = lastNonEmptyLine
+          ? lastNonEmptyLine.endsWith("\\")
+          : false;
+
+        // Create array of paragraph tokens (one per line/paragraph)
+        paragraphs = nonEmptyLines.map((line) => {
+          const cleanLine = line.endsWith("\\")
+            ? line.slice(0, -1).trim()
+            : line.trim();
+          return tokenizeAndParseParagraph(cleanLine, audioConfig);
+        });
+
+        // For backwards compatibility, also create a combined text
+        text = nonEmptyLines
+          .map((line) => {
+            const cleanLine = line.endsWith("\\")
+              ? line.slice(0, -1).trim()
+              : line.trim();
+            return cleanLine;
+          })
+          .join(" ")
+          .trim();
+        isMultiline = true;
+      } else {
+        text = contentLines.join(" ").trim();
+        isMultiline = false;
+      }
+
+      const tokens = tokenizeAndParseParagraph(text, audioConfig);
+
+      result.push({
+        type: "blockquote",
+        tokens: tokens,
+        ...(paragraphs && { paragraphs }),
+        multiline: isMultiline,
+        endsWithBreak: endsWithBreak,
+        ...(citation && { citation }),
+      });
+    }
+    blockquoteBuffer = [];
+    inBlockquote = false;
+  };
+
+  const flushTable = () => {
+    if (tableBuffer.length >= 3) {
+      const parseCells = (line: string): string[] => {
+        const cells = line.split("|").map((cell) => cell.trim());
+        if (cells[0] === "") cells.shift();
+        if (cells.length > 0 && cells[cells.length - 1] === "") cells.pop();
+        return cells;
+      };
+
+      const headers = parseCells(tableBuffer[0]);
+      const rows = tableBuffer.slice(2).map((row) => parseCells(row));
+
+      result.push({
+        type: "table",
+        headers: headers,
+        rows: rows,
+      });
+    }
+    tableBuffer = [];
+    inTable = false;
+  };
+
+  for (let idx = 0; idx < lines.length; idx++) {
+    const raw = lines[idx] ?? "";
+    const line = raw.replace(/\t/g, "    ");
+
+    if (inCodeBlock) {
+      if (line.trim() === "```") {
+        result.push({
+          type: "code",
+          lang: codeBlockLang,
+          code: codeBlockBuffer.join("\n"),
+        });
+        inCodeBlock = false;
+        codeBlockBuffer = [];
+        codeBlockLang = "";
+      } else {
+        codeBlockBuffer.push(raw);
+      }
+      continue;
+    }
+
+    if (inLatexBlock) {
+      const latexEndMatch = line.trim().match(/^\$\$(?:\s*\[(\d+)\])?$/);
+      if (latexEndMatch) {
+        const footnoteRef = latexEndMatch[1];
+        const latexText = latexBlockBuffer.join("\n").replace(/\\_/g, "_");
+        result.push({
+          type: "latex",
+          latex: latexText,
+          ...(footnoteRef && { footnoteRef }),
+        });
+        inLatexBlock = false;
+        latexBlockBuffer = [];
+      } else {
+        latexBlockBuffer.push(line);
+      }
+      continue;
+    }
+
+    const codeBlockMatch = line.match(/^```(\w*)/);
+    if (codeBlockMatch) {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      flushTable();
+      inCodeBlock = true;
+      codeBlockLang = codeBlockMatch[1] || "";
+      continue;
+    }
+
+    if (line.trim() === "$$") {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      flushTable();
+      inLatexBlock = true;
+      continue;
+    }
+
+    const imageMatch = line.match(/^\s*!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (imageMatch) {
+      flushParagraph();
+      flushList();
+      flushBlockquote();
+      flushTable();
+
+      const altText = (imageMatch[1] || "").trim();
+      const path = (imageMatch[2] || "").trim();
+
+      let caption: string | undefined = undefined;
+      if (idx + 1 < lines.length) {
+        const nextLine = lines[idx + 1] ?? "";
+        const captionMatch = nextLine.match(/^\s*[*_](.+)[*_]\s*$/);
+        if (captionMatch) {
+          caption = (captionMatch[1] || "").trim();
+          idx++;
+        }
+      }
+
+      result.push({
+        type: "image",
+        path: path,
+        alt: altText || path,
+        caption: caption,
+      });
+
+      continue;
+    }
+
+    const unorderedListItemMatch = line.match(/^\s*(?:-|\*|\+)\s+(.*)/);
+    if (unorderedListItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+        isOrderedList = false;
+      }
+      listBuffer.push((unorderedListItemMatch[1] || "").trim());
+      continue;
+    }
+
+    const orderedListItemMatch = line.match(/^\s*\d+\.\s+(.*)/);
+    if (orderedListItemMatch) {
+      if (!inList) {
+        flushParagraph();
+        inList = true;
+        isOrderedList = true;
+      }
+      listBuffer.push((orderedListItemMatch[1] || "").trim());
+      continue;
+    }
+
+    const indentedLineMatch = line.match(/^\s{2,}(.*)/);
+    if (inList && indentedLineMatch && (indentedLineMatch[1] || "").trim()) {
+      if (listBuffer.length > 0) {
+        const lastItem = listBuffer[listBuffer.length - 1];
+        if (lastItem.endsWith("\\")) {
+          listBuffer[listBuffer.length - 1] =
+            lastItem.slice(0, -1).trim() +
+            "<br>" +
+            (indentedLineMatch[1] || "").trim();
+        } else {
+          listBuffer[listBuffer.length - 1] +=
+            " " + (indentedLineMatch[1] || "").trim();
+        }
+        continue;
+      }
+    }
+
+    if (inList) {
+      flushList();
+    }
+
+    const blockquoteMatch = line.match(/^>\s*(.*)$/);
+    if (blockquoteMatch) {
+      if (!inBlockquote) {
+        flushParagraph();
+        inBlockquote = true;
+      }
+      blockquoteBuffer.push((blockquoteMatch[1] || "").trim());
+      continue;
+    }
+
+    if (inBlockquote) {
+      flushBlockquote();
+    }
+
+    const tableLineMatch = line.match(/^\s*\|.*\|\s*$/);
+    if (tableLineMatch && idx + 1 < lines.length) {
+      const nextLine = lines[idx + 1] ?? "";
+      const isSeparator = /^\s*\|[\s\-:|]+\|\s*$/.test(nextLine);
+
+      if (isSeparator) {
+        if (!inTable) {
+          flushParagraph();
+          flushList();
+          inTable = true;
+        }
+        tableBuffer.push(line.trim());
+        continue;
+      }
+    }
+
+    if (inTable && tableLineMatch) {
+      tableBuffer.push(line.trim());
+      continue;
+    }
+
+    if (inTable) {
+      flushTable();
+    }
+
+    if (line.trim() === "") {
+      flushParagraph();
+      continue;
+    }
+
+    paragraphBuffer.push(line.trim());
+  }
+
+  flushParagraph();
+  flushList();
+  flushBlockquote();
+  flushTable();
+
+  return result;
 }
 
 function parseFootnoteContent(
