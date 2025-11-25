@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "node scripts/copy-essays-to-static.mjs && npm run gen:essays && npm run gen:llms && npm run gen:thumbnails && svelte-kit sync",
     "dev": "node scripts/watch-essays.mjs",
-    "dev:vite": "NODE_ENV=development npm run gen:essays && npm run gen:llms && npm run gen:thumbnails && tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
+    "dev:vite": "NODE_ENV=development npm run gen:essays && npm run gen:llms && (npm run gen:thumbnails &) && tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
     "build": "NODE_ENV=production npm run prepare && tailwind-theme-mirror --typescript --output ./src/lib && vite build && node scripts/post-build.mjs",
     "deploy": "touch build/.nojekyll && gh-pages -d build -t true",
     "preview": "vite preview",
