@@ -4,12 +4,12 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Nov 2025 21:31:49 GMT</lastBuildDate>
-    <dc:date>2025-11-25T21:31:49.789Z</dc:date>
+    <lastBuildDate>Wed, 26 Nov 2025 01:44:04 GMT</lastBuildDate>
+    <dc:date>2025-11-26T01:44:04.760Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
-            <title>Maxims of software</title>
+            <title>Maxims of good software</title>
             <link>https://kevingugelmann.com/essays/software-maxims</link>
             <description>I just read Obvious Adams , a short story about advertising, on my flight to Maine for Thanksgiving. The gist is that there&amp;#39;s value in stating the obvious. I built my first app over ten years ago, so I thought it would be interesting if I compiled my most obvious observations...</description>
             <content:encoded><![CDATA[<p>I just read <em>Obvious Adams</em>, a short story about advertising, on my flight to Maine for Thanksgiving. The gist is that there&#39;s value in stating the obvious. I built my first app over ten years ago, so I thought it would be interesting if I compiled my most obvious observations about software.</p>
@@ -61,6 +61,7 @@
 <p id="note-4">[4] Naturally, only do so in a safe manner, giving access to select functions and endpoints that are already accessible client-side. If a kid can invent their own toys and make larger sandcastles than ever, your sandbox needs higher walls than ever.</p>
 <p id="note-5">[5] Laziness can also be subsituted for &quot;energy efficient&quot; in the biological sense, depending on how you frame it.</p>
 <p id="note-6">[6] Scope ambiguity works well here—you can read it both ways. My main intention was, only listen to your users&#39; problems, unless you want to hear myopic solutions that are purely changes to existing software. After all, they&#39;re spending their time, resources, and effort elsewhere, so they have little to no capacity for first principles thinking in your chosen problem space.</p>
+<p><em><strong>Update (Nov 25, 2025)</strong>: I&#39;ve caught myself trying to be a little too smart here. You obviously want to listen to non-users too, especially if they fit your idea of an ideal user. My point was simply, when your users talk, listen to their problems rather than their proposed solutions. I never intended to say ignore the non-users. Unless you&#39;re competing with something I&#39;ve built ;)</em></p>
 <p>As for first principles thinking, I discovered <a href="https://www.impactmapping.org/">impact mapping</a> a few years ago. I think it&#39;s a brilliant planning technique in how it lays out the connections between assumptions and deliverables. If an assumption turns out to be false, you can visually trace the assumption down the tree to every now-invalidated deliverable.</p>
 <p id="note-7">[7] Think about how often yet forgettably you&#39;ve felt problems in your everyday life. Here are some examples that come to mind:</p>
 <ul>

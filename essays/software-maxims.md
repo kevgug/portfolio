@@ -1,5 +1,5 @@
 ---
-title: "Maxims of software"
+title: "Maxims of good software"
 date: "2025-11-23"
 publish: true
 ---
@@ -77,6 +77,8 @@ The solution is as obvious as my maxims and extends Maxim 1: **ideal software is
 [5] Laziness can also be subsituted for "energy efficient" in the biological sense, depending on how you frame it.
 
 [6] Scope ambiguity works well here—you can read it both ways. My main intention was, only listen to your users' problems, unless you want to hear myopic solutions that are purely changes to existing software. After all, they're spending their time, resources, and effort elsewhere, so they have little to no capacity for first principles thinking in your chosen problem space.
+
+_**Update (Nov 25, 2025)**: I've caught myself trying to be a little too smart here. You obviously want to listen to non-users too, especially if they fit your idea of an ideal user. My point was simply, when your users talk, listen to their problems rather than their proposed solutions. I never intended to say ignore the non-users. Unless you're competing with something I've built ;)_
 
 As for first principles thinking, I discovered [impact mapping](https://www.impactmapping.org/) a few years ago. I think it's a brilliant planning technique in how it lays out the connections between assumptions and deliverables. If an assumption turns out to be false, you can visually trace the assumption down the tree to every now-invalidated deliverable.
 
