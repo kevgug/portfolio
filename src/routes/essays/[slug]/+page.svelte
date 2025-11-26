@@ -16,6 +16,7 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
   import {
     setSubheaders,
     subheaders,
@@ -27,6 +28,9 @@
 
   export let data: PageData;
   $: ({ slug, post, publish } = data);
+  
+  // Only render when we're actually on this essay's route
+  $: isCurrentRoute = $page.url.pathname === `/essays/${slug}`;
 
   // Track which slug we've initialized for to prevent duplicate resets
   let lastInitializedSlug = '';
@@ -259,6 +263,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   <meta name="twitter:image" content={thumbnailUrl} />
 </svelte:head>
 
+{#if isCurrentRoute}
 <article bind:this={articleEl} class="py-8 md:py-12 w-full">
   <div>
     <header class="max-w-screen-md mx-auto">
@@ -514,6 +519,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     {/if}
   </div>
 </article>
+{/if}
 
 <style lang="postcss">
   article :global(pre) {
