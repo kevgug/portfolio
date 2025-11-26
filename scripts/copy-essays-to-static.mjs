@@ -18,16 +18,13 @@ const staticAssetsEssaysDir = path.resolve(
   "static/assets/essays",
 );
 
-// Clear and recreate directories to ensure clean state
-if (fs.existsSync(staticEssaysDir)) {
-  fs.rmSync(staticEssaysDir, { recursive: true, force: true });
+// Ensure directories exist (don't delete - sync incrementally instead)
+if (!fs.existsSync(staticEssaysDir)) {
+  fs.mkdirSync(staticEssaysDir, { recursive: true });
 }
-fs.mkdirSync(staticEssaysDir, { recursive: true });
-
-if (fs.existsSync(staticAssetsEssaysDir)) {
-  fs.rmSync(staticAssetsEssaysDir, { recursive: true, force: true });
+if (!fs.existsSync(staticAssetsEssaysDir)) {
+  fs.mkdirSync(staticAssetsEssaysDir, { recursive: true });
 }
-fs.mkdirSync(staticAssetsEssaysDir, { recursive: true });
 
 // Copy markdown files
 const isProduction = process.env.NODE_ENV === "production";
@@ -61,11 +58,39 @@ mdFiles.forEach((file) => {
 
 console.log(`\nCopied ${copiedCount} essays, skipped ${skippedCount}`);
 
-// Copy assets directory if it exists (1:1 copy)
+// Clean up stale markdown files (files in static that no longer exist in source)
+const expectedMdFiles = new Set(
+  mdFiles.filter((file) => {
+    if (!isProduction) return true;
+    const srcPath = path.join(essaysDir, file);
+    const fileContents = fs.readFileSync(srcPath, "utf8");
+    const { data } = matter(fileContents);
+    return data.publish !== false;
+  })
+);
+
+const existingStaticMdFiles = fs
+  .readdirSync(staticEssaysDir)
+  .filter((file) => file.endsWith(".md"));
+
+let removedCount = 0;
+for (const file of existingStaticMdFiles) {
+  if (!expectedMdFiles.has(file)) {
+    fs.unlinkSync(path.join(staticEssaysDir, file));
+    console.log(`  ✗ Removed stale: ${file}`);
+    removedCount++;
+  }
+}
+if (removedCount > 0) {
+  console.log(`Removed ${removedCount} stale essay(s)`);
+}
+
+// Sync assets directory if it exists (copy new/changed, remove stale)
 const assetsDir = path.join(essaysDir, "assets");
 if (fs.existsSync(assetsDir)) {
-  console.log("Copying essay assets...");
+  console.log("Syncing essay assets...");
 
+  // Copy files from source to destination
   const copyRecursive = (src, dest) => {
     const entries = fs.readdirSync(src, { withFileTypes: true });
 
@@ -84,9 +109,34 @@ if (fs.existsSync(assetsDir)) {
     }
   };
 
-  // Simple 1:1 recursive copy of the entire assets directory
+  // Remove stale files/directories from destination
+  const removeStale = (srcDir, destDir, basePath = "") => {
+    if (!fs.existsSync(destDir)) return;
+    
+    const destEntries = fs.readdirSync(destDir, { withFileTypes: true });
+    for (const entry of destEntries) {
+      const srcPath = path.join(srcDir, entry.name);
+      const destPath = path.join(destDir, entry.name);
+      
+      if (!fs.existsSync(srcPath)) {
+        // File/dir doesn't exist in source, remove it
+        if (entry.isDirectory()) {
+          fs.rmSync(destPath, { recursive: true, force: true });
+        } else {
+          fs.unlinkSync(destPath);
+        }
+        console.log(`  ✗ Removed stale asset: ${path.join(basePath, entry.name)}`);
+      } else if (entry.isDirectory()) {
+        // Recurse into subdirectories
+        removeStale(srcPath, destPath, path.join(basePath, entry.name));
+      }
+    }
+  };
+
+  // First remove stale files, then copy new/updated files
+  removeStale(assetsDir, staticAssetsEssaysDir);
   copyRecursive(assetsDir, staticAssetsEssaysDir);
-  console.log("  ✓ Assets copied");
+  console.log("  ✓ Assets synced");
 }
 
 console.log("\n✅ Essays copied to static/essays");
