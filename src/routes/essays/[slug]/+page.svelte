@@ -38,10 +38,6 @@
   // Reset stores when slug changes (before onMount)
   // This prevents showing the old essay's selected section during navigation
   $: if (slug && slug !== lastInitializedSlug) {
-    console.log('[PAGE] ========== LOADING ESSAY ==========');
-    console.log('[PAGE] Essay:', post.title);
-    console.log('[PAGE] Slug:', slug);
-    console.log('[PAGE] Clearing subheaders and resetting selectedIndex');
     lastInitializedSlug = slug;
     // Clear subheaders first so Dropdown shows placeholder during transition
     subheaders.set([]);
@@ -65,7 +61,6 @@
    */
   function updateSelection() {
     if ($scrollLock) {
-      console.log('[SCROLL] Blocked by scrollLock');
       return;
     }
 
@@ -80,23 +75,7 @@
       }
     }
     
-    // DEBUG: Log what we're setting
-    console.log('[SCROLL] Setting selectedIndex to:', nextIndex, 'of', sectionEls.length, 'sections');
-    console.log('[SCROLL] Current $subheaders:', $subheaders.map(s => s.label));
-    console.log('[SCROLL] Target label:', $subheaders[nextIndex]?.label ?? 'UNDEFINED');
-    
     selectedIndex.set(nextIndex);
-    
-    // DEBUG: Check if value persists after 100ms
-    const capturedIndex = nextIndex;
-    setTimeout(() => {
-      console.log('[SCROLL +100ms] selectedIndex store value:', $selectedIndex);
-      console.log('[SCROLL +100ms] Expected:', capturedIndex, '| Actual:', $selectedIndex);
-      console.log('[SCROLL +100ms] $subheaders length:', $subheaders.length);
-      if ($selectedIndex !== capturedIndex) {
-        console.warn('[SCROLL +100ms] ⚠️ INDEX WAS OVERRIDDEN!');
-      }
-    }, 100);
   }
 
 $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
@@ -199,8 +178,6 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     sectionEls = articleEl 
       ? Array.from(articleEl.querySelectorAll<HTMLElement>(`[data-essay-section="true"]`))
       : [];
-    
-    console.log('[MOUNT] Found', sectionEls.length, 'sections in current article');
 
     let observer: IntersectionObserver;
 

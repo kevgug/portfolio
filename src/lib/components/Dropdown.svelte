@@ -39,10 +39,6 @@
   let lastItemsLength = 0;
   let shouldAnimate = false;
   
-  // DEBUG: Log when props/reactives change
-  $: console.log('[DROPDOWN] Props updated - selectedIndex:', selectedIndex, '| items.length:', items.length);
-  $: console.log('[DROPDOWN] Computed - currentItem:', currentItem?.label ?? 'NULL', '| displayLabel:', displayLabel);
-  
   // Track direction for slide animation, and detect items changes
   let lastIndex = 0;
   let slideDirection: 'left' | 'right' = 'left';
@@ -50,12 +46,10 @@
   $: {
     // If items length changed, don't animate (new essay loading)
     if (items.length !== lastItemsLength) {
-      console.log('[DROPDOWN] Items changed from', lastItemsLength, 'to', items.length, '- skipping animation');
       lastItemsLength = items.length;
       lastIndex = selectedIndex;
       shouldAnimate = false;
     } else if (selectedIndex !== lastIndex && items.length > 0) {
-      console.log('[DROPDOWN] Direction change - from:', lastIndex, 'to:', selectedIndex);
       slideDirection = selectedIndex > lastIndex ? 'left' : 'right';
       lastIndex = selectedIndex;
       shouldAnimate = true;
