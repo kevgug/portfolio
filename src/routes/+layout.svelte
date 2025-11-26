@@ -21,9 +21,11 @@
 </div>
 
 {#if isEssaysRoute}
-  <div class="contents">
-    <slot />
-  </div>
+  {#key $page.url.pathname}
+    <div class="contents">
+      <slot />
+    </div>
+  {/key}
 {:else}
   {#key $page.url.pathname}
     <div
