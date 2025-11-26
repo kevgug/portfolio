@@ -24,74 +24,82 @@
   let menuTop = 0;
   let menuRight = 0;
   
-  // Track transition direction for horizontal slide
-  let prevIndex = selectedIndex;
+  // === ANIMATION STATE ===
+  // Compute the current item reactively - this ensures values are resolved before template renders
+  $: currentItem = items.length > 0 && selectedIndex >= 0 && selectedIndex < items.length 
+    ? items[selectedIndex] 
+    : null;
+  
+  // Pre-compute display values for use in the animated block
+  $: displayLabel = currentItem?.label ?? placeholder;
+  $: displayIcon = currentItem?.icon ?? null;
+  $: displayIconOffsetY = currentItem?.iconOffsetY ?? '0px';
+  
+  // Track items count to detect when items change (new essay loaded)
+  let lastItemsLength = 0;
+  let shouldAnimate = false;
+  
+  // DEBUG: Log when props/reactives change
+  $: console.log('[DROPDOWN] Props updated - selectedIndex:', selectedIndex, '| items.length:', items.length);
+  $: console.log('[DROPDOWN] Computed - currentItem:', currentItem?.label ?? 'NULL', '| displayLabel:', displayLabel);
+  
+  // Track direction for slide animation, and detect items changes
+  let lastIndex = 0;
   let slideDirection: 'left' | 'right' = 'left';
   
-  // Width animation
-  let labelContainerEl: HTMLDivElement | null = null;
-  let currentWidth: number | null = null;
-  
   $: {
-    if (selectedIndex !== prevIndex) {
-      slideDirection = selectedIndex > prevIndex ? 'left' : 'right';
-      prevIndex = selectedIndex;
+    // If items length changed, don't animate (new essay loading)
+    if (items.length !== lastItemsLength) {
+      console.log('[DROPDOWN] Items changed from', lastItemsLength, 'to', items.length, '- skipping animation');
+      lastItemsLength = items.length;
+      lastIndex = selectedIndex;
+      shouldAnimate = false;
+    } else if (selectedIndex !== lastIndex && items.length > 0) {
+      console.log('[DROPDOWN] Direction change - from:', lastIndex, 'to:', selectedIndex);
+      slideDirection = selectedIndex > lastIndex ? 'left' : 'right';
+      lastIndex = selectedIndex;
+      shouldAnimate = true;
     }
   }
   
-  // Measure and animate width when selection changes
-  function measureAndAnimateWidth(node: Element) {
-    // Measure immediately after mount
+  // Width animation for smooth resizing
+  let labelContainerEl: HTMLDivElement | null = null;
+  let measuredWidth: number | null = null;
+  
+  function measureWidth(node: Element) {
     requestAnimationFrame(() => {
-      const rect = node.getBoundingClientRect();
-      // Add space for chevron (18px) + gap (8px)
-      const chevronSpace = 26;
-      const width = rect.width + chevronSpace;
-      
-      if (currentWidth !== null && labelContainerEl) {
-        // Animate from old width to new width
-        labelContainerEl.style.width = `${currentWidth}px`;
+      const width = node.getBoundingClientRect().width + 26; // +26 for chevron space
+      if (measuredWidth !== null && labelContainerEl) {
+        labelContainerEl.style.width = `${measuredWidth}px`;
         requestAnimationFrame(() => {
-          if (labelContainerEl) {
-            labelContainerEl.style.width = `${width}px`;
-          }
+          if (labelContainerEl) labelContainerEl.style.width = `${width}px`;
         });
       } else if (labelContainerEl) {
         labelContainerEl.style.width = `${width}px`;
       }
-      currentWidth = width;
+      measuredWidth = width;
     });
   }
 
-  // Horizontal blur fade transition
-  function blurSlideIn(node: Element, { duration = 250, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
-    const xOffset = direction === 'left' ? 12 : -12;
+  // Blur slide transitions
+  function blurIn(node: Element, { duration = 220, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+    const x = direction === 'left' ? 10 : -10;
     return {
       duration,
       css: (t: number) => {
-        const eased = cubicOut(t);
-        return `
-          opacity: ${eased};
-          filter: blur(${(1 - eased) * 4}px);
-          transform: translateX(${(1 - eased) * xOffset}px);
-        `;
+        const e = cubicOut(t);
+        return `opacity:${e}; filter:blur(${(1-e)*3}px); transform:translateX(${(1-e)*x}px);`;
       }
     };
   }
 
-  function blurSlideOut(node: Element, { duration = 200, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
-    const xOffset = direction === 'left' ? -12 : 12;
+  function blurOut(node: Element, { duration = 180, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+    const x = direction === 'left' ? -10 : 10;
     return {
       duration,
       css: (t: number) => {
-        const eased = cubicIn(1 - t);
-        return `
-          position: absolute;
-          left: 0;
-          opacity: ${t};
-          filter: blur(${eased * 4}px);
-          transform: translateX(${eased * xOffset}px);
-        `;
+        const e = cubicIn(1-t);
+        return `position:absolute; left:0; opacity:${t}; filter:blur(${e*3}px); transform:translateX(${e*x}px);`;
       }
     };
   }
@@ -99,7 +107,6 @@
   function updateMenuPosition() {
     if (!rootEl) return;
     const rect = rootEl.getBoundingClientRect();
-    // Space the menu a bit below the trigger and align its right edge
     menuTop = rect.bottom + 8;
     menuRight = Math.max(window.innerWidth - rect.right, 8);
   }
@@ -120,10 +127,7 @@
   }
 
   function handleKeydown(event: KeyboardEvent) {
-    if (
-      !open &&
-      (event.key === "Enter" || event.key === " " || event.key === "ArrowDown")
-    ) {
+    if (!open && (event.key === "Enter" || event.key === " " || event.key === "ArrowDown")) {
       event.preventDefault();
       open = true;
       return;
@@ -134,102 +138,56 @@
         close();
       } else if (event.key === "ArrowDown") {
         event.preventDefault();
-        const next = Math.min(selectedIndex + 1, items.length - 1);
-        handleSelect(next);
+        handleSelect(Math.min(selectedIndex + 1, items.length - 1));
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        const prev = Math.max(selectedIndex - 1, 0);
-        handleSelect(prev);
+        handleSelect(Math.max(selectedIndex - 1, 0));
       }
     }
   }
 
   function onDocumentClick(event: MouseEvent) {
-    if (!rootEl) return;
-    const target = event.target as Node;
-    if (!rootEl.contains(target)) close();
+    if (rootEl && !rootEl.contains(event.target as Node)) close();
   }
 
   function handleWheel(event: WheelEvent) {
     if (!menuEl) return;
-
     const { scrollTop, scrollHeight, clientHeight } = menuEl;
-    const isAtTop = scrollTop === 0;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
-    const isScrollingUp = event.deltaY < 0;
-    const isScrollingDown = event.deltaY > 0;
-
-    // Allow scrolling if the dropdown can scroll in the intended direction
-    if ((isScrollingUp && !isAtTop) || (isScrollingDown && !isAtBottom)) {
-      return; // Allow the scroll event
-    }
-
-    // If we can't scroll in the intended direction, prevent default to avoid parent scrolling
+    const atTop = scrollTop === 0;
+    const atBottom = scrollTop + clientHeight >= scrollHeight;
+    if ((event.deltaY < 0 && !atTop) || (event.deltaY > 0 && !atBottom)) return;
     event.preventDefault();
   }
 
   function handleTouchMove(event: TouchEvent) {
     if (!menuEl) return;
-
-    const { scrollTop, scrollHeight, clientHeight } = menuEl;
-    const isAtTop = scrollTop === 0;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
-
-    // Allow touch scrolling if the dropdown has scrollable content
-    if (scrollHeight > clientHeight) {
-      return; // Allow the touch event
-    }
-
-    // If dropdown can't scroll, prevent default to avoid parent scrolling
+    const { scrollHeight, clientHeight } = menuEl;
+    if (scrollHeight > clientHeight) return;
     event.preventDefault();
   }
 
   function smoothTransition(
     node: Element,
-    {
-      duration,
-      easing,
-      y = 10,
-      startScale = 0.98,
-    }: {
-      duration: number;
-      easing: EasingFunction;
-      y?: number;
-      startScale?: number;
-    }
+    { duration, easing, y = 10, startScale = 0.98 }: { duration: number; easing: EasingFunction; y?: number; startScale?: number }
   ) {
-    const style = getComputedStyle(node);
-    const transform = style.transform === "none" ? "" : style.transform;
-
+    const transform = getComputedStyle(node).transform;
+    const base = transform === "none" ? "" : transform;
     return {
       delay: 0,
       duration,
       easing,
       css: (t: number, u: number) => {
-        // Use a steeper, custom curve for translation independent of the main easing
         const translateU = Math.pow(u, 5);
-        // Stagger the scale animation to feel distinct from the fade/translate
         const scaleT = Math.min(1, Math.max(0, t * 1.2 - 0.2));
-
-        return `
-          transform: ${transform} translateY(${translateU * y}px) scale(${
-          startScale + (1 - startScale) * scaleT
-        });
-          opacity: ${t};
-        `;
+        return `transform:${base} translateY(${translateU * y}px) scale(${startScale + (1 - startScale) * scaleT}); opacity:${t};`;
       },
     };
-  }
-
-  function getIconName(item: DropdownItem): IconName {
-    return item.icon!;
   }
 
   onMount(() => {
     document.addEventListener("click", onDocumentClick);
     document.addEventListener("keydown", handleKeydown);
     window.addEventListener("resize", updateMenuPosition);
-    // capture scrolls from any scrollable ancestor/window
     window.addEventListener("scroll", updateMenuPosition, true);
     return () => {
       document.removeEventListener("click", onDocumentClick);
@@ -252,30 +210,32 @@
     on:click={toggleOpen}
   >
     <div class="dropdown-label-container" bind:this={labelContainerEl}>
-      {#key selectedIndex}
-        <div 
-          class="dropdown-label-wrapper"
-          use:measureAndAnimateWidth
-          in:blurSlideIn={{ duration: 250, direction: slideDirection }}
-          out:blurSlideOut={{ duration: 200, direction: slideDirection }}
-        >
-          {#if items[selectedIndex]?.icon}
-            <span 
-              class="dropdown-icon"
-              style="transform: translateY({items[selectedIndex]?.iconOffsetY ?? '0px'});"
-            >
-              <Icon 
-                name={getIconName(items[selectedIndex])} 
-                size="14px" 
-                class="shrink-0" 
-              />
+      {#if items.length > 0 && shouldAnimate}
+        {#key selectedIndex}
+          <div 
+            class="dropdown-label-wrapper"
+            use:measureWidth
+            in:blurIn|local={{ duration: 220, direction: slideDirection }}
+            out:blurOut|local={{ duration: 180, direction: slideDirection }}
+          >
+            {#if displayIcon}
+              <span class="dropdown-icon" style="transform: translateY({displayIconOffsetY});">
+                <Icon name={displayIcon} size="14px" class="shrink-0" />
+              </span>
+            {/if}
+            <span class="dropdown-label">{displayLabel}</span>
+          </div>
+        {/key}
+      {:else}
+        <div class="dropdown-label-wrapper">
+          {#if displayIcon}
+            <span class="dropdown-icon" style="transform: translateY({displayIconOffsetY});">
+              <Icon name={displayIcon} size="14px" class="shrink-0" />
             </span>
           {/if}
-          <span class="dropdown-label"
-            >{items[selectedIndex]?.label ?? placeholder}</span
-          >
+          <span class="dropdown-label">{displayLabel}</span>
         </div>
-      {/key}
+      {/if}
     </div>
     <span class="chevron-wrapper">
       <ChevronMorph {open} size="18px" />
@@ -289,7 +249,7 @@
       bind:this={menuEl}
       on:wheel={handleWheel}
       on:touchmove={handleTouchMove}
-      style={`top:${menuTop}px; right:${menuRight}px;`}
+      style="top:{menuTop}px; right:{menuRight}px;"
       in:smoothTransition={{ duration: 300, easing: expoOut }}
       out:smoothTransition={{ duration: 200, easing: expoIn }}
     >
@@ -297,15 +257,10 @@
         <button
           role="option"
           aria-selected={i === selectedIndex}
-          class={`dropdown-option ${i === selectedIndex ? "is-active" : ""}`}
+          class="dropdown-option {i === selectedIndex ? 'is-active' : ''}"
           on:click={() => handleSelect(i)}
         >
-          <span
-            class={`option-dot ${
-              i === selectedIndex ? "bg-white" : "bg-white/40"
-            }`}
-            aria-hidden="true"
-          />
+          <span class="option-dot {i === selectedIndex ? 'bg-white' : 'bg-white/40'}" aria-hidden="true" />
           <span class="option-label">{item.label}</span>
         </button>
       {/each}
@@ -329,14 +284,13 @@
 
   .dropdown-label-container {
     @apply relative flex items-center overflow-hidden pr-[26px];
-    transition: width 250ms cubic-bezier(0.33, 1, 0.68, 1);
-    /* Fade out content in the chevron area */
+    transition: width 220ms cubic-bezier(0.33, 1, 0.68, 1);
     mask-image: linear-gradient(to right, black calc(100% - 26px), transparent 100%);
     -webkit-mask-image: linear-gradient(to right, black calc(100% - 26px), transparent 100%);
   }
 
   .dropdown-label-wrapper {
-    @apply flex items-center gap-1.5 self-center will-change-transform;
+    @apply flex items-center gap-1.5 will-change-transform;
   }
 
   .dropdown-icon {
@@ -377,7 +331,7 @@
     @apply text-sm md:text-base truncate;
   }
 
-  /* Subtle variant for low-prominence trigger (e.g., essay reader) */
+  /* Subtle variant */
   .dropdown-root.is-subtle .dropdown-trigger {
     @apply border-white/5 px-3 py-1.5 text-white/70 backdrop-blur-md;
     background: color-mix(in oklab, rgb(255 255 255 / 10%), transparent);

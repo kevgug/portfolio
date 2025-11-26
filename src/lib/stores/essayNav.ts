@@ -12,7 +12,9 @@ export const selectedIndex: Writable<number> = writable(0);
 export const scrollLock: Writable<boolean> = writable(false);
 
 export function setSubheaders(list: EssaySubheader[]): void {
+  console.log('[STORE] setSubheaders called with', list.length, 'items:', list.map(s => s.label));
   subheaders.set(list);
+  console.log('[STORE] Setting selectedIndex to 0');
   selectedIndex.set(0);
 }
 

@@ -18,6 +18,7 @@
   import { onMount } from "svelte";
   import {
     setSubheaders,
+    subheaders,
     selectedIndex,
     scrollLock,
     type EssaySubheader,
@@ -25,24 +26,44 @@
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
 
   export let data: PageData;
-  const { slug, post, publish } = data;
+  $: ({ slug, post, publish } = data);
+
+  // Track which slug we've initialized for to prevent duplicate resets
+  let lastInitializedSlug = '';
+  
+  // Reset stores when slug changes (before onMount)
+  // This prevents showing the old essay's selected section during navigation
+  $: if (slug && slug !== lastInitializedSlug) {
+    console.log('[PAGE] ========== LOADING ESSAY ==========');
+    console.log('[PAGE] Essay:', post.title);
+    console.log('[PAGE] Slug:', slug);
+    console.log('[PAGE] Clearing subheaders and resetting selectedIndex');
+    lastInitializedSlug = slug;
+    // Clear subheaders first so Dropdown shows placeholder during transition
+    subheaders.set([]);
+    selectedIndex.set(0);
+  }
 
   // Social media metadata
   const siteUrl = "https://kevingugelmann.com";
-  const pageUrl = `${siteUrl}/essays/${slug}`;
-  const pageTitle = post.title;
+  $: pageUrl = `${siteUrl}/essays/${slug}`;
+  $: pageTitle = post.title;
   const pageDescription = `An essay by Kevin Gugelmann`;
-  const thumbnailUrl = `${siteUrl}/assets/thumbnails/${slug}.png`;
+  $: thumbnailUrl = `${siteUrl}/assets/thumbnails/${slug}.png`;
   const pageDomain = "kevingugelmann.com";
 
   let sectionEls: HTMLElement[] = [];
+  let articleEl: HTMLElement;
 
   /**
    * Sets the active navigation index by finding the last essay section whose top
    * is above the vertical midpoint of the viewport.
    */
   function updateSelection() {
-    if ($scrollLock) return;
+    if ($scrollLock) {
+      console.log('[SCROLL] Blocked by scrollLock');
+      return;
+    }
 
     const midpoint = window.innerHeight / 2;
     let nextIndex = 0;
@@ -54,7 +75,24 @@
         break;
       }
     }
+    
+    // DEBUG: Log what we're setting
+    console.log('[SCROLL] Setting selectedIndex to:', nextIndex, 'of', sectionEls.length, 'sections');
+    console.log('[SCROLL] Current $subheaders:', $subheaders.map(s => s.label));
+    console.log('[SCROLL] Target label:', $subheaders[nextIndex]?.label ?? 'UNDEFINED');
+    
     selectedIndex.set(nextIndex);
+    
+    // DEBUG: Check if value persists after 100ms
+    const capturedIndex = nextIndex;
+    setTimeout(() => {
+      console.log('[SCROLL +100ms] selectedIndex store value:', $selectedIndex);
+      console.log('[SCROLL +100ms] Expected:', capturedIndex, '| Actual:', $selectedIndex);
+      console.log('[SCROLL +100ms] $subheaders length:', $subheaders.length);
+      if ($selectedIndex !== capturedIndex) {
+        console.warn('[SCROLL +100ms] ⚠️ INDEX WAS OVERRIDDEN!');
+      }
+    }, 100);
   }
 
 $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
@@ -153,9 +191,12 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     }
     setSubheaders(list);
 
-    sectionEls = Array.from(
-      document.querySelectorAll<HTMLElement>(`[data-essay-section="true"]`)
-    );
+    // Query sections ONLY within this article to avoid capturing elements from other pages during navigation
+    sectionEls = articleEl 
+      ? Array.from(articleEl.querySelectorAll<HTMLElement>(`[data-essay-section="true"]`))
+      : [];
+    
+    console.log('[MOUNT] Found', sectionEls.length, 'sections in current article');
 
     let observer: IntersectionObserver;
 
@@ -218,7 +259,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   <meta name="twitter:image" content={thumbnailUrl} />
 </svelte:head>
 
-<article class="py-8 md:py-12 w-full">
+<article bind:this={articleEl} class="py-8 md:py-12 w-full">
   <div>
     <header class="max-w-screen-md mx-auto">
       <h1
