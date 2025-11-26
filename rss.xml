@@ -4,8 +4,8 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Nov 2025 01:44:04 GMT</lastBuildDate>
-    <dc:date>2025-11-26T01:44:04.760Z</dc:date>
+    <lastBuildDate>Wed, 26 Nov 2025 05:40:29 GMT</lastBuildDate>
+    <dc:date>2025-11-26T05:40:29.208Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
@@ -90,9 +90,8 @@
           <item>
             <title>Selling software without accountability</title>
             <link>https://kevingugelmann.com/essays/accountability-ai-autonomy</link>
-            <description>The question When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is accountability a good enough reason for why we don&amp;#39;t want autonomous AI software engineers? We both agree that full a...</description>
-            <content:encoded><![CDATA[<h2>The question</h2>
-<p>When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is <strong>accountability</strong> a good enough reason for why we don&#39;t want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about <em>when</em> AI autonomy becomes feasible, will the need for human accountability get in the way? <a href="#note-1">[1]</a></p>
+            <description>When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is accountability a good enough reason for why we don&amp;#39;t want autonomous AI software engineers? We both agree that full autonomy is no...</description>
+            <content:encoded><![CDATA[<p>When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is <strong>accountability</strong> a good enough reason for why we don&#39;t want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about <em>when</em> AI autonomy becomes feasible, will the need for human accountability get in the way? <a href="#note-1">[1]</a></p>
 <p>If accountability is necessary for running a profitable business, it follows that humans should always have oversight over every product decision and feature implementation; at most, AI would be a coworker, but could never fully displace humans. Alternatively, accountability is not an important part of building software products. In that scenario, AI can successfully decide what to build and then presumably build it too; software engineers and product designers could very well be replaced by fully autonomous AI.</p>
 <p>I view accountability as the idea that someone owns a product decision and accepts whatever consequences may follow, good or bad. If we let AI autonomously decide what to do and how to implement those changes, then we can&#39;t say that any person truly <em>owns</em> those decisions. At best, we can say that someone instructed the AI on how to operate at a high level, which led to some product outcome. But that&#39;s not a generalizable argument—sometimes the decision is a direct result of the human&#39;s system instructions, while other times the AI has gone rogue. In any case, autonomous AI prevents clear accountability with any person.</p>
 <p>So maybe we can&#39;t pinpoint <em>exactly</em> who or what is responsible for certain features, bugs, or errors. Does that negatively affect the bottom line of the software company? To rephrase my brother&#39;s question:</p>
@@ -163,9 +162,8 @@
           <item>
             <title>Writing manifesto</title>
             <link>https://kevingugelmann.com/essays/manifesto</link>
-            <description>Overview I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&amp;#39;ve put together this manifesto. Effectively, I consider this manifesto the brand guidelines of my personal essays. ...</description>
-            <content:encoded><![CDATA[<h2>Overview</h2>
-<p>I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&#39;ve put together this manifesto.</p>
+            <description>I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&amp;#39;ve put together this manifesto. Effectively, I consider this manifesto the brand guidelines of my personal essays. I will ho...</description>
+            <content:encoded><![CDATA[<p>I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I&#39;ve put together this manifesto.</p>
 <p>Effectively, I consider this manifesto the <strong>brand guidelines</strong> of my personal essays. I will hold myself accountable to the <em>Do’s</em> and <em>Don’ts</em> I write up in this document as best as I can. In turn, I hope I ultimately achieve all my <em>Aims</em>.</p>
 <h2>Aims</h2>
 <p>These are the main outcomes I hope to achieve by publishing essays online.</p>

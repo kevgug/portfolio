@@ -4,8 +4,6 @@ date: "2025-09-12"
 publish: true
 ---
 
-## Overview
-
 I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I've put together this manifesto.
 
 Effectively, I consider this manifesto the **brand guidelines** of my personal essays. I will hold myself accountable to the _Do’s_ and _Don’ts_ I write up in this document as best as I can. In turn, I hope I ultimately achieve all my _Aims_.

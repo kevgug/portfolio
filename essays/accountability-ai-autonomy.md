@@ -4,8 +4,6 @@ date: 2025-10-24
 publish: true
 ---
 
-## The question
-
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [1]
 
 If accountability is necessary for running a profitable business, it follows that humans should always have oversight over every product decision and feature implementation; at most, AI would be a coworker, but could never fully displace humans. Alternatively, accountability is not an important part of building software products. In that scenario, AI can successfully decide what to build and then presumably build it too; software engineers and product designers could very well be replaced by fully autonomous AI.
