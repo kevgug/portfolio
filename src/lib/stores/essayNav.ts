@@ -1,9 +1,10 @@
 import { writable, type Writable } from "svelte/store";
+import type { IconName } from "$lib/components/Icon.svelte";
 
 export interface EssaySubheader {
   id: string; // element id to scroll to
   label: string; // display label
-  icon?: string;
+  icon?: IconName;
   iconOffsetY?: string;
 }
 
