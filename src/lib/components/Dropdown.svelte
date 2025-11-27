@@ -179,7 +179,14 @@
     };
   }
 
+  let mounted = false;
+
   onMount(() => {
+    // Trigger blur animation after a frame to ensure transition works
+    requestAnimationFrame(() => {
+      mounted = true;
+    });
+    
     document.addEventListener("click", onDocumentClick);
     document.addEventListener("keydown", handleKeydown);
     window.addEventListener("resize", updateMenuPosition);
@@ -199,7 +206,7 @@
 >
   <button
     type="button"
-    class="dropdown-trigger"
+    class="dropdown-trigger {mounted ? 'is-mounted' : ''}"
     aria-haspopup="listbox"
     aria-expanded={open}
     on:click={toggleOpen}
@@ -264,9 +271,14 @@
   }
 
   .dropdown-trigger {
-    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 backdrop-blur-md;
+    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
     background: color-mix(in oklab, rgb(255 255 255 / 22%), transparent);
-    transition: color 150ms ease-out, background 150ms ease-out;
+    backdrop-filter: blur(0px);
+    transition: color 150ms ease-out, background 150ms ease-out, backdrop-filter 150ms ease-out;
+  }
+
+  .dropdown-trigger.is-mounted {
+    @apply backdrop-blur-md;
   }
 
   .dropdown-trigger:hover {
@@ -324,8 +336,11 @@
 
   /* Subtle variant */
   .dropdown-root.is-subtle .dropdown-trigger {
-    @apply border-white/5 px-3 py-1.5 text-white/70 backdrop-blur-md;
+    @apply border-white/5 px-3 py-1.5 text-white/70;
     background: color-mix(in oklab, rgb(255 255 255 / 10%), transparent);
+  }
+  .dropdown-root.is-subtle .dropdown-trigger.is-mounted {
+    @apply backdrop-blur-md;
   }
   .dropdown-root.is-subtle .dropdown-trigger:hover {
     background: color-mix(in oklab, rgb(255 255 255 / 16%), transparent);
