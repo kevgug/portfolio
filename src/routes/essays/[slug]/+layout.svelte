@@ -59,7 +59,6 @@
           <Dropdown
             items={$subheaders}
             selectedIndex={$selectedIndex}
-            placeholder="Section"
             variant="subtle"
             on:select={(e) => handleDropdownSelect(e.detail.index)}
           />

@@ -13,7 +13,8 @@
 
   export let items: DropdownItem[] = [];
   export let selectedIndex: number = 0;
-  export let placeholder: string = "Select";
+  export let placeholder: string = "Foreword";
+  export let placeholderIcon: IconName | null = "feather-pen";
   export let variant: "default" | "subtle" = "default";
 
   const dispatch = createEventDispatcher<{ select: { index: number } }>();
@@ -230,6 +231,11 @@
         {/key}
       {:else}
         <div class="dropdown-label-wrapper">
+          {#if placeholderIcon}
+            <span class="dropdown-icon">
+              <Icon name={placeholderIcon} size="14px" class="shrink-0" />
+            </span>
+          {/if}
           <span class="dropdown-label">{placeholder}</span>
         </div>
       {/if}
