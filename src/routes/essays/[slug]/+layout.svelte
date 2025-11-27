@@ -36,42 +36,44 @@
 </script>
 
 {#if isEssaySlug}
-  <nav class="w-full fixed top-0 z-50 bg-transparent pointer-events-none">
-    <!-- Gradient: fades from background at top to transparent at bottom -->
-    <div
-      class="absolute inset-x-0 top-0 h-28 md:h-32 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"
-    />
-    <div
-      class="relative z-10 flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
-    >
-      <!-- Left: Back to essays -->
+  {#key $page.url.pathname}
+    <nav class="w-full fixed top-0 z-50 bg-transparent pointer-events-none">
+      <!-- Gradient: fades from background at top to transparent at bottom -->
       <div
-        class="flex flex-row items-center space-x-2 md:space-x-3 pointer-events-auto"
+        class="absolute inset-x-0 top-0 h-28 md:h-32 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"
+      />
+      <div
+        class="relative z-10 flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
       >
-        <a href="/essays" aria-label="Back to essays" class="p-2 -ml-2" data-sveltekit-reload>
-          <Icon name="arrow-left" size="1em" class="text-white" />
-        </a>
-      </div>
+        <!-- Left: Back to essays -->
+        <div
+          class="flex flex-row items-center space-x-2 md:space-x-3 pointer-events-auto"
+        >
+          <a href="/essays" aria-label="Back to essays" class="p-2 -ml-2" data-sveltekit-reload>
+            <Icon name="arrow-left" size="1em" class="text-white" />
+          </a>
+        </div>
 
-      <!-- Right: section dropdown (subtle) -->
-      <div class="flex items-center pointer-events-auto">
-        <Dropdown
-          items={$subheaders}
-          selectedIndex={$selectedIndex}
-          placeholder="Sections"
-          variant="subtle"
-          on:select={(e) => handleDropdownSelect(e.detail.index)}
-        />
+        <!-- Right: section dropdown (subtle) -->
+        <div class="flex items-center pointer-events-auto">
+          <Dropdown
+            items={$subheaders}
+            selectedIndex={$selectedIndex}
+            placeholder="Section"
+            variant="subtle"
+            on:select={(e) => handleDropdownSelect(e.detail.index)}
+          />
+        </div>
       </div>
+    </nav>
+
+    <div
+      class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-20 md:pt-24 space-y-8"
+    >
+      <slot />
+      <Footer />
     </div>
-  </nav>
-
-  <div
-    class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-20 md:pt-24 space-y-8"
-  >
-    <slot />
-    <Footer />
-  </div>
+  {/key}
 {:else}
   <slot />
 {/if}

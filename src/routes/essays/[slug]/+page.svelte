@@ -32,18 +32,6 @@
   // Only render when we're actually on this essay's route
   $: isCurrentRoute = $page.url.pathname === `/essays/${slug}`;
 
-  // Track which slug we've initialized for to prevent duplicate resets
-  let lastInitializedSlug = '';
-  
-  // Reset stores when slug changes (before onMount)
-  // This prevents showing the old essay's selected section during navigation
-  $: if (slug && slug !== lastInitializedSlug) {
-    lastInitializedSlug = slug;
-    // Clear subheaders first so Dropdown shows placeholder during transition
-    subheaders.set([]);
-    selectedIndex.set(0);
-  }
-
   // Social media metadata
   const siteUrl = "https://kevingugelmann.com";
   $: pageUrl = `${siteUrl}/essays/${slug}`;

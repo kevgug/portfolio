@@ -24,13 +24,12 @@
   let menuTop = 0;
   let menuRight = 0;
   
-  // === ANIMATION STATE ===
-  // Compute the current item reactively - this ensures values are resolved before template renders
+  // Compute the current item reactively
   $: currentItem = items.length > 0 && selectedIndex >= 0 && selectedIndex < items.length 
     ? items[selectedIndex] 
     : null;
   
-  // Pre-compute display values for use in the animated block
+  // Pre-compute display values for use in the template
   $: displayLabel = currentItem?.label ?? placeholder;
   $: displayIcon = currentItem?.icon ?? null;
   $: displayIconOffsetY = currentItem?.iconOffsetY ?? '0px';
@@ -265,8 +264,9 @@
   }
 
   .dropdown-trigger {
-    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 backdrop-blur-md transition-colors;
+    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 backdrop-blur-md;
     background: color-mix(in oklab, rgb(255 255 255 / 22%), transparent);
+    transition: color 150ms ease-out, background 150ms ease-out;
   }
 
   .dropdown-trigger:hover {
