@@ -75,8 +75,9 @@
     });
   }
 
-  // Blur slide transitions
-  function blurIn(node: Element, { duration = 220, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+  // Blur slide transitions - animate param controls whether to actually animate or skip
+  function blurIn(node: Element, { duration = 220, direction = 'left', animate = true }: { duration?: number; direction?: 'left' | 'right'; animate?: boolean } = {}) {
+    if (!animate) return { duration: 0, css: () => '' };
     const x = direction === 'left' ? 10 : -10;
     return {
       duration,
@@ -87,7 +88,8 @@
     };
   }
 
-  function blurOut(node: Element, { duration = 180, direction = 'left' }: { duration?: number; direction?: 'left' | 'right' } = {}) {
+  function blurOut(node: Element, { duration = 180, direction = 'left', animate = true }: { duration?: number; direction?: 'left' | 'right'; animate?: boolean } = {}) {
+    if (!animate) return { duration: 0, css: () => '' };
     const x = direction === 'left' ? -10 : 10;
     return {
       duration,
@@ -204,13 +206,13 @@
     on:click={toggleOpen}
   >
     <div class="dropdown-label-container" bind:this={labelContainerEl}>
-      {#if items.length > 0 && shouldAnimate}
+      {#if items.length > 0}
         {#key selectedIndex}
           <div 
             class="dropdown-label-wrapper"
             use:measureWidth
-            in:blurIn|local={{ duration: 220, direction: slideDirection }}
-            out:blurOut|local={{ duration: 180, direction: slideDirection }}
+            in:blurIn|local={{ duration: 220, direction: slideDirection, animate: shouldAnimate }}
+            out:blurOut|local={{ duration: 180, direction: slideDirection, animate: shouldAnimate }}
           >
             {#if displayIcon}
               <span class="dropdown-icon" style="transform: translateY({displayIconOffsetY});">
@@ -222,12 +224,7 @@
         {/key}
       {:else}
         <div class="dropdown-label-wrapper">
-          {#if displayIcon}
-            <span class="dropdown-icon" style="transform: translateY({displayIconOffsetY});">
-              <Icon name={displayIcon} size="14px" class="shrink-0" />
-            </span>
-          {/if}
-          <span class="dropdown-label">{displayLabel}</span>
+          <span class="dropdown-label">{placeholder}</span>
         </div>
       {/if}
     </div>
