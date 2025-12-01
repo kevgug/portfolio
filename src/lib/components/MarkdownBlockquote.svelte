@@ -389,4 +389,12 @@
   blockquote :global(.group:hover .footnote-num) {
     @apply decoration-glacial-blue;
   }
+
+  /* Inline code in blockquotes - use page background color */
+  blockquote :global(code) {
+    @apply text-white bg-background/70;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.5rem;
+    font-size: 0.9em;
+  }
 </style>

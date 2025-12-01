@@ -1,11 +1,29 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
-  import { fade } from "svelte/transition";
+  import type { TransitionConfig } from "svelte/transition";
   import Icon from "./Icon.svelte";
 
   export let code: string;
   export let audio: string | undefined;
   export let slug: string;
+  export let copyable: boolean = false;
+
+  // Custom crossfade blur transition like Vercel
+  function blurFade(
+    _node: Element,
+    { duration = 150, blur = 4 }: { duration?: number; blur?: number } = {}
+  ): TransitionConfig {
+    return {
+      duration,
+      css: (t: number) => {
+        const eased = t;
+        return `
+          opacity: ${eased};
+          filter: blur(${(1 - eased) * blur}px);
+        `;
+      },
+    };
+  }
 
   // Animation timing constants
   const FADE_OUT_DURATION_MS = 240;
@@ -185,51 +203,55 @@
   });
 </script>
 
-<span class="inline-code-wrapper">
-  <span 
-    class="progress-bar" 
-    style="--audio-duration: {audioDuration + (EXTRA_ANIMATION_DURATION_MS / 1000)}s; --fade-out-duration: {FADE_OUT_DURATION_MS}ms;"
-    class:visible={isPlaying}
-    class:animating={progress > 0 && audioDuration > 0}
-  />
-  <code class="inline-code">{code}</code>
-  {#if audio}
-    <button
-      class="play-button"
-      on:click={handlePlay}
-      aria-label="Play audio"
-      type="button"
-    >
-      <Icon name="play" size="10px" />
-    </button>
-  {:else}
-    <button
-      class="copy-button"
-      class:copied={isCopied}
-      on:click={handleCopy}
-      aria-label={isCopied ? "Copied" : "Copy code"}
-      type="button"
-    >
-      {#if showIcon}
-        <span
-          class="icon-transition"
-          on:outroend={handleIconOutroEnd}
-          out:fade={{ duration: 100 }}
-          in:fade={{ duration: 100 }}
-        >
-          <Icon name={activeIcon} size="14px" />
-        </span>
-      {/if}
-    </button>
-  {/if}
-</span>
+{#if audio || copyable}
+  <span class="inline-code-wrapper">
+    <span 
+      class="progress-bar" 
+      style="--audio-duration: {audioDuration + (EXTRA_ANIMATION_DURATION_MS / 1000)}s; --fade-out-duration: {FADE_OUT_DURATION_MS}ms;"
+      class:visible={isPlaying}
+      class:animating={progress > 0 && audioDuration > 0}
+    />
+    <code class="inline-code">{code}</code>
+    {#if audio}
+      <button
+        class="play-button"
+        on:click={handlePlay}
+        aria-label="Play audio"
+        type="button"
+      >
+        <Icon name="play" size="10px" />
+      </button>
+    {:else}
+      <button
+        class="copy-button"
+        class:copied={isCopied}
+        on:click={handleCopy}
+        aria-label={isCopied ? "Copied" : "Copy code"}
+        type="button"
+      >
+        {#if showIcon}
+          <span
+            class="icon-transition"
+            on:outroend={handleIconOutroEnd}
+            out:blurFade={{ duration: 120, blur: 4 }}
+            in:blurFade={{ duration: 120, blur: 4 }}
+          >
+            <Icon name={activeIcon} size="14px" />
+          </span>
+        {/if}
+      </button>
+    {/if}
+  </span>
 
-{#if showToast}
-  <div
-    class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
-  >
-    Code copied
-  </div>
+  {#if showToast}
+    <div
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
+    >
+      Code copied
+    </div>
+  {/if}
+{:else}
+  <code class="plain-inline-code">{code}</code>
 {/if}
 
 <style lang="postcss">
@@ -385,6 +407,20 @@
 
   .icon-transition {
     @apply inline-flex items-center justify-center;
+  }
+
+  /* Plain inline code without any button - default styling */
+  .plain-inline-code {
+    @apply text-glacial-blue;
+    background-color: rgba(203, 213, 225, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.5rem;
+    font-size: 0.9em;
+  }
+
+  /* Override plain inline code color in footnotes section */
+  :global(#section-notes) .plain-inline-code {
+    @apply text-white;
   }
 
   .toast-animate {

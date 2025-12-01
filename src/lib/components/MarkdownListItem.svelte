@@ -66,7 +66,7 @@
       {:else if t.type === "latex"}
         {@html renderInlineLatex(t.latex)}
       {:else if t.type === "code"}
-        <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+        <MarkdownInlineCode code={t.code} audio={t.audio} copyable={t.copyable} slug={slug} />
       {/if}
     {/each}
   </span>

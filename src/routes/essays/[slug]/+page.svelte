@@ -386,7 +386,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                                 {/if}
                               {:else if t.type === "code"}
                                 {#if "code" in t}
-                                  <MarkdownInlineCode code={t.code} audio={t.audio} slug={slug} />
+                                  <MarkdownInlineCode code={t.code} audio={t.audio} copyable={t.copyable} slug={slug} />
                                 {/if}
                               {/if}
                             {/each}

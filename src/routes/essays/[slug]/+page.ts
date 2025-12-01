@@ -5,6 +5,7 @@ import {
   loadEssayIndex,
   loadEssayMarkdown,
   loadEssayAudioConfig,
+  loadEssayCodeConfig,
 } from "$lib/essays/load";
 import "$lib/essays-reload"; // Import to trigger HMR when essays update
 
@@ -24,16 +25,20 @@ export const load: PageLoad = async ({ params, fetch }) => {
     // Load and parse markdown content
     const md = await loadEssayMarkdown(slug, fetch);
 
-    // Load audio config only if the essay has a config file
-    const audioConfig = essayMeta.hasConfig
-      ? await loadEssayAudioConfig(slug, fetch)
-      : {};
+    // Load audio and code config only if the essay has a config file
+    const [audioConfig, codeConfig] = essayMeta.hasConfig
+      ? await Promise.all([
+          loadEssayAudioConfig(slug, fetch),
+          loadEssayCodeConfig(slug, fetch),
+        ])
+      : [{}, new Set<string>()];
 
     const post = parseMarkdown(
       md,
       essayMeta.title,
       essayMeta.date,
-      audioConfig
+      audioConfig,
+      codeConfig
     );
     return { slug, post, publish: essayMeta.publish };
   } catch (err) {

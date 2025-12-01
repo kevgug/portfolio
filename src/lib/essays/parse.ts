@@ -40,7 +40,8 @@ export function parseMarkdown(
   md: string,
   title?: string,
   date?: string,
-  audioConfig?: { [code: string]: string }
+  audioConfig?: { [code: string]: string },
+  codeConfig?: Set<string>
 ): ParsedBlogPost {
   const lines = md.split(/\r?\n/);
 
@@ -144,7 +145,7 @@ export function parseMarkdown(
       if (text) {
         const paragraphContent: BlogSectionContent = {
           type: "paragraph",
-          tokens: tokenizeAndParseParagraph(text, audioConfig),
+          tokens: tokenizeAndParseParagraph(text, audioConfig, codeConfig),
         };
         if (currentSection) {
           currentSection.content.push(paragraphContent);
@@ -163,7 +164,7 @@ export function parseMarkdown(
         type: "list",
         ordered: isOrderedList,
         items: listBuffer.map((item) =>
-          tokenizeAndParseParagraph(item, audioConfig)
+          tokenizeAndParseParagraph(item, audioConfig, codeConfig)
         ),
       };
       if (currentSection) {
@@ -228,7 +229,7 @@ export function parseMarkdown(
           const cleanLine = line.endsWith("\\")
             ? line.slice(0, -1).trim()
             : line.trim();
-          return tokenizeAndParseParagraph(cleanLine, audioConfig);
+          return tokenizeAndParseParagraph(cleanLine, audioConfig, codeConfig);
         });
 
         // For backwards compatibility, also create a combined text
@@ -249,7 +250,7 @@ export function parseMarkdown(
       }
 
       // Tokenize the blockquote text to handle footnote references
-      const tokens = tokenizeAndParseParagraph(text, audioConfig);
+      const tokens = tokenizeAndParseParagraph(text, audioConfig, codeConfig);
 
       const blockquoteContent: BlogSectionContent = {
         type: "blockquote",
@@ -441,7 +442,8 @@ export function parseMarkdown(
         if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
           footnotes[currentFootnoteNum] = parseFootnoteContent(
             currentFootnoteBuffer,
-            audioConfig
+            audioConfig,
+            codeConfig
           );
           currentFootnoteBuffer = [];
           currentFootnoteNum = null;
@@ -464,7 +466,8 @@ export function parseMarkdown(
         if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
           footnotes[currentFootnoteNum] = parseFootnoteContent(
             currentFootnoteBuffer,
-            audioConfig
+            audioConfig,
+            codeConfig
           );
           currentFootnoteBuffer = [];
         }
@@ -593,7 +596,8 @@ export function parseMarkdown(
   if (currentFootnoteNum && currentFootnoteBuffer.length > 0) {
     footnotes[currentFootnoteNum] = parseFootnoteContent(
       currentFootnoteBuffer,
-      audioConfig
+      audioConfig,
+      codeConfig
     );
   }
 
@@ -614,7 +618,7 @@ export function parseMarkdown(
   }
 
   const parsedContributionNote = contributionNote
-    ? parseMarkdownContent(contributionNote, audioConfig)
+    ? parseMarkdownContent(contributionNote, audioConfig, codeConfig)
     : undefined;
 
   return {
@@ -649,6 +653,7 @@ export interface ParagraphTokenCode {
   type: "code";
   code: string;
   audio?: string;
+  copyable?: boolean;
 }
 
 export type ParagraphToken =
@@ -659,7 +664,8 @@ export type ParagraphToken =
 
 function tokenizeAndParseParagraph(
   text: string,
-  audioConfig?: { [code: string]: string }
+  audioConfig?: { [code: string]: string },
+  codeConfig?: Set<string>
 ): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
 
@@ -692,12 +698,14 @@ function tokenizeAndParseParagraph(
     // Process the code block
     const codeText = codeMatch.code;
     const audioFile = audioConfig?.[codeText];
+    // Only set copyable if the code string is explicitly in the codeConfig set
+    const isCopyable = codeConfig?.has(codeText) ?? false;
 
-    // Always create code token - audio will be undefined if no match, which triggers copy button
     tokens.push({
       type: "code",
       code: codeText,
       audio: audioFile,
+      copyable: isCopyable,
     });
 
     lastIndex = codeMatch.end;
@@ -764,7 +772,8 @@ function processTextSegment(text: string): ParagraphToken[] {
 
 function parseMarkdownContent(
   content: string,
-  audioConfig?: { [code: string]: string }
+  audioConfig?: { [code: string]: string },
+  codeConfig?: Set<string>
 ): BlogSectionContent[] {
   const lines = content.split(/\r?\n/);
   const result: BlogSectionContent[] = [];
@@ -805,7 +814,7 @@ function parseMarkdownContent(
       if (text) {
         result.push({
           type: "paragraph",
-          tokens: tokenizeAndParseParagraph(text, audioConfig),
+          tokens: tokenizeAndParseParagraph(text, audioConfig, codeConfig),
         });
       }
     }
@@ -818,7 +827,7 @@ function parseMarkdownContent(
         type: "list",
         ordered: isOrderedList,
         items: listBuffer.map((item) =>
-          tokenizeAndParseParagraph(item, audioConfig)
+          tokenizeAndParseParagraph(item, audioConfig, codeConfig)
         ),
       });
     }
@@ -872,7 +881,7 @@ function parseMarkdownContent(
           const cleanLine = line.endsWith("\\")
             ? line.slice(0, -1).trim()
             : line.trim();
-          return tokenizeAndParseParagraph(cleanLine, audioConfig);
+          return tokenizeAndParseParagraph(cleanLine, audioConfig, codeConfig);
         });
 
         // For backwards compatibility, also create a combined text
@@ -891,7 +900,7 @@ function parseMarkdownContent(
         isMultiline = false;
       }
 
-      const tokens = tokenizeAndParseParagraph(text, audioConfig);
+      const tokens = tokenizeAndParseParagraph(text, audioConfig, codeConfig);
 
       result.push({
         type: "blockquote",
@@ -1116,7 +1125,8 @@ function parseMarkdownContent(
 
 function parseFootnoteContent(
   lines: string[],
-  audioConfig?: { [code: string]: string }
+  audioConfig?: { [code: string]: string },
+  codeConfig?: Set<string>
 ): BlogSectionContent[] {
   const content: BlogSectionContent[] = [];
   let paragraphBuffer: string[] = [];
@@ -1151,7 +1161,7 @@ function parseFootnoteContent(
       if (text) {
         content.push({
           type: "paragraph",
-          tokens: tokenizeAndParseParagraph(text, audioConfig),
+          tokens: tokenizeAndParseParagraph(text, audioConfig, codeConfig),
         });
       }
     }
@@ -1164,7 +1174,7 @@ function parseFootnoteContent(
         type: "list",
         ordered: isOrderedList,
         items: listBuffer.map((item) =>
-          tokenizeAndParseParagraph(item, audioConfig)
+          tokenizeAndParseParagraph(item, audioConfig, codeConfig)
         ),
       });
     }

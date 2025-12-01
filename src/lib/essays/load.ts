@@ -57,3 +57,30 @@ export async function loadEssayAudioConfig(
     return {};
   }
 }
+
+export async function loadEssayCodeConfig(
+  slug: string,
+  fetch?: typeof globalThis.fetch
+): Promise<Set<string>> {
+  // Code config is in static/assets, so we need fetch to access it
+  if (!fetch) {
+    return new Set();
+  }
+  try {
+    const configRes = await fetch(`/assets/essays/${slug}/config.json`, {
+      // Don't throw on 404 - config is optional
+      headers: { Accept: "application/json" },
+    });
+    if (configRes.ok) {
+      const configData = await configRes.json();
+      // Convert code array to Set for O(1) lookup
+      const codeArray: string[] = configData.code || [];
+      return new Set(codeArray);
+    }
+    // Return empty Set for 404 or any other non-ok status
+    return new Set();
+  } catch {
+    // Config file doesn't exist or fetch failed, which is fine - code config is optional
+    return new Set();
+  }
+}
