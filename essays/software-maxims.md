@@ -96,12 +96,34 @@ They're all problems that are frequent enough to be design issues rather than us
 
 ---
 
-A clarifying text I sent a friend:
+Here are some clarifying texts I sent to friends:
 
+Q) Maxim 4 tasks about problems going unnoticed and makes me think about how great "optimists", as mentioned in Maxim 5, can carve out these environments. **What are your thoughts on entrepreneurs trying to appeal to customers who live in a large mental environment?**
+
+> `10:30am on 25 Nov, 2025`
+>
 > Physical products and spaces reflect mental environments. The ideal mental environment is focused on few, similar things. Think minimal cognitive load. If your product does one thing, it creates the illusion that it does that one thing very well. Look up the story of how the Sony Walkman almost had a recording feature. You're not duping users—you're genuinely providing more value but constraining their mental environment to a smaller problem space (not to say the problems themselves are small, you're just tackling fewer).
 >
-> It's on the optimists to notice problems that can be solved under the same roof. The classic startup advice is to focus on a small wedge of the problem and solve that very well—it aligns closely with what I'm saying. When you're just starting out as a business, you don't have the time and resources to transport customers into a large mental environment. The goal is always to solve every problem you tackle well, whatever size company you are.
+> You're right to notice it's on the optimists to notice problems that can be solved under the same roof. The classic startup advice is to focus on a small wedge of the problem and solve that very well—it aligns closely with what I'm saying. When you're just starting out as a business, you don't have the time and resources to transport customers into a large mental environment. The goal is always to solve every problem you tackle well, whatever size company you are.
 >
 > Imagine you start with just a few tree logs and some steel you can galvanise. You can far more convincingly build a desk than a school, even if the ultimate goal is to build a school. Sure, your student will need to stand since there you didn't build a chair, there are no other students to learn with, you are the only teacher to learn from, and there are no facilities like student accommodation or a gym. But it's a really fucking good desk. It's large, sturdy, height-adjustable with a telescoping mechanism, and has a built-in water tap that's discretely connected to plumbing. Your desk will be miles better at transporting your student into the mental environment of studying than a lousy single-story school, and it will be ready to use in weeks not years. Over time, you can build a school around your desk, but you should start with the desk. Customers can't force themselves into a mental environment—the physical environment needs to take them there. Solve one thing really well and you'll take customers there. As you gain time and resources, you can solve a larger set of problems and still have people take you seriously. In other words, you can actually take your customers into a broader set of mental environments.
 >
-> No matter how large you grow, people's capacities for mental environments doesn't scale. That's a fundamental limitation of how the human brain works. It's important to note that we want to silo processing, but we don't want to silo _all_ information across environments. When we build physical environments, we the people can move around and carry thoughts between environments. For example, when I run a half on the lakefront trail, I won't rely on just my symptoms of hunger when back home to determine what to make for dinner. I'll obviously arrive home with the memory that I just ran a half. Unfortunately, digital environments suffer from amnesia by default—we need to explicitly code information sharing mechanisms. The easiest mechanism is a one-way data export. The best mechanism, though, is a continuous two-way sync between environments, because it's mimics how our brain selectively shares and processes information across different contexts. That's the small passage of symbiotic interaction I'm talking about.
+> No matter how large you grow, people's capacities for mental environments doesn't scale. That's a fundamental limitation of how the human brain works. It's important to note that we want to silo processing, but we don't want to silo _all_ information across environments. When we build physical environments, we the people can move around and carry thoughts between environments. For example, when I run a half on the lakefront trail, I won't rely on just my symptoms of hunger when back home to determine what to make for dinner. I'll obviously arrive home with the memory that I just ran a half. Unfortunately, digital environments suffer from amnesia by default—we need to explicitly code information sharing mechanisms. The easiest mechanism is a one-way data export. The best mechanism, though, is a continuous two-way sync between environments, because it's mimics how our brain selectively shares and processes information across different contexts. That's the small passage of symbiotic interaction I'm talking about.\
+
+Q2) **Is it always better to have others develop most of the software for you?**\
+
+> `9:46am on 30 Nov, 2025`
+>
+> I mean yeah, it's always best others make most software for you, the interesting thing is whether "others" is people or AI.\
+
+> `9:50am on 30 Nov, 2025`
+>
+> For users wanting personalized modifications, that should never be the user directly asking for a change. We should listen to the user's problems not feature requests because they think in local maxima. But the company can't listen to everyone's specific problems so they generalize. I see AI as the solution for listening to or passively noticing every user's specific problems and creating the best solution for that user from first principles. Which a company run by just humans could never achieve.\
+
+> `10:09am on 30 Nov, 2025`
+>
+> To your question, as long as the existing software is based on valid assumptions about this user's problems, it's fine to build on top of it. If one of the assumptions is no longer true, because maybe this one user is visually impaired and can't operate a graphical user interface, then it's best to build a voice operated solution from the ground up rather than just slap some voice control over the existing graphical user interface (GUI). The underlying business processes are the same, the underlying data manipulation (CRUDing) is the same, it's just a question of how high up an abstraction of our CRUDs we can build off of before the user-specific assumptions fall apart. The default highest level of abstraction is the app everyone installs and starts with, but whether it's best to build on top of that (probably GUI) or go back a few levels of abstraction depends on assumptions about each specific user.\
+
+> `10:10am on 30 Nov, 2025`
+>
+> Oh yeah and we want to build on something that already exists because of opportunity cost.\
