@@ -12,6 +12,7 @@
   export let multiline: boolean = false;
   export let endsWithBreak: boolean = false;
   export let citation: string | undefined = undefined;
+  export let nextIsBlockquote: boolean = false;
 
   let blockquoteEl: HTMLElement;
   let paragraphEl: HTMLElement;
@@ -279,8 +280,10 @@
   class:md:!my-9={!multiline}
   class:!my-2.5={multiline && !endsWithBreak}
   class:md:!my-3={multiline && !endsWithBreak}
-  class:!mb-6={multiline && endsWithBreak}
-  class:md:!mb-7={multiline && endsWithBreak}
+  class:!mb-6={multiline && endsWithBreak && !nextIsBlockquote}
+  class:md:!mb-7={multiline && endsWithBreak && !nextIsBlockquote}
+  class:!mb-2.5={multiline && endsWithBreak && nextIsBlockquote}
+  class:md:!mb-3={multiline && endsWithBreak && nextIsBlockquote}
   class:!mt-2.5={multiline && endsWithBreak}
   class:md:!mt-3={multiline && endsWithBreak}
   class:py-3.5={!multiline}

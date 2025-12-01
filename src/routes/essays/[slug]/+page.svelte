@@ -257,11 +257,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
               </h2>
             </div>
           {/if}
-          {#each section.content as contentItem}
+          {#each section.content as contentItem, i}
             {#if contentItem.type === "blockquote"}
             <div class="w-full max-w-screen-md mx-auto">
               <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
+                <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} nextIsBlockquote={section.content[i + 1]?.type === "blockquote"} />
               </div>
             </div>
             {:else if contentItem.type === "image"}
@@ -422,11 +422,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
 
           {#if post.contributionNote}
             <div class="space-y-4" class:mt-6={!Object.keys(post.footnotes).length} class:mt-12={Object.keys(post.footnotes).length} class:md:mt-14={Object.keys(post.footnotes).length}>
-              {#each post.contributionNote as contentItem}
+              {#each post.contributionNote as contentItem, i}
                 {#if contentItem.type === "blockquote"}
                   <div class="w-full max-w-screen-md mx-auto">
                     <div class="-mx-[calc(1rem+4px)] md:-mx-[calc(1.5rem+4px)]">
-                      <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} />
+                      <MarkdownBlockquote tokens={contentItem.tokens} paragraphs={contentItem.paragraphs} multiline={contentItem.multiline} endsWithBreak={contentItem.endsWithBreak} citation={contentItem.citation} nextIsBlockquote={post.contributionNote[i + 1]?.type === "blockquote"} />
                     </div>
                   </div>
                 {:else if contentItem.type === "image"}
