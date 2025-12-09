@@ -98,7 +98,7 @@ They're all problems that are frequent enough to be design issues rather than us
 
 Here are some clarifying texts I sent to friends:
 
-Q) Maxim 4 tasks about problems going unnoticed and makes me think about how great "optimists", as mentioned in Maxim 5, can carve out these environments. **What are your thoughts on entrepreneurs trying to appeal to customers who live in a large mental environment?**
+Q1) Maxim 4 tasks about problems going unnoticed and makes me think about how great "optimists", as mentioned in Maxim 5, can carve out these environments. **What are your thoughts on entrepreneurs trying to appeal to customers who live in a large mental environment?**
 
 > `10:30am on 25 Nov, 2025`
 >
