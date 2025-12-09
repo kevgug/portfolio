@@ -2,6 +2,11 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import {
+  getFullImageUrl,
+  removeTrailingBackslashesInBlockquotes,
+  siteUrl,
+} from "./utils.mjs";
 
 const essaysDir = path.resolve(process.cwd(), "static/essays");
 const outputDir = path.resolve(process.cwd(), "static");
@@ -35,6 +40,16 @@ if (isProduction) {
 
 essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+// Helper to convert relative image paths to full URLs in HTML
+function processImagePaths(htmlContent, essaySlug) {
+  return htmlContent.replace(
+    /<img\s+([^>]*?)src="(?!https?:\/\/)([^"]+)"([^>]*)>/gi,
+    (match, before, src, after) => {
+      return `<img ${before}src="${getFullImageUrl(essaySlug, src)}"${after}>`;
+    },
+  );
+}
+
 // Helper to process footnotes in HTML content
 function processFootnotes(htmlContent) {
   // Split content by the Notes section
@@ -64,7 +79,6 @@ function processFootnotes(htmlContent) {
   return mainContent + parts[1] + notesSection;
 }
 
-const siteUrl = "https://kevingugelmann.com";
 const rss = `
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
@@ -79,7 +93,11 @@ const rss = `
   essays
     .map((essay) => {
       const url = `${siteUrl}/essays/${essay.slug}`;
-      let htmlContent = marked(essay.content);
+      const processedMarkdown = removeTrailingBackslashesInBlockquotes(
+        essay.content,
+      );
+      let htmlContent = marked(processedMarkdown);
+      htmlContent = processImagePaths(htmlContent, essay.slug);
       htmlContent = processFootnotes(htmlContent);
       const summary = htmlContent
         .replace(/<[^>]*>?/gm, " ") // Replace HTML tags with a space

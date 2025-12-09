@@ -3,6 +3,11 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import matter from "gray-matter";
+import {
+  getFullImageUrl,
+  removeTrailingBackslashesInBlockquotes,
+  siteUrl,
+} from "./utils.mjs";
 
 // Read and parse projects.ts
 const projectsFilePath = path.resolve(process.cwd(), "src/lib/projects.ts");
@@ -112,6 +117,40 @@ if (isProduction) {
 
 essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+// Helper to convert [1] footnotes to standard markdown [^1] format
+function convertToStandardFootnotes(content) {
+  const notesRegex = /^## Notes\s*$/m;
+  const parts = content.split(notesRegex);
+
+  if (parts.length < 2) {
+    return content.replace(/\[(\d+)\]/g, "[^$1]");
+  }
+
+  let mainContent = parts[0].replace(/\[(\d+)\]/g, "[^$1]");
+  let notesSection = parts[1].replace(/^\[(\d+)\]\s*/gm, "[^$1]: ");
+
+  return mainContent + "## Notes\n\n" + notesSection;
+}
+
+// Helper to convert relative image paths to full URLs in markdown
+function processImagePaths(content, essaySlug) {
+  return content.replace(
+    /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/gi,
+    (match, alt, src) => {
+      return `![${alt}](${getFullImageUrl(essaySlug, src)})`;
+    },
+  );
+}
+
+// Helper to preprocess markdown content
+function preprocessMarkdown(content, essaySlug) {
+  let processed = content;
+  processed = removeTrailingBackslashesInBlockquotes(processed);
+  processed = processImagePaths(processed, essaySlug);
+  processed = convertToStandardFootnotes(processed);
+  return processed;
+}
+
 // Format date as YYYY-MM-DD
 const formatDate = (date) => {
   // If date is already in YYYY-MM-DD format, return as is
@@ -128,8 +167,6 @@ const formatDate = (date) => {
 };
 
 // ===== GENERATE llms.txt =====
-
-const siteUrl = "https://kevingugelmann.com";
 
 // Generate project anchors
 const projectAnchors = projects
@@ -221,9 +258,13 @@ ${linkLine}
 // Generate essay content
 const essayContent = essays
   .map((essay) => {
+    const processedContent = preprocessMarkdown(
+      essay.content.trim(),
+      essay.slug,
+    );
     return `<Essay title="${essay.title}" date="${
       formatDate(essay.date)
-    }">\n# ${essay.title}\n\n${essay.content.trim()}\n</Essay>`;
+    }">\n# ${essay.title}\n\n${processedContent}\n</Essay>`;
   })
   .join("\n\n");
 
