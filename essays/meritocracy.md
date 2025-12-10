@@ -33,7 +33,7 @@ So somewhat surprisingly I think of partial meritocracy as our ideal, but more a
 1. **Momentum**\
    There need to be non-immediate, periodic feedback mechanisms. To lean towards perfect meritocracy, periods must be closer to a week than a year.
 2. **Slope over intercept**\
-   High-potential candidates must be considered at all skill levels. To lean towards perfect meritocracy, the time horizon for $$y_1 < y_2$$, and $$y_1 + m_1 t > y_2 + m_2 t$$ must be $$t \leq 2 \text{ years}$$.
+   High-potential candidates must be considered at all skill levels. To lean towards perfect meritocracy, the time horizon for $$y_1 < y_2$$ and $$y_1 + m_1 t > y_2 + m_2 t$$ must be $$t \leq 2 \text{ years}$$.
 
 ## Notes
 

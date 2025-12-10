@@ -4,8 +4,8 @@
     <link>https://kevingugelmann.com/essays</link>
     <description>Official feed for Kevin Gugelmann's essays</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 09 Dec 2025 23:39:43 GMT</lastBuildDate>
-    <dc:date>2025-12-09T23:39:43.725Z</dc:date>
+    <lastBuildDate>Wed, 10 Dec 2025 05:06:41 GMT</lastBuildDate>
+    <dc:date>2025-12-10T05:06:41.491Z</dc:date>
     <atom:link href="https://kevingugelmann.com/rss.xml" rel="self" type="application/rss+xml" />
     
           <item>
@@ -27,7 +27,7 @@
 <p>So somewhat surprisingly I think of partial meritocracy as our ideal, but more as an expression of a perfect meritocracy with partial exceptions that favour momentum and slope over intercept:</p>
 <ol>
 <li><strong>Momentum</strong><br>There need to be non-immediate, periodic feedback mechanisms. To lean towards perfect meritocracy, periods must be closer to a week than a year.</li>
-<li><strong>Slope over intercept</strong><br>High-potential candidates must be considered at all skill levels. To lean towards perfect meritocracy, the time horizon for $$y_1 &lt; y_2$$, and $$y_1 + m_1 t &gt; y_2 + m_2 t$$ must be $$t \leq 2 \text{ years}$$.</li>
+<li><strong>Slope over intercept</strong><br>High-potential candidates must be considered at all skill levels. To lean towards perfect meritocracy, the time horizon for $$y_1 &lt; y_2$$ and $$y_1 + m_1 t &gt; y_2 + m_2 t$$ must be $$t \leq 2 \text{ years}$$.</li>
 </ol>
 <h2>Notes</h2>
 <p id="note-1">[1] I booked the flight before they got into Y Combinator. So I ended up having to book a separate flight from LAX-SFO the next day.</p>
