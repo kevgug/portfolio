@@ -65,8 +65,9 @@
     background-size: 100% 100%;
   }
 
-  /* Solid underline for links in hero section (matching essay body links) */
-  #introduction ul a {
+  /* Solid underline for links in hero and CTA sections */
+  #introduction ul a,
+  #contact ul a {
     color: #a9f4e9;
     background-image: linear-gradient(to right, #a9f4e9, #a9f4e9);
     background-position: 0% 100%;
@@ -77,7 +78,8 @@
       background-image 0.2s ease;
   }
 
-  #introduction ul a:hover {
+  #introduction ul a:hover,
+  #contact ul a:hover {
     color: black;
     background-image: linear-gradient(to right, #a9f4e9, #a9f4e9);
     background-size: 100% 100%;

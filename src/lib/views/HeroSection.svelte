@@ -403,16 +403,16 @@
         <ul>
           <li>
             Built an AI tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> for designers extend to Figma and automate 300+ hours.
+            <a href="https://jpmorganchase.com">JPMorganChase</a> to automate 300+ hours by generating Figma plugins.
           </li>
           <li>
-            Designed and shipped 3 sites at
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> while contributing to Rust-based JS runtime.
+            Shipped three websites at
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> built on a custom Rust-based JS runtime.
           </li>
           <li>
-            Won the designathon and hackathon at <a
-              href="https://www.uchicago.edu">UChicago</a
-            >, majoring in Economics and Cognitive Science.
+            Won #1 prize at both the designathon and hackathon at the <a
+              href="https://www.uchicago.edu">University of Chicago</a
+            >.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-8 md:mt-9">

@@ -18,13 +18,16 @@
   <div>
     <h1 class="text-glacial-blue">
       <span class="hidden md:inline">
-        YC to Fortune 50. I'm Kevin Gugelmann.
+        Cognitively sound design. For the AI era.
       </span>
       <span class="inline md:hidden">
-        YC to Fortune 50.<br />I'm Kevin Gugelmann.
+        Cognitively sound design. <br />For the AI era.
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
+      <li>
+        Double majoring in Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a> (Class of 2026).
+      </li>
       <li>
         Drove 2x traffic increase for $30MM+ fintech and AI startups by
         strategically optimizing sitemaps, design, and copy.
@@ -34,19 +37,14 @@
         <a href="https://jpmorganchase.com">JPMorganChase</a> that generates, runs,
         and git-manages production code through natural language prompts.
       </li>
-      <li>
-        Secured 1st place at <a href="https://hyrox.com">Hyrox</a> U24 and won three
-        national gold medals in UK school rowing, driven by an obsession with marginal
-        gains.
-      </li>
     </ul>
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
-          label: "Set up call",
-          destination: "https://cal.com/kevgug/intro",
+          label: "Connect on LinkedIn",
+          destination: "https://linkedin.com/in/kevingugelmann",
           mediaType: "none",
-          eventName: "ctasection_ext_cal_primary",
+          eventName: "ctasection_linkedin_primary",
           openInNewTab: true,
         }}
         variant="glacial"
