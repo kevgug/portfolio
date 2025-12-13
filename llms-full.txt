@@ -1,7 +1,7 @@
 ## Site Metadata
 
-- Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
-- Description: Kevin Gugelmann is an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Title: Kevin Gugelmann | AI-native designer
+- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
 - Domain: kevingugelmann.com
 - Canonical: https://kevingugelmann.com
 
@@ -17,12 +17,11 @@
 ### Introduction (id: introduction)
 
 - Title (initial): "Hi, I'm Kevin. Welcome to my site."
-- Title (final, animated transition): "Product Designer. AI-Native Engineer."
-- Headshot alt: "Kevin Gugelmann's headshot"
+- Title (final, animated transition): "Kevin Gugelmann. AI-native designer."
 - Highlights:
-  - Built an AI-native tool at JPMorganChase so designers can collaboratively build Figma plugins.
-  - Shipped pixel-perfect sites at AI infra startup Freestyle (YC S24) with full-stack code.
-  - Won the designathon and hackathon at UChicago, majoring in Economics and Cognitive Science.
+  - Built an AI tool at JPMorganChase saving designers 300+ hours.
+  - Won 1st place at both the UChicago designathon and hackathon.
+  - Designed and shipped 3 full-stack websites at Freestyle (YC S24).
 - Company logos (linked, with alt text):
   - JPMorganChase logo → https://jpmorganchase.com
   - Freestyle logo → https://www.freestyle.sh
@@ -153,13 +152,14 @@
 
 ### Contact (id: contact)
 
-- Heading: "YC to Fortune 50. I'm Kevin Gugelmann."
+- Headshot alt: "Kevin Gugelmann's headshot"
+- Heading: "Cognitively sound design. For the AI era."
 - Proof points:
-  - Drove 2x traffic increase for $30MM+ fintech and AI startups by strategically optimizing sitemaps, design, and copy.
-  - Built an AI app builder toolkit for Figma plugins at JPMorganChase that generates, runs, and git-manages production code through natural language prompts.
-  - Secured 1st place at Hyrox U24 and won three national gold medals in UK school rowing, driven by an obsession with marginal gains.
+  - Economics and Cognitive Science at the University of Chicago.
+  - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
+  - Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
 - CTAs:
-  - Schedule a call → https://cal.com/kevgug/intro
+  - Connect on LinkedIn → https://linkedin.com/in/kevingugelmann
   - Email me → mailto:kevin@kevingugelmann.com
 
 ### Footer
@@ -169,7 +169,6 @@
   - Email → mailto:kevin@kevingugelmann.com
   - LinkedIn → https://www.linkedin.com/in/kevingugelmann
   - RSS → /rss.xml
-- Text: Product Designer. AI-Native Engineer.
 - Copyright © 2025 Kevin Gugelmann. All rights reserved.
 
 ### Menu Overlay (hamburger menu navigation)
@@ -207,7 +206,7 @@
 - CTA: Return home → /
 
 ## Essays
-
+In reverse chronological order:
 <Essay title="Meritocracy" date="2025-12-09">
 # Meritocracy
 
@@ -375,7 +374,7 @@ Q2) **Is it always better to have others develop most of the software for you?**
 > Oh yeah and we want to build on something that already exists because of opportunity cost.
 </Essay>
 
-<Essay title="Selling software without accountability" date="2025-10-23">
+<Essay title="Selling software without accountability" date="2025-10-24">
 # Selling software without accountability
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [^1]
