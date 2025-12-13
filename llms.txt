@@ -41,7 +41,7 @@
 
 ## Project Summaries
 
-- JPMorganChase: Delivered 500x performance improvements to launch a Figma plugin worldwide, enabling 300+ annual hours saved in design.
+- JPMorganChase: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 300+ annual hours saved in design.
 - Freestyle (YC S24): Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, ...
 - GridLink (Techstars '23): First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders.
 - Arc Browser iOS Redesign: Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and ...
@@ -56,6 +56,9 @@
 
 ## Social
 
+- Book a call: https://cal.com/kevgug/intro
+- Email: mailto:kevin@kevingugelmann.com
+- X (Twitter): https://x.com/kevingugelmann
 - LinkedIn: https://www.linkedin.com/in/kevingugelmann
 - RSS Feed: /rss.xml
 
@@ -65,3 +68,7 @@
 - Maxims of good software (2025-11-23) → https://kevingugelmann.com/essays/software-maxims
 - Selling software without accountability (2025-10-24) → https://kevingugelmann.com/essays/accountability-ai-autonomy
 - Writing manifesto (2025-09-12) → https://kevingugelmann.com/essays/manifesto
+
+## llms-full.txt
+
+- Full website content: /llms-full.txt
