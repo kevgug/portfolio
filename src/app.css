@@ -65,6 +65,24 @@
     background-size: 100% 100%;
   }
 
+  /* Solid underline for links in hero section (matching essay body links) */
+  #introduction ul a {
+    color: #a9f4e9;
+    background-image: linear-gradient(to right, #a9f4e9, #a9f4e9);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    text-decoration: none;
+    transition: color 0.2s ease, background-size 0.2s ease,
+      background-image 0.2s ease;
+  }
+
+  #introduction ul a:hover {
+    color: black;
+    background-image: linear-gradient(to right, #a9f4e9, #a9f4e9);
+    background-size: 100% 100%;
+  }
+
   button {
     @apply text-sm;
     @apply md:text-base;

@@ -383,14 +383,12 @@
         </h1>
         <ul>
           <li>
-            Built an AI-native tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> so designers can
-            collaboratively build Figma plugins.
+            Built an AI tool at
+            <a href="https://jpmorgan.com">JPMorgan</a> that lets designers extend Figma and automate 300+ hours.
           </li>
           <li>
-            Shipped pixel-perfect sites at AI infra startup
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> with full-stack
-            code.
+            Designed and shipped 3 sites at
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> while contributing to Rust-based JS runtime.
           </li>
           <li>
             Won the designathon and hackathon at <a
