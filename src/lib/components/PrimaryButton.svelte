@@ -48,7 +48,8 @@
   .button--glacial {
     @apply text-black;
     @apply bg-glacial-blue;
-    @apply border-solid border-[1px] border-white/40;
+    @apply border-none;
+    @apply font-medium;
 
     @apply transition-all;
     @apply duration-200;
@@ -65,8 +66,8 @@
   }
 
   .button--glacial:hover {
-    @apply opacity-90;
-    @apply border-solid border-[1px] border-white/70;
+    @apply bg-[#70e0cf];
+    @apply border-none;
 
     @apply transition-all;
     @apply duration-200;

@@ -67,19 +67,6 @@
     }
   }
 
-  // Scroll to contact section handler
-  async function scrollToContact(event?: MouseEvent) {
-    if (event) {
-      event.preventDefault();
-    }
-    const totalOffset = getResponsiveOffset({ spacing: "lg" });
-    await reliableScrollToElement("#contact", {
-      duration: 1000,
-      ease: "out-expo",
-      offset: totalOffset,
-    });
-  }
-
   const checkSpaceForZeigarnik = () => {
     // Use Zeigarnik effect on all screen sizes unless screen height is > 1200px
     useZeigarnikEffect = screenHeight <= 1080;
@@ -428,10 +415,10 @@
           />
           <PrimaryButton
             linkButtonContent={{
-              label: "Contact me",
-              destination: scrollToContact,
+              label: "Email",
+              destination: "mailto:kevin@kevingugelmann.com",
               mediaType: "none",
-              eventName: "herosection_contact_secondary",
+              eventName: "herosection_email_secondary",
               openInNewTab: false,
             }}
           />
