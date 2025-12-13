@@ -26,16 +26,14 @@
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
       <li>
-        Double majoring in Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a> (Class of 2026).
+        Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
       </li>
       <li>
-        Drove 2x traffic increase for $30MM+ fintech and AI startups by
-        strategically optimizing sitemaps, design, and copy.
+        Built an AI tool at
+        <a href="https://jpmorganchase.com">JPMorganChase</a> that generates on-brand Figma plugins.
       </li>
       <li>
-        Built an AI app builder toolkit for Figma plugins at
-        <a href="https://jpmorganchase.com">JPMorganChase</a> that generates, runs,
-        and git-manages production code through natural language prompts.
+        Rewrote copy and doubled site traffic for a <a href="https://www.tradefinancedistribution.com">$4.5B trade finance initiative</a> in 3 weeks.
       </li>
     </ul>
     <div class="flex items-center gap-2">
