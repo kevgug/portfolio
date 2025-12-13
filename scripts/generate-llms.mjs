@@ -192,9 +192,9 @@ const essayLinks = essays
 
 const llmsContent = `## Site
 
-- Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
-- Tagline: Product Designer. AI-Native Engineer.
-- Description: Kevin Gugelmann is an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Title: Kevin Gugelmann | AI-native designer
+- Tagline: Kevin Gugelmann. AI-native designer.
+- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
 - Base URL: ${siteUrl}
 
 ## Sitemap
@@ -210,15 +210,15 @@ ${projectAnchors}
 ## Key CTAs
 
 - Navigation: Book a call → https://cal.com/kevgug/intro
-- Contact section: Schedule a call → https://cal.com/kevgug/intro; Email me → mailto:kevin@kevingugelmann.com
+- Contact section: Connect on LinkedIn → https://linkedin.com/in/kevingugelmann; Email me → mailto:kevin@kevingugelmann.com
 - Footer: Book a call → https://cal.com/kevgug/intro; Email → mailto:kevin@kevingugelmann.com; LinkedIn → https://www.linkedin.com/in/kevingugelmann; RSS → /rss.xml
 
 ## Section Summaries
 
-- Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Product Designer. AI-Native Engineer."; highlights about JPMC AI-native tool, Freestyle pixel-perfect sites, UChicago designathon and hackathon wins. Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
+- Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Kevin Gugelmann. AI-native designer."; highlights about building AI tool at JPMorganChase saving designers 300+ hours, winning 1st place at both UChicago designathon and hackathon, and designing and shipping 3 full-stack websites at Freestyle (YC S24). Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
 - Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
-- Contact: Headline "YC to Fortune 50. I'm Kevin Gugelmann." with conversion-focused proof points and primary CTAs.
-- Footer: "Product Designer. AI-Native Engineer." and copyright.
+- Contact: Headline "Cognitively sound design. For the AI era." with proof points about UChicago education, JPMorganChase AI tool, and trade finance site traffic doubling, plus primary CTAs.
+- Footer: Copyright.
 
 ## Project Summaries
 
@@ -270,8 +270,8 @@ const essayContent = essays
 
 const llmsFullContent = `## Site Metadata
 
-- Title: Kevin Gugelmann | Product Designer. AI-Native Engineer.
-- Description: Kevin Gugelmann is an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.
+- Title: Kevin Gugelmann | AI-native designer
+- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
 - Domain: kevingugelmann.com
 - Canonical: ${siteUrl}
 
@@ -287,12 +287,11 @@ const llmsFullContent = `## Site Metadata
 ### Introduction (id: introduction)
 
 - Title (initial): "Hi, I'm Kevin. Welcome to my site."
-- Title (final, animated transition): "Product Designer. AI-Native Engineer."
-- Headshot alt: "Kevin Gugelmann's headshot"
+- Title (final, animated transition): "Kevin Gugelmann. AI-native designer."
 - Highlights:
-  - Built an AI-native tool at JPMorganChase so designers can collaboratively build Figma plugins.
-  - Shipped pixel-perfect sites at AI infra startup Freestyle (YC S24) with full-stack code.
-  - Won the designathon and hackathon at UChicago, majoring in Economics and Cognitive Science.
+  - Built an AI tool at JPMorganChase saving designers 300+ hours.
+  - Won 1st place at both the UChicago designathon and hackathon.
+  - Designed and shipped 3 full-stack websites at Freestyle (YC S24).
 - Company logos (linked, with alt text):
   - JPMorganChase logo → https://jpmorganchase.com
   - Freestyle logo → https://www.freestyle.sh
@@ -305,13 +304,14 @@ ${projectDetails}
 
 ### Contact (id: contact)
 
-- Heading: "YC to Fortune 50. I'm Kevin Gugelmann."
+- Headshot alt: "Kevin Gugelmann's headshot"
+- Heading: "Cognitively sound design. For the AI era."
 - Proof points:
-  - Drove 2x traffic increase for $30MM+ fintech and AI startups by strategically optimizing sitemaps, design, and copy.
-  - Built an AI app builder toolkit for Figma plugins at JPMorganChase that generates, runs, and git-manages production code through natural language prompts.
-  - Secured 1st place at Hyrox U24 and won three national gold medals in UK school rowing, driven by an obsession with marginal gains.
+  - Economics and Cognitive Science at the University of Chicago.
+  - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
+  - Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
 - CTAs:
-  - Schedule a call → https://cal.com/kevgug/intro
+  - Connect on LinkedIn → https://linkedin.com/in/kevingugelmann
   - Email me → mailto:kevin@kevingugelmann.com
 
 ### Footer
@@ -321,7 +321,6 @@ ${projectDetails}
   - Email → mailto:kevin@kevingugelmann.com
   - LinkedIn → https://www.linkedin.com/in/kevingugelmann
   - RSS → /rss.xml
-- Text: Product Designer. AI-Native Engineer.
 - Copyright © 2025 Kevin Gugelmann. All rights reserved.
 
 ### Menu Overlay (hamburger menu navigation)
@@ -348,7 +347,7 @@ ${projects.map((p) => `    - ${p.name}`).join("\n")}
 - CTA: Return home → /
 
 ## Essays
-
+In reverse chronological order:
 ${essayContent}
 `;
 
