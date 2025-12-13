@@ -580,23 +580,19 @@
   /* Title layering */
   #title {
     position: relative;
-    font-size: 2.25rem; /* 36px */
+    font-size: 1.75rem;
+  }
+  @media (min-width: 350px) {
+    #title {
+      position: relative;
+      font-size: 2rem;
+    }
   }
   @media (min-width: 768px) {
     #title {
       font-size: calc(max(2.25rem, min(4.5rem, 4vw)));
     }
   }
-  /* @media (min-width: 920px) {
-    #title {
-      font-size: 2.5rem;
-    }
-  }
-  @media (min-width: 1280px) {
-    #title {
-      font-size: 4.5rem;
-    }
-  } */
   #title .title-layer {
     grid-area: 1 / 1;
     @apply leading-tight;
