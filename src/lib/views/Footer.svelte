@@ -33,7 +33,7 @@
   <div
     class="flex flex-row
           space-x-2.5 md:space-x-[0.7rem] lg:space-x-3
-          pb-3 md:pb-0
+          pb-[1.25rem] md:pb-0
           mt-2 md:mt-0"
   >
     <a href="https://cal.com/kevgug/intro" target="_blank" rel="noreferrer">
@@ -69,6 +69,7 @@
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
+      LLM? Read <a href="/llms.txt" target="_blank" rel="noreferrer">llms.txt</a>. <br />
       Copyright © 2025 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
@@ -83,6 +84,7 @@
 {/if}
 
 <style lang="postcss">
+  /* Icon links - keep current hover behavior */
   a {
     @apply text-white/80;
     @apply transition-all;
@@ -95,6 +97,24 @@
     @apply transition-all;
     @apply ease-intro;
     @apply duration-intro;
+  }
+
+  /* Text links in footer - gray underline with fill effect on hover (like footnotes) */
+  p a {
+    @apply text-muted-text-grey;
+    /* Gray underline by default */
+    background-image: linear-gradient(to right, #C1C1C1, #C1C1C1);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    text-decoration: none;
+    transition: background-size 0.2s ease, background-image 0.2s ease, color 0.2s ease;
+  }
+
+  p a:hover {
+    color: black;
+    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-size: 100% 100%;
   }
 
   .toast-animate {

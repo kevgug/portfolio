@@ -415,7 +415,7 @@
           />
           <PrimaryButton
             linkButtonContent={{
-              label: "Email",
+              label: "Email me",
               destination: "mailto:kevin@kevingugelmann.com",
               mediaType: "none",
               eventName: "herosection_email_secondary",

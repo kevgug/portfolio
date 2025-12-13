@@ -226,12 +226,19 @@ ${projectSummaries}
 
 ## Social
 
+- Book a call: https://cal.com/kevgug/intro
+- Email: mailto:kevin@kevingugelmann.com
+- X (Twitter): https://x.com/kevingugelmann
 - LinkedIn: https://www.linkedin.com/in/kevingugelmann
 - RSS Feed: /rss.xml
 
 ## Essays
 
 ${essayLinks}
+
+## llms-full.txt
+
+- Full website content: /llms-full.txt
 `;
 
 // ===== GENERATE llms-full.txt =====
@@ -317,10 +324,11 @@ ${projectDetails}
 ### Footer
 
 - Social links:
-  - Book a call → https://cal.com/kevgug/intro
-  - Email → mailto:kevin@kevingugelmann.com
-  - LinkedIn → https://www.linkedin.com/in/kevingugelmann
-  - RSS → /rss.xml
+  - Book a call: https://cal.com/kevgug/intro
+  - Email: mailto:kevin@kevingugelmann.com
+  - X (Twitter): https://x.com/kevingugelmann
+  - LinkedIn: https://www.linkedin.com/in/kevingugelmann
+  - RSS Feed: /rss.xml
 - Copyright © 2025 Kevin Gugelmann. All rights reserved.
 
 ### Menu Overlay (hamburger menu navigation)

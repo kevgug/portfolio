@@ -39,17 +39,17 @@
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
-          label: "View LinkedIn",
-          destination: "https://linkedin.com/in/kevingugelmann",
-          mediaType: "none",
-          eventName: "ctasection_linkedin_primary",
+          label: "Discuss a project",
+          destination: "https://cal.com/kevgug/intro",
+          mediaType: "webpage",
+          eventName: "ctasection_bookcall_primary",
           openInNewTab: true,
         }}
         variant="glacial"
       />
       <PrimaryButton
         linkButtonContent={{
-          label: "Email",
+          label: "Email me",
           destination: "mailto:kevin@kevingugelmann.com",
           mediaType: "none",
           eventName: "ctasection_email_secondary",
