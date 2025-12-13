@@ -103,7 +103,8 @@
       const isClickable = 
                           (target.tagName === 'A' && target.getAttribute('href') !== null) || 
                           target.tagName === 'BUTTON' ||
-                          target.closest('a[href], button') !== null;
+                          target.classList.contains('cursor-pointer-btn') ||
+                          target.closest('a[href], button, .cursor-pointer-btn') !== null;
       
       // Check if it's selectable text or an input element
       const hasTextContent = Boolean(target.textContent);

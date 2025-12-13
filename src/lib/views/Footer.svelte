@@ -33,7 +33,7 @@
   <div
     class="flex flex-row
           space-x-2.5 md:space-x-[0.7rem] lg:space-x-3
-          pb-[1.35rem] md:pb-0
+          pb-3 md:pb-0
           mt-2 md:mt-0"
   >
     <a href="https://cal.com/kevgug/intro" target="_blank" rel="noreferrer">
@@ -69,7 +69,6 @@
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
-      Product Designer. AI-Native Engineer.<br />
       Copyright © 2025 Kevin Gugelmann. All rights reserved.
     </p>
   </div>

@@ -12,9 +12,9 @@
   // Assets
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
-  const pageTitle = "Kevin Gugelmann | Product Designer. AI-Native Engineer.";
+  const pageTitle = "Kevin Gugelmann | AI-native designer";
   const pageDescription =
-    "Kevin Gugelmann is an AI-native Product Designer and UX Engineer with a Cognitive Science background, designing and shipping human-centered products end to end.";
+    "Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 
@@ -180,7 +180,7 @@ pt-16 md:pt-20"
   <div class="pt-20 md:pt-24 lg:pt-32">
     <Separator />
   </div>
-  <div id="contact" class="py-20 md:py-[6.3rem] lg:py-32">
+  <div class="py-20 md:py-[6.3rem] lg:py-32">
     <CtaSection />
   </div>
   <Footer />

@@ -7,15 +7,16 @@
   import LinkButton from "$lib/components/LinkButton.svelte";
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
-  import { reliableScrollToElement } from "$lib/util/reliableScroll";
+  import {
+    reliableScrollToElement,
+    getResponsiveOffset,
+  } from "$lib/util/reliableScroll";
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
   import { gsap } from "gsap";
+  import { projects } from "$lib/projects";
 
   // Assets
   import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
-  // import headshotAvif from "$lib/images/kevin-headshot.avif";
-  // import headshotWebp from "$lib/images/kevin-headshot.webp";
-  import Image from "$lib/components/Image.svelte";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
@@ -49,6 +50,35 @@
   // Animation state tracking
   let elementAnimationStarted = false;
   let titleSwapStarted = false;
+
+  // Scroll to first project handler
+  async function scrollToFirstProject(event?: MouseEvent) {
+    if (event) {
+      event.preventDefault();
+    }
+    const firstProject = projects[0];
+    if (firstProject) {
+      const totalOffset = getResponsiveOffset({ spacing: "lg" });
+      await reliableScrollToElement(`#${firstProject.id}`, {
+        duration: 1000,
+        ease: "out-expo",
+        offset: totalOffset,
+      });
+    }
+  }
+
+  // Scroll to contact section handler
+  async function scrollToContact(event?: MouseEvent) {
+    if (event) {
+      event.preventDefault();
+    }
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
+    await reliableScrollToElement("#contact", {
+      duration: 1000,
+      ease: "out-expo",
+      offset: totalOffset,
+    });
+  }
 
   const checkSpaceForZeigarnik = () => {
     // Use Zeigarnik effect on all screen sizes unless screen height is > 1200px
@@ -94,9 +124,9 @@
   const oldTitleLine1 = "Hi, I'm Kevin.";
   const oldTitleLine2 = "Welcome to my site.";
   const oldTitleDesktopText = `${oldTitleLine1} ${oldTitleLine2}`;
-  const newTitleDesktopText = "Product Designer. AI-Native Engineer.";
-  const newTitleLine1 = "Product Designer.";
-  const newTitleLine2 = "AI-Native Engineer.";
+  const newTitleLine1 = "Kevin Gugelmann.";
+  const newTitleLine2 = "AI-native designer.";
+  const newTitleDesktopText = `${newTitleLine1} ${newTitleLine2}`;
 
   let oldTitleElement: HTMLElement;
   let newTitleDesktopElement: HTMLElement;
@@ -296,24 +326,13 @@
 >
   <div
     bind:this={heroContent}
-    class="flex flex-col
-         pt-2 pb-14 md:pt-0 md:pb-0
+    class="flex flex-col justify-center
          {useZeigarnikEffect
-      ? 'min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
-      : ''}"
+      ? 'flex-1 pb-40 md:pb-48 lg:pb-60 xl:pb-72 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      : 'pb-0 min-h-[24rem] md:min-h-[28rem] lg:min-h-[32rem]'}"
   >
     <div class="w-full">
       <div>
-        <Image
-          imgOptions={{
-            src: headshotSrc,
-            // avifSrc: headshotAvif,
-            // webpSrc: headshotWebp,
-            alt: "Kevin Gugelmann's headshot",
-            loading: "eager",
-          }}
-          class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover border border-white/30 mt-4 mb-11 sm:mt-8 xl:mt-12"
-        />
         <h1
           id="title"
           class="text-glacial-blue
@@ -383,21 +402,40 @@
         </h1>
         <ul>
           <li>
-            Built an AI-native tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> so designers can
-            collaboratively build Figma plugins.
+            Built an AI tool at
+            <a href="https://jpmorganchase.com">JPMorganChase</a> saving designers 300+ hours.
           </li>
           <li>
-            Shipped pixel-perfect sites at AI infra startup
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a> with full-stack
-            code.
+            Won 1st place at both the <a
+            href="https://www.uchicago.edu">UChicago</a
+          > designathon and hackathon.
           </li>
           <li>
-            Won the designathon and hackathon at <a
-              href="https://www.uchicago.edu">UChicago</a
-            >, majoring in Economics and Cognitive Science.
+            Designed and shipped 3 full-stack websites at
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
           </li>
         </ul>
+        <div class="flex items-center gap-2 mt-8 md:mt-9">
+          <PrimaryButton
+            linkButtonContent={{
+              label: "View portfolio",
+              destination: scrollToFirstProject,
+              mediaType: "none",
+              eventName: "herosection_portfolio_primary",
+              openInNewTab: false,
+            }}
+            variant="glacial"
+          />
+          <PrimaryButton
+            linkButtonContent={{
+              label: "Contact me",
+              destination: scrollToContact,
+              mediaType: "none",
+              eventName: "herosection_contact_secondary",
+              openInNewTab: false,
+            }}
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -539,11 +577,21 @@
 </div>
 
 <style lang="postcss">
-  /* Removed min-height CSS to allow Tailwind classes to control height */
-
   /* Title layering */
   #title {
     position: relative;
+    font-size: 1.75rem;
+  }
+  @media (min-width: 350px) {
+    #title {
+      position: relative;
+      font-size: 2rem;
+    }
+  }
+  @media (min-width: 768px) {
+    #title {
+      font-size: calc(max(2.25rem, min(4.5rem, 4vw)));
+    }
   }
   #title .title-layer {
     grid-area: 1 / 1;

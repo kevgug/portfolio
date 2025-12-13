@@ -190,7 +190,7 @@
   }
 
   function handleContactClick() {
-    const totalOffset = getResponsiveOffset();
+    const totalOffset = getResponsiveOffset({ spacing: "lg" });
 
     reliableScrollToElement(`#contact`, {
       duration: 1000,

@@ -3,17 +3,17 @@
   import Icon, { type IconName } from "./Icon.svelte";
 
   export let linkButtonContent: LinkButtonContent;
-  export let iconName: IconName;
+  export let iconName: IconName | undefined = undefined;
   export let iconFlipY = false;
   export let variant: "default" | "glacial" = "default";
 </script>
 
 <a
-  class="button flex flex-row"
+  class="button flex flex-row cursor-pointer-btn"
   class:button--glacial={variant === "glacial"}
   href={typeof linkButtonContent.destination === "string"
     ? linkButtonContent.destination
-    : undefined}
+    : "#"}
   data-sa-link-event={linkButtonContent.eventName}
   target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
   rel={linkButtonContent.openInNewTab ?? false ? "noreferrer" : ""}
@@ -22,9 +22,11 @@
     : undefined}
 >
   {linkButtonContent.label}
-  <div class="pl-[0.52rem] md:pl-[0.6rem] pr-[0.04rem] md:pr-[0.1rem]">
-    <Icon name={iconName} size="0.75em" flipY={iconFlipY} />
-  </div>
+  {#if iconName}
+    <div class="pl-[0.52rem] md:pl-[0.6rem] pr-[0.04rem] md:pr-[0.1rem]">
+      <Icon name={iconName} size="0.75em" flipY={iconFlipY} />
+    </div>
+  {/if}
 </a>
 
 <style lang="postcss">
