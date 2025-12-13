@@ -326,11 +326,10 @@
 >
   <div
     bind:this={heroContent}
-    class="flex flex-col flex-1 justify-center
-         pb-40 md:pb-48 lg:pb-60 xl:pb-72
+    class="flex flex-col justify-center
          {useZeigarnikEffect
-      ? 'min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
-      : 'pb-0'}"
+      ? 'flex-1 pb-40 md:pb-48 lg:pb-60 xl:pb-72 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      : 'pb-0 min-h-[24rem] md:min-h-[28rem] lg:min-h-[32rem]'}"
   >
     <div class="w-full">
       <div>
