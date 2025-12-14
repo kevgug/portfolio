@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { tailwindTheme } from "$lib/tailwindTheme";
-  import Icon from "$lib/components/Icon.svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import Separator from "$lib/components/Separator.svelte";
-  import { responsiveIconSize, SmFontSize } from "$lib/util/responsiveIcon";
-  import LinkButton from "$lib/components/LinkButton.svelte";
   import { onMount } from "svelte";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
   import {
@@ -14,22 +10,17 @@
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
   import { gsap } from "gsap";
   import { projects } from "$lib/projects";
+  import { layoutReady } from "$lib/stores/layoutReady";
 
   // Assets
-  import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
   import ycLogo from "$lib/images/logos/y-combinator.svg";
 
-  // Colors
-  const mutedTextGreyColor = tailwindTheme.colors["muted-text-grey"];
-  const whiteColor = tailwindTheme.colors.white;
-
   // Calculations
   let screenWidth = 0;
   let screenHeight = 0;
-  $: globeIconSize = responsiveIconSize(SmFontSize.sm, screenWidth);
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
   $: if (screenHeight) checkSpaceForZeigarnik();
@@ -38,13 +29,13 @@
   let separator: HTMLElement;
   let separatorMarginY = 0;
   let boundedSeparatorMarginY = 0;
-  let heroSection: HTMLElement;
   let bottomSection: HTMLElement;
   let companyLogosElement: HTMLElement;
   let marqueeWrapperElement: HTMLElement;
 
   // Determine if we should use Zeigarnik effect based on screen height
-  export let useZeigarnikEffect = false;
+  // Default to true to prevent layout shift (most screens are <= 1080px)
+  export let useZeigarnikEffect = true;
   let bottomSectionHeight = 0;
 
   // Animation state tracking
@@ -93,20 +84,6 @@
 
     checkSpaceForZeigarnik();
   };
-
-  // Scrolling
-  let projectElement: HTMLElement;
-  const scrollToProjects = () => {
-    const duration = breakpoint == BreakpointSizes.sm ? 570 : 630;
-    const offset = breakpoint == BreakpointSizes.sm ? -64 : -80;
-
-    reliableScrollToElement(projectElement, {
-      duration,
-      ease: "outQuint",
-      offset,
-    });
-  };
-
   // ----- Title animation (masked, staggered characters) -----
   const oldTitleLine1 = "Hi, I'm Kevin.";
   const oldTitleLine2 = "Welcome to my site.";
@@ -170,6 +147,9 @@
     // Calculations
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
+    
+    // Mark layout as ready after calculations are complete
+    layoutReady.set(true);
 
     // Title initial states
     const oldChars = oldTitleElement
@@ -306,7 +286,6 @@
 />
 
 <div
-  bind:this={heroSection}
   class="hero-section flex flex-col
     pt-4 pb-8 md:pt-6 md:pb-20
     {useZeigarnikEffect ? 'relative min-h-[100svh] md:min-h-screen' : ''}"
@@ -556,7 +535,6 @@
 >
   <div
     id="projects"
-    bind:this={projectElement}
     style="height: {useZeigarnikEffect
       ? bottomSectionHeight
       : boundedSeparatorMarginY}px"
