@@ -153,7 +153,7 @@
 ### Contact (id: contact)
 
 - Headshot alt: "Kevin Gugelmann's headshot"
-- Heading: "Cognitively sound design. For the AI era."
+- Heading: "Cognitively sound design. For the AI age."
 - Proof points:
   - Economics and Cognitive Science at the University of Chicago.
   - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
