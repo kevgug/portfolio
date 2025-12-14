@@ -18,10 +18,10 @@
   <div>
     <h1 class="text-glacial-blue">
       <span class="hidden md:inline">
-        Cognitively sound design. For the AI era.
+        Cognitively sound design. For the AI age.
       </span>
       <span class="inline md:hidden">
-        Cognitively sound design. <br />For the AI era.
+        Cognitively sound design. <br />For the AI age.
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">

@@ -217,7 +217,7 @@ ${projectAnchors}
 
 - Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Kevin Gugelmann. AI-native designer."; highlights about building AI tool at JPMorganChase saving designers 300+ hours, winning 1st place at both UChicago designathon and hackathon, and designing and shipping 3 full-stack websites at Freestyle (YC S24). Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
 - Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
-- Contact: Headline "Cognitively sound design. For the AI era." with proof points about UChicago education, JPMorganChase AI tool, and trade finance site traffic doubling, plus primary CTAs.
+- Contact: Headline "Cognitively sound design. For the AI age." with proof points about UChicago education, JPMorganChase AI tool, and trade finance site traffic doubling, plus primary CTAs.
 - Footer: Copyright.
 
 ## Project Summaries
@@ -312,7 +312,7 @@ ${projectDetails}
 ### Contact (id: contact)
 
 - Headshot alt: "Kevin Gugelmann's headshot"
-- Heading: "Cognitively sound design. For the AI era."
+- Heading: "Cognitively sound design. For the AI age."
 - Proof points:
   - Economics and Cognitive Science at the University of Chicago.
   - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
