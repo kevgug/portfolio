@@ -34,7 +34,7 @@
 
 - Output medium: Global Private Bank
 - Role: UX Engineer
-- Description: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 300+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second and built AI-native tool enabling designers to collaboratively build Figma plugins via natural language without code or git. Selected as 1 of 5 to present to 460+ JPMC tech interns globally.
+- Description: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
 - Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
 - Link: View Website → https://www.jpmorganchase.com
 - Image alt: JPMorganChase logo in gold

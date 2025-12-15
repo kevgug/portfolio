@@ -41,7 +41,7 @@
 
 ## Project Summaries
 
-- JPMorganChase: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 300+ annual hours saved in design.
+- JPMorganChase: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design.
 - Freestyle (YC S24): Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, ...
 - GridLink (Techstars '23): First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders.
 - Arc Browser iOS Redesign: Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and ...
