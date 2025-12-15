@@ -22,7 +22,7 @@ On a smaller but not insignificant scale, performance sports function the same a
 
 ## Present-day reflections
 
-I like the idea that meritocratic mobility, unlike social mobility, can be co-achieved—such that everyone can rise (or fall) together. This definition reminds me of how relative poverty in an utopian world is a good life: it exists far above absolute poverty.
+I like the idea that meritocratic mobility, unlike social mobility, can be co-achieved—such that everyone can rise (or fall) together. This definition reminds me of how relative poverty in a utopian world is a good life: it exists far above absolute poverty.
 
 My focus on fairness seems to underly my thoughts, where the anticipation of future reward or punishment is necessary for acting positively today. It would only be fair to reward and punish people who choose to stay within a system. For example, if I decide to leave the job market, it would not be fair to be judged for my lack of hard work. My exclusion from the system is enough of a punishment on its own, while I keep my autonomy over which system I choose to join and have the potential to be rewarded by. [2]
 
