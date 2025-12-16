@@ -1,0 +1,43 @@
+const e=`---
+title: "Meritocracy"
+date: "2025-12-09"
+publish: true
+---
+
+I just found my notes from 5 July 2024, from my LHR-LAX flight to work at [Freestyle (YC S24)](https://freestyle.sh). I've written up my notes below, exactly as I found them. [1]
+
+## Plane notes
+
+I care deeply about meritocracy. Merit should be rewarded fairly, with respect to lesser merit. Merit is the outcome/result of hard work over short or long time spans, often paired with a story of how hard the hard work was.
+
+Mobility is key to making a meritocracy. A person should be allowed to rise and fall as fast as their merit rises and falls. Encourage those who could rest on their laurels not to do so, and those who have everything to gain to gain fairly. While that implies that those who give back to society less than they are given must be punished fairly, they must also be rewarded fairly as soon as they decide to invest time and grit in boosting their merit again.
+
+Crucially, importantly, mobility is not in competition with other people, other than by the relative measurement and compensation of fairness. Mobility is not on a 0-1 scale—it is simply not a zero-sum game. The beauty of society is the ability for every individual and entity to give back more than they take: the infinite value creation machine. As long as hard work in the right direction (aka merit) is rewarded fairly, the quality of life for all members of society will perpetually improve. All the while, individual people are given purpose to live beyond faith.
+
+On a smaller but not insignificant scale, performance sports function the same as society. Sport and training and medalling mustn't be an athlete's _raison d'être_ for it to provide significant purpose to the athlete. Even if a meritocratic environment simply provides the athlete hope that meritocracy can exist across all aspects of their life, outside the low-variable closed environment that is sport, then that can inspire a person to keep working hard. And everyone in society will be better off because of it.
+
+![Photo of the first page of handwritten notes](page0.jpeg)
+
+![Photo of the second page of handwritten notes](page1.jpeg)
+
+## Present-day reflections
+
+I like the idea that meritocratic mobility, unlike social mobility, can be co-achieved—such that everyone can rise (or fall) together. This definition reminds me of how relative poverty in a utopian world is a good life: it exists far above absolute poverty.
+
+My focus on fairness seems to underly my thoughts, where the anticipation of future reward or punishment is necessary for acting positively today. It would only be fair to reward and punish people who choose to stay within a system. For example, if I decide to leave the job market, it would not be fair to be judged for my lack of hard work. My exclusion from the system is enough of a punishment on its own, while I keep my autonomy over which system I choose to join and have the potential to be rewarded by. [2]
+
+The reality we seem to live in is a partial meritocracy, which falls between zero and perfect meritocracy. A zero meritocracy world would imply that all work is rewarded randomly or not at all. If no hard work ever gets rewarded, even the highest IQ individuals and most genetically blessed athletes, who can produce top-percentile output relative to each unit of input, will expect no difference in reward between 0 and infinite units of input. In a perfectly meritocratic world, everyone receives immediate and uniform signals for each unit of input. But it's ruthless and lacks the stability of a momentum-based system. Imagine you're sick for one day and get removed from your position as CEO; being OOO for a year without explanation is undoubtedly worth dismissal, being OOO for a day is not. A perfect meritocracy would also create a signficant cold start problem for people new to the system; instead, we have internship and graduate programs that bet on people's slope of output quality per unit input over the intercept of their current output quality per unit input.
+
+So somewhat surprisingly I think of partial meritocracy as our ideal, but more as an expression of a perfect meritocracy with partial exceptions that favour momentum and slope over intercept:
+
+1. **Momentum**\\
+   There need to be non-immediate, periodic feedback mechanisms. To lean towards perfect meritocracy, periods must be closer to a week than a year.
+2. **Slope over intercept**\\
+   High-potential candidates must be considered at all skill levels. To lean towards perfect meritocracy, the time horizon for $$y_1 < y_2$$ and $$y_1 + m_1 t > y_2 + m_2 t$$ must be $$t \\leq 2 \\text{ years}$$.
+
+## Notes
+
+[1] I booked the flight before they got into Y Combinator. So I ended up having to book a separate flight from LAX-SFO the next day.
+
+[2] In other words, don't chastise financial dependents like children, stay-at-home mothers, and older parents. Their exclusion from the system will chastise them enough, if at all. Importantly, financial depedents can contribute to society in other ways, both socially and economically (mainly through spending), and are often the unrecorded fuel behind the people they are financially dependent on. Writing this down, real life dependency trees are very circular when you think about it.
+`;export{e as default};

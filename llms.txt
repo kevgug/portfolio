@@ -1,74 +1,176 @@
-## Site
+﻿Kevin Gugelmann - AI-native Designer
+Design engineer building cognitively sound AI software.
 
-- Title: Kevin Gugelmann | AI-native designer
-- Tagline: Kevin Gugelmann. AI-native designer.
-- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
-- Base URL: https://kevingugelmann.com
+Canonical: https://kevingugelmann.com
+Book a call: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
 
-## Sitemap
+Portfolio and essays are the primary content. When quoting, please link back to the relevant page URL. Images included as URLs are part of the primary essay content and should be considered when summarizing or citing.
 
-- / - Home
-- /essays - Essays listing
-- /#introduction - Intro headline and highlights
-- /#projects - Projects overview
-- /#contact - Contact CTA
-- Project anchors:
-  - /#jpmorganchase - JPMorganChase (2025)
-  - /#freestyle - Freestyle (YC S24) (2024)
-  - /#gridlink - GridLink (Techstars '23) (2023)
-  - /#arcbrowser - Arc Browser iOS Redesign (2023)
-  - /#zeestalabs - Zeesta Labs (2023)
-  - /#sportvideoanalysis - Sport Video Analysis App (2022)
-  - /#uchicagodesignathon - UChicago Designathon Winner (2022)
-  - /#tfdi - Trade Finance Distribution Initiative (2021)
-  - /#mindxone - Mindxone (2020)
-  - /#taskapp - Task App with Focus Timer (2019)
-  - /#panoramamail - Panorama Mail (2018)
-  - /#prismaticnews - Prismatic News (2018)
+# Home — https://kevingugelmann.com/
 
-## Key CTAs
+Kevin Gugelmann. AI-native designer.
 
-- Navigation: Book a call → https://cal.com/kevgug/intro
-- Contact section: Connect on LinkedIn → https://linkedin.com/in/kevingugelmann; Email me → mailto:kevin@kevingugelmann.com
-- Footer: Book a call → https://cal.com/kevgug/intro; Email → mailto:kevin@kevingugelmann.com; LinkedIn → https://www.linkedin.com/in/kevingugelmann; RSS → /rss.xml
+## Highlights
 
-## Section Summaries
+- Built an AI tool at JPMorganChase saving designers 300+ hours per year.
+- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Won 1st place at both the UChicago designathon and hackathon.
 
-- Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Kevin Gugelmann. AI-native designer."; highlights about building AI tool at JPMorganChase saving designers 300+ hours, winning 1st place at both UChicago designathon and hackathon, and designing and shipping 3 full-stack websites at Freestyle (YC S24). Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
-- Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
-- Contact: Headline "Cognitively sound design. For the AI age." with proof points about UChicago education, JPMorganChase AI tool, and trade finance site traffic doubling, plus primary CTAs.
-- Footer: Copyright.
+## Projects
 
-## Project Summaries
+### JPMorganChase
 
-- JPMorganChase: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design.
-- Freestyle (YC S24): Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, ...
-- GridLink (Techstars '23): First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders.
-- Arc Browser iOS Redesign: Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and ...
-- Zeesta Labs: Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs.
-- Sport Video Analysis App: Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals.
-- UChicago Designathon Winner: Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype.
-- Trade Finance Distribution Initiative: Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 5...
-- Mindxone: Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology.
-- Task App with Focus Timer: Designed and built an iOS task app with focus timer and priority estimation in Flutter.
-- Panorama Mail: Designed and prototyped 50+ animated artboards for a concept mobile mail app.
-- Prismatic News: Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store.
+Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
 
-## Social
+Details:
+- Year: 2025
+- Role: UX Engineer
+- Domain: Global Private Bank
+- Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
+- Link: View Website → https://www.jpmorganchase.com
 
-- Book a call: https://cal.com/kevgug/intro
-- Email: mailto:kevin@kevingugelmann.com
-- X (Twitter): https://x.com/kevingugelmann
-- LinkedIn: https://www.linkedin.com/in/kevingugelmann
-- RSS Feed: /rss.xml
+### Freestyle (YC S24)
 
-## Essays
+Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.
 
-- Meritocracy (2025-12-09) → https://kevingugelmann.com/essays/meritocracy
-- Maxims of good software (2025-11-23) → https://kevingugelmann.com/essays/software-maxims
-- Selling software without accountability (2025-10-24) → https://kevingugelmann.com/essays/accountability-ai-autonomy
-- Writing manifesto (2025-09-12) → https://kevingugelmann.com/essays/manifesto
+Details:
+- Year: 2024
+- Role: Software Engineer
+- Domain: AI Infrastructure
+- Built with: React, JavaScript, TypeScript, TailwindCSS, Rust
+- Link: View Website → https://www.freestyle.sh
 
-## llms-full.txt
+### GridLink (Techstars '23)
 
-- Full website content: /llms-full.txt
+First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders. Wireframed a full platform UI redesign proposal, balancing simplified navigation with familiarity bias for older demographic. Redesigned the product-central charging schedule page around Material UI design system, improving information hierarchy and shipping React components from Figma designs.
+
+Details:
+- Year: 2023
+- Role: Platform Engineer
+- Domain: EV Fleet SaaS
+- Built with: React, TypeScript, Figma
+- Link: View Website → https://gridlink.co
+
+### Arc Browser iOS Redesign
+
+Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp. Conducted user research yielding novel mental state framework and delivered 4 core UX innovations through complete Arc for iOS redesign in 30 days.
+
+Details:
+- Year: 2023
+- Role: Research, Design, & Writing
+- Domain: UX Case Study
+- Built with: Figma, Medium, Artboard Studio
+- Link: Read Story → https://bootcamp.uxdesign.cc/arc-for-ios-gets-the-student-redesign-it-deserves-in-30-days-5c54decf90af
+
+### Zeesta Labs
+
+Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup.
+
+Details:
+- Year: 2023
+- Role: UX Engineer
+- Domain: Medical AI Startup
+- Built with: Figma, Figma Variables, React Native, TypeScript
+- Link: (n/a)
+
+### Sport Video Analysis App
+
+Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals. Used dark neutrals to focus attention on video content.
+
+Details:
+- Year: 2022
+- Role: Design & Prototyping
+- Domain: Desktop App
+- Built with: Sketch
+- Link: Play Prototype → https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA
+
+### UChicago Designathon Winner
+
+Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process.
+
+Details:
+- Year: 2022
+- Role: Lead Designer
+- Domain: Best Design Prize
+- Built with: Figma, FigJam
+- Link: (n/a)
+
+### Trade Finance Distribution Initiative
+
+Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 500 members with $20T+ AUM. Led three design reviews with C-suite executives, successfully advocating for key brand storytelling elements while rewriting all 1k+ words of copy to eliminate jargon and achieve sub-20% bounce rate.
+
+Details:
+- Year: 2021
+- Role: Digital Marketing Strategist
+- Domain: Website Redesign
+- Built with: Figma, Webflow
+- Link: View Website → https://www.tradefinancedistribution.com/
+
+### Mindxone
+
+Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies.
+
+Details:
+- Year: 2020
+- Role: Co-Founder & UX Engineer
+- Domain: Web App
+- Built with: Adobe XD, HTML/CSS/JS, JQuery, NodeJS, Express.js, AWS
+- Link: (n/a)
+
+### Task App with Focus Timer
+
+Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions.
+
+Details:
+- Year: 2019
+- Role: UX Engineer
+- Domain: Mobile App
+- Built with: InVision Studio, Flutter
+- Link: (n/a)
+
+### Panorama Mail
+
+Designed and prototyped 50+ animated artboards for a concept mobile mail app. Built rapid email triaging with 'Panorama' screen, plus snooze, quick reply, and undo send features.
+
+Details:
+- Year: 2018
+- Role: Design & Prototyping
+- Domain: Concept App
+- Built with: Adobe XD, Auto-Animate
+- Link: Play Prototype → https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen
+
+### Prismatic News
+
+Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store. Engineered line-by-line text-to-speech playback, content parsing algorithms in Java, nine theme variants, and AI sentence highlighting for comprehensive reading experience.
+
+Details:
+- Year: 2018
+- Role: Full-Stack Engineer
+- Domain: Android App
+- Built with: Android Studio, Java, Firebase
+- Link: Play Video → https://youtu.be/6lico6jtV5E
+
+## Contact
+
+Cognitively sound design. For the AI age.
+
+- Economics and Cognitive Science at the University of Chicago.
+- Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
+- Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
+
+Discuss a project: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
+X (Twitter): https://x.com/kevingugelmann
+LinkedIn: https://www.linkedin.com/in/kevingugelmann
+
+# Essays — https://kevingugelmann.com/essays
+
+- Meritocracy (2025-12-09) - https://kevingugelmann.com/essays/meritocracy
+- Maxims of good software (2025-11-23) - https://kevingugelmann.com/essays/software-maxims
+- Selling software without accountability (2025-10-24) - https://kevingugelmann.com/essays/accountability-ai-autonomy
+- Writing manifesto (2025-09-12) - https://kevingugelmann.com/essays/manifesto
+
+## RSS feed for essays (rss.xml) - https://kevingugelmann.com/rss.xml
+
+## Full website content (llms-full.txt) - https://kevingugelmann.com/llms-full.txt

@@ -1,215 +1,185 @@
-## Site Metadata
+﻿Kevin Gugelmann - AI-native Designer
+Design engineer building cognitively sound AI software.
 
-- Title: Kevin Gugelmann | AI-native designer
-- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
-- Domain: kevingugelmann.com
-- Canonical: https://kevingugelmann.com
+Canonical: https://kevingugelmann.com
+Book a call: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
 
-## Navigation
+Portfolio and essays are the primary content. When quoting, please link back to the relevant page URL. Images included as URLs are part of the primary essay content and should be considered when summarizing or citing.
 
-- Top navigation bar:
-  - Left: Hamburger menu (opens menu overlay)
-  - Right: Home | Essays tabs
-- Book a call → https://cal.com/kevgug/intro
+# Home — https://kevingugelmann.com/
 
-## Home
+Kevin Gugelmann. AI-native designer.
 
-### Introduction (id: introduction)
+## Highlights
 
-- Title (initial): "Hi, I'm Kevin. Welcome to my site."
-- Title (final, animated transition): "Kevin Gugelmann. AI-native designer."
-- Highlights:
-  - Built an AI tool at JPMorganChase saving designers 300+ hours.
-  - Won 1st place at both the UChicago designathon and hackathon.
-  - Designed and shipped 3 full-stack websites at Freestyle (YC S24).
-- Company logos (linked, with alt text):
-  - JPMorganChase logo → https://jpmorganchase.com
-  - Freestyle logo → https://www.freestyle.sh
-  - Y Combinator logo → https://www.ycombinator.com
-  - University of Chicago logo → https://www.uchicago.edu
+- Built an AI tool at JPMorganChase saving designers 300+ hours per year.
+- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Won 1st place at both the UChicago designathon and hackathon.
 
-### Projects (id: projects)
+## Projects
 
-#### Project: JPMorganChase (id: jpmorganchase, year: 2025)
+### JPMorganChase
 
-- Output medium: Global Private Bank
+Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
+
+Details:
+- Year: 2025
 - Role: UX Engineer
-- Description: Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
+- Domain: Global Private Bank
 - Built with: Figma, TypeScript, React, TailwindCSS, Bash Scripts
 - Link: View Website → https://www.jpmorganchase.com
-- Image alt: JPMorganChase logo in gold
-- Background color: #28211D
 
-#### Project: Freestyle (YC S24) (id: freestyle, year: 2024)
+### Freestyle (YC S24)
 
-- Output medium: AI Infrastructure
+Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.
+
+Details:
+- Year: 2024
 - Role: Software Engineer
-- Description: Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.
+- Domain: AI Infrastructure
 - Built with: React, JavaScript, TypeScript, TailwindCSS, Rust
 - Link: View Website → https://www.freestyle.sh
-- Image alt: Freestyle logo
-- Background color: #1e1e1e
 
-#### Project: GridLink (Techstars '23) (id: gridlink, year: 2023)
+### GridLink (Techstars '23)
 
-- Output medium: EV Fleet SaaS
+First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders. Wireframed a full platform UI redesign proposal, balancing simplified navigation with familiarity bias for older demographic. Redesigned the product-central charging schedule page around Material UI design system, improving information hierarchy and shipping React components from Figma designs.
+
+Details:
+- Year: 2023
 - Role: Platform Engineer
-- Description: First product hire; mapped product strategy for $18B EV fleet market through analysis of 33 deliverables across 6 stakeholders. Wireframed a full platform UI redesign proposal, balancing simplified navigation with familiarity bias for older demographic. Redesigned the product-central charging schedule page around Material UI design system, improving information hierarchy and shipping React components from Figma designs.
+- Domain: EV Fleet SaaS
 - Built with: React, TypeScript, Figma
 - Link: View Website → https://gridlink.co
-- Image alt: A screenshot of the GridLink EV fleet management platform landing page
-- Background color: #1e2521
 
-#### Project: Arc Browser iOS Redesign (id: arcbrowser, year: 2023)
+### Arc Browser iOS Redesign
 
-- Output medium: UX Case Study
+Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp. Conducted user research yielding novel mental state framework and delivered 4 core UX innovations through complete Arc for iOS redesign in 30 days.
+
+Details:
+- Year: 2023
 - Role: Research, Design, & Writing
-- Description: Produced animated mobile app redesign generating 16K+ views and scouted by UX Collective's founder Fabricio Teixeira—Partner at Work & Co, whose work influences millions of designers worldwide and has earned recognition from global brands like Google, Samsung, and Mailchimp. Conducted user research yielding novel mental state framework and delivered 4 core UX innovations through complete Arc for iOS redesign in 30 days.
+- Domain: UX Case Study
 - Built with: Figma, Medium, Artboard Studio
 - Link: Read Story → https://bootcamp.uxdesign.cc/arc-for-ios-gets-the-student-redesign-it-deserves-in-30-days-5c54decf90af
-- Image alt: A showcase of multiple screens from across the whole Arc for iOS redesign
-- Background color: #1d252c
 
-#### Project: Zeesta Labs (id: zeestalabs, year: 2023)
+### Zeesta Labs
 
-- Output medium: Medical AI Startup
+Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup.
+
+Details:
+- Year: 2023
 - Role: UX Engineer
-- Description: Built complete brand identity from scratch and engineered iOS app in React Native from my Figma designs. Created custom brand book and determined unique value proposition for medical AI startup.
+- Domain: Medical AI Startup
 - Built with: Figma, Figma Variables, React Native, TypeScript
 - Link: (n/a)
-- Image alt: Zeesta Labs logo lockup rendered onto an outside wall poster
-- Background color: #18292d
 
-#### Project: Sport Video Analysis App (id: sportvideoanalysis, year: 2022)
+### Sport Video Analysis App
 
-- Output medium: Desktop App
+Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals. Used dark neutrals to focus attention on video content.
+
+Details:
+- Year: 2022
 - Role: Design & Prototyping
-- Description: Designed and prototyped ten interactive UI states for a sport video analysis desktop app, solving the lack of documented session review I experienced training for UK rowing nationals. Used dark neutrals to focus attention on video content.
+- Domain: Desktop App
 - Built with: Sketch
 - Link: Play Prototype → https://www.sketch.com/s/6b635a81-80df-4b3f-b768-f79b2f50a17a/prototype/a/C3BA3CB2-6410-4698-A061-DB50BF2985EA
-- Image alt: Visually highlighting an athlete's technique in a sport video analysis desktop UI
-- Background color: #262626
 
-#### Project: UChicago Designathon Winner (id: uchicagodesignathon, year: 2022)
+### UChicago Designathon Winner
 
-- Output medium: Best Design Prize
+Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process.
+
+Details:
+- Year: 2022
 - Role: Lead Designer
-- Description: Led a 5-hour designathon as part of an ad-hoc UChicago team, creating a prize-winning mobile app prototype. Gamified pizza ordering with Secret Santa mechanics, reimagining the entire ordering and delivery process.
+- Domain: Best Design Prize
 - Built with: Figma, FigJam
 - Link: (n/a)
-- Image alt: Three iPhone mockups of a mobile app prototype for gamified group pizza ordering
-- Background color: #2b2a24
 
-#### Project: Trade Finance Distribution Initiative (id: tfdi, year: 2021)
+### Trade Finance Distribution Initiative
 
-- Output medium: Website Redesign
+Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 500 members with $20T+ AUM. Led three design reviews with C-suite executives, successfully advocating for key brand storytelling elements while rewriting all 1k+ words of copy to eliminate jargon and achieve sub-20% bounce rate.
+
+Details:
+- Year: 2021
 - Role: Digital Marketing Strategist
-- Description: Redesigned the company website using a user-centered approach, increasing site traffic by 2x to 4k+ monthly visitors and attracting 90% more members through social validation featuring 14 Fortune 500 members with $20T+ AUM. Led three design reviews with C-suite executives, successfully advocating for key brand storytelling elements while rewriting all 1k+ words of copy to eliminate jargon and achieve sub-20% bounce rate.
+- Domain: Website Redesign
 - Built with: Figma, Webflow
 - Link: View Website → https://www.tradefinancedistribution.com/
-- Image alt: Hero section of the Trade Finance Distribution Initiative's landing page with a clear CTA and social validation
-- Background color: #08262c
 
-#### Project: Mindxone (id: mindxone, year: 2020)
+### Mindxone
 
-- Output medium: Web App
+Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies.
+
+Details:
+- Year: 2020
 - Role: Co-Founder & UX Engineer
-- Description: Co-founded and engineered a web app reimagining digital content organization with tag-exclusive ideology. Built full-stack product to MVP stage before sunsetting to focus on studies.
+- Domain: Web App
 - Built with: Adobe XD, HTML/CSS/JS, JQuery, NodeJS, Express.js, AWS
 - Link: (n/a)
-- Image alt: Hero section of Mindxone's landing page displaying a screenshot of the web SaaS product
-- Background color: #2b2b2b
 
-#### Project: Task App with Focus Timer (id: taskapp, year: 2019)
+### Task App with Focus Timer
 
-- Output medium: Mobile App
+Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions.
+
+Details:
+- Year: 2019
 - Role: UX Engineer
-- Description: Designed and built an iOS task app with focus timer and priority estimation in Flutter. Implemented swipe-first navigation with custom micro-interactions.
+- Domain: Mobile App
 - Built with: InVision Studio, Flutter
 - Link: (n/a)
-- Image alt: Side-by-side iPhone mockups of a task app with a focus timer
-- Background color: #17233b
 
-#### Project: Panorama Mail (id: panoramamail, year: 2018)
+### Panorama Mail
 
-- Output medium: Concept App
+Designed and prototyped 50+ animated artboards for a concept mobile mail app. Built rapid email triaging with 'Panorama' screen, plus snooze, quick reply, and undo send features.
+
+Details:
+- Year: 2018
 - Role: Design & Prototyping
-- Description: Designed and prototyped 50+ animated artboards for a concept mobile mail app. Built rapid email triaging with 'Panorama' screen, plus snooze, quick reply, and undo send features.
+- Domain: Concept App
 - Built with: Adobe XD, Auto-Animate
 - Link: Play Prototype → https://xd.adobe.com/view/552c22ef-39b5-49f2-b148-08ff939eb20b-007f/?fullscreen
-- Image alt: Side-by-side iPhone screenshots of a concept design mail app
-- Background color: #102436
 
-#### Project: Prismatic News (id: prismaticnews, year: 2018)
+### Prismatic News
 
-- Output medium: Android App
+Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store. Engineered line-by-line text-to-speech playback, content parsing algorithms in Java, nine theme variants, and AI sentence highlighting for comprehensive reading experience.
+
+Details:
+- Year: 2018
 - Role: Full-Stack Engineer
-- Description: Designed and programmed native Android news reader with custom web scraping, AI text summarization, and offline capabilities reaching 5,000+ users on Google Play Store. Engineered line-by-line text-to-speech playback, content parsing algorithms in Java, nine theme variants, and AI sentence highlighting for comprehensive reading experience.
+- Domain: Android App
 - Built with: Android Studio, Java, Firebase
 - Link: Play Video → https://youtu.be/6lico6jtV5E
-- Image alt: Side-by-side promotional Android mockups for an offline news-reading app
-- Background color: #142934
 
-### Contact (id: contact)
+## Contact
 
-- Headshot alt: "Kevin Gugelmann's headshot"
-- Heading: "Cognitively sound design. For the AI age."
-- Proof points:
-  - Economics and Cognitive Science at the University of Chicago.
-  - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
-  - Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
-- CTAs:
-  - Connect on LinkedIn → https://linkedin.com/in/kevingugelmann
-  - Email me → mailto:kevin@kevingugelmann.com
+Cognitively sound design. For the AI age.
 
-### Footer
+- Economics and Cognitive Science at the University of Chicago.
+- Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
+- Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
 
-- Social links:
-  - Book a call: https://cal.com/kevgug/intro
-  - Email: mailto:kevin@kevingugelmann.com
-  - X (Twitter): https://x.com/kevingugelmann
-  - LinkedIn: https://www.linkedin.com/in/kevingugelmann
-  - RSS Feed: /rss.xml
-- Copyright © 2025 Kevin Gugelmann. All rights reserved.
+Discuss a project: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
+X (Twitter): https://x.com/kevingugelmann
+LinkedIn: https://www.linkedin.com/in/kevingugelmann
 
-### Menu Overlay (hamburger menu navigation)
+# Essays — https://kevingugelmann.com/essays
 
-- On home page:
-  - Introduction (with wave icon)
-  - Contact info (with profile icon)
-  - [separator]
-  - Projects:
-    - JPMorganChase
-    - Freestyle (YC S24)
-    - GridLink (Techstars '23)
-    - Arc Browser iOS Redesign
-    - Zeesta Labs
-    - Sport Video Analysis App
-    - UChicago Designathon Winner
-    - Trade Finance Distribution Initiative
-    - Mindxone
-    - Task App with Focus Timer
-    - Panorama Mail
-    - Prismatic News
-- On essays page: Lists individual essays with titles
+- Meritocracy (2025-12-09) - https://kevingugelmann.com/essays/meritocracy
+- Maxims of good software (2025-11-23) - https://kevingugelmann.com/essays/software-maxims
+- Selling software without accountability (2025-10-24) - https://kevingugelmann.com/essays/accountability-ai-autonomy
+- Writing manifesto (2025-09-12) - https://kevingugelmann.com/essays/manifesto
 
-### Project Marquee (image alt text)
+# RSS feed for essays (rss.xml) - https://kevingugelmann.com/rss.xml
 
-- Sport Video Analysis project preview
-- Arc for iOS project preview
-- Pizza Screens project preview
-- GridLink project preview
-- Task Timer project preview
+# Meritocracy — https://kevingugelmann.com/essays/meritocracy
 
-### Error Page
-
-- Displays the HTTP status code and error message for the current route.
-- CTA: Return home → /
-
-## Essays
-In reverse chronological order:
-<Essay title="Meritocracy" date="2025-12-09">
-# Meritocracy
+---
+title: Meritocracy
+slug: meritocracy
+date: 2025-12-09
+---
 
 I just found my notes from 5 July 2024, from my LHR-LAX flight to work at [Freestyle (YC S24)](https://freestyle.sh). I've written up my notes below, exactly as I found them. [^1]
 
@@ -248,10 +218,14 @@ So somewhat surprisingly I think of partial meritocracy as our ideal, but more a
 [^1]: I booked the flight before they got into Y Combinator. So I ended up having to book a separate flight from LAX-SFO the next day.
 
 [^2]: In other words, don't chastise financial dependents like children, stay-at-home mothers, and older parents. Their exclusion from the system will chastise them enough, if at all. Importantly, financial depedents can contribute to society in other ways, both socially and economically (mainly through spending), and are often the unrecorded fuel behind the people they are financially dependent on. Writing this down, real life dependency trees are very circular when you think about it.
-</Essay>
 
-<Essay title="Maxims of good software" date="2025-11-23">
-# Maxims of good software
+# Maxims of good software — https://kevingugelmann.com/essays/software-maxims
+
+---
+title: Maxims of good software
+slug: software-maxims
+date: 2025-11-23
+---
 
 I just read _Obvious Adams_, a short story about advertising, on my flight to Maine for Thanksgiving. The gist is that there's value in stating the obvious. I built my first app over ten years ago, so I thought it would be interesting if I compiled my most obvious observations about software.
 
@@ -373,10 +347,14 @@ Q2) **Is it always better to have others develop most of the software for you?**
 > `10:10am on 30 Nov, 2025`
 >
 > Oh yeah and we want to build on something that already exists because of opportunity cost.
-</Essay>
 
-<Essay title="Selling software without accountability" date="2025-10-24">
-# Selling software without accountability
+# Selling software without accountability — https://kevingugelmann.com/essays/accountability-ai-autonomy
+
+---
+title: Selling software without accountability
+slug: accountability-ai-autonomy
+date: 2025-10-24
+---
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [^1]
 
@@ -482,10 +460,14 @@ Human-AI alignment remains the biggest limiting factor in letting AI design and 
 [^6]: AI can continuously monitor changes to and proof read the latest EULA.
 
 [^7]: Shoutout Adobe, who have the lethal combination of consistently bad UX and high switching costs.
-</Essay>
 
-<Essay title="Writing manifesto" date="2025-09-12">
-# Writing manifesto
+# Writing manifesto — https://kevingugelmann.com/essays/manifesto
+
+---
+title: Writing manifesto
+slug: manifesto
+date: 2025-09-12
+---
 
 I try to be intentional about how I spend my time. The time I spend writing should be no exception. To make sure I stay aligned with my writing aims, I've put together this manifesto.
 
@@ -537,4 +519,3 @@ I'm a strong believer in credit where credit is due. Here are my three main reas
 
 
 [^1]: Thanks Diego, Yusuf, and Ben.
-</Essay>

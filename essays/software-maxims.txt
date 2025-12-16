@@ -1,0 +1,128 @@
+---
+title: Maxims of good software
+slug: software-maxims
+date: 2025-11-23
+---
+
+# Maxims of good software
+
+I just read _Obvious Adams_, a short story about advertising, on my flight to Maine for Thanksgiving. The gist is that there's value in stating the obvious. I built my first app over ten years ago, so I thought it would be interesting if I compiled my most obvious observations about software.
+
+Here are five constraints of creating user-facing software, **maxims of software** if you will, that are timeless. [^1]
+
+## 1. Opportunity cost is real
+
+**People have better things to do than solve their own problems.** Sure, we aren't all engineers capable of building solutions to every problem. But even engineers don't want to, or regret when they try to, engineer solutions for every problem in their lives. No individual has the time, resources, or effort to build a solution for every single problem they ever face. More than not, people have mutually exclusive opportunities that are more worth pursuing. [^2]
+
+> So, let others build you most software. [^3]
+
+## 2. Every user is ego-centric
+
+**People want personalised solutions.** Let's not forget that the ideal solution is one tailor made for the individual. We don't like cookie cutter solutions that miss the breadth and depth of _our_ problems.
+
+> So, let users augment software to their specific needs. [^4]
+
+## 3. Users think in derivative terms
+
+**People have an instinct to solve problems by building on existing solutions.** To create the best software, people need to think about their problems from first principles, but people are fundamentally lazy. The path of least resistance is to request changes to the software we already use. Iterating on existing software can only produce an optimal solution as long as the software is built on a foundation of correct assumptions. Every time the world changes, previously correct assumptions are broken. The world changes frequently, meaning software can be an ideal solution one day and fall from its grace the next.
+[^5]
+
+> So, only sample problems from your users. [^6]
+
+## 4. Most problems go unnoticed
+
+**People aren't observant over all problems in their lives.** It would be very taxing to the individual to notice every problem they encounter, let alone in its full depth, since they don't have the means to solve them all. When you notice problems deeply and can't solve them, you're a pessimist. When you notice problems deeply and try to solve them—implicitly because you think you can solve them—you're an optimist. We only have the time, resources, and effort to be optimistic about relatively few things, making us ignorant of 99.99% of problems by default. Focusing on those unaddressable problems would make us pessimists, and no one wants to be a pessimist. [^7]
+
+> So, optimists need to observe the problems that most people ignore.
+
+## 5. Environments steer results
+
+**People think in terms of environments.** In the physical world, we have separate spaces for eating, working, working out, showering, sleeping, commuting, and so on. By default our environments are siloed, yet there is often a small passage of symbiotic interaction, such as between eating and working out. The context in which we operate undoubtedly affects how we think and act—it's fundamentally human. It should be no surprise that the same applies in the digital world: we think and act differently across different digital environments. A narrow environment enables targeted affordances, which makes it significantly easier for the user to solve their problems well. [^8]
+
+> So, place users in a narrow digital environment. [^9]
+
+## Summary
+
+To reiterate, my five maxims of software are:
+
+1. **Opportunity cost is real**\
+   → let others build you most of your software
+2. **Every user is ego-centric**\
+   → let users augment software to their specific needs
+3. **Users think in derivative terms**\
+   → only sample problems from your users
+4. **Most problems go unnoticed**\
+   → optimists need to observe the problems that most people ignore
+5. **Environments steer results**\
+   → place users in a narrow digital environment
+
+In writing the constraints of software so plainly, it's clear what ideal user-facing software looks like. Perfect software is mentally compartmentalised by environments, but lets us share and receive chosen data with other environments (Maxim 5). It is highly personalised (Maxim 2), but mainly built by others (Maxim 1) who optimistically observe your problems (Maxim 4) and solve them from first principles (Maxim 3). "Others" means humans and AI systems.
+
+## Implications
+
+This raises an interesting question: how is the scope of observing problems and building software best divided among humans and AI systems? In the case that ideal user-facing software is built by both, I have some thoughts on whether we want more generalists or specialists, worthy of a separate essay. Concerning this essay, though, I think that _is_ the case—we'll always need humans to build software, because even first principles thinking can't solve alignment problems.
+
+Just like how science is a truth-seeking method rather than a truth, first principles thinking is a truth-seeking method, not a truth. No matter how hard we try to solve problems from first principles, there's no guarantee that we're making valid assumptions or evaluating them correctly. Wherever different assumptions can be made for solving the same problem, there will be an alignment issue, whether human-human, human-AI or AI-AI. Since software ultimately serves a human user, we'll always be concerned with human-human and human-AI alignment.
+
+The solution is as obvious as my maxims and extends Maxim 1: **ideal software is built on human-made assumptions about the user's problem.** We the humans must define our assumptions as requirements that solution can grow out of. Once built, we the humans should check software against our requirements. This approach creates the best chances of building ideal user-facing software.
+
+## Notes
+
+
+[^1]: Timeless also means independent of platforms and tooling for developers.
+
+[^2]: Even the best design engineers are best off using off-the-shelf solutions. "I could build it better" is not a sufficient reason to spend $1000s of potential work hours building a slightly better todo app. Opportunity cost is real.
+
+[^3]: "Others" means humans and AI systems.
+
+[^4]: Naturally, only do so in a safe manner, giving access to select functions and endpoints that are already accessible client-side. If a kid can invent their own toys and make larger sandcastles than ever, your sandbox needs higher walls than ever.
+
+[^5]: Laziness can also be subsituted for "energy efficient" in the biological sense, depending on how you frame it.
+
+[^6]: Scope ambiguity works well here—you can read it both ways. My main intention was, only listen to your users' problems, unless you want to hear myopic solutions that are purely changes to existing software. After all, they're spending their time, resources, and effort elsewhere, so they have little to no capacity for first principles thinking in your chosen problem space.
+
+_**Update (Nov 25, 2025)**: I've caught myself trying to be a little too smart here. You obviously want to listen to non-users too, especially if they fit your idea of an ideal user. My point was simply, when your users talk, listen to their problems rather than their proposed solutions. I never intended to say ignore the non-users. Unless you're competing with something I've built ;)_
+
+As for first principles thinking, I discovered [impact mapping](https://www.impactmapping.org/) a few years ago. I think it's a brilliant planning technique in how it lays out the connections between assumptions and deliverables. If an assumption turns out to be false, you can visually trace the assumption down the tree to every now-invalidated deliverable.
+
+[^7]: Think about how often yet forgettably you've felt problems in your everyday life. Here are some examples that come to mind:
+
+- Thinking it's a pull door based on the handle but it's actually a push door.
+- Waving your hand under an automatic tap and the initial pressure is so high that water sprays over you, enough to make it look like you arrived late to the bathroom.
+- Pressing stop on an empty microwave with "00:05" flashing because the last person who used it took their food out five seconds early.
+
+They're all problems that are frequent enough to be design issues rather than user issues. But I currently lack the expertise in door handles, plumbing, and microwave design to do anything about such problems. So the best thing I can do is to let them go, at least for now. I'll stay an optimist for problems that can be solved with software.
+
+[^8]: If the operating system is the world, then applications are the environments. But even worlds are different meta-environments that set the tone for applications it runs: we operate differently when running the same apps on a watch versus a phone versus a tablet versus a laptop versus a desktop versus a headset and so on. This is analogous to living in different places in the physical world.
+
+[^9]: Far more than physical environments, well-designed software environments are an exercise in psychology, specifically through user experience design.
+
+---
+
+Here are some clarifying texts I sent to friends:
+
+Q1) Maxim 4 tasks about problems going unnoticed and makes me think about how great "optimists", as mentioned in Maxim 5, can carve out these environments. **What are your thoughts on entrepreneurs trying to appeal to customers who live in a large mental environment?**
+
+> `10:30am on 25 Nov, 2025`
+>
+> Physical products and spaces reflect mental environments. The ideal mental environment is focused on few, similar things. Think minimal cognitive load. If your product does one thing, it creates the illusion that it does that one thing very well. Look up the story of how the Sony Walkman almost had a recording feature. You're not duping users—you're genuinely providing more value but constraining their mental environment to a smaller problem space (not to say the problems themselves are small, you're just tackling fewer).
+>
+> You're right to notice it's on the optimists to notice problems that can be solved under the same roof. The classic startup advice is to focus on a small wedge of the problem and solve that very well—it aligns closely with what I'm saying. When you're just starting out as a business, you don't have the time and resources to transport customers into a large mental environment. The goal is always to solve every problem you tackle well, whatever size company you are.
+>
+> Imagine you start with just a few tree logs and some steel you can galvanise. You can far more convincingly build a desk than a school, even if the ultimate goal is to build a school. Sure, your student will need to stand since there you didn't build a chair, there are no other students to learn with, you are the only teacher to learn from, and there are no facilities like student accommodation or a gym. But it's a really fucking good desk. It's large, sturdy, height-adjustable with a telescoping mechanism, and has a built-in water tap that's discretely connected to plumbing. Your desk will be miles better at transporting your student into the mental environment of studying than a lousy single-story school, and it will be ready to use in weeks not years. Over time, you can build a school around your desk, but you should start with the desk. Customers can't force themselves into a mental environment—the physical environment needs to take them there. Solve one thing really well and you'll take customers there. As you gain time and resources, you can solve a larger set of problems and still have people take you seriously. In other words, you can actually take your customers into a broader set of mental environments.
+>
+> No matter how large you grow, people's capacities for mental environments doesn't scale. That's a fundamental limitation of how the human brain works. It's important to note that we want to silo processing, but we don't want to silo _all_ information across environments. When we build physical environments, we the people can move around and carry thoughts between environments. For example, when I run a half on the lakefront trail, I won't rely on just my symptoms of hunger when back home to determine what to make for dinner. I'll obviously arrive home with the memory that I just ran a half. Unfortunately, digital environments suffer from amnesia by default—we need to explicitly code information sharing mechanisms. The easiest mechanism is a one-way data export. The best mechanism, though, is a continuous two-way sync between environments, because it's mimics how our brain selectively shares and processes information across different contexts. That's the small passage of symbiotic interaction I'm talking about.
+Q2) **Is it always better to have others develop most of the software for you?**\
+
+> `9:46am on 30 Nov, 2025`
+>
+> I mean yeah, it's always best others make most software for you, the interesting thing is whether "others" is people or AI.
+> `9:50am on 30 Nov, 2025`
+>
+> For users wanting personalized modifications, that should never be the user directly asking for a change. We should listen to the user's problems not feature requests because they think in local maxima. But the company can't listen to everyone's specific problems so they generalize. I see AI as the solution for listening to or passively noticing every user's specific problems and creating the best solution for that user from first principles. Which a company run by just humans could never achieve.
+> `10:09am on 30 Nov, 2025`
+>
+> To your question, as long as the existing software is based on valid assumptions about this user's problems, it's fine to build on top of it. If one of the assumptions is no longer true, because maybe this one user is visually impaired and can't operate a graphical user interface, then it's best to build a voice operated solution from the ground up rather than just slap some voice control over the existing graphical user interface (GUI). The underlying business processes are the same, the underlying data manipulation (CRUDing) is the same, it's just a question of how high up an abstraction of our CRUDs we can build off of before the user-specific assumptions fall apart. The default highest level of abstraction is the app everyone installs and starts with, but whether it's best to build on top of that (probably GUI) or go back a few levels of abstraction depends on assumptions about each specific user.
+> `10:10am on 30 Nov, 2025`
+>
+> Oh yeah and we want to build on something that already exists because of opportunity cost.
