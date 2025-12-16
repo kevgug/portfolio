@@ -6,6 +6,13 @@
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
   import { layoutReady } from "$lib/stores/layoutReady";
+  import { initEssayTracker } from "$lib/util/essayTracker";
+  import { onMount } from "svelte";
+  
+  // Initialize essay tracker for dev mode hot-reloading
+  onMount(() => {
+    initEssayTracker();
+  });
   
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
   $: isEssaysRoot = $page.url.pathname === "/essays";

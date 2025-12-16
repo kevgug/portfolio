@@ -25,9 +25,23 @@
     type EssaySubheader,
   } from "$lib/stores/essayNav";
   import MarkdownCodeBlock from "$lib/components/MarkdownCodeBlock.svelte";
+  import { viewEssay, unviewEssay } from "$lib/util/essayTracker";
 
   export let data: PageData;
   $: ({ slug, post, publish } = data);
+  
+  // Track essay viewing for smart hot-reloading in dev mode
+  let isMounted = false;
+  let currentlyViewedSlug: string | null = null;
+  
+  // Handle slug changes after mount (for SPA navigation between essays)
+  $: if (isMounted && slug !== currentlyViewedSlug) {
+    if (currentlyViewedSlug) {
+      unviewEssay(currentlyViewedSlug);
+    }
+    viewEssay(slug);
+    currentlyViewedSlug = slug;
+  }
   
   // Only render when we're actually on this essay's route
   $: isCurrentRoute = $page.url.pathname === `/essays/${slug}`;
@@ -147,6 +161,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
 
   // Build subheaders and set in store
   onMount(() => {
+    // Track essay viewing for dev hot-reload (register initial view)
+    viewEssay(slug);
+    currentlyViewedSlug = slug;
+    isMounted = true;
+    
     const list: EssaySubheader[] = post.sections.map((section, i) => ({
       id: getSectionId(i),
       label: section.heading,
@@ -201,6 +220,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     return () => {
       window.removeEventListener("resize", handleResize);
       observer.disconnect();
+      
+      // Clean up essay tracking
+      if (currentlyViewedSlug) {
+        unviewEssay(currentlyViewedSlug);
+      }
     };
   });
 </script>
