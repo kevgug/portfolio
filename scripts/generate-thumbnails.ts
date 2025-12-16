@@ -19,17 +19,6 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// Clear existing thumbnails
-const existingThumbnails = fs
-  .readdirSync(outputDir)
-  .filter((f) => f.endsWith(".png"));
-for (const thumbnail of existingThumbnails) {
-  fs.unlinkSync(path.join(outputDir, thumbnail));
-}
-if (existingThumbnails.length > 0) {
-  console.log(`Cleared ${existingThumbnails.length} existing thumbnail(s)\n`);
-}
-
 // Load Fonts
 const fontEuclidBold = fs.readFileSync(
   path.join(fontsDir, "euclid-square/EuclidSquare-Bold-WebXL.ttf")

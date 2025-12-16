@@ -17,6 +17,9 @@
   // Only show this layout's content when actually on an essay slug route
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
 
+  // Extract essay slug from URL for footer
+  $: essaySlug = $page.url.pathname.match(/^\/essays\/([^/]+)\/?$/)?.[1];
+
   function handleDropdownSelect(index: number) {
     selectedIndex.set(index);
     const unsubscribe = subheaders.subscribe(async (list) => {
@@ -70,7 +73,7 @@
       class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-20 md:pt-24 space-y-8"
     >
       <slot />
-      <Footer />
+      <Footer essaySlug={essaySlug} />
     </div>
   {/key}
 {:else}

@@ -3,15 +3,22 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import matter from "gray-matter";
-import {
-  getFullImageUrl,
-  removeTrailingBackslashesInBlockquotes,
-  siteUrl,
-} from "./utils.mjs";
+import { preprocessMarkdownForLLM, siteUrl } from "./utils.mjs";
 
 // Read and parse projects.ts
 const projectsFilePath = path.resolve(process.cwd(), "src/lib/projects.ts");
 const projectsFileContent = readFileSync(projectsFilePath, "utf8");
+
+// Build a map of import variable names to their file paths
+const importMap = {};
+const importRegex = /import\s+(\w+)\s+from\s+["']([^"']+)["']/g;
+let importMatch;
+while ((importMatch = importRegex.exec(projectsFileContent)) !== null) {
+  const [, varName, importPath] = importMatch;
+  // Convert $lib/images/projects/... to /images/projects/...
+  const normalizedPath = importPath.replace("$lib/images", "/images");
+  importMap[varName] = normalizedPath;
+}
 
 // Extract projects array from the TypeScript file
 const projectsMatch = projectsFileContent.match(
@@ -77,6 +84,26 @@ const projects = projectBlocks.map((block) => {
     return match ? match[1] : "";
   };
 
+  const extractImageOptions = () => {
+    const match = block.match(/imgOptions:\s*\{([^}]*)\}/s);
+    if (!match) return {};
+    const content = match[1];
+
+    // Extract variable names for src, avifSrc, webpSrc and resolve them via importMap
+    const srcVar = content.match(/src:\s*(\w+)/)?.[1];
+    const avifSrcVar = content.match(/avifSrc:\s*(\w+)/)?.[1];
+    const webpSrcVar = content.match(/webpSrc:\s*(\w+)/)?.[1];
+
+    const src = srcVar ? (siteUrl + (importMap[srcVar] || "")) : "";
+    const avifSrc = avifSrcVar ? (siteUrl + (importMap[avifSrcVar] || "")) : "";
+    const webpSrc = webpSrcVar ? (siteUrl + (importMap[webpSrcVar] || "")) : "";
+
+    // alt is still a string literal
+    const alt = content.match(/alt:\s*"([^"]*)"/)?.[1] ?? "";
+
+    return { src, avifSrc, webpSrc, alt };
+  };
+
   return {
     id: extractField("id"),
     year: extractNumber("year"),
@@ -86,13 +113,14 @@ const projects = projectBlocks.map((block) => {
     description: extractDescription(),
     builtWith: extractArray("builtWith"),
     bgColor: extractField("bgColor"),
-    imageAlt: extractImageAlt(),
     link: extractLink(),
+    imgOptions: extractImageOptions(),
+    imageAlt: extractImageAlt(),
   };
 });
 
 // Read essays
-const essaysDir = path.resolve(process.cwd(), "static/essays");
+const essaysDir = path.resolve(process.cwd(), "src/content/essays");
 const files = readdirSync(essaysDir).filter((file) => file.endsWith(".md"));
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -117,40 +145,6 @@ if (isProduction) {
 
 essays = essays.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-// Helper to convert [1] footnotes to standard markdown [^1] format
-function convertToStandardFootnotes(content) {
-  const notesRegex = /^## Notes\s*$/m;
-  const parts = content.split(notesRegex);
-
-  if (parts.length < 2) {
-    return content.replace(/\[(\d+)\]/g, "[^$1]");
-  }
-
-  let mainContent = parts[0].replace(/\[(\d+)\]/g, "[^$1]");
-  let notesSection = parts[1].replace(/^\[(\d+)\]\s*/gm, "[^$1]: ");
-
-  return mainContent + "## Notes\n\n" + notesSection;
-}
-
-// Helper to convert relative image paths to full URLs in markdown
-function processImagePaths(content, essaySlug) {
-  return content.replace(
-    /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/gi,
-    (match, alt, src) => {
-      return `![${alt}](${getFullImageUrl(essaySlug, src)})`;
-    },
-  );
-}
-
-// Helper to preprocess markdown content
-function preprocessMarkdown(content, essaySlug) {
-  let processed = content;
-  processed = removeTrailingBackslashesInBlockquotes(processed);
-  processed = processImagePaths(processed, essaySlug);
-  processed = convertToStandardFootnotes(processed);
-  return processed;
-}
-
 // Format date as YYYY-MM-DD
 const formatDate = (date) => {
   // If date is already in YYYY-MM-DD format, return as is
@@ -166,82 +160,7 @@ const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-// ===== GENERATE llms.txt =====
-
-// Generate project anchors
-const projectAnchors = projects
-  .map((p) => `  - /#${p.id} - ${p.name} (${p.year})`)
-  .join("\n");
-
-// Generate project summaries
-const projectSummaries = projects
-  .map((p) => {
-    // Create a condensed summary (first sentence or up to 200 chars)
-    const desc = p.description.split(".")[0] + ".";
-    const condensed = desc.length > 200 ? desc.substring(0, 197) + "..." : desc;
-    return `- ${p.name}: ${condensed}`;
-  })
-  .join("\n");
-
-// Generate essay links
-const essayLinks = essays
-  .map((e) =>
-    `- ${e.title} (${formatDate(e.date)}) → ${siteUrl}/essays/${e.slug}`
-  )
-  .join("\n");
-
-const llmsContent = `## Site
-
-- Title: Kevin Gugelmann | AI-native designer
-- Tagline: Kevin Gugelmann. AI-native designer.
-- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
-- Base URL: ${siteUrl}
-
-## Sitemap
-
-- / - Home
-- /essays - Essays listing
-- /#introduction - Intro headline and highlights
-- /#projects - Projects overview
-- /#contact - Contact CTA
-- Project anchors:
-${projectAnchors}
-
-## Key CTAs
-
-- Navigation: Book a call → https://cal.com/kevgug/intro
-- Contact section: Connect on LinkedIn → https://linkedin.com/in/kevingugelmann; Email me → mailto:kevin@kevingugelmann.com
-- Footer: Book a call → https://cal.com/kevgug/intro; Email → mailto:kevin@kevingugelmann.com; LinkedIn → https://www.linkedin.com/in/kevingugelmann; RSS → /rss.xml
-
-## Section Summaries
-
-- Introduction: Headshot; title transitions from "Hi, I'm Kevin. Welcome to my site." to "Kevin Gugelmann. AI-native designer."; highlights about building AI tool at JPMorganChase saving designers 300+ hours, winning 1st place at both UChicago designathon and hackathon, and designing and shipping 3 full-stack websites at Freestyle (YC S24). Company logos: JPMorganChase, Freestyle, Y Combinator, University of Chicago.
-- Projects: Collection of case studies and shipped work across AI infra, fintech, EV SaaS, mobile and desktop apps.
-- Contact: Headline "Cognitively sound design. For the AI age." with proof points about UChicago education, JPMorganChase AI tool, and trade finance site traffic doubling, plus primary CTAs.
-- Footer: Copyright.
-
-## Project Summaries
-
-${projectSummaries}
-
-## Social
-
-- Book a call: https://cal.com/kevgug/intro
-- Email: mailto:kevin@kevingugelmann.com
-- X (Twitter): https://x.com/kevingugelmann
-- LinkedIn: https://www.linkedin.com/in/kevingugelmann
-- RSS Feed: /rss.xml
-
-## Essays
-
-${essayLinks}
-
-## llms-full.txt
-
-- Full website content: /llms-full.txt
-`;
-
-// ===== GENERATE llms-full.txt =====
+// ===== SHARED CONTENT =====
 
 // Generate full project details
 const projectDetails = projects
@@ -250,9 +169,10 @@ const projectDetails = projects
       ? `- Link: ${p.link.label} → ${p.link.destination}`
       : `- Link: (n/a)`;
 
-    return `#### Project: ${p.name} (id: ${p.id}, year: ${p.year})
+    return `#### ${p.name} (id: ${p.id})
 
-- Output medium: ${p.outputMedium}
+- Year: ${p.year}
+- Domain: ${p.outputMedium}
 - Role: ${p.role}
 - Description: ${p.description}
 - Built with: ${p.builtWith.join(", ")}
@@ -262,10 +182,19 @@ ${linkLine}
   })
   .join("\n\n");
 
-// Generate essay content
-const essayContent = essays
+// Generate essay links (for llms.txt)
+const essayLinks = essays
+  .map((e) =>
+    `- ${e.title}\n  - Date: ${
+      formatDate(e.date)
+    }\n  - Link: ${siteUrl}/essays/${e.slug}\n  - Markdown: ${siteUrl}/essays/${e.slug}.txt`
+  )
+  .join("\n");
+
+// Generate full essay content (for llms-full.txt)
+const essayFullContent = essays
   .map((essay) => {
-    const processedContent = preprocessMarkdown(
+    const processedContent = preprocessMarkdownForLLM(
       essay.content.trim(),
       essay.slug,
     );
@@ -275,7 +204,9 @@ const essayContent = essays
   })
   .join("\n\n");
 
-const llmsFullContent = `## Site Metadata
+// Generate the shared content with a placeholder for essays
+const generateContent = (essaysSection) =>
+  `## Site Metadata
 
 - Title: Kevin Gugelmann | AI-native designer
 - Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
@@ -296,9 +227,12 @@ const llmsFullContent = `## Site Metadata
 - Title (initial): "Hi, I'm Kevin. Welcome to my site."
 - Title (final, animated transition): "Kevin Gugelmann. AI-native designer."
 - Highlights:
-  - Built an AI tool at JPMorganChase saving designers 300+ hours.
+  - Built an AI tool at JPMorganChase saving designers 300+ hours per year.
+  - Designed and shipped three full-stack websites at Freestyle (YC S24).
   - Won 1st place at both the UChicago designathon and hackathon.
-  - Designed and shipped 3 full-stack websites at Freestyle (YC S24).
+- CTAs:
+  - View portfolio → scrolls to #projects
+  - Email me → mailto:kevin@kevingugelmann.com
 - Company logos (linked, with alt text):
   - JPMorganChase logo → https://jpmorganchase.com
   - Freestyle logo → https://www.freestyle.sh
@@ -328,40 +262,33 @@ ${projectDetails}
   - Email: mailto:kevin@kevingugelmann.com
   - X (Twitter): https://x.com/kevingugelmann
   - LinkedIn: https://www.linkedin.com/in/kevingugelmann
-  - RSS Feed: /rss.xml
+  - RSS Feed: ${siteUrl}/rss.xml
 - Copyright © 2025 Kevin Gugelmann. All rights reserved.
-
-### Menu Overlay (hamburger menu navigation)
-
-- On home page:
-  - Introduction (with wave icon)
-  - Contact info (with profile icon)
-  - [separator]
-  - Projects:
-${projects.map((p) => `    - ${p.name}`).join("\n")}
-- On essays page: Lists individual essays with titles
-
-### Project Marquee (image alt text)
-
-- Sport Video Analysis project preview
-- Arc for iOS project preview
-- Pizza Screens project preview
-- GridLink project preview
-- Task Timer project preview
 
 ### Error Page
 
 - Displays the HTTP status code and error message for the current route.
-- CTA: Return home → /
+- CTA: Return home → ${siteUrl}/
 
 ## Essays
-In reverse chronological order:
-${essayContent}
+${essaysSection}
 `;
 
-// Write to static directory
-writeFileSync("static/llms.txt", llmsContent);
-writeFileSync("static/llms-full.txt", llmsFullContent);
+// Generate both versions
+const llmsContent = generateContent(essayLinks) + `
+## llms-full.txt
+
+- Read full website content: ${siteUrl}/llms-full.txt
+`;
+
+const llmsFullContent = generateContent(
+  `\nIn reverse chronological order:\n\n${essayFullContent}`,
+);
+
+// Write to static directory with UTF-8 BOM for proper encoding detection
+const UTF8_BOM = "\uFEFF";
+writeFileSync("static/llms.txt", UTF8_BOM + llmsContent, "utf8");
+writeFileSync("static/llms-full.txt", UTF8_BOM + llmsFullContent, "utf8");
 
 console.log("✓ Generated LLM documentation files");
 console.log(

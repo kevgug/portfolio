@@ -6,31 +6,33 @@ export interface EssayMetadata {
   hasConfig?: boolean;
 }
 
+// Use Vite's import.meta.glob to load essays from content directory
+const essayModules = import.meta.glob("/src/content/essays/*.md", {
+  query: "?raw",
+  import: "default",
+}) as Record<string, () => Promise<string>>;
+
+// Load essay index from content directory
+import essayIndexData from "$content/essays/index.json";
+
 export async function loadEssayIndex(
-  fetch?: typeof globalThis.fetch
+  _fetch?: typeof globalThis.fetch
 ): Promise<EssayMetadata[]> {
-  if (!fetch) {
-    throw new Error("fetch is required to load essay index");
-  }
-  const res = await fetch("/essays/index.json");
-  if (!res.ok) {
-    throw new Error("Essay index not found");
-  }
-  return await res.json();
+  return essayIndexData as EssayMetadata[];
 }
 
 export async function loadEssayMarkdown(
   slug: string,
-  fetch?: typeof globalThis.fetch
+  _fetch?: typeof globalThis.fetch
 ): Promise<string> {
-  if (!fetch) {
-    throw new Error("fetch is required to load essay markdown");
-  }
-  const res = await fetch(`/essays/${slug}.md`);
-  if (!res.ok) {
+  const modulePath = `/src/content/essays/${slug}.md`;
+  const loader = essayModules[modulePath];
+
+  if (!loader) {
     throw new Error(`Essay "${slug}" not found`);
   }
-  return await res.text();
+
+  return await loader();
 }
 
 export async function loadEssayAudioConfig(

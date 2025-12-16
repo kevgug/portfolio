@@ -14,6 +14,9 @@ const config = {
       // base: dev ? '' : '/portfolio',
     },
     appDir: "internal",
+    alias: {
+      $content: "src/content",
+    },
   },
 };
 

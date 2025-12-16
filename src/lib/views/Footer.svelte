@@ -2,6 +2,9 @@
   // Components
   import Icon from "$lib/components/Icon.svelte";
 
+  // Optional essay slug for essay pages - changes LLM link to point to essay markdown
+  export let essaySlug: string | undefined = undefined;
+
   let showToast = false;
   let toastTimeout: ReturnType<typeof setTimeout>;
 
@@ -69,7 +72,11 @@
   </div>
   <div class="flex flex-col-reverse md:flex-row md:justify-between">
     <p class="text-muted-text-grey font-light">
-      LLM? Read <a href="/llms.txt" target="_blank" rel="noreferrer">llms.txt</a>. <br />
+      {#if essaySlug}
+        LLM? Read <a href="/essays/{essaySlug}.txt" target="_blank" rel="noreferrer">markdown</a>. <br />
+      {:else}
+        LLM? Read <a href="/llms.txt" target="_blank" rel="noreferrer">llms.txt</a>. <br />
+      {/if}
       Copyright © 2025 Kevin Gugelmann. All rights reserved.
     </p>
   </div>

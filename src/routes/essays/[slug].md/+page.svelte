@@ -1,0 +1,1 @@
+<!-- This page redirects to /essays/[slug] via +page.ts -->

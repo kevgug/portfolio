@@ -93,11 +93,11 @@ wss.on("connection", (ws) => {
 console.log(`📡 Essay tracker WebSocket server running on ws://localhost:${WS_PORT}`);
 
 // Copy files initially
-console.log("Copying essays to static/essays...");
+console.log("Syncing essays to src/content/essays...");
 try {
-  execSync("node scripts/copy-essays-to-static.mjs", { stdio: "inherit" });
+  execSync("node scripts/sync-essays.mjs", { stdio: "inherit" });
 } catch (error) {
-  console.error("Failed to copy essays:", error);
+  console.error("Failed to sync essays:", error);
   process.exit(1);
 }
 
@@ -143,8 +143,8 @@ const processChanges = () => {
   console.log(`🔄 Reloading: ${essaysToReload.join(", ")}`);
 
   try {
-    // Pass the slugs to the copy script so it knows which essays to reload
-    execSync(`node scripts/copy-essays-to-static.mjs --changed-slugs=${essaysToReload.join(",")}`, { 
+    // Pass the slugs to the sync script so it knows which essays to reload
+    execSync(`node scripts/sync-essays.mjs --changed-slugs=${essaysToReload.join(",")}`, { 
       stdio: "pipe" 
     });
   } catch (error) {

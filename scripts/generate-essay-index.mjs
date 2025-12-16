@@ -1,20 +1,20 @@
 /**
- * NOTE: This script is now integrated into copy-essays-to-static.mjs
+ * NOTE: This script is now integrated into sync-essays.mjs
  * and runs automatically. This standalone version is kept for manual use only.
  */
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const essaysDir = path.resolve(process.cwd(), "static/essays");
-const outputFile = path.join(essaysDir, "index.json");
+const contentEssaysDir = path.resolve(process.cwd(), "src/content/essays");
+const outputFile = path.join(contentEssaysDir, "index.json");
 
-const files = fs.readdirSync(essaysDir).filter((file) => file.endsWith(".md"));
+const files = fs.readdirSync(contentEssaysDir).filter((file) => file.endsWith(".md"));
 
 const isProduction = process.env.NODE_ENV === "production";
 
 let essays = files.map((file) => {
-  const filePath = path.join(essaysDir, file);
+  const filePath = path.join(contentEssaysDir, file);
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data } = matter(fileContents);
   const slug = file.replace(/\.md$/, "");
@@ -41,4 +41,4 @@ essays = essays
 
 fs.writeFileSync(outputFile, JSON.stringify(essays, null, 2));
 
-console.log("✅ Successfully generated essays/index.json!");
+console.log("✅ Successfully generated src/content/essays/index.json!");
