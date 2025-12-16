@@ -319,21 +319,54 @@
 
           <!-- Final (mobile) title layer -->
           <span
-            class="title-layer inline md:hidden"
+            class="title-layer md:hidden flex flex-col gap-3 min-[315px]:gap-0"
             bind:this={newTitleMobileElement}
             aria-hidden="true"
           >
-            {#each splitChars(newTitleLine1) as ch}
-              <span class="char-mask"
-                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-              >
-            {/each}
-            <br />
-            {#each splitChars(newTitleLine2) as ch}
-              <span class="char-mask"
-                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-              >
-            {/each}
+            <span>
+              <span class="hidden min-[315px]:inline">
+                {#each splitChars(newTitleLine1) as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+              </span>
+              <span class="min-[315px]:hidden">
+                {#each splitChars("Kevin") as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+                <br />
+                {#each splitChars("Gugelmann.") as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+              </span>
+            </span>
+            <span>
+              <span class="hidden min-[315px]:inline">
+                {#each splitChars(newTitleLine2) as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+              </span>
+              <span class="min-[315px]:hidden">
+                {#each splitChars("AI-native") as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+                <br />
+                {#each splitChars("designer.") as ch}
+                  <span class="char-mask"
+                    ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                  >
+                {/each}
+              </span>
+            </span>
           </span>
 
           <!-- Initial title layer (visible first) -->
@@ -351,18 +384,51 @@
               {/each}
             </span>
             <!-- Mobile: two lines -->
-            <span class="inline md:hidden">
-              {#each splitChars(oldTitleLine1) as ch}
-                <span class="char-mask"
-                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-                >
-              {/each}
-              <br />
-              {#each splitChars(oldTitleLine2) as ch}
-                <span class="char-mask"
-                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-                >
-              {/each}
+            <span class="md:hidden flex flex-col gap-3 min-[315px]:gap-0">
+              <span>
+                <span class="hidden min-[315px]:inline">
+                  {#each splitChars(oldTitleLine1) as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                </span>
+                <span class="min-[315px]:hidden">
+                  {#each splitChars("Hi I'm") as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                  <br />
+                  {#each splitChars("Kevin.") as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                </span>
+              </span>
+              <span>
+                <span class="hidden min-[315px]:inline">
+                  {#each splitChars(oldTitleLine2) as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                </span>
+                <span class="min-[315px]:hidden">
+                  {#each splitChars("Welcome to") as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                  <br />
+                  {#each splitChars("my site.") as ch}
+                    <span class="char-mask"
+                      ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
+                    >
+                  {/each}
+                </span>
+              </span>
             </span>
           </span>
         </h1>
@@ -546,7 +612,7 @@
     position: relative;
     font-size: 1.75rem;
   }
-  @media (min-width: 350px) {
+  @media (min-width: 360px) {
     h1 {
       font-size: 2rem;
     }

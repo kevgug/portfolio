@@ -20,8 +20,12 @@
       <span class="hidden md:inline">
         Cognitively sound design. For the AI age.
       </span>
-      <span class="inline md:hidden">
-        Cognitively sound design. <br />For the AI age.
+      <span class="flex flex-col gap-3.5 min-[450px]:gap-0 md:hidden">
+        <span class="hidden min-[450px]:inline">Cognitively sound design.</span>
+        <span class="hidden min-[290px]:inline min-[450px]:hidden">Cognitively sound<br>design.</span>
+        <span class="min-[290px]:hidden">Cognitively<br>sound design.</span>
+        <span class="hidden min-[240px]:inline">For the AI age.</span>
+        <span class="min-[240px]:hidden">For the<br>AI age.</span>
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
@@ -65,7 +69,7 @@
     position: relative;
     font-size: 1.75rem;
   }
-  @media (min-width: 350px) {
+  @media (min-width: 360px) {
     h1 {
       font-size: 2rem;
     }
