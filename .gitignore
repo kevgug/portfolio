@@ -8,8 +8,6 @@ node_modules
 !.env.example
 src/lib/essays-reload.ts
 src/content/essays
-static/essays/index.json
-static/essays/*.md
 static/essays/*.txt
 static/assets/essays/
 static/assets/thumbnails/

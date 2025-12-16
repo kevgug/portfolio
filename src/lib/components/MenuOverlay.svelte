@@ -8,6 +8,7 @@
   import { gsap } from "gsap";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import essayIndexData from "$content/essays/index.json";
 
   // Custom logarithmic ease-out curve - super fast start, very slow logarithmic tail
   const logarithmicEaseOut = (t: number): number => {
@@ -76,7 +77,11 @@
 
   // Essays data for /essays page menu
   type EssayListItem = { slug: string; title: string; thumbnail: string };
-  let essays: EssayListItem[] = [];
+  let essays: EssayListItem[] = essayIndexData.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    thumbnail: `/assets/thumbnails/${p.slug}.png`,
+  }));
   let hoveredEssay: EssayListItem | null = null;
 
   // Tab switch coordination to avoid overlap between lists
@@ -265,21 +270,6 @@
 
   onMount(() => {
     checkIsDesktop();
-    // Fetch essays list for essays menu
-    try {
-      fetch("/essays/index.json")
-        .then((r) => (r.ok ? r.json() : []))
-        .then((json: any) => {
-          if (Array.isArray(json)) {
-            essays = json.map((p) => ({
-              slug: p.slug,
-              title: p.title,
-              thumbnail: `/assets/thumbnails/${p.slug}.png`,
-            }));
-          }
-        })
-        .catch(() => {});
-    } catch (_) {}
 
     // Cleanup on destroy
     return () => {

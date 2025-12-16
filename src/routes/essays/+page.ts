@@ -1,5 +1,6 @@
 import type { PageLoad } from "./$types";
 import "$lib/essays-reload"; // Import to trigger HMR when essays update
+import { loadEssayIndex } from "$lib/essays/load";
 
 export interface EssayListItem {
   slug: string;
@@ -9,12 +10,8 @@ export interface EssayListItem {
   publish?: boolean;
 }
 
-export const load: PageLoad = async ({ fetch }) => {
-  const res = await fetch("/essays/index.json");
-  if (!res.ok) {
-    return { posts: [] as EssayListItem[] };
-  }
-  const posts = (await res.json()) as EssayListItem[];
+export const load: PageLoad = async () => {
+  const posts = (await loadEssayIndex()) as EssayListItem[];
   posts.forEach((post) => {
     post.formattedDate = new Date(post.date).toLocaleDateString("en-US", {
       month: "long",
