@@ -2,10 +2,13 @@
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
 
-  let cursorX = 0;
-  let cursorY = 0;
-  let targetX = 0;
-  let targetY = 0;
+  type Position = {
+    x: number;
+    y: number;
+  }
+
+  let cursorPosition: Position = { x: -1, y: -1 };
+  let targetPosition: Position = { x: -1, y: -1 };
   let isPointer = false;
   let isText = false;
   let mounted = false;
@@ -154,14 +157,15 @@
     const handleMouseMove = (e: MouseEvent) => {
       zoomLevel = getZoomLevel();
       const adjusted = adjustForZoom(e);
-      targetX = adjusted.x;
-      targetY = adjusted.y;
+      targetPosition = adjusted;
     };
 
     // Save cursor position before page unload (only if cursor is inside window)
     const handleBeforeUnload = () => {
-      if (!isOutsideWindow) {
-        sessionStorage.setItem('cursorPosition', JSON.stringify({ x: cursorX, y: cursorY }));
+      if (!isOutsideWindow && cursorPosition.x !== -1 && cursorPosition.y !== -1) {
+        // cursor is inside window and has been moved
+        sessionStorage.setItem('cursorPosition', JSON.stringify(cursorPosition));
+      } else {
       }
     };
 
@@ -190,10 +194,8 @@
     const savedPosition = sessionStorage.getItem('cursorPosition');
     if (savedPosition) {
       const { x, y } = JSON.parse(savedPosition);
-      cursorX = x;
-      cursorY = y;
-      targetX = x;
-      targetY = y;
+      cursorPosition = { x, y };
+      targetPosition = { x, y };
       hasInteracted = true;
       
       // Recalculate cursor type based on element at saved position
@@ -214,14 +216,14 @@
       const adjustedSmoothFactor = Math.min(smoothFactor * zoomMultiplier, 1);
       
       // Extrapolation - predict slightly ahead for ultra-smooth feel
-      const velocityX = (targetX - cursorX) * 0.15;
-      const velocityY = (targetY - cursorY) * 0.15;
-      const extrapolatedX = targetX + velocityX;
-      const extrapolatedY = targetY + velocityY;
+      const velocityX = (targetPosition.x - cursorPosition.x) * 0.15;
+      const velocityY = (targetPosition.y - cursorPosition.y) * 0.15;
+      const extrapolatedX = targetPosition.x + velocityX;
+      const extrapolatedY = targetPosition.y + velocityY;
 
       // Smooth interpolation towards extrapolated position
-      cursorX = lerp(cursorX, extrapolatedX, adjustedSmoothFactor);
-      cursorY = lerp(cursorY, extrapolatedY, adjustedSmoothFactor);
+      cursorPosition.x = lerp(cursorPosition.x, extrapolatedX, adjustedSmoothFactor);
+      cursorPosition.y = lerp(cursorPosition.y, extrapolatedY, adjustedSmoothFactor);
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -230,10 +232,8 @@
     const initCursor = (e: MouseEvent) => {
       zoomLevel = getZoomLevel();
       const adjusted = adjustForZoom(e);
-      cursorX = adjusted.x;
-      cursorY = adjusted.y;
-      targetX = adjusted.x;
-      targetY = adjusted.y;
+      cursorPosition = adjusted;
+      targetPosition = adjusted;
       hasInteracted = true;
       window.removeEventListener('mousemove', initCursor);
       animationFrameId = requestAnimationFrame(animate);
@@ -287,8 +287,8 @@
     class:is-text={isText}
     class:is-outside={isOutsideWindow}
     style="
-      left: {cursorX}px;
-      top: {cursorY}px;
+      left: {cursorPosition.x}px;
+      top: {cursorPosition.y}px;
       width: {isPointer ? '40px' : isText ? '2px' : '12px'};
       height: {isPointer ? '40px' : isText ? '22px' : '12px'};
       opacity: {!hasInteracted || isOutsideWindow ? '0' : isPointer ? '0.3' : '1'};
