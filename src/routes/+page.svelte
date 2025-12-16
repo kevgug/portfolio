@@ -1,6 +1,6 @@
 <script lang="ts">
   import Separator from "$lib/components/Separator.svelte";
-  import CtaSection from "$lib/views/CtaSection.svelte";
+  import ContactSection from "$lib/views/ContactSection.svelte";
   import Footer from "$lib/views/Footer.svelte";
   import ProjectCard from "$lib/views/ProjectCard.svelte";
   import HeroSection from "../lib/views/HeroSection.svelte";
@@ -181,7 +181,7 @@ pt-16 md:pt-20"
     <Separator />
   </div>
   <div class="py-20 md:py-[6.3rem] lg:py-32">
-    <CtaSection />
+    <ContactSection />
   </div>
   <Footer />
 </div>
