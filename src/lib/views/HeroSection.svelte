@@ -287,15 +287,14 @@
 
 <div
   class="hero-section flex flex-col
-    pt-4 pb-8 md:pt-6 md:pb-20
-    {useZeigarnikEffect ? 'relative min-h-[100svh] md:min-h-screen' : ''}"
+    {useZeigarnikEffect ? 'pt-4 md:pt-6 pb-8 md:pb-20 relative min-h-[100svh] md:min-h-screen' : ''}"
 >
   <div
     bind:this={heroContent}
-    class="flex flex-col justify-center
+    class="flex flex-col
          {useZeigarnikEffect
-      ? 'flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
-      : 'pb-0 min-h-[24rem] md:min-h-[28rem] lg:min-h-[32rem]'}"
+      ? 'justify-center flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      : 'justify-start pb-0 mt-32 md:mt-36 lg:mt-40'}"
   >
     <div class="w-full">
       <div>
