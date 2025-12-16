@@ -66,7 +66,7 @@ const expectedMdFiles = new Set(
     const fileContents = fs.readFileSync(srcPath, "utf8");
     const { data } = matter(fileContents);
     return data.publish !== false;
-  })
+  }),
 );
 
 const existingStaticMdFiles = fs
@@ -90,19 +90,43 @@ const assetsDir = path.join(essaysDir, "assets");
 if (fs.existsSync(assetsDir)) {
   console.log("Syncing essay assets...");
 
+  // Get list of published essays for production mode
+  const publishedEssays = new Set();
+  if (isProduction) {
+    mdFiles.forEach((file) => {
+      const srcPath = path.join(essaysDir, file);
+      const fileContents = fs.readFileSync(srcPath, "utf8");
+      const { data } = matter(fileContents);
+      if (data.publish === true) {
+        const slug = file.replace(/\.md$/, "");
+        publishedEssays.add(slug);
+      }
+    });
+  }
+
   // Copy files from source to destination
-  const copyRecursive = (src, dest) => {
+  // `isRootLevel = true` means we're at the top level where essay slug folders are
+  const copyRecursive = (src, dest, isRootLevel = true) => {
     const entries = fs.readdirSync(src, { withFileTypes: true });
 
     for (const entry of entries) {
       const srcPath = path.join(src, entry.name);
       const destPath = path.join(dest, entry.name);
 
+      // In production, only copy assets for published essays (check only at root level)
+      if (isProduction && isRootLevel && entry.isDirectory()) {
+        const essaySlug = entry.name;
+        if (!publishedEssays.has(essaySlug)) {
+          console.log(`  ⊗ Skipping assets for ${essaySlug} (unpublished)`);
+          continue;
+        }
+      }
+
       if (entry.isDirectory()) {
         if (!fs.existsSync(destPath)) {
           fs.mkdirSync(destPath, { recursive: true });
         }
-        copyRecursive(srcPath, destPath);
+        copyRecursive(srcPath, destPath, false);
       } else {
         fs.copyFileSync(srcPath, destPath);
       }
@@ -110,14 +134,25 @@ if (fs.existsSync(assetsDir)) {
   };
 
   // Remove stale files/directories from destination
-  const removeStale = (srcDir, destDir, basePath = "") => {
+  // isRootLevel = true means we're at the top level where essay slug folders are
+  const removeStale = (srcDir, destDir, basePath = "", isRootLevel = true) => {
     if (!fs.existsSync(destDir)) return;
-    
+
     const destEntries = fs.readdirSync(destDir, { withFileTypes: true });
     for (const entry of destEntries) {
       const srcPath = path.join(srcDir, entry.name);
       const destPath = path.join(destDir, entry.name);
-      
+
+      // In production, remove assets for unpublished essays (check only at root level)
+      if (isProduction && isRootLevel && entry.isDirectory()) {
+        const essaySlug = entry.name;
+        if (!publishedEssays.has(essaySlug)) {
+          fs.rmSync(destPath, { recursive: true, force: true });
+          console.log(`  ✗ Removed assets for unpublished essay: ${essaySlug}`);
+          continue;
+        }
+      }
+
       if (!fs.existsSync(srcPath)) {
         // File/dir doesn't exist in source, remove it
         if (entry.isDirectory()) {
@@ -125,10 +160,12 @@ if (fs.existsSync(assetsDir)) {
         } else {
           fs.unlinkSync(destPath);
         }
-        console.log(`  ✗ Removed stale asset: ${path.join(basePath, entry.name)}`);
+        console.log(
+          `  ✗ Removed stale asset: ${path.join(basePath, entry.name)}`,
+        );
       } else if (entry.isDirectory()) {
         // Recurse into subdirectories
-        removeStale(srcPath, destPath, path.join(basePath, entry.name));
+        removeStale(srcPath, destPath, path.join(basePath, entry.name), false);
       }
     }
   };
