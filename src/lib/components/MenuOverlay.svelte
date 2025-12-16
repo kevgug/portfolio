@@ -68,15 +68,16 @@
   };
   import { onMount } from "svelte";
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
+  import FloatingEssayImage from "$lib/components/FloatingEssayImage.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import type { Project } from "$lib/projects";
 
   export let open = false;
 
   // Essays data for /essays page menu
-  type EssayListItem = { slug: string; title: string };
+  type EssayListItem = { slug: string; title: string; thumbnail: string };
   let essays: EssayListItem[] = [];
-  let isEssaysPage = false;
+  let hoveredEssay: EssayListItem | null = null;
 
   // Tab switch coordination to avoid overlap between lists
   let currentMenuIsEssays = false;
@@ -117,6 +118,22 @@
   let mouseY = 0;
   let hoveredProject: Project | null = null;
   let isDesktop = true;
+  let hoverLeaveTimeout: ReturnType<typeof setTimeout> | null = null;
+  let essayHoverLeaveTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  // Helper to clear hover state and any pending timeout
+  function clearHoverState() {
+    if (hoverLeaveTimeout) {
+      clearTimeout(hoverLeaveTimeout);
+      hoverLeaveTimeout = null;
+    }
+    if (essayHoverLeaveTimeout) {
+      clearTimeout(essayHoverLeaveTimeout);
+      essayHoverLeaveTimeout = null;
+    }
+    hoveredProject = null;
+    hoveredEssay = null;
+  }
 
   // Prevent background scrolling when menu is open
   $: if (typeof document !== "undefined") {
@@ -140,14 +157,14 @@
 
     // Close menu immediately for better UX (but don't force it closed after scroll)
     open = false;
-    hoveredProject = null;
+    clearHoverState();
   }
 
   // Handle escape key to close menu
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
       open = false;
-      hoveredProject = null;
+      clearHoverState();
     }
   }
 
@@ -161,13 +178,50 @@
 
   // Project hover handlers
   function handleProjectHover(project: Project) {
+    // Cancel any pending leave timeout - mouseenter fired before the delay elapsed
+    if (hoverLeaveTimeout) {
+      clearTimeout(hoverLeaveTimeout);
+      hoverLeaveTimeout = null;
+    }
     if (isDesktop) {
       hoveredProject = project;
     }
   }
 
   function handleProjectLeave() {
-    hoveredProject = null;
+    // Use a small delay to allow mouseenter on next item to fire first
+    // This prevents hoveredProject from briefly becoming null when moving between items
+    if (hoverLeaveTimeout) {
+      clearTimeout(hoverLeaveTimeout);
+    }
+    hoverLeaveTimeout = setTimeout(() => {
+      hoveredProject = null;
+      hoverLeaveTimeout = null;
+    }, 20);
+  }
+
+  // Essay hover handlers
+  function handleEssayHover(essay: EssayListItem) {
+    // Cancel any pending leave timeout - mouseenter fired before the delay elapsed
+    if (essayHoverLeaveTimeout) {
+      clearTimeout(essayHoverLeaveTimeout);
+      essayHoverLeaveTimeout = null;
+    }
+    if (isDesktop) {
+      hoveredEssay = essay;
+    }
+  }
+
+  function handleEssayLeave() {
+    // Use a small delay to allow mouseenter on next item to fire first
+    // This prevents hoveredEssay from briefly becoming null when moving between items
+    if (essayHoverLeaveTimeout) {
+      clearTimeout(essayHoverLeaveTimeout);
+    }
+    essayHoverLeaveTimeout = setTimeout(() => {
+      hoveredEssay = null;
+      essayHoverLeaveTimeout = null;
+    }, 20);
   }
 
   function handleIntroductionClick() {
@@ -186,7 +240,7 @@
     });
 
     open = false;
-    hoveredProject = null;
+    clearHoverState();
   }
 
   function handleContactClick() {
@@ -199,7 +253,7 @@
     });
 
     open = false;
-    hoveredProject = null;
+    clearHoverState();
   }
 
   // Check if device is desktop - now enabled for all viewport sizes
@@ -217,11 +271,25 @@
         .then((r) => (r.ok ? r.json() : []))
         .then((json: any) => {
           if (Array.isArray(json)) {
-            essays = json.map((p) => ({ slug: p.slug, title: p.title }));
+            essays = json.map((p) => ({
+              slug: p.slug,
+              title: p.title,
+              thumbnail: `/assets/thumbnails/${p.slug}.png`,
+            }));
           }
         })
         .catch(() => {});
     } catch (_) {}
+
+    // Cleanup on destroy
+    return () => {
+      if (hoverLeaveTimeout) {
+        clearTimeout(hoverLeaveTimeout);
+      }
+      if (essayHoverLeaveTimeout) {
+        clearTimeout(essayHoverLeaveTimeout);
+      }
+    };
   });
 </script>
 
@@ -279,9 +347,10 @@
                     on:click|stopPropagation={() => {
                       goto(`/essays/${e.slug}`);
                       open = false;
+                      hoveredEssay = null;
                     }}
-                    on:mouseenter={handleProjectLeave}
-                    on:mouseleave={handleProjectLeave}
+                    on:mouseenter={() => handleEssayHover(e)}
+                    on:mouseleave={handleEssayLeave}
                     class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
                   >
                     {e.title}
@@ -393,6 +462,15 @@
   imageOptions={hoveredProject?.imgOptions || null}
   projectId={hoveredProject?.id || null}
   isVisible={!!hoveredProject && isDesktop && open}
+  {mouseX}
+  {mouseY}
+/>
+
+<!-- Floating essay image -->
+<FloatingEssayImage
+  thumbnailSrc={hoveredEssay?.thumbnail || null}
+  essaySlug={hoveredEssay?.slug || null}
+  isVisible={!!hoveredEssay && isDesktop && open}
   {mouseX}
   {mouseY}
 />

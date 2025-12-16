@@ -1,28 +1,26 @@
 <script lang="ts">
   import { gsap } from "gsap";
   import { onMount, onDestroy } from "svelte";
-  import Image from "$lib/components/Image.svelte";
-  import type { ImageOptions } from "$lib/util/image";
 
-  export let imageOptions: ImageOptions | null = null;
+  export let thumbnailSrc: string | null = null;
+  export let essaySlug: string | null = null;
   export let isVisible = false;
   export let mouseX = 0;
   export let mouseY = 0;
-  export let projectId: string | null = null;
 
   let containerElement: HTMLDivElement;
   let screenHeight = 0;
-  let previousProjectId: string | null = null;
-  let floatingImageHeight = 220; // Default height
-  let displayImageOptions: ImageOptions | null = null;
+  let previousEssaySlug: string | null = null;
+  let floatingImageHeight = 180; // Default height for essay thumbnails
+  let displayThumbnailSrc: string | null = null;
 
-  $: if (imageOptions) {
-    displayImageOptions = imageOptions;
+  $: if (thumbnailSrc) {
+    displayThumbnailSrc = thumbnailSrc;
   }
 
   // Calculate smart positioning based on cursor location
   $: isInTopHalf = mouseY < screenHeight / 2;
-  $: cardOffsetX = -160; // Center the card horizontally on cursor
+  $: cardOffsetX = -140; // Center the card horizontally on cursor
   $: cardOffsetY = isInTopHalf ? 60 : -(floatingImageHeight + 60); // Below cursor if top half, above if bottom half
 
   onMount(() => {
@@ -33,11 +31,11 @@
   // Main reactive logic for animations and positioning
   $: {
     if (containerElement) {
-      if (isVisible && imageOptions && mouseX > 0 && mouseY > 0 && projectId) {
+      if (isVisible && thumbnailSrc && mouseX > 0 && mouseY > 0 && essaySlug) {
         // --- Entrance (first time only) or Swap (instant, no animation) ---
-        if (projectId !== previousProjectId) {
-          const isFirstEntrance = previousProjectId === null;
-          previousProjectId = projectId;
+        if (essaySlug !== previousEssaySlug) {
+          const isFirstEntrance = previousEssaySlug === null;
+          previousEssaySlug = essaySlug;
           
           if (isFirstEntrance) {
             // First entrance: animate in
@@ -71,8 +69,8 @@
         });
       } else {
         // --- Exit ---
-        if (previousProjectId !== null) {
-          previousProjectId = null;
+        if (previousEssaySlug !== null) {
+          previousEssaySlug = null;
           gsap.killTweensOf(containerElement);
           gsap.to(containerElement, {
             scale: 0.7,
@@ -96,35 +94,31 @@
 
 <svelte:window bind:innerHeight={screenHeight} />
 
-{#if displayImageOptions}
-  <div bind:this={containerElement} class="floating-project-image">
+{#if displayThumbnailSrc}
+  <div bind:this={containerElement} class="floating-essay-image">
     <div class="image-wrapper">
-      <Image imgOptions={displayImageOptions} class="project-preview-image" />
+      <img src={displayThumbnailSrc} alt="Essay preview" class="essay-preview-image" />
     </div>
   </div>
 {/if}
 
 <style>
-  .floating-project-image {
+  .floating-essay-image {
     position: fixed;
     z-index: 1000;
     pointer-events: none;
-    width: 320px;
-    /* height is now auto to adapt to content */
+    width: 280px;
     height: auto;
     will-change: transform, opacity;
-    /* Use transform for positioning instead of left/top */
     top: 0;
     left: 0;
-    /* Start with 0 opacity to prevent flash, onMount will move it off-screen */
     opacity: 0;
   }
 
   .image-wrapper {
     width: 100%;
-    /* height is now auto to adapt to content */
     height: auto;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.6),
       0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
@@ -150,18 +144,15 @@
     z-index: 1;
   }
 
-  :global(.project-preview-image) {
+  .essay-preview-image {
     width: 100%;
-    /* height is auto to maintain aspect ratio */
     height: auto;
-    /* max-height ensures tall images are capped */
-    max-height: 220px;
+    max-height: 180px;
     object-fit: cover;
     position: relative;
     z-index: 0;
     display: block;
     background-color: #000;
   }
-
-  /* Hover effects now enabled on all viewport sizes */
 </style>
+
