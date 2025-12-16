@@ -79,43 +79,14 @@ const projects = projectBlocks.map((block) => {
     };
   };
 
-  const extractImageAlt = () => {
-    const match = block.match(/alt:\s*"([^"]*)"/);
-    return match ? match[1] : "";
-  };
-
-  const extractImageOptions = () => {
-    const match = block.match(/imgOptions:\s*\{([^}]*)\}/s);
-    if (!match) return {};
-    const content = match[1];
-
-    // Extract variable names for src, avifSrc, webpSrc and resolve them via importMap
-    const srcVar = content.match(/src:\s*(\w+)/)?.[1];
-    const avifSrcVar = content.match(/avifSrc:\s*(\w+)/)?.[1];
-    const webpSrcVar = content.match(/webpSrc:\s*(\w+)/)?.[1];
-
-    const src = srcVar ? (siteUrl + (importMap[srcVar] || "")) : "";
-    const avifSrc = avifSrcVar ? (siteUrl + (importMap[avifSrcVar] || "")) : "";
-    const webpSrc = webpSrcVar ? (siteUrl + (importMap[webpSrcVar] || "")) : "";
-
-    // alt is still a string literal
-    const alt = content.match(/alt:\s*"([^"]*)"/)?.[1] ?? "";
-
-    return { src, avifSrc, webpSrc, alt };
-  };
-
   return {
-    id: extractField("id"),
     year: extractNumber("year"),
     name: extractField("name"),
     outputMedium: extractField("outputMedium"),
     role: extractField("role"),
     description: extractDescription(),
     builtWith: extractArray("builtWith"),
-    bgColor: extractField("bgColor"),
     link: extractLink(),
-    imgOptions: extractImageOptions(),
-    imageAlt: extractImageAlt(),
   };
 });
 
@@ -160,130 +131,114 @@ const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-// ===== SHARED CONTENT =====
+// ===== HEADER BLOCK =====
+const headerBlock = `Kevin Gugelmann - AI-native Designer
+Design engineer building cognitively sound AI software.
 
-// Generate full project details
+Canonical: ${siteUrl}
+Book a call: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
+
+Portfolio and essays are the primary content. When quoting, please link back to the relevant page URL. Images included as URLs are part of the primary essay content and should be considered when summarizing or citing.`;
+
+// ===== SIMPLIFIED PROJECT FORMAT =====
 const projectDetails = projects
   .map((p) => {
-    const linkLine = p.link
-      ? `- Link: ${p.link.label} → ${p.link.destination}`
-      : `- Link: (n/a)`;
+    return `### ${p.name}
 
-    return `#### ${p.name} (id: ${p.id})
+${p.description}
 
+Details:
 - Year: ${p.year}
-- Domain: ${p.outputMedium}
 - Role: ${p.role}
-- Description: ${p.description}
+- Domain: ${p.outputMedium}
 - Built with: ${p.builtWith.join(", ")}
-${linkLine}
-- Image alt: ${p.imageAlt}
-- Background color: ${p.bgColor}`;
+- Link: ${p.link ? `${p.link.label} → ${p.link.destination}` : "(n/a)"}`;
   })
   .join("\n\n");
 
-// Generate essay links (for llms.txt)
-const essayLinks = essays
-  .map((e) =>
-    `- ${e.title}\n  - Date: ${
-      formatDate(e.date)
-    }\n  - Link: ${siteUrl}/essays/${e.slug}\n  - Markdown: ${siteUrl}/essays/${e.slug}.txt`
+// ===== HOME SECTION =====
+const homeSection = `# Home — ${siteUrl}/
+
+Kevin Gugelmann. AI-native designer.
+
+## Highlights
+
+- Built an AI tool at JPMorganChase saving designers 300+ hours per year.
+- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Won 1st place at both the UChicago designathon and hackathon.
+
+## Projects
+
+${projectDetails}
+
+## Contact
+
+Cognitively sound design. For the AI age.
+
+- Economics and Cognitive Science at the University of Chicago.
+- Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
+- Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
+
+Discuss a project: https://cal.com/kevgug/intro
+Email: kevin@kevingugelmann.com
+X (Twitter): https://x.com/kevingugelmann
+LinkedIn: https://www.linkedin.com/in/kevingugelmann`;
+
+// ===== ESSAY LIST (for llms.txt) =====
+const essayList = essays
+  .map(
+    (e) => `- ${e.title} (${formatDate(e.date)}) - ${siteUrl}/essays/${e.slug}`,
   )
   .join("\n");
 
-// Generate full essay content (for llms-full.txt)
+const essaysSection = `# Essays — ${siteUrl}/essays
+
+${essayList}`;
+
+// ===== FULL ESSAY CONTENT (for llms-full.txt) =====
 const essayFullContent = essays
   .map((essay) => {
     const processedContent = preprocessMarkdownForLLM(
       essay.content.trim(),
       essay.slug,
     );
-    return `<Essay title="${essay.title}" date="${
-      formatDate(essay.date)
-    }">\n# ${essay.title}\n\n${processedContent}\n</Essay>`;
+    return `# ${essay.title} — ${siteUrl}/essays/${essay.slug}
+
+---
+title: ${essay.title}
+slug: ${essay.slug}
+date: ${formatDate(essay.date)}
+---
+
+${processedContent}`;
   })
   .join("\n\n");
 
-// Generate the shared content with a placeholder for essays
-const generateContent = (essaysSection) =>
-  `## Site Metadata
+// ===== GENERATE BOTH FILES =====
 
-- Title: Kevin Gugelmann | AI-native designer
-- Description: Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.
-- Domain: kevingugelmann.com
-- Canonical: ${siteUrl}
+// llms.txt - Essays as bullet list
+const llmsContent = `${headerBlock}
 
-## Navigation
+${homeSection}
 
-- Top navigation bar:
-  - Left: Hamburger menu (opens menu overlay)
-  - Right: Home | Essays tabs
-- Book a call → https://cal.com/kevgug/intro
-
-## Home
-
-### Introduction (id: introduction)
-
-- Title (initial): "Hi, I'm Kevin. Welcome to my site."
-- Title (final, animated transition): "Kevin Gugelmann. AI-native designer."
-- Highlights:
-  - Built an AI tool at JPMorganChase saving designers 300+ hours per year.
-  - Designed and shipped three full-stack websites at Freestyle (YC S24).
-  - Won 1st place at both the UChicago designathon and hackathon.
-- CTAs:
-  - View portfolio → scrolls to #projects
-  - Email me → mailto:kevin@kevingugelmann.com
-- Company logos (linked, with alt text):
-  - JPMorganChase logo → https://jpmorganchase.com
-  - Freestyle logo → https://www.freestyle.sh
-  - Y Combinator logo → https://www.ycombinator.com
-  - University of Chicago logo → https://www.uchicago.edu
-
-### Projects (id: projects)
-
-${projectDetails}
-
-### Contact (id: contact)
-
-- Headshot alt: "Kevin Gugelmann's headshot"
-- Heading: "Cognitively sound design. For the AI age."
-- Proof points:
-  - Economics and Cognitive Science at the University of Chicago.
-  - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
-  - Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
-- CTAs:
-  - Connect on LinkedIn → https://linkedin.com/in/kevingugelmann
-  - Email me → mailto:kevin@kevingugelmann.com
-
-### Footer
-
-- Social links:
-  - Book a call: https://cal.com/kevgug/intro
-  - Email: mailto:kevin@kevingugelmann.com
-  - X (Twitter): https://x.com/kevingugelmann
-  - LinkedIn: https://www.linkedin.com/in/kevingugelmann
-  - RSS Feed: ${siteUrl}/rss.xml
-- Copyright © 2025 Kevin Gugelmann. All rights reserved.
-
-### Error Page
-
-- Displays the HTTP status code and error message for the current route.
-- CTA: Return home → ${siteUrl}/
-
-## Essays
 ${essaysSection}
+
+## RSS feed for essays (rss.xml) - ${siteUrl}/rss.xml
+
+## Full website content (llms-full.txt) - ${siteUrl}/llms-full.txt
 `;
 
-// Generate both versions
-const llmsContent = generateContent(essayLinks) + `
-## llms-full.txt
+// llms-full.txt - Each essay as its own # heading
+const llmsFullContent = `${headerBlock}
 
-- Read full website content: ${siteUrl}/llms-full.txt
-`;
+${homeSection}
 
-const llmsFullContent = generateContent(
-  `\nIn reverse chronological order:\n\n${essayFullContent}`,
-);
+${essaysSection}
+
+# RSS feed for essays (rss.xml) - ${siteUrl}/rss.xml
+
+${essayFullContent}`;
 
 // Write to static directory with UTF-8 BOM for proper encoding detection
 const UTF8_BOM = "\uFEFF";
