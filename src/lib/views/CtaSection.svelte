@@ -26,14 +26,14 @@
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
       <li>
-        Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
+        Rewrote copy and doubled site traffic for a <a href="https://www.tradefinancedistribution.com">$4.5B trade finance initiative</a> in 3 weeks.
       </li>
       <li>
         Built an AI tool at
         <a href="https://jpmorganchase.com">JPMorganChase</a> that generates on-brand Figma plugins.
       </li>
       <li>
-        Rewrote copy and doubled site traffic for a <a href="https://www.tradefinancedistribution.com">$4.5B trade finance initiative</a> in 3 weeks.
+        Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
       </li>
     </ul>
     <div class="flex items-center gap-2">
@@ -60,3 +60,24 @@
   </div>
 </div>
 
+<style lang="postcss">
+  h1 {
+    position: relative;
+    font-size: 1.75rem;
+  }
+  @media (min-width: 350px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  @media (min-width: 768px) {
+    h1 {
+      font-size: calc(max(2rem, min(4rem, 4.5vw)));
+    }
+  }
+  @media (min-width: 1536px) {
+    h1 {
+      font-size: 4rem;
+    }
+  }
+</style>

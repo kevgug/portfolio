@@ -294,7 +294,7 @@
     bind:this={heroContent}
     class="flex flex-col justify-center
          {useZeigarnikEffect
-      ? 'flex-1 pb-40 md:pb-48 lg:pb-60 xl:pb-72 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      ? 'flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
       : 'pb-0 min-h-[24rem] md:min-h-[28rem] lg:min-h-[32rem]'}"
   >
     <div class="w-full">
@@ -369,16 +369,16 @@
         <ul>
           <li>
             Built an AI tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> saving designers 300+ hours.
+            <a href="https://jpmorganchase.com">JPMorganChase</a> saving designers 300+ hours per year.
+          </li>
+          <li>
+            Designed and shipped three full-stack websites at
+            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
           </li>
           <li>
             Won 1st place at both the <a
             href="https://www.uchicago.edu">UChicago</a
-          > designathon and hackathon.
-          </li>
-          <li>
-            Designed and shipped 3 full-stack websites at
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
+            > designathon and hackathon.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-8 md:mt-9">
@@ -542,20 +542,23 @@
 </div>
 
 <style lang="postcss">
-  /* Title layering */
-  #title {
+  h1 {
     position: relative;
     font-size: 1.75rem;
   }
   @media (min-width: 350px) {
-    #title {
-      position: relative;
+    h1 {
       font-size: 2rem;
     }
   }
   @media (min-width: 768px) {
-    #title {
-      font-size: calc(max(2.25rem, min(4.5rem, 4vw)));
+    h1 {
+      font-size: calc(max(2rem, min(4rem, 4.5vw)));
+    }
+  }
+  @media (min-width: 1536px) {
+    h1 {
+      font-size: 4rem;
     }
   }
   #title .title-layer {
