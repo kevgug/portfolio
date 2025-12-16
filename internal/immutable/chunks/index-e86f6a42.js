@@ -1,1 +1,0 @@
-import"./index-827bc293.js";function c(n){return n*n*n}function r(n){const o=n-1;return o*o*o+1}function t(n){return n===0?n:Math.pow(2,10*(n-1))}function a(n){return n===1?n:1-Math.pow(2,-10*n)}export{t as a,c as b,r as c,a as e};
