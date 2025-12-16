@@ -197,11 +197,11 @@
           border-solid border-[1px]
           rounded-3xl md:rounded-4xl lg:rounded-5xl xl:rounded-6xl"
   >
+  <div class="flex justify-center items-center">
     <div
       class="img3d group
             {linkButtonContent ? 'interactive' : ''}
             {isHoveringLinkBtn ? 'hover-link-btn' : ''}
-            flex justify-center items-center
             mt-1 md:mt-0"
       style={img3dStyle}
       bind:clientWidth={width}
@@ -228,7 +228,7 @@
             <div class="interactive-img">
               <Image
                 {imgOptions}
-                class="object-contain rounded-md lg:rounded-xl group-hover:rounded-xl lg:group-hover:rounded-2xl transition-all"
+                class="object-contain rounded-md lg:rounded-xl {linkButtonContent ? 'group-hover:rounded-xl lg:group-hover:rounded-2xl' : ''} transition-all"
               />
             </div>
             <div
@@ -297,6 +297,7 @@
         </div>
       </div>
     </div>
+  </div>
     <div
       class="flex flex-col md:justify-between
             w-full md:min-w-[20em] md:max-w-[25em]
