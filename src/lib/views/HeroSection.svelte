@@ -163,7 +163,7 @@
       gsap.set(oldChars, { y: "0%" });
     }
     if (newCharsAll.length) {
-      gsap.set(newCharsAll, { y: "100%" });
+      gsap.set(newCharsAll, { y: "110%" });
     }
 
     // Start animations after 100ms delay from page load
@@ -180,6 +180,21 @@
 
       const timeline = gsap.timeline();
 
+      const desktopTimings = {
+        oldCharsDuration: 0.44,
+        oldCharsStagger: 0.0088,
+        newCharsDuration: 0.88,
+        newCharsStagger: 0.0088,
+        newCharsNegDelay: 0.4,
+      }
+      const mobileMultiplier = 0.92;
+      const timings = {
+        oldCharsDuration: [desktopTimings.oldCharsDuration, mobileMultiplier * desktopTimings.oldCharsDuration],
+        oldCharsStagger: [desktopTimings.oldCharsStagger, mobileMultiplier * desktopTimings.oldCharsStagger],
+        newCharsDuration: [desktopTimings.newCharsDuration, mobileMultiplier * desktopTimings.newCharsDuration],
+        newCharsStagger: [desktopTimings.newCharsStagger, mobileMultiplier * desktopTimings.newCharsStagger],
+        newCharsNegDelay: [desktopTimings.newCharsNegDelay,  mobileMultiplier * desktopTimings.newCharsNegDelay],
+      }
 
       const isSmallNow =
         getCurrentBreakpoint(
@@ -187,12 +202,13 @@
         ) == BreakpointSizes.sm;
 
       if (oldChars) {
+        console.log('isSmallNow1',Number(isSmallNow),isSmallNow)
         timeline.to(oldChars, {
-          y: "-110%",
-          duration: 0.55,
+          y: "-100%",
+          duration: timings.oldCharsDuration[Number(isSmallNow)],
           ease: "power3.in",
-          stagger: isSmallNow ? 0.0075 : 0.009,
-        });
+          stagger: timings.oldCharsStagger[Number(isSmallNow)],
+        }); 
       }
 
       const newChars = newTitleElement?.querySelectorAll(
@@ -200,15 +216,16 @@
       ) as unknown as HTMLElement[];
 
       if (newChars && newChars.length) {
+        console.log('isSmallNow2',Number(isSmallNow),isSmallNow)
         timeline.to(
           newChars,
           {
             y: "0%",
-            duration: 0.9,
+            duration: timings.newCharsDuration[Number(isSmallNow)],
             ease: "expo.out",
-            stagger: isSmallNow ? 0.01 : 0.012,
+            stagger: timings.newCharsStagger[Number(isSmallNow)],
           },
-          oldChars ? "-=0.35" : 0
+          oldChars ? `-=${timings.newCharsNegDelay[Number(isSmallNow)]}` : 0
         );
       }
     };
@@ -222,9 +239,9 @@
       if (isSmallNow) {
         runTitleSwap();
       } else {
-        setTimeout(runTitleSwap, 500);
+        setTimeout(runTitleSwap, 400);
       }
-    }, 850);
+    }, 900);
 
     // Add scroll listener to immediately trigger animations if user scrolls
     const handleScroll = () => {
