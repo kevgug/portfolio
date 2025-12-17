@@ -13,14 +13,11 @@
       alt: "Kevin Gugelmann's headshot",
       loading: "eager",
     }}
-    class="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full object-cover border border-white/30 mb-11"
+    class="headshot rounded-full object-cover border border-white/30 mb-11"
   />
   <div>
     <h1 class="text-glacial-blue">
-      <span class="hidden md:inline">
-        Cognitively sound design. For the AI age.
-      </span>
-      <span class="flex flex-col gap-3.5 min-[450px]:gap-0 md:hidden">
+      <span class="flex flex-col gap-3.5 min-[450px]:gap-0">
         <span class="hidden min-[450px]:inline">Cognitively sound design.</span>
         <span class="hidden min-[290px]:inline min-[450px]:hidden">Cognitively sound<br>design.</span>
         <span class="min-[290px]:hidden">Cognitively<br>sound design.</span>
@@ -65,18 +62,20 @@
 </div>
 
 <style lang="postcss">
+  :global(.headshot) {
+    /* 4rem at 320px → 8rem at 1280px */
+    --size: clamp(4rem, 6rem + 8.5vw, 12rem);
+    width: var(--size);
+    height: var(--size);
+  }
+
   h1 {
     position: relative;
     font-size: 1.75rem;
   }
   @media (min-width: 360px) {
     h1 {
-      font-size: 2rem;
-    }
-  }
-  @media (min-width: 768px) {
-    h1 {
-      font-size: calc(max(2rem, min(4rem, 4.5vw)));
+      font-size: calc(max(2rem, min(4rem, 7vw)));
     }
   }
   @media (min-width: 1536px) {

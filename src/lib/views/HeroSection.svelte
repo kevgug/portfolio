@@ -87,14 +87,12 @@
   // ----- Title animation (masked, staggered characters) -----
   const oldTitleLine1 = "Hi, I'm Kevin.";
   const oldTitleLine2 = "Welcome to my site.";
-  const oldTitleDesktopText = `${oldTitleLine1} ${oldTitleLine2}`;
   const newTitleLine1 = "Kevin Gugelmann.";
   const newTitleLine2 = "AI-native designer.";
-  const newTitleDesktopText = `${newTitleLine1} ${newTitleLine2}`;
+  const newTitleText = `${newTitleLine1} ${newTitleLine2}`;
 
   let oldTitleElement: HTMLElement;
-  let newTitleDesktopElement: HTMLElement;
-  let newTitleMobileElement: HTMLElement;
+  let newTitleElement: HTMLElement;
 
   const splitChars = (text: string): string[] => Array.from(text);
 
@@ -155,18 +153,11 @@
     const oldChars = oldTitleElement
       ? (oldTitleElement.querySelectorAll(".char") as unknown as HTMLElement[])
       : null;
-    const newCharsAll = [
-      ...Array.from(
-        (newTitleDesktopElement?.querySelectorAll(
-          ".char"
-        ) as unknown as HTMLElement[]) ?? []
-      ),
-      ...Array.from(
-        (newTitleMobileElement?.querySelectorAll(
-          ".char"
-        ) as unknown as HTMLElement[]) ?? []
-      ),
-    ];
+    const newCharsAll = Array.from(
+      (newTitleElement?.querySelectorAll(
+        ".char"
+      ) as unknown as HTMLElement[]) ?? []
+    );
 
     if (oldChars) {
       gsap.set(oldChars, { y: "0%" });
@@ -198,28 +189,13 @@
         });
       }
 
-      const isSmallNow =
-        getCurrentBreakpoint(
-          typeof window !== "undefined" ? window.innerWidth : screenWidth
-        ) == BreakpointSizes.sm;
-      const targetNewChars = isSmallNow
-        ? (newTitleMobileElement?.querySelectorAll(
-            ".char"
-          ) as unknown as HTMLElement[])
-        : (newTitleDesktopElement?.querySelectorAll(
-            ".char"
-          ) as unknown as HTMLElement[]);
-      const otherNewChars = isSmallNow
-        ? (newTitleDesktopElement?.querySelectorAll(
-            ".char"
-          ) as unknown as HTMLElement[])
-        : (newTitleMobileElement?.querySelectorAll(
-            ".char"
-          ) as unknown as HTMLElement[]);
+      const newChars = newTitleElement?.querySelectorAll(
+        ".char"
+      ) as unknown as HTMLElement[];
 
-      if (targetNewChars && targetNewChars.length) {
+      if (newChars && newChars.length) {
         timeline.to(
-          targetNewChars,
+          newChars,
           {
             y: "0%",
             duration: 0.9,
@@ -229,25 +205,10 @@
           oldChars ? "-=0.35" : 0
         );
       }
-
-      // Ensure hidden variant (desktop/mobile) is also at rest for future resizes
-      if (otherNewChars && (otherNewChars as any).length) {
-        timeline.set(otherNewChars, { y: "0%" }, ">-=0.1");
-      }
     };
 
-    // Wait 850ms, then check current breakpoint and either run immediately or wait 500ms more
-    setTimeout(() => {
-      const isSmallNow =
-        getCurrentBreakpoint(
-          typeof window !== "undefined" ? window.innerWidth : screenWidth
-        ) == BreakpointSizes.sm;
-      if (isSmallNow) {
-        runTitleSwap();
-      } else {
-        setTimeout(runTitleSwap, 500);
-      }
-    }, 850);
+    // Wait 850ms then run title swap
+    setTimeout(runTitleSwap, 850);
 
     // Add scroll listener to immediately trigger animations if user scrolls
     const handleScroll = () => {
@@ -293,7 +254,7 @@
     bind:this={heroContent}
     class="flex flex-col
          {useZeigarnikEffect
-      ? 'justify-center flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[44rem]'
+      ? 'justify-center flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[48rem]'
       : 'justify-start pb-0 mt-32 md:mt-36 lg:mt-40'}"
   >
     <div class="w-full">
@@ -303,23 +264,10 @@
           class="text-glacial-blue
                 mb-8 xl:mb-9 grid"
         >
-          <!-- Final (desktop) title layer -->
+          <!-- Final title layer -->
           <span
-            class="title-layer hidden md:inline"
-            bind:this={newTitleDesktopElement}
-            aria-hidden="true"
-          >
-            {#each splitChars(newTitleDesktopText) as ch, i}
-              <span class="char-mask"
-                ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-              >
-            {/each}
-          </span>
-
-          <!-- Final (mobile) title layer -->
-          <span
-            class="title-layer md:hidden flex flex-col gap-3 min-[315px]:gap-0"
-            bind:this={newTitleMobileElement}
+            class="title-layer flex flex-col gap-3 min-[315px]:gap-0"
+            bind:this={newTitleElement}
             aria-hidden="true"
           >
             <span>
@@ -372,18 +320,9 @@
           <span
             class="title-layer old"
             bind:this={oldTitleElement}
-            aria-label={newTitleDesktopText}
+            aria-label={newTitleText}
           >
-            <!-- Desktop: single line -->
-            <span class="hidden md:inline">
-              {#each splitChars(oldTitleDesktopText) as ch}
-                <span class="char-mask"
-                  ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
-                >
-              {/each}
-            </span>
-            <!-- Mobile: two lines -->
-            <span class="md:hidden flex flex-col gap-3 min-[315px]:gap-0">
+            <span class="flex flex-col gap-3 min-[315px]:gap-0">
               <span>
                 <span class="hidden min-[315px]:inline">
                   {#each splitChars(oldTitleLine1) as ch}
@@ -613,12 +552,7 @@
   }
   @media (min-width: 360px) {
     h1 {
-      font-size: 2rem;
-    }
-  }
-  @media (min-width: 768px) {
-    h1 {
-      font-size: calc(max(2rem, min(4rem, 4.5vw)));
+      font-size: calc(max(2rem, min(4rem, 7vw)));
     }
   }
   @media (min-width: 1536px) {
