@@ -39,5 +39,5 @@ So somewhat surprisingly I think of partial meritocracy as our ideal, but more a
 
 [1] I booked the flight before they got into Y Combinator. So I ended up having to book a separate flight from LAX-SFO the next day.
 
-[2] In other words, don't chastise financial dependents like children, stay-at-home mothers, and older parents. Their exclusion from the system will chastise them enough, if at all. Importantly, financial depedents can contribute to society in other ways, both socially and economically (mainly through spending), and are often the unrecorded fuel behind the people they are financially dependent on. Writing this down, real life dependency trees are very circular when you think about it.
+[2] In other words, don't chastise financial dependents like children, stay-at-home mothers, and older parents. Their exclusion from the system will chastise them enough, if at all. Importantly, financial depedents can contribute to society in other ways, both economically (like through spending) and socially, and are often the unrecorded fuel behind the people they are financially dependent on. Writing this down, real life dependency trees are very circular when you think about it.
 `;export{e as default};
