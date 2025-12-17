@@ -180,12 +180,18 @@
 
       const timeline = gsap.timeline();
 
+
+      const isSmallNow =
+        getCurrentBreakpoint(
+          typeof window !== "undefined" ? window.innerWidth : screenWidth
+        ) == BreakpointSizes.sm;
+
       if (oldChars) {
         timeline.to(oldChars, {
           y: "-110%",
           duration: 0.55,
           ease: "power3.in",
-          stagger: 0.009,
+          stagger: isSmallNow ? 0.0075 : 0.009,
         });
       }
 
@@ -200,15 +206,25 @@
             y: "0%",
             duration: 0.9,
             ease: "expo.out",
-            stagger: 0.012,
+            stagger: isSmallNow ? 0.01 : 0.012,
           },
           oldChars ? "-=0.35" : 0
         );
       }
     };
 
-    // Wait 850ms then run title swap
-    setTimeout(runTitleSwap, 850);
+    // Wait 850ms, then check current breakpoint and either run immediately or wait 500ms more
+    setTimeout(() => {
+      const isSmallNow =
+        getCurrentBreakpoint(
+          typeof window !== "undefined" ? window.innerWidth : screenWidth
+        ) == BreakpointSizes.sm;
+      if (isSmallNow) {
+        runTitleSwap();
+      } else {
+        setTimeout(runTitleSwap, 500);
+      }
+    }, 850);
 
     // Add scroll listener to immediately trigger animations if user scrolls
     const handleScroll = () => {
