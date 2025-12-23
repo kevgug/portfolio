@@ -185,7 +185,7 @@
         oldCharsStagger: 0.0088,
         newCharsDuration: 0.88,
         newCharsStagger: 0.0088,
-        newCharsNegDelay: 0.4,
+        newCharsNegDelay: 0.15,
       }
       const mobileMultiplier = 0.92;
       const timings = {
@@ -204,11 +204,11 @@
       if (oldChars) {
         console.log('isSmallNow1',Number(isSmallNow),isSmallNow)
         timeline.to(oldChars, {
-          y: "-100%",
+          y: "-125%",
           duration: timings.oldCharsDuration[Number(isSmallNow)],
           ease: "power3.in",
           stagger: timings.oldCharsStagger[Number(isSmallNow)],
-        }); 
+        });
       }
 
       const newChars = newTitleElement?.querySelectorAll(
@@ -217,6 +217,7 @@
 
       if (newChars && newChars.length) {
         console.log('isSmallNow2',Number(isSmallNow),isSmallNow)
+        const newCharsPosition = oldChars ? `-=${timings.newCharsNegDelay[Number(isSmallNow)]}` : 0;
         timeline.to(
           newChars,
           {
@@ -225,7 +226,7 @@
             ease: "expo.out",
             stagger: timings.newCharsStagger[Number(isSmallNow)],
           },
-          oldChars ? `-=${timings.newCharsNegDelay[Number(isSmallNow)]}` : 0
+          newCharsPosition
         );
       }
     };
@@ -295,7 +296,7 @@
         <h1
           id="title"
           class="text-glacial-blue
-                mb-8 xl:mb-9 grid"
+                mb-8 md:mb-6 xl:mb-9 grid"
         >
           <!-- Final title layer -->
           <span
@@ -418,7 +419,7 @@
             > designathon and hackathon.
           </li>
         </ul>
-        <div class="flex items-center gap-2 mt-8 md:mt-9">
+        <div class="flex items-center gap-2 mt-9 sm:mt-10 md:mt-20 lg:mt-20">
           <PrimaryButton
             linkButtonContent={{
               label: "View portfolio",
@@ -593,21 +594,32 @@
       font-size: 4rem;
     }
   }
+  #title {
+    @apply relative;
+  }
   #title .title-layer {
     grid-area: 1 / 1;
-    @apply leading-tight;
+    @apply leading-none;
   }
   #title .char-mask {
-    @apply inline-block overflow-hidden leading-tight;
+    @apply inline-block leading-none;
     vertical-align: top;
+    clip-path: inset(-0.15em 0 -0.15em 0);
   }
   #title .char {
-    @apply inline-block leading-tight;
+    @apply inline-block leading-none;
     transform: translateY(100%);
     will-change: transform;
     vertical-align: top;
   }
   #title .title-layer.old .char {
     transform: translateY(0%);
+  }
+  /* New title layer sits above old title layer */
+  #title .title-layer:not(.old) {
+    z-index: 2;
+  }
+  #title .title-layer.old {
+    z-index: 1;
   }
 </style>
