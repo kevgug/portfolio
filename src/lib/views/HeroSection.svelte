@@ -296,7 +296,7 @@
         <h1
           id="title"
           class="text-glacial-blue
-                mb-8 md:mb-6 xl:mb-9 grid"
+                mb-9 md:mb-8 xl:mb-9 grid"
         >
           <!-- Final title layer -->
           <span
@@ -419,7 +419,7 @@
             > designathon and hackathon.
           </li>
         </ul>
-        <div class="flex items-center gap-2 mt-9 sm:mt-10 md:mt-20 lg:mt-20">
+        <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
           <PrimaryButton
             linkButtonContent={{
               label: "View portfolio",
