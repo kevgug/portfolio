@@ -29,3 +29,20 @@
   {/if}
 </figure>
 
+<style lang="postcss">
+  figcaption :global(a) {
+    @apply text-muted-text-grey text-sm;
+    background-image: linear-gradient(to right, #C1C1C1, #C1C1C1);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    text-decoration: none;
+    transition: background-size 0.2s ease, background-image 0.2s ease, color 0.2s ease;
+  }
+
+  figcaption :global(a:hover) {
+    color: black;
+    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-size: 100% 100%;
+  }
+</style>
