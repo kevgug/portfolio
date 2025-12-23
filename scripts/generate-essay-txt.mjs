@@ -36,6 +36,9 @@ const formatDate = (date) => {
 let generatedCount = 0;
 let skippedCount = 0;
 
+// UTF-8 BOM for proper encoding detection
+const UTF8_BOM = "\uFEFF";
+
 for (const file of files) {
   const slug = file.replace(/\.md$/, "");
   const filePath = path.join(contentEssaysDir, file);
@@ -61,9 +64,9 @@ date: ${formatDate(data.date)}
 ${processedContent}
 `;
 
-  // Write .txt files to static directory for direct access
+  // Write .txt files to static directory with UTF-8 BOM for proper encoding detection
   const outputPath = path.join(staticEssaysDir, `${slug}.txt`);
-  writeFileSync(outputPath, llmMarkdown);
+  writeFileSync(outputPath, UTF8_BOM + llmMarkdown, "utf8");
   generatedCount++;
 }
 
