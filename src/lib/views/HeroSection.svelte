@@ -163,7 +163,7 @@
       gsap.set(oldChars, { y: "0%" });
     }
     if (newCharsAll.length) {
-      gsap.set(newCharsAll, { y: "110%" });
+      gsap.set(newCharsAll, { y: "105%" });
     }
 
     // Start animations after 100ms delay from page load
@@ -204,7 +204,7 @@
       if (oldChars) {
         console.log('isSmallNow1',Number(isSmallNow),isSmallNow)
         timeline.to(oldChars, {
-          y: "-125%",
+          y: "-110%",
           duration: timings.oldCharsDuration[Number(isSmallNow)],
           ease: "power3.in",
           stagger: timings.oldCharsStagger[Number(isSmallNow)],
@@ -288,7 +288,7 @@
     bind:this={heroContent}
     class="flex flex-col
          {useZeigarnikEffect
-      ? 'justify-center flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[38rem] lg:min-h-[48rem]'
+      ? 'justify-center flex-1 pb-40 md:pb-48 lg:pb-60 min-h-[40rem] md:min-h-[42rem] lg:min-h-[48rem]'
       : 'justify-start pb-0 mt-32 md:mt-36 lg:mt-40'}"
   >
     <div class="w-full">
@@ -599,15 +599,17 @@
   }
   #title .title-layer {
     grid-area: 1 / 1;
-    @apply leading-none;
+    line-height: 1.05;
   }
   #title .char-mask {
-    @apply inline-block leading-none;
+    @apply inline-block;
+    line-height: 1.05;
     vertical-align: top;
-    clip-path: inset(-0.15em 0 -0.15em 0);
+    clip-path: inset(-0.05em 0 -0.05em 0);
   }
   #title .char {
-    @apply inline-block leading-none;
+    @apply inline-block;
+    line-height: 1.05;
     transform: translateY(100%);
     will-change: transform;
     vertical-align: top;
