@@ -73,7 +73,9 @@
       class="flex flex-col mx-auto w-screen max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] pt-20 md:pt-24 space-y-8"
     >
       <slot />
-      <Footer essaySlug={essaySlug} />
+      <div class="max-w-screen-md mx-auto w-full">
+        <Footer essaySlug={essaySlug} />
+      </div>
     </div>
   {/key}
 {:else}
