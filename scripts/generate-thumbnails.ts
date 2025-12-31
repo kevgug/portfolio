@@ -10,14 +10,15 @@ import matter from "gray-matter";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 
-const essaysDir = path.join(projectRoot, "static/essays");
+const essaysDir = path.join(projectRoot, "src/content/essays");
 const fontsDir = path.join(projectRoot, "static/fonts");
 const outputDir = path.join(projectRoot, "static/assets/thumbnails");
 
-// Ensure output directory exists
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+// Clear and recreate output directory
+if (fs.existsSync(outputDir)) {
+  fs.rmSync(outputDir, { recursive: true });
 }
+fs.mkdirSync(outputDir, { recursive: true });
 
 // Load Fonts
 const fontEuclidBold = fs.readFileSync(
