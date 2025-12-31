@@ -1,4 +1,4 @@
----
+﻿---
 title: Writing manifesto
 slug: manifesto
 date: 2025-09-12

@@ -1,4 +1,4 @@
----
+﻿---
 title: Meritocracy
 slug: meritocracy
 date: 2025-12-09

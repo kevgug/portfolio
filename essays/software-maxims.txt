@@ -1,4 +1,4 @@
----
+﻿---
 title: Maxims of good software
 slug: software-maxims
 date: 2025-11-23

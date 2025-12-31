@@ -1,4 +1,4 @@
----
+﻿---
 title: Selling software without accountability
 slug: accountability-ai-autonomy
 date: 2025-10-24
