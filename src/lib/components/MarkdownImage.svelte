@@ -7,11 +7,107 @@
   export let alt: string;
   export let caption: string | undefined = undefined;
 
+  // Parse query parameters from path (e.g., image.png?bg=white or image.png?bg=ff0000)
+  $: [cleanPath, queryString] = path.includes('?') ? path.split('?') : [path, ''];
+  $: params = new URLSearchParams(queryString);
+  $: bgParam = params.get('bg');
+  $: mainColorParam = params.get('mainColor');
+  
+  // Helper: parse hex to RGB
+  function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+    const match = hex.match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+    if (!match) return null;
+    let h = match[1];
+    if (h.length === 3) {
+      h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    }
+    const num = parseInt(h, 16);
+    return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+  }
+  
+  // Helper: RGB to HSL
+  function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h = 0, s = 0;
+    const l = (max + min) / 2;
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+        case g: h = ((b - r) / d + 2) / 6; break;
+        case b: h = ((r - g) / d + 4) / 6; break;
+      }
+    }
+    return { h, s, l };
+  }
+  
+  // Helper: HSL to RGB
+  function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: number } {
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p: number, q: number, t: number) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+  }
+  
+  // Helper: RGB to hex
+  function rgbToHex(r: number, g: number, b: number): string {
+    return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+  
+  // Parse background color - supports "white" keyword or hex colors (with or without #)
+  // mainColor derives a dark saturated bg from the hue
+  $: customBgColor = (() => {
+    // Error if both params are specified
+    if (mainColorParam && bgParam) {
+      throw new Error(`Image "${path}": Cannot specify both 'mainColor' and 'bg' parameters. Use one or the other.`);
+    }
+    
+    // mainColor: derive bg with L=0.06, S=0.8 from the given color's hue
+    // For gray/low-saturation colors, preserve the grayness
+    if (mainColorParam) {
+      const rgb = hexToRgb(mainColorParam);
+      if (rgb) {
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+        // If original saturation is very low (grayscale), keep it gray
+        const newS = hsl.s < 0.1 ? 0 : 0.8;
+        const newRgb = hslToRgb(hsl.h, newS, 0.06);
+        return rgbToHex(newRgb.r, newRgb.g, newRgb.b);
+      }
+    }
+    
+    // bg param
+    if (!bgParam) return null;
+    if (bgParam === 'white') return '#ffffff';
+    // Check if it's a valid hex color (3 or 6 chars, with or without #)
+    const hexMatch = bgParam.match(/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+    if (hexMatch) {
+      return `#${hexMatch[1]}`;
+    }
+    return null;
+  })();
+
   // Ensure path starts with / for proper static asset resolution
-  $: imageSrc = path.startsWith('/') ? path : `/assets/essays/${slug}/images/${path}`;
+  $: imageSrc = cleanPath.startsWith('/') ? cleanPath : `/assets/essays/${slug}/images/${cleanPath}`;
   
   // Check if the image is an SVG
-  $: isSvg = path.toLowerCase().endsWith('.svg');
+  $: isSvg = cleanPath.toLowerCase().endsWith('.svg');
   
   // SVG content for inline rendering
   let svgContent: string | null = null;
@@ -75,13 +171,19 @@
 
 <figure class="w-full max-w-screen-md mx-auto my-8">
   {#if isSvg && svgContent}
-    <div class="svg-container rounded-lg border border-separator-grey/50 overflow-hidden max-h-[calc(80vh+2rem)] p-4" role="img" aria-label={alt}>
+    <div 
+      class="svg-container rounded-lg border border-separator-grey/50 overflow-hidden max-h-[calc(60vh+2rem)] p-4" 
+      style:background-color={customBgColor}
+      role="img" 
+      aria-label={alt}
+    >
       {@html svgContent}
     </div>
   {:else}
     <div 
       class="image-wrapper rounded-lg border border-separator-grey/50 overflow-hidden"
       class:height-constrained={isHeightConstrained}
+      style:background-color={customBgColor}
     >
       <img
         bind:this={imgElement}
@@ -89,7 +191,7 @@
         alt={alt}
         loading="lazy"
         on:load={checkHeightConstraint}
-        class="w-full h-auto max-h-[80vh] object-contain"
+        class="w-full h-auto max-h-[60vh] object-contain"
         class:mx-auto={isHeightConstrained}
       />
     </div>
@@ -105,12 +207,11 @@
 
 <style lang="postcss">
   .svg-container {
-    @apply w-full h-auto;
-    background-color: #111214;
+    @apply w-full h-auto bg-[#111015];
   }
   
   .svg-container :global(svg) {
-    @apply w-full h-auto max-h-[80vh] block;
+    @apply w-full h-auto max-h-[60vh] block;
   }
   
   .image-wrapper {
@@ -118,8 +219,7 @@
   }
   
   .image-wrapper.height-constrained {
-    @apply max-h-[80vh];
-    background-color: #111214;
+    @apply max-h-[60vh] bg-[#111015];
   }
   
   figcaption :global(a) {
