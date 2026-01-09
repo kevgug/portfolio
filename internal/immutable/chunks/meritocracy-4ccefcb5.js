@@ -16,9 +16,9 @@ Crucially, importantly, mobility is not in competition with other people, other 
 
 On a smaller but not insignificant scale, performance sports function the same as society. Sport and training and medalling mustn't be an athlete's _raison d'être_ for it to provide significant purpose to the athlete. Even if a meritocratic environment simply provides the athlete hope that meritocracy can exist across all aspects of their life, outside the low-variable closed environment that is sport, then that can inspire a person to keep working hard. And everyone in society will be better off because of it.
 
-![Photo of the first page of handwritten notes](page0.jpeg)
+![Photo of the first page of handwritten notes](page0.jpeg?mainColor=464440)
 
-![Photo of the second page of handwritten notes](page1.jpeg)
+![Photo of the second page of handwritten notes](page1.jpeg?mainColor=424346)
 
 ## Present-day reflections
 

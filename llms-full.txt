@@ -168,7 +168,7 @@ LinkedIn: https://www.linkedin.com/in/kevingugelmann
 
 - Meritocracy (2025-12-09) - https://kevingugelmann.com/essays/meritocracy
 - Maxims of good software (2025-11-23) - https://kevingugelmann.com/essays/software-maxims
-- Selling software without accountability (2025-10-24) - https://kevingugelmann.com/essays/accountability-ai-autonomy
+- Selling software without accountability (2025-10-23) - https://kevingugelmann.com/essays/accountability-ai-autonomy
 - Writing manifesto (2025-09-12) - https://kevingugelmann.com/essays/manifesto
 
 # RSS feed for essays (rss.xml) - https://kevingugelmann.com/rss.xml
@@ -193,9 +193,9 @@ Crucially, importantly, mobility is not in competition with other people, other 
 
 On a smaller but not insignificant scale, performance sports function the same as society. Sport and training and medalling mustn't be an athlete's _raison d'être_ for it to provide significant purpose to the athlete. Even if a meritocratic environment simply provides the athlete hope that meritocracy can exist across all aspects of their life, outside the low-variable closed environment that is sport, then that can inspire a person to keep working hard. And everyone in society will be better off because of it.
 
-![Photo of the first page of handwritten notes](https://kevingugelmann.com/assets/essays/meritocracy/images/page0.jpeg)
+![Photo of the first page of handwritten notes](https://kevingugelmann.com/assets/essays/meritocracy/images/page0.jpeg?mainColor=464440)
 
-![Photo of the second page of handwritten notes](https://kevingugelmann.com/assets/essays/meritocracy/images/page1.jpeg)
+![Photo of the second page of handwritten notes](https://kevingugelmann.com/assets/essays/meritocracy/images/page1.jpeg?mainColor=424346)
 
 ## Present-day reflections
 
@@ -353,7 +353,7 @@ Q2) **Is it always better to have others develop most of the software for you?**
 ---
 title: Selling software without accountability
 slug: accountability-ai-autonomy
-date: 2025-10-24
+date: 2025-10-23
 ---
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [^1]
