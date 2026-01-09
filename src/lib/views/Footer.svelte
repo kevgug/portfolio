@@ -77,7 +77,7 @@
       {:else}
         LLM? Read <a href="/llms.txt" target="_blank" rel="noreferrer">llms.txt</a>. <br />
       {/if}
-      Copyright © 2025 Kevin Gugelmann. All rights reserved.
+      Copyright © 2026 Kevin Gugelmann. All rights reserved.
     </p>
   </div>
 </div>
