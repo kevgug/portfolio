@@ -1,1 +1,0 @@
-import{l as o}from"./load-9bb25164.js";const a=async()=>{const e=await o();return e.forEach(t=>{t.formattedDate=new Date(t.date).toLocaleDateString("en-US",{month:"long",year:"numeric",timeZone:"UTC"})}),{posts:e}},r=Object.freeze(Object.defineProperty({__proto__:null,load:a},Symbol.toStringTag,{value:"Module"}));export{r as _,a as l};
