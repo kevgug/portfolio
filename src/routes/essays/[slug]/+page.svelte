@@ -110,7 +110,11 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   async function onClickFootnoteRef(num: string) {
     const totalOffset = getResponsiveOffset();
     const targetId = `footnote-ref-${num}`;
-    const targetEl = document.getElementById(targetId);
+    let targetEl = document.getElementById(targetId);
+
+    if (targetEl && targetEl.hasAttribute("data-footnote-alias")) {
+      targetEl = targetEl.parentElement;
+    }
 
     if (targetEl) {
       targetEl.classList.add("footnote-bg-anim");

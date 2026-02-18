@@ -20,20 +20,25 @@
   let citationEl: HTMLElement;
   let hasAnimated = false;
   
-  // Find the first footnote reference number for the ID (check paragraphs first, then tokens)
-  let firstRefNum: string | undefined;
+  let allRefNums: string[] = [];
   $: {
+    const nums: string[] = [];
     if (paragraphs) {
       for (const para of paragraphs) {
-        const ref = para.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined;
-        if (ref) {
-          firstRefNum = ref.num;
-          break;
+        for (const t of para) {
+          if (t.type === "ref" && "num" in t) {
+            nums.push((t as { type: "ref"; num: string }).num);
+          }
         }
       }
     } else {
-      firstRefNum = (tokens.find((t) => t.type === "ref") as { type: "ref"; num: string } | undefined)?.num;
+      for (const t of tokens) {
+        if (t.type === "ref" && "num" in t) {
+          nums.push((t as { type: "ref"; num: string }).num);
+        }
+      }
     }
+    allRefNums = nums;
   }
 
   async function onClickRef(num: string) {
@@ -274,7 +279,7 @@
 
 <blockquote
   bind:this={blockquoteEl}
-  id={firstRefNum ? `footnote-ref-${firstRefNum}` : undefined}
+  id={allRefNums.length > 0 ? `footnote-ref-${allRefNums[0]}` : undefined}
   class="px-4 md:px-6 border-l-4 md:rounded-r-lg bg-white/5 border-white"
   class:!my-7={!multiline}
   class:md:!my-9={!multiline}
@@ -290,6 +295,9 @@
   class:md:py-4={!multiline}
   class:py-[1.2rem]={multiline}
 >
+  {#each allRefNums.slice(1) as refNum}
+    <span id={`footnote-ref-${refNum}`} data-footnote-alias class="pointer-events-none"></span>
+  {/each}
   {#if multiline && paragraphs}
     <div
       bind:this={paragraphsContainerEl}

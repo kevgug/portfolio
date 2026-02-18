@@ -8,11 +8,11 @@
   import MarkdownInlineCode from "$lib/components/MarkdownInlineCode.svelte";
   export let tokens: ParagraphToken[];
   export let slug: string;
-  let firstRefNum: string | undefined;
+  let allRefNums: string[] = [];
 
-  $: firstRefNum = (
-    tokens.find((t) => t.type === "ref") as ParagraphTokenRef | undefined
-  )?.num;
+  $: allRefNums = tokens
+    .filter((t): t is ParagraphTokenRef => t.type === "ref")
+    .map((t) => t.num);
 
   async function onClickRef(num: string) {
     const totalOffset = getResponsiveOffset({ spacing: "lg" });
@@ -42,8 +42,11 @@
 
 <div
   class="font-serif text-description-text-grey"
-  id={firstRefNum ? `footnote-ref-${firstRefNum}` : undefined}
+  id={allRefNums.length > 0 ? `footnote-ref-${allRefNums[0]}` : undefined}
 >
+  {#each allRefNums.slice(1) as refNum}
+    <span id={`footnote-ref-${refNum}`} data-footnote-alias class="pointer-events-none"></span>
+  {/each}
   {#each tokens as t}
     {#if t.type === "text"}
       <span>
