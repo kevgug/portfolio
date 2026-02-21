@@ -436,7 +436,7 @@
               destination: "https://linkedin.com/in/kevingugelmann",
               mediaType: "none",
               eventName: "herosection_linkedin_secondary",
-              openInNewTab: false,
+              openInNewTab: true,
             }}
           />
         </div>

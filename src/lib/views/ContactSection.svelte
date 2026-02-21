@@ -54,7 +54,7 @@
           destination: "https://linkedin.com/in/kevingugelmann",
           mediaType: "none",
           eventName: "ctasection_linkedin_secondary",
-          openInNewTab: false,
+          openInNewTab: true,
         }}
       />
     </div>
