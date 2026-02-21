@@ -40,7 +40,7 @@
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
-          label: "Discuss a project",
+          label: "Call me",
           destination: "https://cal.com/kevgug/intro",
           mediaType: "webpage",
           eventName: "ctasection_bookcall_primary",
@@ -50,10 +50,10 @@
       />
       <PrimaryButton
         linkButtonContent={{
-          label: "Email me",
-          destination: "mailto:kevin@kevingugelmann.com",
+          label: "Connect on LinkedIn",
+          destination: "https://linkedin.com/in/kevingugelmann",
           mediaType: "none",
-          eventName: "ctasection_email_secondary",
+          eventName: "ctasection_linkedin_secondary",
           openInNewTab: false,
         }}
       />

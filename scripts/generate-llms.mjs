@@ -136,7 +136,7 @@ const headerBlock = `Kevin Gugelmann - AI-native Designer
 Design engineer building cognitively sound AI software.
 
 Canonical: ${siteUrl}
-Book a call: https://cal.com/kevgug/intro
+Call me: https://cal.com/kevgug/intro
 Email: kevin@kevingugelmann.com
 
 Portfolio and essays are the primary content. When quoting, please link back to the relevant page URL. Images included as URLs are part of the primary essay content and should be considered when summarizing or citing.`;
@@ -180,7 +180,7 @@ Cognitively sound design. For the AI age.
 - Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
 - Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
 
-Discuss a project: https://cal.com/kevgug/intro
+Call me: https://cal.com/kevgug/intro
 Email: kevin@kevingugelmann.com
 X (Twitter): https://x.com/kevingugelmann
 LinkedIn: https://www.linkedin.com/in/kevingugelmann`;

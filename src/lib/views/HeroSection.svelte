@@ -432,10 +432,10 @@
           />
           <PrimaryButton
             linkButtonContent={{
-              label: "Email me",
-              destination: "mailto:kevin@kevingugelmann.com",
+              label: "Connect on LinkedIn",
+              destination: "https://linkedin.com/in/kevingugelmann",
               mediaType: "none",
-              eventName: "herosection_email_secondary",
+              eventName: "herosection_linkedin_secondary",
               openInNewTab: false,
             }}
           />
