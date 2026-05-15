@@ -5,6 +5,8 @@
   import { gsap } from "gsap";
 
   const VIDEO_SRC = "/ingstones.mp4?v=2026-05-15-1";
+  // Used until Safari exposes a finite duration (often delayed on mobile).
+  const FALLBACK_DURATION_SECONDS = 9.82;
   const VIDEO_FADE_SECONDS = 2;
   const ROUTE_DELAY_AFTER_TEXT_SECONDS = 1.2;
   const ROUTE_TRANSITION_ADVANCE_SECONDS = 1;
@@ -86,16 +88,51 @@
     void goto("/", { replaceState: true });
   }
 
-  function tryStartPlayback() {
+  function computeOutroStartSeconds(durationSeconds: number) {
+    const computedStart =
+      durationSeconds -
+      TOTAL_OUTRO_SECONDS -
+      ROUTE_DELAY_AFTER_TEXT_SECONDS -
+      OUTRO_SHIFT_EARLIER_SECONDS;
+    return Math.max(0.05, computedStart);
+  }
+
+  function applyDurationMetadata(durationSeconds: number) {
+    if (!Number.isFinite(durationSeconds) || durationSeconds <= 0) return false;
+    hasMetadata = true;
+    if (!outroStarted) {
+      outroStartSeconds = computeOutroStartSeconds(durationSeconds);
+    }
+    return true;
+  }
+
+  function ensureDurationMetadata() {
+    if (!videoEl) return false;
+    if (applyDurationMetadata(videoEl.duration)) return true;
+    if (!hasMetadata) return applyDurationMetadata(FALLBACK_DURATION_SECONDS);
+    return true;
+  }
+
+  function isReadyForPlayback(userGesture: boolean) {
+    if (!videoEl) return false;
+    const minReadyState = userGesture
+      ? HTMLMediaElement.HAVE_METADATA
+      : HTMLMediaElement.HAVE_CURRENT_DATA;
+    return videoEl.readyState >= minReadyState;
+  }
+
+  function tryStartPlayback(options: { userGesture?: boolean } = {}) {
+    const userGesture = options.userGesture ?? false;
     if (
       !videoEl ||
       hasNavigatedHome ||
       hasStartedPlayback ||
       isPlaying ||
       playAttemptInFlight ||
-      autoplayBlocked
+      (!userGesture && autoplayBlocked)
     ) {
       logRoll("tryStartPlayback:skipped", {
+        userGesture,
         reason: !videoEl
           ? "no-video"
           : hasNavigatedHome
@@ -108,60 +145,63 @@
       });
       return;
     }
-    if (!hasMetadata || videoEl.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
-      logRoll("tryStartPlayback:not-ready");
+
+    ensureDurationMetadata();
+
+    if (!isReadyForPlayback(userGesture)) {
+      if (userGesture) {
+        logRoll("tryStartPlayback:wait-for-canplay");
+        const onCanPlay = () => {
+          videoEl?.removeEventListener("canplay", onCanPlay);
+          tryStartPlayback({ userGesture: true });
+        };
+        videoEl.addEventListener("canplay", onCanPlay, { once: true });
+      } else {
+        logRoll("tryStartPlayback:not-ready", { userGesture });
+      }
       return;
     }
-    logRoll("tryStartPlayback:begin");
-    void beginPlayback();
+
+    logRoll("tryStartPlayback:begin", { userGesture });
+    void beginPlayback({ userGesture });
   }
 
-  async function beginPlayback() {
+  async function beginPlayback(options: { userGesture?: boolean } = {}) {
+    const userGesture = options.userGesture ?? false;
     if (!videoEl || isPlaying || playAttemptInFlight || hasNavigatedHome) {
       logRoll("beginPlayback:skipped");
       return;
     }
     playAttemptInFlight = true;
     videoEl.currentTime = 0;
-    videoEl.muted = false;
-    isMuted = false;
-    logRoll("beginPlayback:play-call");
+
+    // iOS Safari allows muted autoplay; unmuted play needs a gesture.
+    const startMuted = !userGesture;
+    videoEl.muted = startMuted;
+    isMuted = startMuted;
+    logRoll("beginPlayback:play-call", { userGesture, startMuted });
 
     try {
       await videoEl.play();
       isPlaying = true;
-      removeGestureListeners?.();
-      removeGestureListeners = undefined;
-      logRoll("beginPlayback:play-resolved");
+      showBlackStage = false;
+      if (!startMuted) {
+        removeGestureListeners?.();
+        removeGestureListeners = undefined;
+      }
+      logRoll("beginPlayback:play-resolved", { userGesture, startMuted });
+      if (userGesture && startMuted === false) {
+        autoplayBlocked = false;
+      }
     } catch (error) {
-      // Autoplay with audio may be blocked until the next user gesture.
       isPlaying = false;
-      autoplayBlocked = true;
+      autoplayBlocked = !userGesture;
       showBlackStage = false;
       logRoll("beginPlayback:play-rejected", {
+        userGesture,
         errorName: error instanceof DOMException ? error.name : "unknown",
         errorMessage: error instanceof Error ? error.message : String(error),
       });
-      try {
-        videoEl.muted = true;
-        isMuted = true;
-        logRoll("beginPlayback:muted-fallback-call");
-        await videoEl.play();
-        isPlaying = true;
-        showBlackStage = false;
-        logRoll("beginPlayback:muted-fallback-resolved");
-      } catch (fallbackError) {
-        logRoll("beginPlayback:muted-fallback-rejected", {
-          errorName:
-            fallbackError instanceof DOMException
-              ? fallbackError.name
-              : "unknown",
-          errorMessage:
-            fallbackError instanceof Error
-              ? fallbackError.message
-              : String(fallbackError),
-        });
-      }
     } finally {
       playAttemptInFlight = false;
     }
@@ -176,22 +216,30 @@
   function handleLoadedMetadata() {
     if (!videoEl) return;
     logRoll("media:loadedmetadata");
-    if (!Number.isFinite(videoEl.duration) || videoEl.duration <= 0) return;
-    hasMetadata = true;
-    const computedStart =
-      videoEl.duration -
-      TOTAL_OUTRO_SECONDS -
-      ROUTE_DELAY_AFTER_TEXT_SECONDS -
-      OUTRO_SHIFT_EARLIER_SECONDS;
-    // Ensure the outro still has enough runway on short media.
-    outroStartSeconds = Math.max(0.05, computedStart);
-    logRoll("media:metadata-computed", { computedStart });
+    const applied = applyDurationMetadata(videoEl.duration);
+    logRoll("media:metadata-computed", {
+      applied,
+      duration: videoEl.duration,
+      outroStartSeconds,
+    });
     tryStartPlayback();
+  }
+
+  function handleDurationChange() {
+    if (!videoEl) return;
+    logRoll("media:durationchange");
+    if (applyDurationMetadata(videoEl.duration)) {
+      tryStartPlayback();
+    }
   }
 
   function primeVideoReadiness() {
     if (!videoEl) return;
     logRoll("primeVideoReadiness");
+    if (videoEl.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+      videoEl.load();
+    }
+    ensureDurationMetadata();
     if (videoEl.readyState >= HTMLMediaElement.HAVE_METADATA) {
       handleLoadedMetadata();
     }
@@ -297,26 +345,36 @@
 
     const handleGestureStart = () => {
       logRoll("gesture:start");
-      if (autoplayBlocked && videoEl) {
+      if (!videoEl) return;
+
+      if (videoEl.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+        videoEl.load();
+      }
+
+      if (autoplayBlocked || videoEl.muted) {
         videoEl.muted = false;
         isMuted = false;
         autoplayBlocked = false;
         logRoll("gesture:unmuted");
-        removeGestureListeners?.();
-        removeGestureListeners = undefined;
       }
-      if (!hasStartedPlayback) {
+
+      if (!hasStartedPlayback && !isPlaying) {
         autoplayBlocked = false;
-        tryStartPlayback();
+        tryStartPlayback({ userGesture: true });
+        return;
       }
+
+      removeGestureListeners?.();
+      removeGestureListeners = undefined;
     };
 
-    window.addEventListener("pointerdown", handleGestureStart, {
-      passive: true,
-    });
+    const gestureOptions: AddEventListenerOptions = { passive: true };
+    window.addEventListener("pointerdown", handleGestureStart, gestureOptions);
+    window.addEventListener("touchstart", handleGestureStart, gestureOptions);
     window.addEventListener("keydown", handleGestureStart);
     removeGestureListeners = () => {
-      window.removeEventListener("pointerdown", handleGestureStart);
+      window.removeEventListener("pointerdown", handleGestureStart, gestureOptions);
+      window.removeEventListener("touchstart", handleGestureStart, gestureOptions);
       window.removeEventListener("keydown", handleGestureStart);
     };
 
@@ -350,13 +408,15 @@
         class="roll-video"
         src={VIDEO_SRC}
         preload="auto"
+        autoplay
+        muted
         playsinline
         disablepictureinpicture
         controls={false}
         on:abort={() => logRoll("media:abort")}
         on:emptied={() => logRoll("media:emptied")}
         on:loadstart={() => logRoll("media:loadstart")}
-        on:durationchange={() => logRoll("media:durationchange")}
+        on:durationchange={handleDurationChange}
         on:loadeddata={handleCanStart}
         on:canplay={handleCanStart}
         on:canplaythrough={() => logRoll("media:canplaythrough")}
