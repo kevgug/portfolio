@@ -17,6 +17,7 @@
   $: isEssaySlug = /^\/essays\/[^/]+\/?$/.test($page.url.pathname);
   $: isEssaysRoot = $page.url.pathname === "/essays";
   $: isEssaysRoute = isEssaysRoot || isEssaySlug;
+  $: isRollRoute = $page.url.pathname === "/roll";
   $: isErrorPage = $page.status >= 400;
   
   // Only apply layout ready check on home page
@@ -30,9 +31,11 @@
     class={isEssaySlug || isErrorPage
       ? "invisible pointer-events-none"
       : "contents"}
-    aria-hidden={isEssaySlug || isErrorPage}
+    aria-hidden={isEssaySlug || isErrorPage || isRollRoute}
   >
-    <NavBar />
+    {#if !isRollRoute}
+      <NavBar />
+    {/if}
   </div>
 
   {#if isEssaysRoute}
@@ -54,5 +57,7 @@
   {/if}
 </div>
 
-<CustomCursor />
-<SubscribeModal />
+{#if !isRollRoute}
+  <CustomCursor />
+  <SubscribeModal />
+{/if}
