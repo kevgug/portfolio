@@ -4,6 +4,7 @@
   import { tick } from "svelte";
   import { gsap } from "gsap";
 
+  const VIDEO_SRC = "/ingstones.mp4?v=2026-05-15-1";
   const VIDEO_FADE_SECONDS = 2;
   const ROUTE_DELAY_AFTER_TEXT_SECONDS = 1.2;
   const ROUTE_TRANSITION_ADVANCE_SECONDS = 1;
@@ -11,28 +12,69 @@
   const TOTAL_OUTRO_SECONDS =
     VIDEO_FADE_SECONDS + ROUTE_DELAY_AFTER_TEXT_SECONDS;
 
-  let sequenceEl: HTMLDivElement;
   let messageEl: HTMLDivElement;
   let videoEl: HTMLVideoElement;
 
   let isLoaded = false;
   let isPlaying = false;
+  let playAttemptInFlight = false;
+  let autoplayBlocked = false;
   let hasStartedPlayback = false;
+  let hasMetadata = false;
   let showBlackStage = true;
   let revealMessage = false;
   let outroStarted = false;
   let outroStartSeconds = 8;
   let hasNavigatedHome = false;
 
-  let bootTimeout: ReturnType<typeof setTimeout> | undefined;
   let removeGestureListeners: (() => void) | undefined;
+  let lastTimeUpdateLogSecond = -1;
 
   function clearTimers() {
-    if (bootTimeout) clearTimeout(bootTimeout);
+    // Reserved for future timers; keep cleanup centralized.
+  }
+
+  function logRoll(label: string, extra: Record<string, unknown> = {}) {
+    const nowMs =
+      typeof performance !== "undefined" ? Math.round(performance.now()) : 0;
+    const media = videoEl
+      ? {
+          currentTime: Number(videoEl.currentTime.toFixed(3)),
+          duration: Number.isFinite(videoEl.duration)
+            ? Number(videoEl.duration.toFixed(3))
+            : String(videoEl.duration),
+          readyState: videoEl.readyState,
+          networkState: videoEl.networkState,
+          paused: videoEl.paused,
+          ended: videoEl.ended,
+          muted: videoEl.muted,
+          error: videoEl.error
+            ? {
+                code: videoEl.error.code,
+                message: videoEl.error.message,
+              }
+            : null,
+        }
+      : {};
+
+    console.log(`[roll ${new Date().toISOString()} +${nowMs}ms] ${label}`, {
+      isLoaded,
+      isPlaying,
+      playAttemptInFlight,
+      autoplayBlocked,
+      hasStartedPlayback,
+      hasMetadata,
+      showBlackStage,
+      outroStarted,
+      outroStartSeconds,
+      ...media,
+      ...extra,
+    });
   }
 
   function routeHome() {
     if (hasNavigatedHome) return;
+    logRoll("routeHome:start");
     hasNavigatedHome = true;
     if (videoEl) {
       videoEl.pause();
@@ -41,37 +83,96 @@
     void goto("/", { replaceState: true });
   }
 
+  function tryStartPlayback() {
+    if (
+      !videoEl ||
+      hasNavigatedHome ||
+      hasStartedPlayback ||
+      isPlaying ||
+      playAttemptInFlight ||
+      autoplayBlocked
+    ) {
+      logRoll("tryStartPlayback:skipped", {
+        reason: !videoEl
+          ? "no-video"
+          : hasNavigatedHome
+            ? "already-navigating"
+            : hasStartedPlayback
+              ? "already-started"
+              : isPlaying || playAttemptInFlight
+                ? "already-trying"
+                : "autoplay-blocked",
+      });
+      return;
+    }
+    if (!hasMetadata || videoEl.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+      logRoll("tryStartPlayback:not-ready");
+      return;
+    }
+    logRoll("tryStartPlayback:begin");
+    void beginPlayback();
+  }
+
   async function beginPlayback() {
-    if (!videoEl || isPlaying || hasNavigatedHome) return;
-    isPlaying = true;
+    if (!videoEl || isPlaying || playAttemptInFlight || hasNavigatedHome) {
+      logRoll("beginPlayback:skipped");
+      return;
+    }
+    playAttemptInFlight = true;
     videoEl.currentTime = 0;
     videoEl.muted = false;
+    logRoll("beginPlayback:play-call");
 
     try {
       await videoEl.play();
-      hasStartedPlayback = true;
-      showBlackStage = false;
+      isPlaying = true;
       removeGestureListeners?.();
       removeGestureListeners = undefined;
-    } catch {
+      logRoll("beginPlayback:play-resolved");
+    } catch (error) {
       // Autoplay with audio may be blocked until the next user gesture.
       isPlaying = false;
+      autoplayBlocked = true;
+      showBlackStage = false;
+      logRoll("beginPlayback:play-rejected", {
+        errorName: error instanceof DOMException ? error.name : "unknown",
+        errorMessage: error instanceof Error ? error.message : String(error),
+      });
+      try {
+        videoEl.muted = true;
+        logRoll("beginPlayback:muted-fallback-call");
+        await videoEl.play();
+        isPlaying = true;
+        showBlackStage = false;
+        logRoll("beginPlayback:muted-fallback-resolved");
+      } catch (fallbackError) {
+        logRoll("beginPlayback:muted-fallback-rejected", {
+          errorName:
+            fallbackError instanceof DOMException
+              ? fallbackError.name
+              : "unknown",
+          errorMessage:
+            fallbackError instanceof Error
+              ? fallbackError.message
+              : String(fallbackError),
+        });
+      }
+    } finally {
+      playAttemptInFlight = false;
     }
   }
 
-  function handleLoadedData() {
-    if (isLoaded) return;
+  function handleCanStart() {
+    logRoll("media:can-start");
     isLoaded = true;
-    if (bootTimeout) {
-      clearTimeout(bootTimeout);
-      bootTimeout = undefined;
-    }
-    void beginPlayback();
+    tryStartPlayback();
   }
 
   function handleLoadedMetadata() {
     if (!videoEl) return;
+    logRoll("media:loadedmetadata");
     if (!Number.isFinite(videoEl.duration) || videoEl.duration <= 0) return;
+    hasMetadata = true;
     const computedStart =
       videoEl.duration -
       TOTAL_OUTRO_SECONDS -
@@ -79,34 +180,44 @@
       OUTRO_SHIFT_EARLIER_SECONDS;
     // Ensure the outro still has enough runway on short media.
     outroStartSeconds = Math.max(0.05, computedStart);
+    logRoll("media:metadata-computed", { computedStart });
+    tryStartPlayback();
   }
 
   function primeVideoReadiness() {
     if (!videoEl) return;
-    if (videoEl.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      handleLoadedData();
-    }
+    logRoll("primeVideoReadiness");
     if (videoEl.readyState >= HTMLMediaElement.HAVE_METADATA) {
       handleLoadedMetadata();
+    }
+    if (videoEl.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      handleCanStart();
     }
   }
 
   function handleVideoPlaying() {
-    hasStartedPlayback = true;
     showBlackStage = false;
+    logRoll("media:playing");
   }
 
   async function triggerOutro() {
     if (outroStarted || !videoEl) return;
     outroStarted = true;
     revealMessage = true;
+    logRoll("outro:start");
     await tick();
-    if (!messageEl) return;
+    if (!messageEl) {
+      logRoll("outro:missing-message");
+      return;
+    }
 
     gsap.set(messageEl, { opacity: 0 });
     const outroTimeline = gsap.timeline({
       defaults: { overwrite: "auto" },
-      onComplete: routeHome,
+      onComplete: () => {
+        logRoll("outro:complete");
+        routeHome();
+      },
     });
     outroTimeline
       .to(
@@ -141,25 +252,51 @@
   function handleTimeUpdate() {
     if (!videoEl || outroStarted) return;
     const t = videoEl.currentTime;
+    if (!hasStartedPlayback && t > 0.05) {
+      hasStartedPlayback = true;
+      isPlaying = true;
+      showBlackStage = false;
+      if (!autoplayBlocked) {
+        removeGestureListeners?.();
+        removeGestureListeners = undefined;
+      }
+      logRoll("media:confirmed-time-advanced");
+    }
+    const wholeSecond = Math.floor(t);
+    if (wholeSecond !== lastTimeUpdateLogSecond) {
+      lastTimeUpdateLogSecond = wholeSecond;
+      logRoll("media:timeupdate");
+    }
+    if (!hasStartedPlayback) return;
     if (t >= outroStartSeconds) void triggerOutro();
   }
 
   function handleVideoEnded() {
+    logRoll("media:ended");
     routeHome();
   }
 
   onMount(() => {
+    logRoll("mount:start", { src: VIDEO_SRC });
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    bootTimeout = setTimeout(() => {
-      if (!isLoaded) void goto("/", { replaceState: true });
-    }, 8000);
-    // Handles both cached and freshly loading media reliably.
-    primeVideoReadiness();
+    logRoll("mount:prime-readiness");
+    requestAnimationFrame(() => primeVideoReadiness());
 
     const handleGestureStart = () => {
-      if (!hasStartedPlayback) void beginPlayback();
+      logRoll("gesture:start");
+      if (autoplayBlocked && videoEl) {
+        videoEl.muted = false;
+        autoplayBlocked = false;
+        logRoll("gesture:unmuted");
+        removeGestureListeners?.();
+        removeGestureListeners = undefined;
+      }
+      if (!hasStartedPlayback) {
+        autoplayBlocked = false;
+        tryStartPlayback();
+      }
     };
 
     window.addEventListener("pointerdown", handleGestureStart, {
@@ -172,6 +309,7 @@
     };
 
     return () => {
+      logRoll("destroy");
       clearTimers();
       removeGestureListeners?.();
       removeGestureListeners = undefined;
@@ -190,7 +328,7 @@
 </svelte:head>
 
 <div class="roll-shell">
-  <div class="sequence-layer" bind:this={sequenceEl}>
+  <div class="sequence-layer">
     <div class="black-stage" class:ready={!showBlackStage} />
 
     <div class="video-shell">
@@ -198,23 +336,36 @@
       <video
         bind:this={videoEl}
         class="roll-video"
-        src="/ingstones.mp4"
+        src={VIDEO_SRC}
         preload="auto"
         playsinline
         disablepictureinpicture
         controls={false}
-        on:loadeddata={handleLoadedData}
+        on:abort={() => logRoll("media:abort")}
+        on:emptied={() => logRoll("media:emptied")}
+        on:loadstart={() => logRoll("media:loadstart")}
+        on:durationchange={() => logRoll("media:durationchange")}
+        on:loadeddata={handleCanStart}
+        on:canplay={handleCanStart}
+        on:canplaythrough={() => logRoll("media:canplaythrough")}
+        on:progress={() => logRoll("media:progress")}
+        on:suspend={() => logRoll("media:suspend")}
+        on:waiting={() => logRoll("media:waiting")}
         on:loadedmetadata={handleLoadedMetadata}
         on:playing={handleVideoPlaying}
+        on:play={() => logRoll("media:play-event")}
+        on:pause={() => logRoll("media:pause-event")}
         on:timeupdate={handleTimeUpdate}
         on:ended={handleVideoEnded}
+        on:stalled={() => logRoll("media:stalled")}
+        on:error={() => logRoll("media:error")}
       />
       <div class="vignette" />
     </div>
 
     {#if revealMessage}
       <div class="message-shell" bind:this={messageEl}>
-        <h1>You got rickrolled by Kevin.</h1>
+        <h1>You got rickrolled by Kevin G.</h1>
       </div>
     {/if}
   </div>
