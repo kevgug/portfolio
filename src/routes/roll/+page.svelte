@@ -19,6 +19,7 @@
   let isPlaying = false;
   let playAttemptInFlight = false;
   let autoplayBlocked = false;
+  let isMuted = false;
   let hasStartedPlayback = false;
   let hasMetadata = false;
   let showBlackStage = true;
@@ -62,6 +63,7 @@
       isPlaying,
       playAttemptInFlight,
       autoplayBlocked,
+      isMuted,
       hasStartedPlayback,
       hasMetadata,
       showBlackStage,
@@ -79,6 +81,7 @@
     if (videoEl) {
       videoEl.pause();
       videoEl.muted = true;
+      isMuted = true;
     }
     void goto("/", { replaceState: true });
   }
@@ -121,6 +124,7 @@
     playAttemptInFlight = true;
     videoEl.currentTime = 0;
     videoEl.muted = false;
+    isMuted = false;
     logRoll("beginPlayback:play-call");
 
     try {
@@ -140,6 +144,7 @@
       });
       try {
         videoEl.muted = true;
+        isMuted = true;
         logRoll("beginPlayback:muted-fallback-call");
         await videoEl.play();
         isPlaying = true;
@@ -198,6 +203,12 @@
   function handleVideoPlaying() {
     showBlackStage = false;
     logRoll("media:playing");
+  }
+
+  function handleVolumeChange() {
+    if (!videoEl) return;
+    isMuted = videoEl.muted || videoEl.volume === 0;
+    logRoll("media:volumechange");
   }
 
   async function triggerOutro() {
@@ -288,6 +299,7 @@
       logRoll("gesture:start");
       if (autoplayBlocked && videoEl) {
         videoEl.muted = false;
+        isMuted = false;
         autoplayBlocked = false;
         logRoll("gesture:unmuted");
         removeGestureListeners?.();
@@ -355,6 +367,7 @@
         on:playing={handleVideoPlaying}
         on:play={() => logRoll("media:play-event")}
         on:pause={() => logRoll("media:pause-event")}
+        on:volumechange={handleVolumeChange}
         on:timeupdate={handleTimeUpdate}
         on:ended={handleVideoEnded}
         on:stalled={() => logRoll("media:stalled")}
@@ -362,6 +375,49 @@
       />
       <div class="vignette" />
     </div>
+
+    {#if isMuted && !hasNavigatedHome}
+      <div class="mute-indicator" aria-label="Video muted">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          id="Volume-Control-Off--Streamline-Ultimate"
+          height="36"
+          width="36"
+          aria-hidden="true"
+        >
+          <desc>
+            Volume Control Off Streamline Icon: https://streamlinehq.com
+          </desc>
+          <g>
+            <path
+              d="m11 16.88 3.06 1.95a1.5 1.5 0 0 0 2.4 -1.2V13"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M9.3 14.63H4.5a1.5 1.5 0 0 1 -1.5 -1.5v-3a1.5 1.5 0 0 1 1.5 -1.5h3l6.6 -4.21a1.5 1.5 0 0 1 2.4 1.21v3"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="m3 19.87 18 -15"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </g>
+        </svg>
+      </div>
+    {/if}
 
     {#if revealMessage}
       <div class="message-shell" bind:this={messageEl}>
@@ -428,6 +484,29 @@
       rgba(0, 0, 0, 0.44) 100%
     );
     transition: opacity 200ms ease;
+  }
+
+  .mute-indicator {
+    position: absolute;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 9999px;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(0, 0, 0, 0.42);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .mute-indicator svg {
+    width: 36px;
+    height: 36px;
   }
 
   .message-shell {
