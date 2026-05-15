@@ -315,7 +315,9 @@
       hasStartedPlayback = true;
       isPlaying = true;
       showBlackStage = false;
-      if (!autoplayBlocked) {
+      // Muted autoplay counts as success (autoplayBlocked false), but we must
+      // keep listeners until the user unmutes — otherwise tap-to-unmute never fires.
+      if (!autoplayBlocked && !videoEl.muted) {
         removeGestureListeners?.();
         removeGestureListeners = undefined;
       }
