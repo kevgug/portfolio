@@ -8,6 +8,7 @@
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { projects } from "$lib/projects";
+  import { layoutReady } from "$lib/stores/layoutReady";
 
   // Assets
   // Link previews
@@ -21,50 +22,135 @@
   let projectsSectionElement: HTMLDivElement;
   let heroUsesZeigarnik: boolean;
 
+  const projectsHiddenState = {
+    opacity: 0,
+    filter: "blur(5px)",
+    y: 20,
+  };
+
+  const projectsVisibleState = {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+  };
+
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (projectsSectionElement) {
+    let projectsScrollTrigger: ScrollTrigger | undefined;
+    let projectsRevealed = false;
+    let animationSetup = false;
+
+    const isProjectsHidden = () => {
+      if (!projectsSectionElement) return false;
+      return Number(gsap.getProperty(projectsSectionElement, "opacity")) < 0.01;
+    };
+
+    const revealProjects = () => {
+      if (projectsRevealed || !projectsSectionElement) return;
+      projectsRevealed = true;
+
+      gsap.killTweensOf(projectsSectionElement);
+      projectsScrollTrigger?.kill();
+
+      gsap.to(projectsSectionElement, {
+        ...projectsVisibleState,
+        duration: 0.8,
+        delay: 0.1,
+        ease: "power3.out",
+      });
+    };
+
+    const refreshAfterLayoutShift = () => {
+      ScrollTrigger.refresh();
+
+      if (heroUsesZeigarnik && !projectsRevealed && isProjectsHidden()) {
+        const rect = projectsSectionElement.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 40) {
+          revealProjects();
+        }
+      }
+    };
+
+    const attachImageLoadListeners = () => {
+      projectsSectionElement
+        ?.querySelectorAll("img")
+        .forEach((img) => {
+          if (img.complete) return;
+          img.addEventListener("load", refreshAfterLayoutShift, { once: true });
+        });
+    };
+
+    const setupProjectsAnimation = () => {
+      if (animationSetup || !projectsSectionElement) return;
+      animationSetup = true;
+
+      gsap.set(projectsSectionElement, projectsHiddenState);
+
       if (heroUsesZeigarnik) {
-        // With Zeigarnik: Animate on scroll with shorter delay
-        gsap.fromTo(
+        const tween = gsap.fromTo(
           projectsSectionElement,
+          projectsHiddenState,
           {
-            opacity: 0,
-            filter: "blur(5px)",
-          },
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            y: 0,
+            ...projectsVisibleState,
             duration: 0.8,
             delay: 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: projectsSectionElement,
               start: "top bottom-=40",
+              onEnter: () => {
+                projectsRevealed = true;
+              },
             },
           }
         );
+        projectsScrollTrigger = tween.scrollTrigger ?? undefined;
       } else {
-        // Without Zeigarnik: Keep current non-scroll animation
-        gsap.fromTo(
-          projectsSectionElement,
-          {
-            opacity: 0,
-            filter: "blur(5px)",
+        gsap.fromTo(projectsSectionElement, projectsHiddenState, {
+          ...projectsVisibleState,
+          duration: 0.8,
+          delay: 0.68,
+          ease: "power3.out",
+          onComplete: () => {
+            projectsRevealed = true;
           },
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            y: 0,
-            duration: 0.8,
-            delay: 0.68,
-            ease: "power3.out",
-          }
-        );
+        });
       }
-    }
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          refreshAfterLayoutShift();
+          attachImageLoadListeners();
+        });
+      });
+    };
+
+    const unsubscribe = layoutReady.subscribe((ready) => {
+      if (ready) setupProjectsAnimation();
+    });
+
+    const handleScroll = () => {
+      if (heroUsesZeigarnik && isProjectsHidden()) {
+        requestAnimationFrame(() => {
+          if (isProjectsHidden()) {
+            revealProjects();
+          }
+        });
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("scroll", handleScroll);
+      projectsScrollTrigger?.kill();
+      if (projectsSectionElement) {
+        gsap.killTweensOf(projectsSectionElement);
+      }
+    };
   });
 </script>
 
