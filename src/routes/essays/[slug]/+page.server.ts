@@ -1,4 +1,4 @@
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 import { parseMarkdown } from "$lib/essays/parse";
 import { error } from "@sveltejs/kit";
 import {
@@ -9,12 +9,10 @@ import {
 } from "$lib/essays/load";
 import "$lib/essays-reload"; // Import to trigger HMR when essays update
 
-export const load: PageLoad = async ({ params, fetch }) => {
-  // Note: fetch is still used for audio config from static/assets
+export const load: PageServerLoad = async ({ params, fetch }) => {
   const { slug } = params;
 
   try {
-    // Load essay metadata from index
     const essays = await loadEssayIndex(fetch);
     const essayMeta = essays.find((essay) => essay.slug === slug);
 
@@ -22,10 +20,8 @@ export const load: PageLoad = async ({ params, fetch }) => {
       throw error(404, "Essay not found");
     }
 
-    // Load and parse markdown content
     const md = await loadEssayMarkdown(slug, fetch);
 
-    // Load audio and code config only if the essay has a config file
     const [audioConfig, codeConfig] = essayMeta.hasConfig
       ? await Promise.all([
           loadEssayAudioConfig(slug, fetch),

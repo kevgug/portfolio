@@ -483,7 +483,7 @@
 
     {#if revealMessage}
       <div class="message-shell" bind:this={messageEl}>
-        <h1>You got rickrolled by Kevin G.</h1>
+        <h1>Brought to you by Kevin G.</h1>
       </div>
     {/if}
   </div>

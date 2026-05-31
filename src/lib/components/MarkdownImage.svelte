@@ -1,5 +1,6 @@
 <script lang="ts">
   import { marked } from "$lib/util/marked";
+  import { browser } from "$app/environment";
   import { onMount } from "svelte";
 
   export let slug: string;
@@ -163,27 +164,40 @@
     return () => resizeObserver.disconnect();
   });
   
-  // Fetch SVG content when path changes
+  // Fetch SVG content when path changes (client) or during SSR (read from static/)
   $: if (isSvg && imageSrc) {
-    fetchSvgContent(imageSrc);
+    loadSvgContent(imageSrc);
   }
-  
-  async function fetchSvgContent(src: string) {
+
+  async function loadSvgContent(src: string) {
     try {
       svgError = false;
-      const response = await fetch(src);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch SVG: ${response.status}`);
+      let text: string;
+
+      if (browser) {
+        const response = await fetch(src);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch SVG: ${response.status}`);
+        }
+        text = await response.text();
+      } else {
+        const { readFileSync, existsSync } = await import("node:fs");
+        const { join } = await import("node:path");
+        const filePath = join(process.cwd(), "static", src.slice(1));
+        if (!existsSync(filePath)) {
+          throw new Error(`SVG not found: ${src}`);
+        }
+        text = readFileSync(filePath, "utf8");
       }
-      const text = await response.text();
+
       // Basic validation that it's actually SVG content
-      if (text.includes('<svg')) {
+      if (text.includes("<svg")) {
         svgContent = text;
       } else {
-        throw new Error('Invalid SVG content');
+        throw new Error("Invalid SVG content");
       }
     } catch (e) {
-      console.error('Error loading SVG:', e);
+      console.error("Error loading SVG:", e);
       svgError = true;
       svgContent = null;
     }

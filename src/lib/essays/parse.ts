@@ -720,46 +720,81 @@ function tokenizeAndParseParagraph(
   return tokens;
 }
 
+function findEarliestInlineToken(
+  text: string,
+  from: number
+):
+  | { index: number; length: number; ref: string }
+  | { index: number; length: number; latex: string }
+  | null {
+  let best:
+    | { index: number; length: number; ref: string }
+    | { index: number; length: number; latex: string }
+    | null = null;
+
+  const footnoteRe = /\[(\d+)\]/g;
+  footnoteRe.lastIndex = from;
+  const footnoteMatch = footnoteRe.exec(text);
+  if (footnoteMatch) {
+    best = {
+      index: footnoteMatch.index,
+      length: footnoteMatch[0].length,
+      ref: footnoteMatch[1],
+    };
+  }
+
+  let searchFrom = from;
+  while (searchFrom < text.length - 1) {
+    const open = text.indexOf("$$", searchFrom);
+    if (open === -1) break;
+    if (open > 0 && text[open - 1] === "\\") {
+      searchFrom = open + 2;
+      continue;
+    }
+
+    const close = text.indexOf("$$", open + 2);
+    if (close === -1) break;
+
+    const latex = text.slice(open + 2, close);
+    if (latex.includes("\n")) {
+      searchFrom = open + 2;
+      continue;
+    }
+
+    const candidate = { index: open, length: close + 2 - open, latex };
+    if (!best || candidate.index < best.index) {
+      best = candidate;
+    }
+    break;
+  }
+
+  return best;
+}
+
 function processTextSegment(text: string): ParagraphToken[] {
   const tokens: ParagraphToken[] = [];
-
-  // Combined regex to match both footnotes and inline LaTeX
-  // Matches [digit] for footnotes or $$...$$ for inline LaTeX (non-greedy, not preceded by \)
-  const combinedRegex = /(\[\d+\])|(?<!\\)\$\$([^\n]+?)\$\$/g;
-
   let lastIndex = 0;
-  let match: RegExpExecArray | null;
 
-  // eslint-disable-next-line no-cond-assign
-  while ((match = combinedRegex.exec(text))) {
-    const start = match.index;
-    const end = start + match[0].length;
+  while (lastIndex < text.length) {
+    const match = findEarliestInlineToken(text, lastIndex);
+    if (!match) break;
 
-    // Add any text before this match
-    if (start > lastIndex) {
-      const textContent = text.slice(lastIndex, start);
+    if (match.index > lastIndex) {
       tokens.push({
         type: "text",
-        text: marked.parseInline(textContent) as string,
+        text: marked.parseInline(text.slice(lastIndex, match.index)) as string,
       });
     }
 
-    // Check if it's a footnote reference [digit]
-    if (match[1]) {
-      const numMatch = match[1].match(/\[(\d+)\]/);
-      if (numMatch) {
-        tokens.push({ type: "ref", num: numMatch[1] });
-      }
-    }
-    // Otherwise it's inline LaTeX $...$
-    else if (match[2]) {
-      tokens.push({ type: "latex", latex: match[2] });
+    if ("ref" in match) {
+      tokens.push({ type: "ref", num: match.ref });
+    } else {
+      tokens.push({ type: "latex", latex: match.latex });
     }
 
-    lastIndex = end;
+    lastIndex = match.index + match.length;
   }
 
-  // Add any remaining text
   if (lastIndex < text.length) {
     tokens.push({
       type: "text",
