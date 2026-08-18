@@ -160,7 +160,7 @@ export const projects: Project[] = [
       eventName: "projects_ext_gridlink_landingpage",
       openInNewTab: true,
     },
-    bgColor: "#1e2521",
+    bgColor: "#171c19",
   },
   {
     id: "arcbrowser",
