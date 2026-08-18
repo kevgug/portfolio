@@ -266,7 +266,9 @@ pt-16 md:pt-20"
   <div class="pt-20 md:pt-24 lg:pt-32">
     <Separator />
   </div>
-  <div class="py-20 md:py-[6.3rem] lg:py-32">
+  <!-- Asymmetric: the portrait now ends the section, and it needs less room
+       under it than a block of text would. -->
+  <div class="pt-20 md:pt-[6.3rem] lg:pt-32 pb-10 md:pb-12 lg:pb-16">
     <ContactSection />
   </div>
   <Footer />

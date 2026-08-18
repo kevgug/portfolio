@@ -1,28 +1,131 @@
 <script>
+  import { onDestroy } from "svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
-  import Image from "$lib/components/Image.svelte";
-  import headshotSrc from "$lib/images/kevin-gugelmann.jpg";
+  import portrait from "$lib/kevin-gugelmann-portrait.txt?raw";
+
+  const BASE = portrait.replace(/\s+$/, "").split("\n");
+  // Substitutes are drawn from the art's own alphabet, derived from the file so
+  // it cannot drift out of sync with it. Glyphs from outside the density ramp
+  // punch holes of unrelated weight into the portrait.
+  const ALPHABET = [...new Set(portrait.replace(/\s/g, ""))].join("");
+  const RADIUS = 44; // px, measured in screen space so the falloff reads round
+  const ONSET = 0.35; // per-frame chance an uncovered cell takes a substitute
+  const STRIDE = Math.max(...BASE.map((l) => l.length)) + 1;
+
+  let el;
+  let rendered = BASE.join("\n");
+  let pointer = null;
+  let raf = 0;
+  let cellW = 0;
+  let cellH = 0;
+  /* cell key -> the glyph it is currently showing. Held across frames: a cell
+     keeps whatever it was given until it leaves the radius. */
+  let active = new Map();
+
+  /* Character cells, measured off a detached probe rather than the <pre>
+     itself, whose box is the full column width and says nothing about glyph
+     advance. Re-measured on enter because the font-size steps at md. */
+  function measure() {
+    const cs = getComputedStyle(el);
+    const probe = document.createElement("span");
+    probe.style.cssText = `position:absolute;left:-9999px;top:0;white-space:pre;font-family:${cs.fontFamily};font-size:${cs.fontSize}`;
+    probe.textContent = "0".repeat(64);
+    document.body.appendChild(probe);
+    cellW = probe.getBoundingClientRect().width / 64;
+    probe.remove();
+    cellH = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize);
+  }
+
+  /* Redrawn only in response to movement — no repeating timer — so the glyphs
+     under a stationary cursor hold still instead of shimmering.
+
+     A cell that is already substituted and still inside the radius keeps the
+     glyph it has; only cells entering pick a new one, and only cells leaving go
+     back. Re-rolling everything in range each frame made the whole patch churn.
+
+     The onset roll is deliberately not stored when it fails, so an undistorted
+     cell gets another chance as the cursor closes in and intensity rises. That
+     is what gives the patch a soft edge that fills in rather than a hard disc. */
+  function redraw() {
+    raf = 0;
+    if (!pointer) return;
+
+    const next = new Map();
+    const r0 = Math.max(0, Math.floor((pointer.y - RADIUS) / cellH));
+    const r1 = Math.min(BASE.length - 1, Math.ceil((pointer.y + RADIUS) / cellH));
+    for (let r = r0; r <= r1; r++) {
+      const line = BASE[r];
+      const c0 = Math.max(0, Math.floor((pointer.x - RADIUS) / cellW));
+      const c1 = Math.min(line.length - 1, Math.ceil((pointer.x + RADIUS) / cellW));
+      for (let c = c0; c <= c1; c++) {
+        if (line[c] === " ") continue; // leave the silhouette's shape alone
+        const dx = (c + 0.5) * cellW - pointer.x;
+        const dy = (r + 0.5) * cellH - pointer.y;
+        const intensity = 1 - Math.hypot(dx, dy) / RADIUS;
+        if (intensity <= 0) continue; // outside: falls out of the map, reverts
+
+        const key = r * STRIDE + c;
+        const held = active.get(key);
+        if (held !== undefined) {
+          next.set(key, held);
+        } else if (Math.random() < intensity * ONSET) {
+          next.set(key, ALPHABET[(Math.random() * ALPHABET.length) | 0]);
+        }
+      }
+    }
+    active = next;
+
+    const rows = new Map();
+    for (const [key, ch] of active) {
+      const r = (key / STRIDE) | 0;
+      let chars = rows.get(r);
+      if (!chars) rows.set(r, (chars = BASE[r].split("")));
+      chars[key % STRIDE] = ch;
+    }
+    const out = BASE.slice();
+    for (const [r, chars] of rows) out[r] = chars.join("");
+    rendered = out.join("\n");
+  }
+
+  function onEnter() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    measure();
+  }
+
+  function onMove(e) {
+    if (!cellW) return; // reduced motion, or entered before measuring
+    const rect = el.getBoundingClientRect();
+    pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    // coalesce bursts of pointermove into one redraw per frame
+    if (!raf) raf = requestAnimationFrame(redraw);
+  }
+
+  function onLeave() {
+    pointer = null;
+    cancelAnimationFrame(raf);
+    raf = 0;
+    active = new Map();
+    rendered = BASE.join("\n");
+  }
+
+  // onDestroy also runs on the server, where cancelAnimationFrame is undefined.
+  // raf is only ever set from a browser event, so this guard covers both.
+  onDestroy(() => {
+    if (raf) cancelAnimationFrame(raf);
+  });
 </script>
 
-<div id="contact">
-  <Image
-    imgOptions={{
-      src: headshotSrc,
-      // avifSrc: headshotAvif,
-      // webpSrc: headshotWebp,
-      alt: "Kevin Gugelmann's headshot",
-      loading: "eager",
-    }}
-    class="headshot rounded-full object-cover border border-white/30 mb-11"
-  />
-  <div>
+<!-- Stacked on small screens; from lg the headline has room to sit beside the
+     portrait, so the two go side by side. -->
+<div id="contact" class="lg:flex lg:items-center lg:gap-12 xl:gap-20">
+  <div class="lg:min-w-0 lg:flex-1">
     <h1 class="text-glacial-blue">
-      <!-- Each line breaks at the width where it stops fitting: 374px, 307px -->
-      <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
+      <!-- Each line breaks at the width where it stops fitting: 374px, 424px -->
+      <span class="flex flex-col gap-3.5 min-[425px]:gap-0">
         <span class="hidden min-[375px]:inline">Technology is neutral.</span>
         <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
-        <span class="hidden min-[310px]:inline">Design for net good.</span>
-        <span class="min-[310px]:hidden">Design for<br>net good.</span>
+        <span class="hidden min-[425px]:inline">Let's design for net good.</span>
+        <span class="min-[425px]:hidden">Let's design for<br>net good.</span>
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
@@ -55,14 +158,39 @@
       />
     </div>
   </div>
+  <pre
+    bind:this={el}
+    on:pointerenter={onEnter}
+    on:pointermove={onMove}
+    on:pointerleave={onLeave}
+    data-cursor-field={RADIUS}
+    class="portrait mt-14 md:mt-16 lg:mt-0 lg:shrink-0"
+    role="img"
+    aria-label="Portrait of Kevin Gugelmann, drawn in text characters">{rendered}</pre>
 </div>
 
 <style lang="postcss">
-  :global(.headshot) {
-    /* 4rem at 320px → 8rem at 1280px */
-    --size: clamp(4rem, 6rem + 8.5vw, 12rem);
-    width: var(--size);
-    height: var(--size);
+  .portrait {
+    /* The grid only holds if every glyph advances the same width, so the font
+       stack must stay monospace all the way down to the generic keyword.
+       Vertical margin comes from the my-* utilities, not from here. */
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+    font-size: 5.5px;
+    line-height: 1;
+    white-space: pre;
+    color: theme("colors.muted-text-grey");
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default; /* not selectable, so an I-beam would be misleading */
+    /* The <pre> box would otherwise span the full column, so the hover region
+       would extend far past the artwork. */
+    width: fit-content;
+  }
+  @media (min-width: 768px) {
+    .portrait {
+      font-size: 6.5px;
+    }
   }
 
   h1 {
