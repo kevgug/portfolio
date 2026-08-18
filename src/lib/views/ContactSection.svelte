@@ -8,12 +8,20 @@
   // it cannot drift out of sync with it. Glyphs from outside the density ramp
   // punch holes of unrelated weight into the portrait.
   const ALPHABET = [...new Set(portrait.replace(/\s/g, ""))].join("");
+
+  /* Surfaced only where the cursor's radius covers it, so it is not sitting in
+     the DOM to be found. Anchored on the mouth — the generator in
+     .context/stencil/unicode_art.py prints these two numbers as [anchor]. */
+  const MESSAGE = "Stay curious";
+  const MSG_ROW = 33;
+  const MSG_COL = 24;
   const RADIUS = 44; // px, measured in screen space so the falloff reads round
   const ONSET = 0.35; // per-frame chance an uncovered cell takes a substitute
   const STRIDE = Math.max(...BASE.map((l) => l.length)) + 1;
 
   let el;
-  let rendered = BASE.join("\n");
+  // one entry per run of text; only the revealed message run is highlighted
+  let parts = [{ t: BASE.join("\n"), hi: false }];
   let pointer = null;
   let raf = 0;
   let cellW = 0;
@@ -58,7 +66,9 @@
       const c0 = Math.max(0, Math.floor((pointer.x - RADIUS) / cellW));
       const c1 = Math.min(line.length - 1, Math.ceil((pointer.x + RADIUS) / cellW));
       for (let c = c0; c <= c1; c++) {
-        if (line[c] === " ") continue; // leave the silhouette's shape alone
+        // blanks keep the silhouette's shape; anything else off-alphabet is the
+        // hidden message, which stays intact
+        if (!ALPHABET.includes(line[c])) continue;
         const dx = (c + 0.5) * cellW - pointer.x;
         const dy = (r + 0.5) * cellH - pointer.y;
         const intensity = 1 - Math.hypot(dx, dy) / RADIUS;
@@ -84,7 +94,38 @@
     }
     const out = BASE.slice();
     for (const [r, chars] of rows) out[r] = chars.join("");
-    rendered = out.join("\n");
+
+    /* The message shows only where the radius reaches it. On a single row the
+       intersection with a circle is one unbroken run, so the reveal is always a
+       single highlighted slice. */
+    let from = -1;
+    let len = 0;
+    const my = (MSG_ROW + 0.5) * cellH;
+    for (let i = 0, first = -1; i < MESSAGE.length; i++) {
+      const dx = (MSG_COL + i + 0.5) * cellW - pointer.x;
+      if (Math.hypot(dx, my - pointer.y) > RADIUS) continue;
+      if (first < 0) first = i;
+      from = MSG_COL + first;
+      len = i - first + 1;
+    }
+    if (len) {
+      const chars = out[MSG_ROW].padEnd(MSG_COL + MESSAGE.length).split("");
+      for (let i = 0; i < len; i++) chars[from + i] = MESSAGE[from - MSG_COL + i];
+      out[MSG_ROW] = chars.join("");
+    }
+
+    const text = out.join("\n");
+    if (!len) {
+      parts = [{ t: text, hi: false }];
+      return;
+    }
+    let at = from;
+    for (let r = 0; r < MSG_ROW; r++) at += out[r].length + 1;
+    parts = [
+      { t: text.slice(0, at), hi: false },
+      { t: text.slice(at, at + len), hi: true },
+      { t: text.slice(at + len), hi: false },
+    ];
   }
 
   function onEnter() {
@@ -105,7 +146,7 @@
     cancelAnimationFrame(raf);
     raf = 0;
     active = new Map();
-    rendered = BASE.join("\n");
+    parts = [{ t: BASE.join("\n"), hi: false }];
   }
 
   // onDestroy also runs on the server, where cancelAnimationFrame is undefined.
@@ -166,7 +207,8 @@
     data-cursor-field={RADIUS}
     class="portrait mt-14 md:mt-16 lg:mt-0 lg:shrink-0"
     role="img"
-    aria-label="Portrait of Kevin Gugelmann, drawn in text characters">{rendered}</pre>
+    aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
+  >{#each parts as part}{#if part.hi}<span class="reveal">{part.t}</span>{:else}{part.t}{/if}{/each}</pre>
 </div>
 
 <style lang="postcss">
@@ -183,6 +225,10 @@
     -webkit-user-select: none;
     user-select: none;
     cursor: default; /* not selectable, so an I-beam would be misleading */
+  }
+
+  .reveal {
+    color: theme("colors.glacial-blue");
     /* The <pre> box would otherwise span the full column, so the hover region
        would extend far past the artwork. */
     width: fit-content;
