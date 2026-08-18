@@ -27,6 +27,12 @@
   const borderColor = tinycolor(bgColor).lighten(5).toHexString();
   // Image hairline: white at 4% flattened onto the card bg, so it stays opaque
   const imgBorderColor = tinycolor.mix(bgColor, "#ffffff", 4).toHexString();
+  // Fades to its own colour at zero alpha, not to the card bg. Hover dims the
+  // image wrapper with a brightness filter, and the hairline sits inside that
+  // filter, so a bg-coloured hairline would darken into a visible ring instead
+  // of vanishing. Holding the hue and animating only alpha also avoids Safari
+  // interpolating through transparent black.
+  const imgBorderHidden = tinycolor(imgBorderColor).setAlpha(0).toRgbString();
   const interactiveIconColor = tailwindTheme.colors["glacial-blue"];
 
   // --- 3D HOVER EFFECT ---
@@ -230,8 +236,8 @@
             <div class="interactive-img">
               <Image
                 {imgOptions}
-                class="object-contain rounded-md lg:rounded-xl {linkButtonContent ? 'group-hover:rounded-xl lg:group-hover:rounded-2xl' : ''} transition-all"
-                style="box-shadow: 0 0 0 1px {imgBorderColor};"
+                class="project-img object-contain rounded-md lg:rounded-xl {linkButtonContent ? 'group-hover:rounded-xl lg:group-hover:rounded-2xl' : ''}"
+                style="--img-outline: {imgBorderColor}; --img-outline-hidden: {imgBorderHidden};"
               />
             </div>
             <div
@@ -354,6 +360,17 @@
 </div>
 
 <style>
+  /* Outline sits outside the image and follows its radius. Hovering the image
+     fades it out over 80ms. */
+  :global(.project-img) {
+    box-shadow: 0 0 0 1px var(--img-outline);
+    transition: border-radius 150ms ease-in-out, box-shadow 80ms ease-out;
+  }
+
+  .img3d:hover :global(.project-img) {
+    box-shadow: 0 0 0 1px var(--img-outline-hidden);
+  }
+
   .img3d {
     --rotateX: 0;
     --rotateY: 0;
