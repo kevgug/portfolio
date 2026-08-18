@@ -13,10 +13,47 @@
   import { layoutReady } from "$lib/stores/layoutReady";
 
   // Assets
+  import revolutLogo from "$lib/images/logos/revolut.svg";
+  import mdlLogo from "$lib/images/logos/mdl.svg";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
-  import ycLogo from "$lib/images/logos/y-combinator.svg";
+
+  const logoImgClass =
+    "h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300";
+
+  const companyLogos = [
+    {
+      href: "https://www.revolut.com",
+      src: revolutLogo,
+      alt: "Revolut logo",
+      class: "h-[1.15rem]",
+    },
+    {
+      href: "https://mdl.uchicago.edu",
+      src: mdlLogo,
+      alt: "Multilingual Decision Lab logo",
+      class: "h-6",
+    },
+    {
+      href: "https://jpmorganchase.com",
+      src: jpmcLogo,
+      alt: "JPMorganChase logo",
+      class: "h-6",
+    },
+    {
+      href: "https://www.freestyle.sh",
+      src: freestyleLogo,
+      alt: "Freestyle logo",
+      class: "h-6 pl-[0.05rem] pr-[0.15rem]",
+    },
+    {
+      href: "https://www.uchicago.edu",
+      src: uchicagoLogo,
+      alt: "University of Chicago logo",
+      class: "h-6 ml-[0.1rem]",
+    },
+  ];
 
   // Calculations
   let screenWidth = 0;
@@ -24,6 +61,7 @@
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
   $: if (screenHeight) checkSpaceForZeigarnik();
+  $: if (screenWidth && logoTicker) debouncedMeasureLogoTicker();
 
   let heroContent: HTMLElement;
   let separator: HTMLElement;
@@ -32,6 +70,37 @@
   let bottomSection: HTMLElement;
   let companyLogosElement: HTMLElement;
   let marqueeWrapperElement: HTMLElement;
+  let logoTicker: HTMLElement;
+  let logoTickerTimeout: ReturnType<typeof setTimeout>;
+
+  // The ticker holds two copies of the logo set. Scrolling left by the exact
+  // width of the first copy (gaps included) lands the second copy where the
+  // first started, so the loop is seamless. Duration is derived from that
+  // distance to keep the speed constant across breakpoints.
+  const LOGO_TICKER_SPEED = 20; // px per second
+  const measureLogoTicker = () => {
+    if (!logoTicker) return;
+
+    const children = Array.from(logoTicker.children) as HTMLElement[];
+    const halfCount = children.length / 2;
+    const gap = parseFloat(getComputedStyle(logoTicker).columnGap) || 0;
+
+    let distance = 0;
+    for (let i = 0; i < halfCount; i++) {
+      distance += children[i].offsetWidth + gap;
+    }
+
+    logoTicker.style.setProperty("--logo-marquee-distance", `-${distance}px`);
+    logoTicker.style.setProperty(
+      "--logo-marquee-duration",
+      `${distance / LOGO_TICKER_SPEED}s`
+    );
+  };
+
+  const debouncedMeasureLogoTicker = () => {
+    clearTimeout(logoTickerTimeout);
+    logoTickerTimeout = setTimeout(measureLogoTicker, 100);
+  };
 
   // Determine if we should use Zeigarnik effect based on screen height
   // Default to true to prevent layout shift (most screens are <= 1080px)
@@ -88,7 +157,7 @@
   const oldTitleLine1 = "Hi, I'm Kevin.";
   const oldTitleLine2 = "Welcome to my site.";
   const newTitleLine1 = "Kevin Gugelmann.";
-  const newTitleLine2 = "AI-native designer.";
+  const newTitleLine2 = "Building good tech.";
   const newTitleText = `${newTitleLine1} ${newTitleLine2}`;
 
   let oldTitleElement: HTMLElement;
@@ -145,7 +214,20 @@
     // Calculations
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
-    
+
+    // SVG logos have no width until decoded, so measure again once they land
+    requestAnimationFrame(() => setTimeout(measureLogoTicker, 50));
+    const tickerImages = logoTicker
+      ? (Array.from(logoTicker.querySelectorAll("img")) as HTMLImageElement[])
+      : [];
+    tickerImages.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", debouncedMeasureLogoTicker, {
+          once: true,
+        });
+      }
+    });
+
     // Mark layout as ready after calculations are complete
     layoutReady.set(true);
 
@@ -335,13 +417,13 @@
                 {/each}
               </span>
               <span class="min-[315px]:hidden">
-                {#each splitChars("AI-native") as ch}
+                {#each splitChars("Building") as ch}
                   <span class="char-mask"
                     ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
                   >
                 {/each}
                 <br />
-                {#each splitChars("designer.") as ch}
+                {#each splitChars("good tech.") as ch}
                   <span class="char-mask"
                     ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
                   >
@@ -406,17 +488,16 @@
         </h1>
         <ul>
           <li>
-            Built an AI tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> saving designers 300+ hours per year.
+            Product Owner at <a href="https://www.revolut.com">Revolut</a>,
+            working on travel products.
           </li>
           <li>
-            Designed and shipped three full-stack websites at
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
+            Designed and built UChicago's
+            <a href="https://mdl.uchicago.edu">Multilingual Decision Lab</a> site.
           </li>
           <li>
-            Won 1st place at both the <a
-            href="https://www.uchicago.edu">UChicago</a
-            > designathon and hackathon.
+            Built <a href="https://jpmorganchase.com">JPMorganChase</a>'s AI
+            Figma plugin builder a year before Figma.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
@@ -455,78 +536,57 @@
     <!-- Company logos -->
     <div
       bind:this={companyLogosElement}
-      class="w-full flex items-center justify-center gap-2.5 sm:gap-6 md:gap-8 mb-8 md:mb-12"
+      class="w-full mb-8 md:mb-12"
       style="opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(8px);"
     >
-      <a
-        href="https://jpmorganchase.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="h-6"
-      >
-        <img
-          src={jpmcLogo}
-          alt="JPMorganChase logo"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-        />
-      </a>
-      <div class="w-px h-4 bg-white/[0.14]" />
-      <div
-        class="flex items-center gap-1 sm:gap-1.5 pl-[0.05rem] pr-[0.15rem] h-6"
-      >
-        <a
-          href="https://www.freestyle.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-full"
-        >
-          <img
-            src={freestyleLogo}
-            alt="Freestyle logo"
-            class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-          />
-        </a>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="opacity-40"
-        >
-          <path
-            d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5"
-            stroke="white"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          />
-        </svg>
-        <a
-          href="https://www.ycombinator.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-full"
-        >
-          <img
-            src={ycLogo}
-            alt="Y Combinator logo"
-            class="h-full w-auto ml-0.5 object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-          />
-        </a>
+      <!-- LG+ : the full set fits, so keep it centered and still -->
+      <div class="hidden lg:flex items-center justify-center gap-8">
+        {#each companyLogos as logo, i}
+          <a
+            href={logo.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={logo.class}
+          >
+            <img src={logo.src} alt={logo.alt} class={logoImgClass} />
+          </a>
+          {#if i < companyLogos.length - 1}
+            <div class="w-px h-4 bg-white/[0.14]" />
+          {/if}
+        {/each}
       </div>
-      <div class="w-px h-4 bg-white/[0.14]" />
-      <a
-        href="https://www.uchicago.edu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="h-6 ml-[0.1rem]"
+
+      <!-- Below LG : too wide to fit, so it slowly tickers instead -->
+      <div
+        class="lg:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1"
       >
-        <img
-          src={uchicagoLogo}
-          alt="University of Chicago logo"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
+        <div
+          bind:this={logoTicker}
+          class="flex items-center w-max gap-8 animate-logo-marquee"
+        >
+          <!-- Doubled so the second copy is in place when the first scrolls out -->
+          {#each [...companyLogos, ...companyLogos] as logo, i}
+            <a
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="{logo.class} shrink-0"
+              aria-hidden={i >= companyLogos.length ? "true" : undefined}
+              tabindex={i >= companyLogos.length ? -1 : undefined}
+            >
+              <img src={logo.src} alt={logo.alt} class={logoImgClass} />
+            </a>
+            <div class="w-px h-4 shrink-0 bg-white/[0.14]" />
+          {/each}
+        </div>
+        <!-- Gradient masks -->
+        <div
+          class="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none"
         />
-      </a>
+        <div
+          class="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"
+        />
+      </div>
     </div>
 
     <!-- Project marquee -->
@@ -580,6 +640,26 @@
 </div>
 
 <style lang="postcss">
+  @keyframes logo-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(var(--logo-marquee-distance, -50%));
+    }
+  }
+
+  .animate-logo-marquee {
+    animation: logo-marquee var(--logo-marquee-duration, 40s) linear infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-logo-marquee {
+      animation: none;
+    }
+  }
+
   h1 {
     position: relative;
     font-size: 1.75rem;

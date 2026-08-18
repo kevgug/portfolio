@@ -13,9 +13,9 @@
   // Assets
   // Link previews
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
-  const pageTitle = "Kevin Gugelmann | AI-native designer";
+  const pageTitle = "Kevin Gugelmann | Building good tech";
   const pageDescription =
-    "Kevin Gugelmann is a design engineer building cognitively sound AI software, studying Economics & Cognitive Science at the University of Chicago.";
+    "Kevin Gugelmann is a Product Owner at Revolut and a design engineer building cognitively sound AI software.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 

@@ -27,14 +27,13 @@
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
       <li>
-        Rewrote copy and doubled site traffic for a <a href="https://www.tradefinancedistribution.com">$4.5B trade finance initiative</a> in 3 weeks.
+        Working on travel products at <a href="https://www.revolut.com">Revolut</a>.
       </li>
       <li>
-        Built an AI tool at
-        <a href="https://jpmorganchase.com">JPMorganChase</a> that generates on-brand Figma plugins.
+        Designed and shipped three full-stack websites at <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
       </li>
       <li>
-        Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
+        Studied Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
       </li>
     </ul>
     <div class="flex items-center gap-2">

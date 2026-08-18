@@ -1,6 +1,9 @@
 import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
 // Assets
+import mdlSrc from "$lib/images/projects/mdl.jpg";
+import mdlAvif from "$lib/images/projects/mdl.avif";
+import mdlWebp from "$lib/images/projects/mdl.webp";
 import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.jpg";
 import jpmcLogoAvif from "$lib/images/projects/jpmc-logo.avif";
 import jpmcLogoWebp from "$lib/images/projects/jpmc-logo.webp";
@@ -57,6 +60,37 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "mdl",
+    year: 2026,
+    name: "UChicago Multilingual Decision Lab",
+    outputMedium: "Behavioral Research Lab",
+    role: "Brand, Design & Engineering",
+    imgOptions: {
+      src: mdlSrc,
+      avifSrc: mdlAvif,
+      webpSrc: mdlWebp,
+      alt: "The University of Chicago Multilingual Decision Lab homepage",
+    },
+    description:
+      "Brand, design, and engineering for the lab's public site and the tooling behind it. Built the site, an admin CMS so staff can publish without a developer, a service that turns submitted PDFs into marked-up research pages, and self-hosted analytics.",
+    builtWith: [
+      "Astro",
+      "React",
+      "TypeScript",
+      "TailwindCSS",
+      "Supabase",
+      "Python",
+    ],
+    linkButtonContent: {
+      label: "View Website",
+      destination: "https://mdl.uchicago.edu",
+      mediaType: "webpage",
+      eventName: "projects_ext_mdl_landingpage",
+      openInNewTab: true,
+    },
+    bgColor: "#241416",
+  },
+  {
     id: "jpmorganchase",
     year: 2025,
     name: "JPMorganChase",
@@ -69,7 +103,7 @@ export const projects: Project[] = [
       alt: "JPMorganChase logo in gold",
     },
     description:
-      "Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.",
+      "Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Internally launched an AI Figma plugin builder a year before Figma, letting 20+ designers build and collaborate on plugins in natural language without touching code or git. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.",
     builtWith: ["Figma", "TypeScript", "React", "TailwindCSS", "Bash Scripts"],
     linkButtonContent: {
       label: "View Website",
