@@ -503,7 +503,7 @@
         <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
           <PrimaryButton
             linkButtonContent={{
-              label: "View portfolio",
+              label: "View work",
               destination: scrollToFirstProject,
               mediaType: "none",
               eventName: "herosection_portfolio_primary",
@@ -513,11 +513,11 @@
           />
           <PrimaryButton
             linkButtonContent={{
-              label: "Connect on LinkedIn",
-              destination: "https://linkedin.com/in/kevingugelmann",
-              mediaType: "none",
-              eventName: "herosection_linkedin_secondary",
-              openInNewTab: true,
+              label: "Read essays",
+              destination: "/essays",
+              mediaType: "read",
+              eventName: "herosection_essays_secondary",
+              openInNewTab: false,
             }}
           />
         </div>
