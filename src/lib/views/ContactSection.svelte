@@ -177,12 +177,12 @@
 <div id="contact" class="lg:flex lg:items-center lg:gap-12 xl:gap-20">
   <div class="lg:min-w-0 lg:flex-1">
     <h1 class="text-glacial-blue">
-      <!-- Each line breaks at the width where it stops fitting: 374px, 424px -->
-      <span class="flex flex-col gap-3.5 min-[425px]:gap-0">
-        <span class="hidden min-[375px]:inline">Technology is neutral.</span>
-        <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
-        <span class="hidden min-[425px]:inline">Let's design for net good.</span>
-        <span class="min-[425px]:hidden">Let's design for<br>net good.</span>
+      <!-- Each line breaks at the width where it stops fitting: 364px, 384px -->
+      <span class="flex flex-col gap-3.5 min-[385px]:gap-0">
+        <span class="hidden min-[365px]:inline">Technology is neutral</span>
+        <span class="min-[365px]:hidden">Technology<br>is neutral</span>
+        <span class="hidden min-[385px]:inline">I help make it net good</span>
+        <span class="min-[385px]:hidden">I help make it<br>net good</span>
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
