@@ -27,11 +27,16 @@
   const ALPHABET = [...new Set(portrait.replace(/\s/g, ""))].join("");
 
   /* Surfaced only where the cursor's radius covers it, so it is not sitting in
-     the DOM to be found. Anchored on the mouth — the generator in
-     .context/stencil/unicode_art.py prints these two numbers as [anchor]. */
-  const MESSAGE = "Stay curious";
+     the DOM to be found. Clicking while any of it shows swaps to the next one.
+     Anchored on the mouth — the generator in .context/stencil/unicode_art.py
+     prints MSG_ROW and MSG_CENTER as [anchor]. Each message is centred on that
+     column, so they need not be the same length. */
+  const MESSAGES = ["Stay curious", "That's the spirit"];
   const MSG_ROW = 33;
-  const MSG_COL = 24;
+  const MSG_CENTER = 30;
+  const SWAP_MS = 1100; // scramble before a character settles into its new value
+  const CHURN_MS = 55; // how often a scrambling character picks a new glyph;
+  // re-rolling every frame reads as noise rather than as a mechanism turning over
   const RADIUS = 44; // px, measured in screen space so the falloff reads round
   const ONSET = 0.35; // per-frame chance an uncovered cell takes a substitute
   const STRIDE = Math.max(...BASE.map((l) => l.length)) + 1;
@@ -43,6 +48,10 @@
   let raf = 0;
   let cellW = 0;
   let cellH = 0;
+  let msgIndex = 0;
+  let revealed = 0; // characters of the message currently within the radius
+  let swap = null; // { settle: number[], end: number } while a swap animates
+  let swapRaf = 0;
   /* cell key -> the glyph it is currently showing. Held across frames: a cell
      keeps whatever it was given until it leaves the radius. */
   let active = new Map();
@@ -74,7 +83,15 @@
   function redraw() {
     raf = 0;
     if (!pointer) return;
+    trackCursor();
+    paint(performance.now());
+  }
 
+  /* Split from paint() because the swap animation repaints on a timer. Rolling
+     the onset again on those frames would let a stationary cursor slowly
+     distort everything in range, which is exactly what movement-driven
+     redrawing avoids. */
+  function trackCursor() {
     const next = new Map();
     const r0 = Math.max(0, Math.floor((pointer.y - RADIUS) / cellH));
     const r1 = Math.min(BASE.length - 1, Math.ceil((pointer.y + RADIUS) / cellH));
@@ -101,7 +118,9 @@
       }
     }
     active = next;
+  }
 
+  function paint(now) {
     const rows = new Map();
     for (const [key, ch] of active) {
       const r = (key / STRIDE) | 0;
@@ -112,27 +131,47 @@
     const out = BASE.slice();
     for (const [r, chars] of rows) out[r] = chars.join("");
 
+    // mid-swap, a character shows a random glyph until its settle time passes
+    const message = MESSAGES[msgIndex];
+    if (swap && now - swap.tick >= CHURN_MS) {
+      swap.tick = now;
+      swap.noise = swap.noise.map(
+        () => ALPHABET[(Math.random() * ALPHABET.length) | 0]
+      );
+    }
+    const glyphs = message
+      .split("")
+      .map((ch, i) => (swap && now < swap.settle[i] ? swap.noise[i] : ch));
+    const col = MSG_CENTER - (message.length >> 1);
+
     /* The message shows only where the radius reaches it. On a single row the
        intersection with a circle is one unbroken run, so the reveal is always a
        single highlighted slice. */
     let from = -1;
     let len = 0;
     const my = (MSG_ROW + 0.5) * cellH;
-    for (let i = 0, first = -1; i < MESSAGE.length; i++) {
-      const dx = (MSG_COL + i + 0.5) * cellW - pointer.x;
+    for (let i = 0, first = -1; i < glyphs.length; i++) {
+      const dx = (col + i + 0.5) * cellW - pointer.x;
       if (Math.hypot(dx, my - pointer.y) > RADIUS) continue;
       if (first < 0) first = i;
-      from = MSG_COL + first;
+      from = col + first;
       len = i - first + 1;
     }
+    revealed = len;
     if (len) {
-      const chars = out[MSG_ROW].padEnd(MSG_COL + MESSAGE.length).split("");
-      for (let i = 0; i < len; i++) chars[from + i] = MESSAGE[from - MSG_COL + i];
+      const chars = out[MSG_ROW].padEnd(col + glyphs.length).split("");
+      for (let i = 0; i < len; i++) chars[from + i] = glyphs[from - col + i];
       out[MSG_ROW] = chars.join("");
     }
 
     const text = out.join("\n");
     if (!len) {
+      // Leaving the message's own region resets it, so it always opens on the
+      // first line rather than on whatever it was last toggled to.
+      msgIndex = 0;
+      if (swapRaf) cancelAnimationFrame(swapRaf);
+      swapRaf = 0;
+      swap = null;
       parts = [{ t: text, hi: false }];
       return;
     }
@@ -158,18 +197,50 @@
     if (!raf) raf = requestAnimationFrame(redraw);
   }
 
+  /* Clicking swaps to the next message, but only while some of the current one
+     is actually on screen — otherwise a click anywhere on the portrait would
+     silently toggle something the reader cannot see. */
+  function onClick() {
+    if (!revealed) return;
+    msgIndex = (msgIndex + 1) % MESSAGES.length;
+
+    // stagger the settle times so the new text resolves left to right
+    const now = performance.now();
+    const n = MESSAGES[msgIndex].length;
+    const settle = Array.from(
+      { length: n },
+      (_, i) => now + (i / n) * SWAP_MS * 0.6 + Math.random() * SWAP_MS * 0.4
+    );
+    swap = { settle, end: Math.max(...settle), noise: new Array(n).fill(" "), tick: 0 };
+    if (!swapRaf) swapRaf = requestAnimationFrame(swapFrame);
+  }
+
+  function swapFrame(now) {
+    swapRaf = 0;
+    if (swap && now >= swap.end) swap = null;
+    if (pointer) paint(now);
+    if (swap) swapRaf = requestAnimationFrame(swapFrame);
+  }
+
   function onLeave() {
     pointer = null;
+    msgIndex = 0;
     cancelAnimationFrame(raf);
     raf = 0;
+    // let the swap finish in state, not on screen; msgIndex persists
+    if (swapRaf) cancelAnimationFrame(swapRaf);
+    swapRaf = 0;
+    swap = null;
+    revealed = 0;
     active = new Map();
     parts = [{ t: BASE.join("\n"), hi: false }];
   }
 
   // onDestroy also runs on the server, where cancelAnimationFrame is undefined.
-  // raf is only ever set from a browser event, so this guard covers both.
+  // These are only ever set from a browser event, so the guards cover both.
   onDestroy(() => {
     if (raf) cancelAnimationFrame(raf);
+    if (swapRaf) cancelAnimationFrame(swapRaf);
   });
 </script>
 
@@ -238,11 +309,17 @@
       />
     </div>
   </div>
+  <!-- No keyboard equivalent on purpose: the click only swaps one decorative
+       message for another, and it is reachable solely by hovering a specific
+       spot. Making the image focusable would put a stop in the tab order with
+       nothing behind it. Screen readers get the aria-label either way. -->
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <pre
     bind:this={el}
     on:pointerenter={onEnter}
     on:pointermove={onMove}
     on:pointerleave={onLeave}
+    on:click={onClick}
     data-cursor-field={RADIUS}
     class="portrait mt-14 md:mt-16 lg:mt-0 lg:shrink-0"
     role="img"
