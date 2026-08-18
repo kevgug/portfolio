@@ -17,6 +17,7 @@
   import mdlLogo from "$lib/images/logos/mdl.svg";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
+  import gridlinkLogo from "$lib/images/logos/gridlink.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
 
   const logoImgClass =
@@ -46,6 +47,12 @@
       src: freestyleLogo,
       alt: "Freestyle logo",
       class: "h-6 pl-[0.05rem] pr-[0.15rem]",
+    },
+    {
+      href: "https://gridlink.co",
+      src: gridlinkLogo,
+      alt: "GridLink logo",
+      class: "h-6",
     },
     {
       href: "https://www.uchicago.edu",
@@ -539,8 +546,8 @@
       class="w-full mb-8 md:mb-12"
       style="opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(8px);"
     >
-      <!-- LG+ : the full set fits, so keep it centered and still -->
-      <div class="hidden lg:flex items-center justify-center gap-8">
+      <!-- XL+ : the full set fits at its natural 1076px, so keep it centered and still -->
+      <div class="hidden xl:flex items-center justify-center gap-8">
         {#each companyLogos as logo, i}
           <a
             href={logo.href}
@@ -556,9 +563,9 @@
         {/each}
       </div>
 
-      <!-- Below LG : too wide to fit, so it slowly tickers instead -->
+      <!-- Below XL : too wide to fit without squeezing, so it slowly tickers instead -->
       <div
-        class="lg:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1"
+        class="xl:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1"
       >
         <div
           bind:this={logoTicker}
