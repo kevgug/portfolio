@@ -25,6 +25,8 @@
   }
   // Border color is 10% lighter than bg color
   const borderColor = tinycolor(bgColor).lighten(5).toHexString();
+  // Image hairline: white at 4% flattened onto the card bg, so it stays opaque
+  const imgBorderColor = tinycolor.mix(bgColor, "#ffffff", 4).toHexString();
   const interactiveIconColor = tailwindTheme.colors["glacial-blue"];
 
   // --- 3D HOVER EFFECT ---
@@ -229,6 +231,7 @@
               <Image
                 {imgOptions}
                 class="object-contain rounded-md lg:rounded-xl {linkButtonContent ? 'group-hover:rounded-xl lg:group-hover:rounded-2xl' : ''} transition-all"
+                style="box-shadow: 0 0 0 1px {imgBorderColor};"
               />
             </div>
             <div

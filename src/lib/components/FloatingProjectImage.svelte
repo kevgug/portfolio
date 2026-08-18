@@ -126,8 +126,9 @@
     height: auto;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
+    /* Hairline is white at 4% flattened onto the page bg (#141518), so it stays opaque */
+    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px #1d1e21,
+      0 8px 16px -4px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgb(46, 45, 48);

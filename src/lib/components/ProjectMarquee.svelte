@@ -1,8 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import tinycolor from "tinycolor2";
   import Image from "$lib/components/Image.svelte";
   import type { ImageOptions } from "$lib/util/image";
+  import { tailwindTheme } from "$lib/tailwindTheme";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
+
+  // Image hairline: white at 4% flattened onto the page bg, so it stays opaque
+  const imgBorderColor = tinycolor
+    .mix(tailwindTheme.colors.background, "#ffffff", 4)
+    .toHexString();
 
   // Import all formats for progressive loading (AVIF -> WebP -> Original)
   // Pizza Screens
@@ -435,6 +442,7 @@
           <Image
             imgOptions={project}
             class="h-[250px] lg:h-[300px] w-auto object-cover rounded-md lg:rounded-xl"
+            style="box-shadow: 0 0 0 1px {imgBorderColor};"
           />
         </div>
       {/each}

@@ -16,5 +16,6 @@
     alt={imgOptions.alt}
     loading={imgOptions.loading ?? "lazy"}
     class={$$props.class}
+    style={$$props.style}
   />
 </picture>
