@@ -17,20 +17,17 @@
   />
   <div>
     <h1 class="text-glacial-blue">
-      <span class="flex flex-col gap-3.5 min-[450px]:gap-0">
-        <span class="hidden min-[450px]:inline">Cognitively sound design.</span>
-        <span class="hidden min-[290px]:inline min-[450px]:hidden">Cognitively sound<br>design.</span>
-        <span class="min-[290px]:hidden">Cognitively<br>sound design.</span>
-        <span class="hidden min-[240px]:inline">For the AI age.</span>
-        <span class="min-[240px]:hidden">For the<br>AI age.</span>
+      <!-- Each line breaks at the width where it stops fitting: 374px, 307px -->
+      <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
+        <span class="hidden min-[375px]:inline">Technology is neutral.</span>
+        <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
+        <span class="hidden min-[310px]:inline">Design for net good.</span>
+        <span class="min-[310px]:hidden">Design for<br>net good.</span>
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
       <li>
-        Working on travel products at <a href="https://www.revolut.com">Revolut</a>.
-      </li>
-      <li>
-        Designed and shipped three full-stack websites at <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
+        Built AI tooling at <a href="https://jpmorganchase.com">JPMorganChase</a> and full-stack products at <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
       </li>
       <li>
         Studied Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
@@ -39,7 +36,7 @@
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
-          label: "Call me",
+          label: "Book a call",
           destination: "https://cal.com/kevgug/intro",
           mediaType: "webpage",
           eventName: "ctasection_bookcall_primary",

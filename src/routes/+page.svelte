@@ -15,7 +15,7 @@
   import linkPreviewSrc from "$lib/images/portfolio-preview.jpg";
   const pageTitle = "Kevin Gugelmann | Building good tech";
   const pageDescription =
-    "Kevin Gugelmann is a Product Owner at Revolut and a design engineer building cognitively sound AI software.";
+    "Kevin Gugelmann is a Product Owner at Revolut working on travel products, and a designer and engineer building good tech.";
   const pageUrl = "https://kevingugelmann.com";
   const pageDomain = "kevingugelmann.com";
 

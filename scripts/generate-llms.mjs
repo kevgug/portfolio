@@ -133,7 +133,7 @@ const formatDate = (date) => {
 
 // ===== HEADER BLOCK =====
 const headerBlock = `Kevin Gugelmann - Building good tech
-Product Owner at Revolut. Design engineer building cognitively sound AI software.
+Product Owner at Revolut working on travel products. Technology is neutral; design for net good.
 
 Canonical: ${siteUrl}
 Call me: https://cal.com/kevgug/intro
@@ -174,10 +174,9 @@ ${projectDetails}
 
 ## Contact
 
-Cognitively sound design. For the AI age.
+Technology is neutral. Design for net good.
 
-- Working on travel products at Revolut.
-- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Built AI tooling at JPMorganChase and full-stack products at Freestyle (YC S24).
 - Studied Economics and Cognitive Science at the University of Chicago.
 
 Call me: https://cal.com/kevgug/intro
