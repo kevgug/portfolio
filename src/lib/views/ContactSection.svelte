@@ -1,6 +1,7 @@
 <script>
   import { onDestroy } from "svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
+  import Icon from "$lib/components/Icon.svelte";
   import portrait from "$lib/kevin-gugelmann-portrait.txt?raw";
   import essayIndex from "$content/essays/index.json";
 
@@ -185,14 +186,36 @@
         <span class="min-[385px]:hidden">I help make it<br>net good</span>
       </span>
     </h1>
-    <ul class="my-9 md:my-11 lg:my-12">
+    <!-- Same card as /essays, so the two listings read as one thing -->
+    <div class="my-9 md:my-11 lg:my-12 space-y-3 md:space-y-4">
       {#each recentEssays as essay}
-        <li>
-          <!-- kept adjacent: a newline here renders as a space before the comma -->
-          <a href={`/essays/${essay.slug}`} data-sa-link-event="ctasection_recent_essay">{essay.title}</a><span class="text-muted-text-grey">, {essay.formattedDate}</span>
-        </li>
+        <a
+          class="block group"
+          href={`/essays/${essay.slug}`}
+          data-sa-link-event="ctasection_recent_essay"
+        >
+          <div
+            class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+          >
+            <div class="flex-1 pr-0 md:pr-6">
+              <h2
+                class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+              >
+                {essay.title}
+              </h2>
+            </div>
+            <div class="flex items-center gap-2 mt-1 md:mt-0.5">
+              <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
+                {essay.formattedDate}
+              </p>
+              {#if essay.publish === false}
+                <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+              {/if}
+            </div>
+          </div>
+        </a>
       {/each}
-    </ul>
+    </div>
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
