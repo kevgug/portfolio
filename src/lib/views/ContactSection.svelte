@@ -2,6 +2,22 @@
   import { onDestroy } from "svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import portrait from "$lib/kevin-gugelmann-portrait.txt?raw";
+  import essayIndex from "$content/essays/index.json";
+
+  /* The generator already emits these newest-first, and filters unpublished
+     ones in production only — same source and behaviour as /essays. Sorted
+     again here so the order does not depend on how the file was written. */
+  const recentEssays = [...essayIndex]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3)
+    .map((e) => ({
+      ...e,
+      formattedDate: new Date(e.date).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }),
+    }));
 
   const BASE = portrait.replace(/\s+$/, "").split("\n");
   // Substitutes are drawn from the art's own alphabet, derived from the file so
@@ -170,12 +186,12 @@
       </span>
     </h1>
     <ul class="my-9 md:my-11 lg:my-12">
-      <li>
-        Built AI tooling at <a href="https://jpmorganchase.com">JPMorganChase</a> and full-stack products at <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
-      </li>
-      <li>
-        Studied Economics and Cognitive Science at the <a href="https://www.uchicago.edu">University of Chicago</a>.
-      </li>
+      {#each recentEssays as essay}
+        <li>
+          <!-- kept adjacent: a newline here renders as a space before the comma -->
+          <a href={`/essays/${essay.slug}`} data-sa-link-event="ctasection_recent_essay">{essay.title}</a><span class="text-muted-text-grey">, {essay.formattedDate}</span>
+        </li>
+      {/each}
     </ul>
     <div class="flex items-center gap-2">
       <PrimaryButton
