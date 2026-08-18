@@ -12,7 +12,7 @@ I designed and built this portfolio website to showcase some of my design & deve
 
 Product Owner at Revolut, working on travel products. Studied Economics and Cognitive Science at the University of Chicago.
 
-Recent work includes the UChicago Multilingual Decision Lab site, where I did the brand, design, and engineering.
+Recent work includes the UChicago Multilingualism & Decision-Making Lab site, where I was the designer and engineer.
 
 [![Contact me](https://img.shields.io/badge/Reach_out-Email-a9f4e9)](mailto:kevin@kevingugelmann.com)
 [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-0b66c2)](https://www.linkedin.com/in/kevingugelmann/)

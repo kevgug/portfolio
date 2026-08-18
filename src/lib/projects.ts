@@ -7,9 +7,9 @@ import mdlWebp from "$lib/images/projects/mdl.webp";
 import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.jpg";
 import jpmcLogoAvif from "$lib/images/projects/jpmc-logo.avif";
 import jpmcLogoWebp from "$lib/images/projects/jpmc-logo.webp";
-import freestyleLogoSrc from "$lib/images/projects/freestyle-logo.jpg";
-import freestyleLogoAvif from "$lib/images/projects/freestyle-logo.avif";
-import freestyleLogoWebp from "$lib/images/projects/freestyle-logo.webp";
+import freestyleSrc from "$lib/images/projects/freestyle-landingpage.jpg";
+import freestyleAvif from "$lib/images/projects/freestyle-landingpage.avif";
+import freestyleWebp from "$lib/images/projects/freestyle-landingpage.webp";
 import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
 import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
 import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
@@ -62,17 +62,17 @@ export const projects: Project[] = [
   {
     id: "mdl",
     year: 2026,
-    name: "UChicago Multilingual Decision Lab",
+    name: "UChicago Multilingualism & Decision-Making Lab",
     outputMedium: "Behavioral Research Lab",
-    role: "Brand, Design & Engineering",
+    role: "Designer & Engineer",
     imgOptions: {
       src: mdlSrc,
       avifSrc: mdlAvif,
       webpSrc: mdlWebp,
-      alt: "The University of Chicago Multilingual Decision Lab homepage",
+      alt: "The University of Chicago Multilingualism & Decision-Making Lab homepage",
     },
     description:
-      "Brand, design, and engineering for the lab's public site and the tooling behind it. Built the site, an admin CMS so staff can publish without a developer, a service that turns submitted PDFs into marked-up research pages, and self-hosted analytics.",
+      "Ran brand workshops with the lab, then designed its logomark and website. Built a CMS so staff publish papers and news without waiting on a developer, wrote a service that turns submitted PDFs into readable pages instead of downloads, and self-hosted the analytics so the team can see how people read the work without sending visitors to a third-party tracker.",
     builtWith: [
       "Astro",
       "React",
@@ -121,10 +121,10 @@ export const projects: Project[] = [
     outputMedium: "AI Infrastructure",
     role: "Software Engineer",
     imgOptions: {
-      src: freestyleLogoSrc,
-      avifSrc: freestyleLogoAvif,
-      webpSrc: freestyleLogoWebp,
-      alt: "Freestyle logo",
+      src: freestyleSrc,
+      avifSrc: freestyleAvif,
+      webpSrc: freestyleWebp,
+      alt: "A screenshot of the Freestyle landing page",
     },
     description:
       "Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.",

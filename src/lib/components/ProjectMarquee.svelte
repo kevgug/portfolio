@@ -37,8 +37,24 @@
   import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
   import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
 
+  // Freestyle
+  import freestyleSrc from "$lib/images/projects/freestyle-landingpage.jpg";
+  import freestyleAvif from "$lib/images/projects/freestyle-landingpage.avif";
+  import freestyleWebp from "$lib/images/projects/freestyle-landingpage.webp";
+
+  // MDL
+  import mdlSrc from "$lib/images/projects/mdl.jpg";
+  import mdlAvif from "$lib/images/projects/mdl.avif";
+  import mdlWebp from "$lib/images/projects/mdl.webp";
+
   // Optimized project set with progressive loading support
   const projects: ImageOptions[] = [
+    {
+      src: mdlSrc,
+      avifSrc: mdlAvif,
+      webpSrc: mdlWebp,
+      alt: "UChicago Multilingualism & Decision-Making Lab project preview",
+    },
     {
       src: sportVideoAnalysisSrc,
       avifSrc: sportVideoAnalysisAvif,
@@ -66,6 +82,12 @@
       webpSrc: gridLinkWebp,
       alt: "GridLink project preview",
       loading: "eager",
+    },
+    {
+      src: freestyleSrc,
+      avifSrc: freestyleAvif,
+      webpSrc: freestyleWebp,
+      alt: "Freestyle project preview",
     },
     {
       src: taskTimerSrc,

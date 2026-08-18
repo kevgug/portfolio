@@ -165,8 +165,8 @@ Kevin Gugelmann. Building good tech.
 ## Highlights
 
 - Product Owner at Revolut, working on travel products.
-- Designed and built UChicago's Multilingual Decision Lab site.
 - Built JPMorganChase's AI Figma plugin builder a year before Figma.
+- Won 1st place at both the UChicago designathon and hackathon.
 
 ## Projects
 
@@ -174,7 +174,7 @@ ${projectDetails}
 
 ## Contact
 
-Technology is neutral. Design for net good.
+Technology is neutral. Let's design for net good.
 
 - Built AI tooling at JPMorganChase and full-stack products at Freestyle (YC S24).
 - Studied Economics and Cognitive Science at the University of Chicago.
