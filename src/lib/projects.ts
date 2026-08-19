@@ -88,7 +88,7 @@ export const projects: Project[] = [
       eventName: "projects_ext_mdl_landingpage",
       openInNewTab: true,
     },
-    bgColor: "#201819",
+    bgColor: "#1E1616",
   },
   {
     id: "jpmorganchase",
