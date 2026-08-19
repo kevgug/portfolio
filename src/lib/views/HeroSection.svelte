@@ -224,7 +224,7 @@
       ) as unknown as HTMLElement[]) ?? []
     );
 
-    if (oldChars) {
+    if (oldChars && oldChars.length) {
       gsap.set(oldChars, { y: "0%" });
     }
     if (newCharsAll.length) {
@@ -266,8 +266,7 @@
           typeof window !== "undefined" ? window.innerWidth : screenWidth
         ) == BreakpointSizes.sm;
 
-      if (oldChars) {
-        console.log('isSmallNow1',Number(isSmallNow),isSmallNow)
+      if (oldChars && oldChars.length) {
         timeline.to(oldChars, {
           y: "-110%",
           duration: timings.oldCharsDuration[Number(isSmallNow)],
@@ -281,8 +280,9 @@
       ) as unknown as HTMLElement[];
 
       if (newChars && newChars.length) {
-        console.log('isSmallNow2',Number(isSmallNow),isSmallNow)
-        const newCharsPosition = oldChars ? `-=${timings.newCharsNegDelay[Number(isSmallNow)]}` : 0;
+        const newCharsPosition = oldChars?.length
+          ? `-=${timings.newCharsNegDelay[Number(isSmallNow)]}`
+          : 0;
         timeline.to(
           newChars,
           {
