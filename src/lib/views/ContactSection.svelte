@@ -428,7 +428,7 @@
     on:pointerleave={onLeave}
     on:click={onClick}
     data-cursor-field={radius}
-    class="portrait mt-14 md:mt-16"
+    class="portrait mt-20 md:mt-24"
     style="font-size: {sizeCss}"
     role="img"
     aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
