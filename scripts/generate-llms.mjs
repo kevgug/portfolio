@@ -133,7 +133,7 @@ const formatDate = (date) => {
 
 // ===== HEADER BLOCK =====
 const headerBlock = `Kevin Gugelmann - Building good tech
-Product Owner at Revolut working on travel products. Technology is neutral; I help make it net good.
+Product Owner at Revolut working on travel products. Technology is neutral; let's use it for net good.
 
 Canonical: ${siteUrl}
 Call me: https://cal.com/kevgug/intro
@@ -174,7 +174,7 @@ ${projectDetails}
 
 ## Contact
 
-Technology is neutral. I help make it net good.
+Technology is neutral. Let's use it for net good.
 
 - Built AI tooling at JPMorganChase and full-stack products at Freestyle (YC S24).
 - Studied Economics and Cognitive Science at the University of Chicago.

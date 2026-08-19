@@ -249,12 +249,12 @@
 <div id="contact" class="lg:flex lg:items-center lg:gap-12 xl:gap-20">
   <div class="lg:min-w-0 lg:flex-1">
     <h1 class="text-glacial-blue">
-      <!-- Each line breaks at the width where it stops fitting: 364px, 384px -->
-      <span class="flex flex-col gap-3.5 min-[385px]:gap-0">
-        <span class="hidden min-[365px]:inline">Technology is neutral</span>
-        <span class="min-[365px]:hidden">Technology<br>is neutral</span>
-        <span class="hidden min-[385px]:inline">I help make it net good</span>
-        <span class="min-[385px]:hidden">I help make it<br>net good</span>
+      <!-- Each line breaks at the width where it stops fitting: 374px, 409px -->
+      <span class="flex flex-col gap-3.5 min-[410px]:gap-0">
+        <span class="hidden min-[375px]:inline">Technology is neutral.</span>
+        <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
+        <span class="hidden min-[410px]:inline">Let's use it for net good.</span>
+        <span class="min-[410px]:hidden">Let's use it for<br>net good.</span>
       </span>
     </h1>
     <!-- Same card as /essays, so the two listings read as one thing -->
