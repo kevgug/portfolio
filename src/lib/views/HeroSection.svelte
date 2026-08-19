@@ -477,14 +477,14 @@
           </li>
           <!-- Ordered shortest to longest so the block reads as a wedge -->
           <li>
-            Won 1st place at both the <a href="https://www.uchicago.edu"
-              >UChicago</a
-            > designathon and hackathon.
+            Won 1st place at both the designathon and hackathon at <a
+              href="https://www.uchicago.edu">UChicago</a
+            >.
           </li>
           <li>
             Built an AI Figma plugin builder for <a
-              href="https://jpmorganchase.com">JPMorganChase</a
-            > a year before Figma did.
+              href="https://jpmorganchase.com">JPMorgan</a
+            > a year before Figma launched theirs.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
