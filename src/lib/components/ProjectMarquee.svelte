@@ -100,7 +100,7 @@
   ];
 
   // Timing
-  const LOOP_SECONDS = 30; // seconds for one full set to pass
+  const LOOP_SECONDS = 40; // seconds for one full set to pass
 
   let viewport: HTMLElement;
   let container: HTMLElement;
