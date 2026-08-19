@@ -291,20 +291,21 @@
     <div class="flex items-center gap-2">
       <PrimaryButton
         linkButtonContent={{
-          label: "Book a call",
-          destination: "https://cal.com/kevgug/intro",
-          mediaType: "webpage",
-          eventName: "ctasection_bookcall_primary",
-          openInNewTab: true,
+          label: "View all essays",
+          destination: "/essays",
+          mediaType: "read",
+          eventName: "ctasection_essays_primary",
+          openInNewTab: false,
         }}
+        iconName="arrow-right"
         variant="glacial"
       />
       <PrimaryButton
         linkButtonContent={{
-          label: "Connect on LinkedIn",
-          destination: "https://linkedin.com/in/kevingugelmann",
-          mediaType: "none",
-          eventName: "ctasection_linkedin_secondary",
+          label: "Book a 15 min call",
+          destination: "https://cal.com/kevgug/intro",
+          mediaType: "webpage",
+          eventName: "ctasection_bookcall_secondary",
           openInNewTab: true,
         }}
       />
