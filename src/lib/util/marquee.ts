@@ -36,6 +36,8 @@ const RESUME_RAMP_MS = 600; // ramp from stopped to normal playback
 const FLICK_DECAY = 4.5; // exponential decay rate for flick momentum (1/s)
 const MAX_FLICK_SPEED = 4000; // px/s
 const DRAG_SLOP_PX = 5; // movement past which a gesture is a drag, not a click
+const HOVER_FACTOR = 1 / 3; // autoplay speed while the cursor rests on the strip
+const HOVER_RAMP_MS = 500; // easing in and out of that slower speed
 
 export function createMarquee(options: MarqueeOptions): Marquee {
   const {
@@ -62,6 +64,8 @@ export function createMarquee(options: MarqueeOptions): Marquee {
   let lastInteractionAt = -Infinity; // performance.now() of last user input
   let isDragging = false;
   let paused = false; // off-screen or tab hidden
+  let hovering = false; // a mouse is resting on the strip
+  let hoverBlend = 0; // 0 at full speed, 1 fully slowed; travels between the two
   let reduceMotion = false;
 
   // Drag bookkeeping
@@ -114,14 +118,35 @@ export function createMarquee(options: MarqueeOptions): Marquee {
     lastInteractionAt = now;
   };
 
+  /* Cursor on or off the strip only sets the target; the strip takes
+     HOVER_RAMP_MS to get there. Stepping straight to half speed would read as a
+     stutter, and the strip would jolt again the moment the cursor left. */
+  const advanceHover = (dt: number) => {
+    const target = hovering ? 1 : 0;
+    if (hoverBlend === target) return;
+    const step = (dt * 1000) / HOVER_RAMP_MS;
+    hoverBlend =
+      target > hoverBlend
+        ? Math.min(target, hoverBlend + step)
+        : Math.max(target, hoverBlend - step);
+  };
+
+  // 1 away from the cursor, HOVER_FACTOR under it, eased across the ramp.
+  const hoverSpeed = (): number => {
+    const eased = hoverBlend * hoverBlend * (3 - 2 * hoverBlend); // smoothstep
+    return 1 - eased * (1 - HOVER_FACTOR);
+  };
+
   // 0 while the user is in control, easing to 1 once they've let go for
-  // RESUME_DELAY_MS and the ramp has played out.
+  // RESUME_DELAY_MS and the ramp has played out. Slowed under the cursor, so a
+  // reader looking at one item gets longer with it without having to grab it.
   const playbackFactor = (now: number): number => {
     if (reduceMotion || isDragging) return 0;
     const idleFor = now - lastInteractionAt - RESUME_DELAY_MS;
     if (idleFor <= 0) return 0;
     const t = Math.min(idleFor / RESUME_RAMP_MS, 1);
-    return t * t * (3 - 2 * t); // smoothstep
+    const ramp = t * t * (3 - 2 * t); // smoothstep
+    return ramp * hoverSpeed();
   };
 
   // ----- Drag core, shared by pointer events and the touch fallback -----
@@ -221,6 +246,8 @@ export function createMarquee(options: MarqueeOptions): Marquee {
 
       if (paused || period <= 0 || isDragging || dt <= 0) return;
 
+      advanceHover(dt);
+
       let moved = false;
 
       if (flickVelocity !== 0) {
@@ -299,6 +326,19 @@ export function createMarquee(options: MarqueeOptions): Marquee {
       noteInteraction(performance.now());
     };
     viewport.addEventListener("wheel", onWheel, { passive: false });
+
+    /* Mouse only: touch fires enter on tap and leaves it set until the reader
+       touches something else, which would leave the strip stuck at half speed. */
+    const onPointerEnter = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      hovering = true;
+    };
+    const onPointerLeave = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      hovering = false;
+    };
+    viewport.addEventListener("pointerenter", onPointerEnter);
+    viewport.addEventListener("pointerleave", onPointerLeave);
 
     // A drag that ends on a link would otherwise navigate on release.
     const onClick = (event: MouseEvent) => {
@@ -379,6 +419,8 @@ export function createMarquee(options: MarqueeOptions): Marquee {
       intersectionObserver?.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       viewport?.removeEventListener("wheel", onWheel);
+      viewport?.removeEventListener("pointerenter", onPointerEnter);
+      viewport?.removeEventListener("pointerleave", onPointerLeave);
       if (suppressClickAfterDrag) {
         viewport?.removeEventListener("click", onClick, true);
       }
