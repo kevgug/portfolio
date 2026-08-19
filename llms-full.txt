@@ -1,5 +1,5 @@
-﻿Kevin Gugelmann - AI-native Designer
-Design engineer building cognitively sound AI software.
+﻿Kevin Gugelmann - Building good tech
+Product Owner at Revolut working on travel products. Technology is neutral; let's use it for net good.
 
 Canonical: https://kevingugelmann.com
 Call me: https://cal.com/kevgug/intro
@@ -9,19 +9,30 @@ Portfolio and essays are the primary content. When quoting, please link back to 
 
 # Home — https://kevingugelmann.com/
 
-Kevin Gugelmann. AI-native designer.
+Kevin Gugelmann. Building good tech.
 
 ## Highlights
 
-- Built an AI tool at JPMorganChase saving designers 300+ hours per year.
-- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Product Owner at Revolut, working on travel products.
 - Won 1st place at both the UChicago designathon and hackathon.
+- Built JPMorganChase's AI Figma plugin builder a year before Figma.
 
 ## Projects
 
+### UChicago Multilingualism & Decision-Making Lab
+
+Ran brand workshops with the lab, then designed its logomark and website. Built a CMS so staff publish papers and news without waiting on a developer, wrote a service that turns submitted PDFs into readable pages instead of downloads, and self-hosted the analytics so the team can see how people read the work without sending visitors to a third-party tracker.
+
+Details:
+- Year: 2026
+- Role: Designer & Engineer
+- Domain: Behavioral Research Lab
+- Built with: Astro, React, TypeScript, TailwindCSS, Supabase, Python
+- Link: View Website → https://mdl.uchicago.edu
+
 ### JPMorganChase
 
-Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
+Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Internally launched an AI Figma plugin builder a year before Figma, letting 20+ designers build and collaborate on plugins in natural language without touching code or git. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.
 
 Details:
 - Year: 2025
@@ -153,11 +164,10 @@ Details:
 
 ## Contact
 
-Cognitively sound design. For the AI age.
+Technology is neutral. Let's use it for net good.
 
-- Economics and Cognitive Science at the University of Chicago.
-- Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
-- Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
+- Built AI tooling at JPMorganChase and full-stack products at Freestyle (YC S24).
+- Studied Economics and Cognitive Science at the University of Chicago.
 
 Call me: https://cal.com/kevgug/intro
 Email: kevin@kevingugelmann.com
@@ -168,7 +178,7 @@ LinkedIn: https://www.linkedin.com/in/kevingugelmann
 
 - Meritocracy (2025-12-09) - https://kevingugelmann.com/essays/meritocracy
 - Maxims of good software (2025-11-23) - https://kevingugelmann.com/essays/software-maxims
-- Selling software without accountability (2025-10-23) - https://kevingugelmann.com/essays/accountability-ai-autonomy
+- Selling software without accountability (2025-10-24) - https://kevingugelmann.com/essays/accountability-ai-autonomy
 - Writing manifesto (2025-09-12) - https://kevingugelmann.com/essays/manifesto
 
 # RSS feed for essays (rss.xml) - https://kevingugelmann.com/rss.xml
@@ -353,7 +363,7 @@ Q2) **Is it always better to have others develop most of the software for you?**
 ---
 title: Selling software without accountability
 slug: accountability-ai-autonomy
-date: 2025-10-23
+date: 2025-10-24
 ---
 
 When my brother visited me in Chicago to run the 47th Bank of America marathon (on virtually no training!), he raised an interesting question: is **accountability** a good enough reason for why we don't want autonomous AI software engineers? We both agree that full autonomy is not even feasible for at least another two years. The question is more about _when_ AI autonomy becomes feasible, will the need for human accountability get in the way? [^1]

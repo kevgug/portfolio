@@ -1,0 +1,1 @@
+import{e as a}from"./index-77b88be4.js";async function o(e){return a}const n=async()=>{const e=await o();return e.forEach(t=>{t.formattedDate=new Date(t.date).toLocaleDateString("en-US",{month:"long",year:"numeric",timeZone:"UTC"})}),{posts:e}},s=Object.freeze(Object.defineProperty({__proto__:null,load:n},Symbol.toStringTag,{value:"Module"}));export{s as _,n as l};

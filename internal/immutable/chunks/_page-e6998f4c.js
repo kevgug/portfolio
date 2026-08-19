@@ -1,0 +1,1 @@
+import{r}from"./index-1a234430.js";const o=!1,s=async({params:e})=>{throw r(301,`/essays/${e.slug}`)},a=Object.freeze(Object.defineProperty({__proto__:null,load:s,prerender:o},Symbol.toStringTag,{value:"Module"}));export{a as _,s as l,o as p};
