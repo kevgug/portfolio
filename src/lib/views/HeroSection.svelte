@@ -8,6 +8,7 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
+  import { createMarquee } from "$lib/util/marquee";
   import { gsap } from "gsap";
   import { projects } from "$lib/projects";
   import { layoutReady } from "$lib/stores/layoutReady";
@@ -68,7 +69,6 @@
 
   $: breakpoint = getCurrentBreakpoint(screenWidth);
   $: if (screenHeight) checkSpaceForZeigarnik();
-  $: if (screenWidth && logoTicker) debouncedMeasureLogoTicker();
 
   let heroContent: HTMLElement;
   let separator: HTMLElement;
@@ -77,37 +77,24 @@
   let bottomSection: HTMLElement;
   let companyLogosElement: HTMLElement;
   let marqueeWrapperElement: HTMLElement;
+  let logoTickerViewport: HTMLElement;
   let logoTicker: HTMLElement;
-  let logoTickerTimeout: ReturnType<typeof setTimeout>;
 
-  // The ticker holds two copies of the logo set. Scrolling left by the exact
-  // width of the first copy (gaps included) lands the second copy where the
-  // first started, so the loop is seamless. Duration is derived from that
-  // distance to keep the speed constant across breakpoints.
+  /* Same engine as the project marquee below it, so a reader who has learned
+     that one strip can be pushed along finds the other behaves the same.
+
+     Each logo is followed by its divider, hence two children per logo. Speed is
+     held constant rather than derived from a loop duration: the set's width
+     changes with the breakpoint, and a fixed duration would make it drift
+     faster on wider screens. Clicks are swallowed after a drag because, unlike
+     the project cards, these are links. */
   const LOGO_TICKER_SPEED = 20; // px per second
-  const measureLogoTicker = () => {
-    if (!logoTicker) return;
-
-    const children = Array.from(logoTicker.children) as HTMLElement[];
-    const halfCount = children.length / 2;
-    const gap = parseFloat(getComputedStyle(logoTicker).columnGap) || 0;
-
-    let distance = 0;
-    for (let i = 0; i < halfCount; i++) {
-      distance += children[i].offsetWidth + gap;
-    }
-
-    logoTicker.style.setProperty("--logo-marquee-distance", `-${distance}px`);
-    logoTicker.style.setProperty(
-      "--logo-marquee-duration",
-      `${distance / LOGO_TICKER_SPEED}s`
-    );
-  };
-
-  const debouncedMeasureLogoTicker = () => {
-    clearTimeout(logoTickerTimeout);
-    logoTickerTimeout = setTimeout(measureLogoTicker, 100);
-  };
+  const logoMarquee = createMarquee({
+    itemsPerCopy: companyLogos.length * 2,
+    pixelsPerSecond: LOGO_TICKER_SPEED,
+    suppressClickAfterDrag: true,
+  });
+  const { copyCount: logoCopyCount, dragging: logoDragging } = logoMarquee;
 
   // Determine if we should use Zeigarnik effect based on screen height
   // Default to true to prevent layout shift (most screens are <= 1080px)
@@ -222,18 +209,7 @@
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
 
-    // SVG logos have no width until decoded, so measure again once they land
-    requestAnimationFrame(() => setTimeout(measureLogoTicker, 50));
-    const tickerImages = logoTicker
-      ? (Array.from(logoTicker.querySelectorAll("img")) as HTMLImageElement[])
-      : [];
-    tickerImages.forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener("load", debouncedMeasureLogoTicker, {
-          once: true,
-        });
-      }
-    });
+    const stopLogoMarquee = logoMarquee.start(logoTickerViewport, logoTicker);
 
     // Mark layout as ready after calculations are complete
     layoutReady.set(true);
@@ -356,6 +332,7 @@
     // Cleanup function
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      stopLogoMarquee();
     };
   });
 </script>
@@ -568,25 +545,35 @@
 
       <!-- Below XL : too wide to fit without squeezing, so it slowly tickers instead -->
       <div
-        class="xl:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1"
+        bind:this={logoTickerViewport}
+        class="xl:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1 logo-viewport"
+        class:dragging={$logoDragging}
+        on:pointerdown={logoMarquee.onPointerDown}
+        on:pointermove={logoMarquee.onPointerMove}
+        on:pointerup={logoMarquee.onPointerEnd}
+        on:pointercancel={logoMarquee.onPointerEnd}
+        on:dragstart|preventDefault
       >
         <div
           bind:this={logoTicker}
-          class="flex items-center w-max gap-8 animate-logo-marquee"
+          class="flex items-center w-max gap-8 logo-track"
         >
-          <!-- Doubled so the second copy is in place when the first scrolls out -->
-          {#each [...companyLogos, ...companyLogos] as logo, i}
-            <a
-              href={logo.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="{logo.class} shrink-0"
-              aria-hidden={i >= companyLogos.length ? "true" : undefined}
-              tabindex={i >= companyLogos.length ? -1 : undefined}
-            >
-              <img src={logo.src} alt={logo.alt} class={logoImgClass} />
-            </a>
-            <div class="w-px h-4 shrink-0 bg-white/[0.14]" />
+          <!-- Repeated so a copy is always in place as the one before it scrolls
+               out, however far the reader pushes the strip -->
+          {#each Array($logoCopyCount) as _, copy}
+            {#each companyLogos as logo}
+              <a
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="{logo.class} shrink-0"
+                aria-hidden={copy > 0 ? "true" : undefined}
+                tabindex={copy > 0 ? -1 : undefined}
+              >
+                <img src={logo.src} alt={logo.alt} class={logoImgClass} />
+              </a>
+              <div class="w-px h-4 shrink-0 bg-white/[0.14]" />
+            {/each}
           {/each}
         </div>
         <!-- Gradient masks -->
@@ -650,24 +637,26 @@
 </div>
 
 <style lang="postcss">
-  @keyframes logo-marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(var(--logo-marquee-distance, -50%));
-    }
+  /* Vertical swipes still belong to the page; only the horizontal axis is ours */
+  .logo-viewport {
+    touch-action: pan-y;
+    cursor: grab;
   }
 
-  .animate-logo-marquee {
-    animation: logo-marquee var(--logo-marquee-duration, 40s) linear infinite;
+  .logo-viewport.dragging {
+    cursor: grabbing;
+  }
+
+  .logo-track {
     will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .animate-logo-marquee {
-      animation: none;
-    }
+  /* The logos are links, so unlike the project marquee they stay hit-testable;
+     only the browser's own image drag is suppressed. */
+  .logo-track :global(img) {
+    -webkit-user-drag: none;
   }
 
   h1 {
