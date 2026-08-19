@@ -518,6 +518,7 @@
               eventName: "herosection_portfolio_primary",
               openInNewTab: false,
             }}
+            iconName="arrow-down"
             variant="glacial"
           />
           <PrimaryButton

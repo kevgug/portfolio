@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
   const icons = {
     "arrow-down": {
-      box: 24,
-      svg: `<defs></defs><line x1="12" y1="0.75" x2="12" y2="23.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="1.5 12.75 12 23.25 22.5 12.75" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
+      box: 14,
+      svg: `<g id="line-arrow-down-large-1--arrow-down-keyboard-large-head"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m6.99707 0.5 0 13" stroke-width="1.75"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m1 7.5 6 6 6 -6" stroke-width="1.75"></path></g>`,
     },
     "chevron-down": {
       box: 24,
