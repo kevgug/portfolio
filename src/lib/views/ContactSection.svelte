@@ -246,6 +246,22 @@
     probe.remove();
   }
 
+  /* Safari on iOS grows and shrinks window.innerHeight as its bottom bar
+     collapses and returns on scroll, so sizing the art off it would resize the
+     portrait — and the loupe with it — mid-scroll. The large-viewport unit is
+     defined against the bar-hidden layout and holds still through that, so the
+     height comes off a probe measured in lvh instead. Fixed-positioned and zero
+     width, so a full-viewport-tall box cannot extend the page's own scroll. */
+  function viewportHeight() {
+    const probe = document.createElement("div");
+    probe.style.cssText =
+      "position:fixed;top:0;left:0;width:0;height:100lvh;visibility:hidden;pointer-events:none";
+    document.body.appendChild(probe);
+    const h = probe.getBoundingClientRect().height;
+    probe.remove();
+    return h || window.innerHeight; // browsers predating lvh
+  }
+
   /* Measured off the wrapper rather than 100vw, which on desktop includes the
      scrollbar and would push the art wider than the space it actually has.
      Floored so subpixel rounding cannot spill into a horizontal scrollbar. */
@@ -253,7 +269,7 @@
     if (!el || !box) return;
     if (!advance) measureAdvance();
     const byWidth = box.getBoundingClientRect().width / COLS / advance;
-    const byHeight = (window.innerHeight * MAX_VH) / ROWS;
+    const byHeight = (viewportHeight() * MAX_VH) / ROWS;
     const size = Math.floor(Math.min(byWidth, byHeight) * 100) / 100;
     sizeCss = `${size}px`;
     radius = Math.round(size * RADIUS_EM);
