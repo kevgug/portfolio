@@ -165,8 +165,8 @@ Kevin Gugelmann. Building good tech.
 ## Highlights
 
 - Product Owner at Revolut, working on travel products.
-- Built JPMorganChase's AI Figma plugin builder a year before Figma.
 - Won 1st place at both the UChicago designathon and hackathon.
+- Built JPMorganChase's AI Figma plugin builder a year before Figma.
 
 ## Projects
 
