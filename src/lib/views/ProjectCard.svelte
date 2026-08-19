@@ -25,8 +25,8 @@
   }
   // Border color is 10% lighter than bg color
   const borderColor = tinycolor(bgColor).lighten(5).toHexString();
-  // Image hairline: white at 4% flattened onto the card bg, so it stays opaque
-  const imgBorderColor = tinycolor.mix(bgColor, "#ffffff", 4).toHexString();
+  // Image hairline: white at 6% flattened onto the card bg, so it stays opaque
+  const imgBorderColor = tinycolor.mix(bgColor, "#ffffff", 6).toHexString();
   // Fades to its own colour at zero alpha, not to the card bg. Hover dims the
   // image wrapper with a brightness filter, and the hairline sits inside that
   // filter, so a bg-coloured hairline would darken into a visible ring instead

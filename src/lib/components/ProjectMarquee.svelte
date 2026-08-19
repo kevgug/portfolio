@@ -12,9 +12,9 @@
     reliableScrollToElement,
   } from "$lib/util/reliableScroll";
 
-  // Image hairline: white at 4% flattened onto the page bg, so it stays opaque
+  // Image hairline: white at 6% flattened onto the page bg, so it stays opaque
   const imgBorderColor = tinycolor
-    .mix(tailwindTheme.colors.background, "#ffffff", 4)
+    .mix(tailwindTheme.colors.background, "#ffffff", 6)
     .toHexString();
   // Fades to its own colour at zero alpha rather than to the page bg, matching
   // the project card: holding the hue and animating only alpha keeps Safari
