@@ -70,6 +70,7 @@ export function createMarquee(options: MarqueeOptions): Marquee {
 
   // Drag bookkeeping
   let activePointerId: number | null = null;
+  let activePointerIsMouse = false;
   let lastPointerX = 0;
   let lastPointerAt = 0;
   let travelled = 0; // absolute px moved in the current gesture
@@ -196,19 +197,27 @@ export function createMarquee(options: MarqueeOptions): Marquee {
     if (period <= 0 || activePointerId !== null) return;
 
     activePointerId = event.pointerId;
+    activePointerIsMouse = event.pointerType === "mouse";
     beginDrag(event.clientX, event.timeStamp);
-
-    // Only capture the mouse: for touch the browser already implicitly captures
-    // the pointer, and capturing ourselves would fight `touch-action: pan-y`
-    // when the gesture turns out to be a vertical page scroll.
-    if (event.pointerType === "mouse") {
-      viewport?.setPointerCapture?.(event.pointerId);
-    }
   };
 
   const onPointerMove = (event: PointerEvent) => {
     if (!isDragging || event.pointerId !== activePointerId) return;
     moveDrag(event.clientX, event.timeStamp);
+
+    /* Capture the mouse only once the gesture is unmistakably a drag. A
+       captured pointer retargets the click to the viewport, so capturing on
+       press would mean an item could never be clicked at all. Touch is left
+       alone: the browser captures it implicitly, and capturing ourselves would
+       fight `touch-action: pan-y` when the gesture turns out to be a vertical
+       page scroll. */
+    if (
+      activePointerIsMouse &&
+      travelled > DRAG_SLOP_PX &&
+      !viewport?.hasPointerCapture?.(event.pointerId)
+    ) {
+      viewport?.setPointerCapture?.(event.pointerId);
+    }
   };
 
   const onPointerEnd = (event: PointerEvent) => {
@@ -340,6 +349,12 @@ export function createMarquee(options: MarqueeOptions): Marquee {
     viewport.addEventListener("pointerenter", onPointerEnter);
     viewport.addEventListener("pointerleave", onPointerLeave);
 
+    /* A press that slips off the strip before it counts as a drag never gets
+       captured, so its release lands on the page rather than the viewport.
+       Without this the strip would stay stuck in the dragging state. */
+    window.addEventListener("pointerup", onPointerEnd);
+    window.addEventListener("pointercancel", onPointerEnd);
+
     // A drag that ends on a link would otherwise navigate on release.
     const onClick = (event: MouseEvent) => {
       if (!suppressNextClick) return;
@@ -421,6 +436,8 @@ export function createMarquee(options: MarqueeOptions): Marquee {
       viewport?.removeEventListener("wheel", onWheel);
       viewport?.removeEventListener("pointerenter", onPointerEnter);
       viewport?.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("pointerup", onPointerEnd);
+      window.removeEventListener("pointercancel", onPointerEnd);
       if (suppressClickAfterDrag) {
         viewport?.removeEventListener("click", onClick, true);
       }

@@ -589,12 +589,14 @@
     <!-- Project marquee -->
     <div class="-mx-5 md:-mx-[2.5rem] xl:-mx-[5rem] relative">
       <!-- Gradient masks -->
+      <!-- Reach past the strip's own box: a hovered image grows a few px beyond
+           it, and the fade has to cover that too. -->
       <div
-        class="absolute top-0 bottom-0 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none
+        class="absolute -top-2 -bottom-2 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none
                left-0 w-24"
       />
       <div
-        class="absolute top-0 bottom-0 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none
+        class="absolute -top-2 -bottom-2 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none
                right-0 w-24"
       />
 
