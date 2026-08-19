@@ -31,7 +31,27 @@
      Anchored on the mouth — the generator in .context/stencil/unicode_art.py
      prints MSG_ROW and MSG_CENTER as [anchor]. Each message is centred on that
      column, so they need not be the same length. */
-  const MESSAGES = ["Stay curious", "That's the spirit"];
+  /* Widest entry is 17 characters, which centred on column 30 spans 22-39 —
+     inside row 33's own width. A longer one would pad the row out past the rest
+     of the art and widen the whole block. */
+  const MESSAGES = [
+    "Stay curious",
+    "That's the spirit",
+    "Thank you...",
+    "... for visiting",
+    "Thanks again",
+    "Insistent, huh?",
+    "I'm leaving",
+    "Goodbye",
+    "I'm going in...",
+    "3 Mississippi",
+    "2 Mississippi",
+    "1 Mississippi",
+    "0 Mississippi",
+    "-1 Mississippi",
+    "Got you there",
+    "Cycling to i=0", // and the modulo below does exactly that
+  ];
   const MSG_ROW = 33;
   const MSG_CENTER = 30;
   const SWAP_MS = 1100; // scramble before a character settles into its new value
