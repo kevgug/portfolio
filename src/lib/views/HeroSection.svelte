@@ -8,15 +8,60 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import ProjectMarquee from "$lib/components/ProjectMarquee.svelte";
+  import { createMarquee } from "$lib/util/marquee";
   import { gsap } from "gsap";
   import { projects } from "$lib/projects";
   import { layoutReady } from "$lib/stores/layoutReady";
 
   // Assets
+  import revolutLogo from "$lib/images/logos/revolut.svg";
+  import mdlLogo from "$lib/images/logos/mdl.svg";
   import jpmcLogo from "$lib/images/logos/jpmc-white.svg";
   import freestyleLogo from "$lib/images/logos/freestyle.svg";
+  import gridlinkLogo from "$lib/images/logos/gridlink.svg";
   import uchicagoLogo from "$lib/images/logos/uchicago.svg";
-  import ycLogo from "$lib/images/logos/y-combinator.svg";
+
+  const logoImgClass =
+    "h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300";
+
+  const companyLogos = [
+    {
+      href: "https://www.revolut.com",
+      src: revolutLogo,
+      alt: "Revolut logo",
+      class: "h-[1.15rem]",
+    },
+    {
+      href: "https://mdl.uchicago.edu",
+      src: mdlLogo,
+      alt: "Multilingualism & Decision-Making Lab logo",
+      class: "h-6",
+    },
+    {
+      href: "https://jpmorganchase.com",
+      src: jpmcLogo,
+      alt: "JPMorganChase logo",
+      class: "h-6",
+    },
+    {
+      href: "https://www.freestyle.sh",
+      src: freestyleLogo,
+      alt: "Freestyle logo",
+      class: "h-6 pl-[0.05rem] pr-[0.15rem]",
+    },
+    {
+      href: "https://gridlink.co",
+      src: gridlinkLogo,
+      alt: "GridLink logo",
+      class: "h-6",
+    },
+    {
+      href: "https://www.uchicago.edu",
+      src: uchicagoLogo,
+      alt: "University of Chicago logo",
+      class: "h-6 ml-[0.1rem]",
+    },
+  ];
 
   // Calculations
   let screenWidth = 0;
@@ -32,6 +77,24 @@
   let bottomSection: HTMLElement;
   let companyLogosElement: HTMLElement;
   let marqueeWrapperElement: HTMLElement;
+  let logoTickerViewport: HTMLElement;
+  let logoTicker: HTMLElement;
+
+  /* Same engine as the project marquee below it, so a reader who has learned
+     that one strip can be pushed along finds the other behaves the same.
+
+     Each logo is followed by its divider, hence two children per logo. Speed is
+     held constant rather than derived from a loop duration: the set's width
+     changes with the breakpoint, and a fixed duration would make it drift
+     faster on wider screens. Clicks are swallowed after a drag because, unlike
+     the project cards, these are links. */
+  const LOGO_TICKER_SPEED = 20; // px per second
+  const logoMarquee = createMarquee({
+    itemsPerCopy: companyLogos.length * 2,
+    pixelsPerSecond: LOGO_TICKER_SPEED,
+    suppressClickAfterDrag: true,
+  });
+  const { copyCount: logoCopyCount, dragging: logoDragging } = logoMarquee;
 
   // Determine if we should use Zeigarnik effect based on screen height
   // Default to true to prevent layout shift (most screens are <= 1080px)
@@ -88,7 +151,7 @@
   const oldTitleLine1 = "Hi, I'm Kevin.";
   const oldTitleLine2 = "Welcome to my site.";
   const newTitleLine1 = "Kevin Gugelmann.";
-  const newTitleLine2 = "AI-native designer.";
+  const newTitleLine2 = "Building good tech.";
   const newTitleText = `${newTitleLine1} ${newTitleLine2}`;
 
   let oldTitleElement: HTMLElement;
@@ -145,7 +208,9 @@
     // Calculations
     calculateSeparatorDistance();
     checkSpaceForZeigarnik();
-    
+
+    const stopLogoMarquee = logoMarquee.start(logoTickerViewport, logoTicker);
+
     // Mark layout as ready after calculations are complete
     layoutReady.set(true);
 
@@ -267,6 +332,7 @@
     // Cleanup function
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      stopLogoMarquee();
     };
   });
 </script>
@@ -335,13 +401,13 @@
                 {/each}
               </span>
               <span class="min-[315px]:hidden">
-                {#each splitChars("AI-native") as ch}
+                {#each splitChars("Building") as ch}
                   <span class="char-mask"
                     ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
                   >
                 {/each}
                 <br />
-                {#each splitChars("designer.") as ch}
+                {#each splitChars("good tech.") as ch}
                   <span class="char-mask"
                     ><span class="char">{ch === " " ? "\u00A0" : ch}</span></span
                   >
@@ -406,37 +472,40 @@
         </h1>
         <ul>
           <li>
-            Built an AI tool at
-            <a href="https://jpmorganchase.com">JPMorganChase</a> saving designers 300+ hours per year.
+            Product Owner at <a href="https://www.revolut.com">Revolut</a>,
+            working on travel products.
+          </li>
+          <!-- Ordered shortest to longest so the block reads as a wedge -->
+          <li>
+            Won 1st place at both the designathon and hackathon at <a
+              href="https://www.uchicago.edu">UChicago</a
+            >.
           </li>
           <li>
-            Designed and shipped three full-stack websites at
-            <a href="https://www.freestyle.sh">Freestyle (YC S24)</a>.
-          </li>
-          <li>
-            Won 1st place at both the <a
-            href="https://www.uchicago.edu">UChicago</a
-            > designathon and hackathon.
+            Built an AI Figma plugin builder for <a
+              href="https://jpmorganchase.com">JPMorgan</a
+            > a year before Figma launched theirs.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
           <PrimaryButton
             linkButtonContent={{
-              label: "View portfolio",
+              label: "View work",
               destination: scrollToFirstProject,
               mediaType: "none",
               eventName: "herosection_portfolio_primary",
               openInNewTab: false,
             }}
+            iconName="arrow-down"
             variant="glacial"
           />
           <PrimaryButton
             linkButtonContent={{
-              label: "Connect on LinkedIn",
-              destination: "https://linkedin.com/in/kevingugelmann",
-              mediaType: "none",
-              eventName: "herosection_linkedin_secondary",
-              openInNewTab: true,
+              label: "Read essays",
+              destination: "/essays",
+              mediaType: "read",
+              eventName: "herosection_essays_secondary",
+              openInNewTab: false,
             }}
           />
         </div>
@@ -455,89 +524,80 @@
     <!-- Company logos -->
     <div
       bind:this={companyLogosElement}
-      class="w-full flex items-center justify-center gap-2.5 sm:gap-6 md:gap-8 mb-8 md:mb-12"
+      class="w-full mb-8 md:mb-12"
       style="opacity: 0; transform: translateY(30px) scale(0.8); filter: blur(8px);"
     >
-      <a
-        href="https://jpmorganchase.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="h-6"
-      >
-        <img
-          src={jpmcLogo}
-          alt="JPMorganChase logo"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-        />
-      </a>
-      <div class="w-px h-4 bg-white/[0.14]" />
-      <div
-        class="flex items-center gap-1 sm:gap-1.5 pl-[0.05rem] pr-[0.15rem] h-6"
-      >
-        <a
-          href="https://www.freestyle.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-full"
-        >
-          <img
-            src={freestyleLogo}
-            alt="Freestyle logo"
-            class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-          />
-        </a>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="opacity-40"
-        >
-          <path
-            d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5"
-            stroke="white"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          />
-        </svg>
-        <a
-          href="https://www.ycombinator.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="h-full"
-        >
-          <img
-            src={ycLogo}
-            alt="Y Combinator logo"
-            class="h-full w-auto ml-0.5 object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
-          />
-        </a>
+      <!-- XL+ : the full set fits at its natural 1076px, so keep it centered and still -->
+      <div class="hidden xl:flex items-center justify-center gap-8">
+        {#each companyLogos as logo, i}
+          <a
+            href={logo.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={logo.class}
+          >
+            <img src={logo.src} alt={logo.alt} class={logoImgClass} />
+          </a>
+          {#if i < companyLogos.length - 1}
+            <div class="w-px h-4 bg-white/[0.14]" />
+          {/if}
+        {/each}
       </div>
-      <div class="w-px h-4 bg-white/[0.14]" />
-      <a
-        href="https://www.uchicago.edu"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="h-6 ml-[0.1rem]"
+
+      <!-- Below XL : too wide to fit without squeezing, so it slowly tickers instead -->
+      <div
+        bind:this={logoTickerViewport}
+        class="xl:hidden relative overflow-hidden -mx-5 md:-mx-[2.5rem] py-1 logo-viewport"
+        class:dragging={$logoDragging}
+        on:pointerdown={logoMarquee.onPointerDown}
+        on:pointermove={logoMarquee.onPointerMove}
+        on:pointerup={logoMarquee.onPointerEnd}
+        on:pointercancel={logoMarquee.onPointerEnd}
+        on:dragstart|preventDefault
       >
-        <img
-          src={uchicagoLogo}
-          alt="University of Chicago logo"
-          class="h-full w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
+        <div
+          bind:this={logoTicker}
+          class="flex items-center w-max gap-8 logo-track"
+        >
+          <!-- Repeated so a copy is always in place as the one before it scrolls
+               out, however far the reader pushes the strip -->
+          {#each Array($logoCopyCount) as _, copy}
+            {#each companyLogos as logo}
+              <a
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="{logo.class} shrink-0"
+                aria-hidden={copy > 0 ? "true" : undefined}
+                tabindex={copy > 0 ? -1 : undefined}
+              >
+                <img src={logo.src} alt={logo.alt} class={logoImgClass} />
+              </a>
+              <div class="w-px h-4 shrink-0 bg-white/[0.14]" />
+            {/each}
+          {/each}
+        </div>
+        <!-- Gradient masks -->
+        <div
+          class="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none"
         />
-      </a>
+        <div
+          class="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"
+        />
+      </div>
     </div>
 
     <!-- Project marquee -->
     <div class="-mx-5 md:-mx-[2.5rem] xl:-mx-[5rem] relative">
       <!-- Gradient masks -->
+      <!-- Reach past the strip's own box: a hovered image grows a few px beyond
+           it, and the fade has to cover that too. -->
       <div
-        class="absolute top-0 bottom-0 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none
+        class="absolute -top-2 -bottom-2 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none
                left-0 w-24"
       />
       <div
-        class="absolute top-0 bottom-0 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none
+        class="absolute -top-2 -bottom-2 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none
                right-0 w-24"
       />
 
@@ -580,6 +640,28 @@
 </div>
 
 <style lang="postcss">
+  /* Vertical swipes still belong to the page; only the horizontal axis is ours */
+  .logo-viewport {
+    touch-action: pan-y;
+    cursor: grab;
+  }
+
+  .logo-viewport.dragging {
+    cursor: grabbing;
+  }
+
+  .logo-track {
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* The logos are links, so unlike the project marquee they stay hit-testable;
+     only the browser's own image drag is suppressed. */
+  .logo-track :global(img) {
+    -webkit-user-drag: none;
+  }
+
   h1 {
     position: relative;
     font-size: 1.75rem;

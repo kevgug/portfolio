@@ -1,12 +1,15 @@
 import type { LinkButtonContent } from "$lib/util/linkButtonContent";
 
 // Assets
+import mdlSrc from "$lib/images/projects/mdl.jpg";
+import mdlAvif from "$lib/images/projects/mdl.avif";
+import mdlWebp from "$lib/images/projects/mdl.webp";
 import jpmcLogoSrc from "$lib/images/projects/jpmc-logo.jpg";
 import jpmcLogoAvif from "$lib/images/projects/jpmc-logo.avif";
 import jpmcLogoWebp from "$lib/images/projects/jpmc-logo.webp";
-import freestyleLogoSrc from "$lib/images/projects/freestyle-logo.jpg";
-import freestyleLogoAvif from "$lib/images/projects/freestyle-logo.avif";
-import freestyleLogoWebp from "$lib/images/projects/freestyle-logo.webp";
+import freestyleSrc from "$lib/images/projects/freestyle-landingpage.jpg";
+import freestyleAvif from "$lib/images/projects/freestyle-landingpage.avif";
+import freestyleWebp from "$lib/images/projects/freestyle-landingpage.webp";
 import gridLinkSrc from "$lib/images/projects/gridlink-landingpage.jpg";
 import gridLinkAvif from "$lib/images/projects/gridlink-landingpage.avif";
 import gridLinkWebp from "$lib/images/projects/gridlink-landingpage.webp";
@@ -57,6 +60,37 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "mdl",
+    year: 2026,
+    name: "UChicago Multilingualism & Decision-Making Lab",
+    outputMedium: "Behavioral Research Lab",
+    role: "Designer & Engineer",
+    imgOptions: {
+      src: mdlSrc,
+      avifSrc: mdlAvif,
+      webpSrc: mdlWebp,
+      alt: "The University of Chicago Multilingualism & Decision-Making Lab homepage",
+    },
+    description:
+      "Ran brand workshops with the lab, then designed its logomark and website. Built a CMS so staff publish papers and news without waiting on a developer, wrote a service that turns submitted PDFs into readable pages instead of downloads, and self-hosted the analytics so the team can see how people read the work without sending visitors to a third-party tracker.",
+    builtWith: [
+      "Astro",
+      "React",
+      "TypeScript",
+      "TailwindCSS",
+      "Supabase",
+      "Python",
+    ],
+    linkButtonContent: {
+      label: "View Website",
+      destination: "https://mdl.uchicago.edu",
+      mediaType: "webpage",
+      eventName: "projects_ext_mdl_landingpage",
+      openInNewTab: true,
+    },
+    bgColor: "#1E1616",
+  },
+  {
     id: "jpmorganchase",
     year: 2025,
     name: "JPMorganChase",
@@ -69,7 +103,7 @@ export const projects: Project[] = [
       alt: "JPMorganChase logo in gold",
     },
     description:
-      "Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Built AI-native tool enabling designers to build and collaborate on Figma plugins via natural language, without touching code or git, supporting 20+ designers. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.",
+      "Delivered 500x performance improvements to publish a Figma plugin worldwide, enabling 200+ annual hours saved in design. Engineered a data visualization generator converting CSVs to on-brand charts in 1 second, saving 100+ hours annually. Internally launched an AI Figma plugin builder a year before Figma, letting 20+ designers build and collaborate on plugins in natural language without touching code or git. Selected as 1 of 5 to present my tools to 460+ JPMC tech interns globally.",
     builtWith: ["Figma", "TypeScript", "React", "TailwindCSS", "Bash Scripts"],
     linkButtonContent: {
       label: "View Website",
@@ -87,10 +121,10 @@ export const projects: Project[] = [
     outputMedium: "AI Infrastructure",
     role: "Software Engineer",
     imgOptions: {
-      src: freestyleLogoSrc,
-      avifSrc: freestyleLogoAvif,
-      webpSrc: freestyleLogoWebp,
-      alt: "Freestyle logo",
+      src: freestyleSrc,
+      avifSrc: freestyleAvif,
+      webpSrc: freestyleWebp,
+      alt: "A screenshot of the Freestyle landing page",
     },
     description:
       "Designed and engineered end-to-end company website and essays with data-driven information architecture, doubling monthly traffic to 2k+ visitors across 80 countries through landing page redesign, clearer messaging, and CRM integration. Built JavaScript runtime functionality in Rust on top of the V8 engine, helping secure multi-million funding.",
@@ -126,7 +160,7 @@ export const projects: Project[] = [
       eventName: "projects_ext_gridlink_landingpage",
       openInNewTab: true,
     },
-    bgColor: "#1e2521",
+    bgColor: "#141615",
   },
   {
     id: "arcbrowser",

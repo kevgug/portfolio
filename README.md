@@ -10,9 +10,9 @@ I designed and built this portfolio website to showcase some of my design & deve
 
 ## About Me
 
-Rising Junior at UChicago, blending imagination and engineering into human-centric software. Some of my work includes redesigning the TFDi's landing page (2x site traffic in one month) and winning the UChicago designathon (Most Well-Designed App, 2022).
+Product Owner at Revolut, working on travel products. Studied Economics and Cognitive Science at the University of Chicago.
 
-I provide end-to-end software production, from user research and design to multi-platform development and marketing.
+Recent work includes the UChicago Multilingualism & Decision-Making Lab site, where I was the designer and engineer.
 
 [![Contact me](https://img.shields.io/badge/Reach_out-Email-a9f4e9)](mailto:kevin@kevingugelmann.com)
 [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-0b66c2)](https://www.linkedin.com/in/kevingugelmann/)

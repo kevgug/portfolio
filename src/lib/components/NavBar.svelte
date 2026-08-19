@@ -127,11 +127,6 @@
       class="flex flex-row justify-between items-center mx-auto w-full max-w-screen-2xl px-5 md:px-[2.5rem] xl:px-[5rem] h-16 md:h-20"
     >
       <!-- Left side -->
-      <div class="flex flex-row items-center space-x-2 md:space-x-3">
-        <HamburgerMenu bind:open={menuOpen} />
-      </div>
-
-      <!-- Right side -->
       <div class="flex items-center">
         <div
           class="relative inline-flex items-center gap-3 md:gap-4"
@@ -166,6 +161,11 @@
             }`}
           />
         </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="flex flex-row items-center space-x-2 md:space-x-3">
+        <HamburgerMenu bind:open={menuOpen} />
       </div>
     </div>
   </nav>

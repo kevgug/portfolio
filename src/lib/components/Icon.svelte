@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
   const icons = {
     "arrow-down": {
-      box: 24,
-      svg: `<defs></defs><line x1="12" y1="0.75" x2="12" y2="23.25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></line><polyline points="1.5 12.75 12 23.25 22.5 12.75" fill-rule="evenodd" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5px"></polyline>`,
+      box: 14,
+      svg: `<g id="line-arrow-down-large-1--arrow-down-keyboard-large-head"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m6.99707 0.5 0 13" stroke-width="1.75"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m1 7.5 6 6 6 -6" stroke-width="1.75"></path></g>`,
     },
     "chevron-down": {
       box: 24,
@@ -11,6 +11,10 @@
     "chevron-up": {
       box: 24,
       svg: `<polyline points="6 15 12 9 18 15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline>`,
+    },
+    "open-book": {
+      box: 14,
+      svg: `<g id="open-book--content-books-book-open"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M12.0018 1.06412C8.66728 1.49908 7 4 7 4v9s1.66728 -2.5009 5.0018 -2.9359C12.5495 9.99268 13 9.55229 13 9V2c0 -0.55228 -0.4505 -1.007321 -0.9982 -0.93588Z" stroke-width="1.75"></path><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M1.99817 1.06412C5.33272 1.49908 7 4 7 4v9s-1.66728 -2.5009 -5.00183 -2.9359C1.45052 9.99268 1 9.55229 1 9V2c0 -0.55228 0.45052 -1.007321 0.99817 -0.93588Z" stroke-width="1.75"></path></g>`,
     },
     "network-pin": {
       box: 24,
@@ -67,6 +71,10 @@
     "arrow-left": {
       box: 24,
       svg: `<path d="M23.25 12 0.75 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M11.25 1.5 0.75 12l10.5 10.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>`,
+    },
+    "arrow-right": {
+      box: 14,
+      svg: `<g id="tailless-line-arrow-right-1--arrow-right-keyboard"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m4 0.5 6.1464 6.14645c0.1953 0.19526 0.1953 0.51184 0 0.7071L4 13.5" stroke-width="1.75"></path></g>`,
     },
     "arrow-up": {
       box: 24,

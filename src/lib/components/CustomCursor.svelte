@@ -11,6 +11,10 @@
   let targetPosition: Position = { x: -1, y: -1 };
   let isPointer = false;
   let isText = false;
+  // Elements carrying data-cursor-field="<radius px>" morph the cursor into a
+  // circle of that radius, so it reads as the reach of their hover effect.
+  let isField = false;
+  let fieldSize = 0;
   let mounted = false;
   let isMobile = false;
   let isOutsideWindow = false;
@@ -145,12 +149,20 @@
                             target.tagName === 'LI';
       const isInputElement = target.tagName === 'INPUT' || 
                             target.tagName === 'TEXTAREA';
-      const isSelectableText = !isClickable && 
+      // An element the page has made unselectable is not selectable text,
+      // whatever its tag — otherwise a <pre> that opts out still gets an I-beam.
+      const isSelectable = getComputedStyle(target).userSelect !== 'none';
+      const isSelectableText = !isClickable &&
                               (isTextElement || isInputElement)
-                              && hasTextContent;
-      
+                              && hasTextContent
+                              && isSelectable;
+
+      const field = target.closest('[data-cursor-field]') as HTMLElement | null;
+      isField = field !== null;
+      fieldSize = field ? Number(field.dataset.cursorField) * 2 : 0;
+
       isPointer = isClickable;
-      isText = isSelectableText && !isClickable;
+      isText = isSelectableText && !isClickable && !isField;
     };
 
     // Track mouse position
@@ -289,12 +301,12 @@
     style="
       left: {cursorPosition.x}px;
       top: {cursorPosition.y}px;
-      width: {isPointer ? '40px' : isText ? '2px' : '12px'};
-      height: {isPointer ? '40px' : isText ? '22px' : '12px'};
-      opacity: {!hasInteracted || isOutsideWindow ? '0' : isPointer ? '0.3' : '1'};
+      width: {isField ? fieldSize + 'px' : isPointer ? '40px' : isText ? '2px' : '12px'};
+      height: {isField ? fieldSize + 'px' : isPointer ? '40px' : isText ? '22px' : '12px'};
+      opacity: {!hasInteracted || isOutsideWindow ? '0' : isField ? '0.5' : isPointer ? '0.3' : '1'};
       border-radius: {isText ? '2px' : '50%'};
-      background-color: {isText ? 'black' : 'white'};
-      border: {isText ? '1px solid white' : '1px solid none'};
+      background-color: {isField ? 'transparent' : isText ? 'black' : 'white'};
+      border: {isField || isText ? '1px solid white' : '1px solid none'};
       mix-blend-mode: {isText ? 'normal' : 'difference'};
       box-shadow: {isText ? '0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)' : '0 2px 8px rgba(0, 0, 0, 0), 0 0 0 1px rgba(255, 255, 255, 0)'};
     "

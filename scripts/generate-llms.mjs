@@ -132,8 +132,8 @@ const formatDate = (date) => {
 };
 
 // ===== HEADER BLOCK =====
-const headerBlock = `Kevin Gugelmann - AI-native Designer
-Design engineer building cognitively sound AI software.
+const headerBlock = `Kevin Gugelmann - Building good tech
+Product Owner at Revolut working on travel products. Technology is neutral; let's use it for net good.
 
 Canonical: ${siteUrl}
 Call me: https://cal.com/kevgug/intro
@@ -160,13 +160,13 @@ Details:
 // ===== HOME SECTION =====
 const homeSection = `# Home — ${siteUrl}/
 
-Kevin Gugelmann. AI-native designer.
+Kevin Gugelmann. Building good tech.
 
 ## Highlights
 
-- Built an AI tool at JPMorganChase saving designers 300+ hours per year.
-- Designed and shipped three full-stack websites at Freestyle (YC S24).
+- Product Owner at Revolut, working on travel products.
 - Won 1st place at both the UChicago designathon and hackathon.
+- Built JPMorganChase's AI Figma plugin builder a year before Figma.
 
 ## Projects
 
@@ -174,11 +174,10 @@ ${projectDetails}
 
 ## Contact
 
-Cognitively sound design. For the AI age.
+Technology is neutral. Let's use it for net good.
 
-- Economics and Cognitive Science at the University of Chicago.
-- Built an AI tool at JPMorganChase that generates on-brand Figma plugins.
-- Rewrote copy and doubled site traffic for a $4.5B trade finance initiative in 3 weeks.
+- Built AI tooling at JPMorganChase and full-stack products at Freestyle (YC S24).
+- Studied Economics and Cognitive Science at the University of Chicago.
 
 Call me: https://cal.com/kevgug/intro
 Email: kevin@kevingugelmann.com
