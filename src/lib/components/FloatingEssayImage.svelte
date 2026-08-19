@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gsap } from "gsap";
-  import { onMount, onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
 
   export let thumbnailSrc: string | null = null;
   export let essaySlug: string | null = null;
@@ -23,10 +23,14 @@
   $: cardOffsetX = -140; // Center the card horizontally on cursor
   $: cardOffsetY = isInTopHalf ? 60 : -(floatingImageHeight + 60); // Below cursor if top half, above if bottom half
 
-  onMount(() => {
-    // Hide it off-screen initially to prevent any flash at (0,0)
+  /* The card only enters the DOM once there is something to show, so there is
+     no element to park off-screen at mount time. Park it the moment it appears
+     instead, before the positioning block below ever runs. */
+  let parkedOffScreen = false;
+  $: if (containerElement && !parkedOffScreen) {
+    parkedOffScreen = true;
     gsap.set(containerElement, { x: -1000, y: -1000, opacity: 0 });
-  });
+  }
 
   // Main reactive logic for animations and positioning
   $: {
@@ -88,7 +92,9 @@
   }
 
   onDestroy(() => {
-    gsap.killTweensOf(containerElement);
+    if (containerElement) {
+      gsap.killTweensOf(containerElement);
+    }
   });
 </script>
 

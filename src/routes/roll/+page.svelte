@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { dev } from "$app/environment";
   import { onMount } from "svelte";
   import { tick } from "svelte";
   import { gsap } from "gsap";
@@ -37,7 +38,11 @@
     // Reserved for future timers; keep cleanup centralized.
   }
 
+  /* Autoplay on this page fails in enough browser-specific ways that the trace
+     is worth keeping, but only where someone is watching it. */
   function logRoll(label: string, extra: Record<string, unknown> = {}) {
+    if (!dev) return;
+
     const nowMs =
       typeof performance !== "undefined" ? Math.round(performance.now()) : 0;
     const media = videoEl
