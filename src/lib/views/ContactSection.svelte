@@ -244,10 +244,9 @@
   });
 </script>
 
-<!-- Stacked on small screens; from lg the headline has room to sit beside the
-     portrait, so the two go side by side. -->
-<div id="contact" class="lg:flex lg:items-center lg:gap-12 xl:gap-20">
-  <div class="lg:min-w-0 lg:flex-1">
+<!-- Always stacked: the portrait closes the section, below the CTAs. -->
+<div id="contact">
+  <div>
     <h1 class="text-glacial-blue">
       <!-- Each line breaks at the width where it stops fitting: 374px, 409px -->
       <span class="flex flex-col gap-3.5 min-[410px]:gap-0">
@@ -258,34 +257,36 @@
       </span>
     </h1>
     <!-- Same card as /essays, so the two listings read as one thing -->
-    <div class="my-9 md:my-11 lg:my-12 space-y-3 md:space-y-4">
-      {#each recentEssays as essay}
-        <a
-          class="block group"
-          href={`/essays/${essay.slug}`}
-          data-sa-link-event="ctasection_recent_essay"
-        >
-          <div
-            class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+    <div class="my-9 md:my-11 lg:my-12">
+      <div class="space-y-3 md:space-y-4">
+        {#each recentEssays as essay}
+          <a
+            class="block group"
+            href={`/essays/${essay.slug}`}
+            data-sa-link-event="ctasection_recent_essay"
           >
-            <div class="flex-1 pr-0 md:pr-6">
-              <h2
-                class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
-              >
-                {essay.title}
-              </h2>
+            <div
+              class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+            >
+              <div class="flex-1 pr-0 md:pr-6">
+                <h2
+                  class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+                >
+                  {essay.title}
+                </h2>
+              </div>
+              <div class="flex items-center gap-2 mt-1 md:mt-0.5">
+                <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
+                  {essay.formattedDate}
+                </p>
+                {#if essay.publish === false}
+                  <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+                {/if}
+              </div>
             </div>
-            <div class="flex items-center gap-2 mt-1 md:mt-0.5">
-              <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
-                {essay.formattedDate}
-              </p>
-              {#if essay.publish === false}
-                <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
-              {/if}
-            </div>
-          </div>
-        </a>
-      {/each}
+          </a>
+        {/each}
+      </div>
     </div>
     <div class="flex items-center gap-2">
       <PrimaryButton
@@ -321,7 +322,7 @@
     on:pointerleave={onLeave}
     on:click={onClick}
     data-cursor-field={RADIUS}
-    class="portrait mt-14 md:mt-16 lg:mt-0 lg:shrink-0"
+    class="portrait mt-14 md:mt-16"
     role="img"
     aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
   >{#each parts as part}{#if part.hi}<span class="reveal">{part.t}</span>{:else}{part.t}{/if}{/each}</pre>
