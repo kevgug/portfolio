@@ -357,12 +357,12 @@
 <div id="contact">
   <div>
     <h1 class="text-glacial-blue">
-      <!-- Each line breaks at the width where it stops fitting: 374px, 409px -->
-      <span class="flex flex-col gap-3.5 min-[410px]:gap-0">
+      <!-- Both lines break below 375px, where the longer of the two stops fitting -->
+      <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
         <span class="hidden min-[375px]:inline">Technology is neutral.</span>
         <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
-        <span class="hidden min-[410px]:inline">Let's use it for net good.</span>
-        <span class="min-[410px]:hidden">Let's use it for<br>net good.</span>
+        <span class="hidden min-[375px]:inline">Let's build good tech.</span>
+        <span class="min-[375px]:hidden">Let's build<br>good tech.</span>
       </span>
     </h1>
     <!-- Same card as /essays, so the two listings read as one thing -->
