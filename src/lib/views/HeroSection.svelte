@@ -482,8 +482,9 @@
             > designathon and hackathon.
           </li>
           <li>
-            Built <a href="https://jpmorganchase.com">JPMorganChase</a>'s AI
-            Figma plugin builder a year before Figma.
+            Built an AI Figma plugin builder for <a
+              href="https://jpmorganchase.com">JPMorganChase</a
+            > a year before Figma did.
           </li>
         </ul>
         <div class="flex items-center gap-2 mt-9 sm:mt-9 xl:mt-10">
