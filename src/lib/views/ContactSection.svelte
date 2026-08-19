@@ -1,5 +1,5 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import PrimaryButton from "$lib/components/PrimaryButton.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import portrait from "$lib/kevin-gugelmann-portrait.txt?raw";
@@ -57,14 +57,39 @@
   const SWAP_MS = 1100; // scramble before a character settles into its new value
   const CHURN_MS = 55; // how often a scrambling character picks a new glyph;
   // re-rolling every frame reads as noise rather than as a mechanism turning over
-  const RADIUS = 44; // px, measured in screen space so the falloff reads round
+  /* Screen-space px, so the falloff reads round. Held as a multiple of
+     font-size rather than a fixed value: the graphic is now sized from the
+     viewport, and a fixed radius would cover half the art on a small screen
+     and a few characters on a large one. Ratio is the 44px the fixed version
+     used at its md font-size, so the feel at that size is unchanged. */
+  const RADIUS_EM = 6.8;
+  let radius = 44; // replaced by fit() on mount, before any pointer event
   const ONSET = 0.35; // per-frame chance an uncovered cell takes a substitute
   const STRIDE = Math.max(...BASE.map((l) => l.length)) + 1;
+  const ROWS = BASE.length;
+  const COLS = STRIDE - 1;
+
+  /* The art is a fixed grid, so its size is entirely a function of font-size:
+     COLS glyph advances wide, and ROWS lines tall at line-height 1. Fill the
+     width, unless doing so would make it taller than MAX_VH of the viewport.
+
+     Rendered before hydration with an assumed 0.6em advance, which is close
+     enough for every monospace in the stack that correcting it later is not a
+     visible jump. fit() then substitutes the real measured advance. */
+  const ASSUMED_ADVANCE = 0.6;
+  const MAX_VH = 0.6;
+  let sizeCss = `min(${(100 / (COLS * ASSUMED_ADVANCE)).toFixed(4)}vw, ${(
+    (100 * MAX_VH) /
+    ROWS
+  ).toFixed(4)}vh)`;
+  let advance = 0; // glyph advance as a fraction of font-size
+  let fitTimeout;
 
   let el;
   // one entry per run of text; only the revealed message run is highlighted
   let parts = [{ t: BASE.join("\n"), hi: false }];
   let pointer = null;
+  let lastClient = null; // last pointer position in client coords
   let raf = 0;
   let cellW = 0;
   let cellH = 0;
@@ -113,19 +138,19 @@
      redrawing avoids. */
   function trackCursor() {
     const next = new Map();
-    const r0 = Math.max(0, Math.floor((pointer.y - RADIUS) / cellH));
-    const r1 = Math.min(BASE.length - 1, Math.ceil((pointer.y + RADIUS) / cellH));
+    const r0 = Math.max(0, Math.floor((pointer.y - radius) / cellH));
+    const r1 = Math.min(BASE.length - 1, Math.ceil((pointer.y + radius) / cellH));
     for (let r = r0; r <= r1; r++) {
       const line = BASE[r];
-      const c0 = Math.max(0, Math.floor((pointer.x - RADIUS) / cellW));
-      const c1 = Math.min(line.length - 1, Math.ceil((pointer.x + RADIUS) / cellW));
+      const c0 = Math.max(0, Math.floor((pointer.x - radius) / cellW));
+      const c1 = Math.min(line.length - 1, Math.ceil((pointer.x + radius) / cellW));
       for (let c = c0; c <= c1; c++) {
         // blanks keep the silhouette's shape; anything else off-alphabet is the
         // hidden message, which stays intact
         if (!ALPHABET.includes(line[c])) continue;
         const dx = (c + 0.5) * cellW - pointer.x;
         const dy = (r + 0.5) * cellH - pointer.y;
-        const intensity = 1 - Math.hypot(dx, dy) / RADIUS;
+        const intensity = 1 - Math.hypot(dx, dy) / radius;
         if (intensity <= 0) continue; // outside: falls out of the map, reverts
 
         const key = r * STRIDE + c;
@@ -172,7 +197,7 @@
     const my = (MSG_ROW + 0.5) * cellH;
     for (let i = 0, first = -1; i < glyphs.length; i++) {
       const dx = (col + i + 0.5) * cellW - pointer.x;
-      if (Math.hypot(dx, my - pointer.y) > RADIUS) continue;
+      if (Math.hypot(dx, my - pointer.y) > radius) continue;
       if (first < 0) first = i;
       from = col + first;
       len = i - first + 1;
@@ -204,6 +229,61 @@
     ];
   }
 
+  /* Measured off a probe at a large size so rounding in the returned width is
+     a negligible fraction of it. Font-independent, so it is only done once. */
+  function measureAdvance() {
+    const probe = document.createElement("span");
+    probe.style.cssText = `position:absolute;left:-9999px;top:0;white-space:pre;font-family:${
+      getComputedStyle(el).fontFamily
+    };font-size:200px`;
+    probe.textContent = "0".repeat(64);
+    document.body.appendChild(probe);
+    advance = probe.getBoundingClientRect().width / 64 / 200;
+    probe.remove();
+  }
+
+  /* Measured off the element rather than 100vw, which on desktop includes the
+     scrollbar and would push the art wider than the space it actually has.
+     Floored so subpixel rounding cannot spill into a horizontal scrollbar. */
+  function fit() {
+    if (!el) return;
+    if (!advance) measureAdvance();
+    const byWidth = el.getBoundingClientRect().width / COLS / advance;
+    const byHeight = (window.innerHeight * MAX_VH) / ROWS;
+    const size = Math.floor(Math.min(byWidth, byHeight) * 100) / 100;
+    sizeCss = `${size}px`;
+    radius = Math.round(size * RADIUS_EM);
+  }
+
+  /* Zoom fires this too, and changes everything the loupe depends on: the art
+     resizes, so the radius and cell size change, and the element moves, so the
+     stored element-local pointer position no longer points at the same place.
+     Repainted here rather than waiting for the next pointermove — otherwise a
+     reader zooming with the cursor held still sees the cursor's own ring resize
+     around a patch of distortion that stayed the size it was. */
+  function onResize() {
+    clearTimeout(fitTimeout);
+    fitTimeout = setTimeout(() => {
+      // Only re-measured if it had been measured already, so a resize does not
+      // switch the hover grid on for a reader who opted out of motion.
+      const wasMeasured = cellW > 0;
+      fit();
+      if (wasMeasured) measure(); // font-size changed, so the cells did too
+      if (pointer && lastClient) {
+        const rect = el.getBoundingClientRect();
+        pointer = { x: lastClient.x - rect.left, y: lastClient.y - rect.top };
+        trackCursor();
+        paint(performance.now());
+      }
+    }, 100);
+  }
+
+  onMount(() => {
+    fit();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  });
+
   function onEnter() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     measure();
@@ -211,6 +291,9 @@
 
   function onMove(e) {
     if (!cellW) return; // reduced motion, or entered before measuring
+    // kept in client coords so the local position can be re-derived against a
+    // new box after a resize or zoom, without waiting for another move
+    lastClient = { x: e.clientX, y: e.clientY };
     const rect = el.getBoundingClientRect();
     pointer = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     // coalesce bursts of pointermove into one redraw per frame
@@ -244,6 +327,7 @@
 
   function onLeave() {
     pointer = null;
+    lastClient = null;
     msgIndex = 0;
     cancelAnimationFrame(raf);
     raf = 0;
@@ -261,6 +345,7 @@
   onDestroy(() => {
     if (raf) cancelAnimationFrame(raf);
     if (swapRaf) cancelAnimationFrame(swapRaf);
+    clearTimeout(fitTimeout);
   });
 </script>
 
@@ -342,8 +427,9 @@
     on:pointermove={onMove}
     on:pointerleave={onLeave}
     on:click={onClick}
-    data-cursor-field={RADIUS}
+    data-cursor-field={radius}
     class="portrait mt-14 md:mt-16"
+    style="font-size: {sizeCss}"
     role="img"
     aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
   >{#each parts as part}{#if part.hi}<span class="reveal">{part.t}</span>{:else}{part.t}{/if}{/each}</pre>
@@ -356,7 +442,7 @@
        Vertical margin comes from the my-* utilities, not from here. */
     font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
       "Liberation Mono", monospace;
-    font-size: 5.5px;
+    /* font-size is set inline: it is derived from the grid and the viewport. */
     line-height: 1;
     white-space: pre;
     color: theme("colors.muted-text-grey");
@@ -370,11 +456,6 @@
     /* The <pre> box would otherwise span the full column, so the hover region
        would extend far past the artwork. */
     width: fit-content;
-  }
-  @media (min-width: 768px) {
-    .portrait {
-      font-size: 6.5px;
-    }
   }
 
   h1 {
