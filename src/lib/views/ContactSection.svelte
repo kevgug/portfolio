@@ -86,6 +86,10 @@
   let fitTimeout;
 
   let el;
+  /* Full-width wrapper around the <pre>, which is only as wide as the art. The
+     available width has to be read off something other than the art itself:
+     the art's own width is a function of the font-size fit() is deriving. */
+  let box;
   // one entry per run of text; only the revealed message run is highlighted
   let parts = [{ t: BASE.join("\n"), hi: false }];
   let pointer = null;
@@ -242,13 +246,13 @@
     probe.remove();
   }
 
-  /* Measured off the element rather than 100vw, which on desktop includes the
+  /* Measured off the wrapper rather than 100vw, which on desktop includes the
      scrollbar and would push the art wider than the space it actually has.
      Floored so subpixel rounding cannot spill into a horizontal scrollbar. */
   function fit() {
-    if (!el) return;
+    if (!el || !box) return;
     if (!advance) measureAdvance();
-    const byWidth = el.getBoundingClientRect().width / COLS / advance;
+    const byWidth = box.getBoundingClientRect().width / COLS / advance;
     const byHeight = (window.innerHeight * MAX_VH) / ROWS;
     const size = Math.floor(Math.min(byWidth, byHeight) * 100) / 100;
     sizeCss = `${size}px`;
@@ -421,18 +425,20 @@
        spot. Making the image focusable would put a stop in the tab order with
        nothing behind it. Screen readers get the aria-label either way. -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <pre
-    bind:this={el}
-    on:pointerenter={onEnter}
-    on:pointermove={onMove}
-    on:pointerleave={onLeave}
-    on:click={onClick}
-    data-cursor-field={radius}
-    class="portrait mt-20 md:mt-24"
-    style="font-size: {sizeCss}"
-    role="img"
-    aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
-  >{#each parts as part}{#if part.hi}<span class="reveal">{part.t}</span>{:else}{part.t}{/if}{/each}</pre>
+  <div bind:this={box} class="mt-20 md:mt-24">
+    <pre
+      bind:this={el}
+      on:pointerenter={onEnter}
+      on:pointermove={onMove}
+      on:pointerleave={onLeave}
+      on:click={onClick}
+      data-cursor-field={radius}
+      class="portrait"
+      style="font-size: {sizeCss}"
+      role="img"
+      aria-label="Portrait of Kevin Gugelmann, drawn in text characters"
+    >{#each parts as part}{#if part.hi}<span class="reveal">{part.t}</span>{:else}{part.t}{/if}{/each}</pre>
+  </div>
 </div>
 
 <style lang="postcss">
@@ -445,6 +451,10 @@
     /* font-size is set inline: it is derived from the grid and the viewport. */
     line-height: 1;
     white-space: pre;
+    /* The box would otherwise span the full column, and the hover region — the
+       loupe cursor, and the pointer tracking behind it — would extend far past
+       the artwork. Shrunk to the grid, so it ends where the art does. */
+    width: fit-content;
     color: theme("colors.muted-text-grey");
     -webkit-user-select: none;
     user-select: none;
@@ -453,9 +463,6 @@
 
   .reveal {
     color: theme("colors.glacial-blue");
-    /* The <pre> box would otherwise span the full column, so the hover region
-       would extend far past the artwork. */
-    width: fit-content;
   }
 
   h1 {
