@@ -44,11 +44,11 @@
     "I'm leaving",
     "Goodbye",
     "I'm going in...",
-    "3 Mississippi",
-    "2 Mississippi",
-    "1 Mississippi",
-    "0 Mississippi",
-    "-1 Mississippi",
+    "Three",
+    "Two",
+    "One",
+    "Zero",
+    "Minus One",
     "Got you there",
     "Cycling to i=0", // and the modulo below does exactly that
   ];
