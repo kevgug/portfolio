@@ -77,7 +77,11 @@
     Essays
   </h1>
   <p class="text-muted-text-grey mt-1 md:mt-1.5">
-    Writing by <span class="text-white">Kevin Gugelmann</span>
+    Writing by <a
+      href="/"
+      class="text-white underline underline-offset-4 decoration-white hover:text-glacial-blue hover:decoration-glacial-blue transition-colors"
+      >Kevin Gugelmann</a
+    >
   </p>
 </section>
 
