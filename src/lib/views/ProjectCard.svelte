@@ -8,6 +8,7 @@
   import type { LinkButtonContent } from "$lib/util/linkButtonContent";
   import { tailwindTheme } from "$lib/tailwindTheme";
   import { getCurrentBreakpoint, BreakpointSizes } from "$lib/util/breakpoints";
+  import { observeWidth } from "$lib/util/observeWidth";
 
   export let year: number;
   export let name: string;
@@ -49,7 +50,26 @@
   let screenWidth = 0;
   let maxRotation = 5;
   let width = 0;
-  let height = 0;
+  let img3dEl: HTMLDivElement | undefined;
+
+  // Measured with `observeWidth` rather than `bind:clientWidth`: an image
+  // measured at zero left the card with no rotation at all (a zero-length scale
+  // domain collapses to its midpoint) and a scale of `(0 + 12) / 0`, which is
+  // `Infinity` and invalidates the whole transform.
+  const setImgWidth = (w: number) => {
+    width = w;
+  };
+  const setScreenWidth = (w: number) => {
+    screenWidth = w;
+  };
+
+  // Last resort for a width that somehow still hasn't arrived by the time the
+  // pointer needs it.
+  const remeasureImg = () => {
+    if (img3dEl && !width) {
+      width = img3dEl.clientWidth;
+    }
+  };
 
   // Function to get maxRotation based on current breakpoint
   const getMaxRotation = (screenWidth: number): number => {
@@ -80,28 +100,44 @@
   let brightnessDuration = maxBrightnessDuration;
   let brightnessDurationChangeTimer: NodeJS.Timeout;
 
+  // A single NaN or Infinity in a custom property invalidates the declaration
+  // that reads it, taking the entire transform with it. Never emit one.
+  const cssNumber = (value: number, fallback: number) =>
+    Number.isFinite(value) ? value : fallback;
+
   $: img3dStyle = `
-  --rotateX: ${rotateX}deg;
-  --rotateY: ${rotateY}deg;
-  --shadowOffsetX: ${shadowOffsetX}px;
-  --shadowOffsetY: ${shadowOffsetY}px;
-  --brightness: ${brightness};
-  --scale: ${scale};
-  --rotateDuration: ${rotateDuration}ms;
-  --brightnessDuration: ${brightnessDuration}ms;
+  --rotateX: ${cssNumber(rotateX, 0)}deg;
+  --rotateY: ${cssNumber(rotateY, 0)}deg;
+  --shadowOffsetX: ${cssNumber(shadowOffsetX, 0)}px;
+  --shadowOffsetY: ${cssNumber(shadowOffsetY, 0)}px;
+  --brightness: ${cssNumber(brightness, 1)};
+  --scale: ${cssNumber(scale, 1)};
+  --rotateDuration: ${cssNumber(rotateDuration, maxRotateDuration)}ms;
+  --brightnessDuration: ${cssNumber(
+    brightnessDuration,
+    maxBrightnessDuration
+  )}ms;
   `;
-  $: scaleX = scaleLinear()
-    .domain([0, height])
-    .range([-maxRotation, maxRotation]);
-  $: scaleY = scaleLinear()
-    .domain([0, width])
-    .range([maxRotation, -maxRotation]);
-  $: scaleBrightness = scaleLinear().domain([0, height]).range([0.55, 0.4]);
+
+  // Domains are the pointer's normalised position within the image, so they stay
+  // valid whether or not the image has been measured.
+  const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
+  $: scaleX = scaleLinear().domain([0, 1]).range([-maxRotation, maxRotation]);
+  $: scaleY = scaleLinear().domain([0, 1]).range([maxRotation, -maxRotation]);
+  const scaleBrightness = scaleLinear().domain([0, 1]).range([0.55, 0.4]);
+
+  // The image grows by a fixed 12px on hover, so the multiplier depends on its
+  // width. Without a width, don't grow at all.
+  const hoverScale = () => {
+    remeasureImg();
+    return width > 0 ? (width + 12) / width : 1;
+  };
 
   const onMouseEnterCard = !linkButtonContent
     ? () => {}
     : () => {
         isHoveringLinkBtn = true;
+        remeasureImg();
 
         // Start timer for quickly reducing rotateDuration to min value
         rotateDurationChangeTimer = setInterval(() => {
@@ -123,15 +159,33 @@
   const onMouseMoveCard = !linkButtonContent
     ? () => {}
     : (ev: MouseEvent) => {
-        const mouseX = ev.offsetX;
-        const mouseY = ev.offsetY;
+        // Measured off the live box rather than `ev.offsetX`, which is relative
+        // to whichever child was hit and is reported in the rotated subtree's
+        // own coordinate space, so the tilt fed back into its own input.
+        // `offset*` ignores the hover scale and a centred scale leaves the
+        // centre where it was, so growing the image doesn't shift the mapping.
+        const el = ev.currentTarget as HTMLElement;
+        const layoutWidth = el.offsetWidth;
+        const layoutHeight = el.offsetHeight;
+        if (!layoutWidth || !layoutHeight) {
+          return;
+        }
+        width = layoutWidth;
+
+        const rect = el.getBoundingClientRect();
+        const mouseX = clamp01(
+          0.5 + (ev.clientX - (rect.left + rect.width / 2)) / layoutWidth
+        );
+        const mouseY = clamp01(
+          0.5 + (ev.clientY - (rect.top + rect.height / 2)) / layoutHeight
+        );
 
         rotateY = scaleY(mouseX);
         rotateX = scaleX(mouseY);
         shadowOffsetX = -rotateY * 0.5;
         shadowOffsetY = rotateX * 0.5;
         brightness = scaleBrightness(mouseY);
-        scale = (width + 12) / width;
+        scale = hoverScale();
       };
   const onMouseLeaveCard = !linkButtonContent
     ? () => {}
@@ -156,7 +210,7 @@
       };
 
   const onMouseEnterLinkBtn = () => {
-    scale = (width + 12) / width;
+    scale = hoverScale();
     // brightness = 0.85;
     isHoveringLinkBtn = true;
   };
@@ -167,7 +221,7 @@
   };
 </script>
 
-<div bind:clientWidth={screenWidth}>
+<div use:observeWidth={setScreenWidth}>
   <div class="flex flex-col md:flex-row justify-between">
     <div class="flex flex-col md:flex-row">
       <p
@@ -212,8 +266,8 @@
             {isHoveringLinkBtn ? 'hover-link-btn' : ''}
             mt-1 md:mt-0"
       style={img3dStyle}
-      bind:clientWidth={width}
-      bind:clientHeight={height}
+      bind:this={img3dEl}
+      use:observeWidth={setImgWidth}
       on:mouseenter={onMouseEnterCard}
       on:mousemove={onMouseMoveCard}
       on:mouseleave={onMouseLeaveCard}

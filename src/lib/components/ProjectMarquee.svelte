@@ -6,6 +6,7 @@
   import { tailwindTheme } from "$lib/tailwindTheme";
   import { BreakpointSizes, getCurrentBreakpoint } from "$lib/util/breakpoints";
   import { createMarquee } from "$lib/util/marquee";
+  import { observeWidth } from "$lib/util/observeWidth";
   import { projects } from "$lib/projects";
   import {
     getResponsiveOffset,
@@ -158,6 +159,12 @@
   const HOVER_GROWTH_PX = 12;
   const MAX_HOVER_SCALE = 1.05; // 8px of headroom, at both strip heights
   let itemWidths: number[] = [];
+  // `observeWidth`, not `bind:clientWidth`: an item measured before its image
+  // loads reports 0 and falls back to no growth at all, so a page load used to
+  // leave an arbitrary handful of thumbnails inert on hover.
+  const setItemWidth = (i: number, width: number) => {
+    itemWidths[i] = width;
+  };
   $: hoverScales = marqueeItems.map((_, i) => {
     const width = itemWidths[i];
     if (!width) return 1;
@@ -206,7 +213,7 @@
           aria-hidden={copy > 0 ? "true" : undefined}
           tabindex={copy > 0 ? -1 : undefined}
           draggable="false"
-          bind:clientWidth={itemWidths[i]}
+          use:observeWidth={(w) => setItemWidth(i, w)}
           on:click={(event) => scrollToProject(event, item.projectId)}
         >
           <Image
