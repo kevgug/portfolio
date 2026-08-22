@@ -377,12 +377,34 @@
       <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
         <span class="hidden min-[375px]:inline">Technology is neutral.</span>
         <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
-        <span class="hidden min-[375px]:inline">Let's build good tech.</span>
-        <span class="min-[375px]:hidden">Let's build<br>good tech.</span>
+        <span class="hidden min-[375px]:inline">Let's make good tech.</span>
+        <span class="min-[375px]:hidden">Let's make<br>good tech.</span>
       </span>
     </h1>
+    <div class="flex items-center gap-2 mt-9 md:mt-11 lg:mt-12">
+      <PrimaryButton
+        linkButtonContent={{
+          label: "View all essays",
+          destination: "/essays",
+          mediaType: "read",
+          eventName: "ctasection_essays_primary",
+          openInNewTab: false,
+        }}
+        iconName="arrow-right"
+        variant="glacial"
+      />
+      <PrimaryButton
+        linkButtonContent={{
+          label: "Book a 15 min call",
+          destination: "https://cal.com/kevgug/intro",
+          mediaType: "webpage",
+          eventName: "ctasection_bookcall_secondary",
+          openInNewTab: true,
+        }}
+      />
+    </div>
     <!-- Same card as /essays, so the two listings read as one thing -->
-    <div class="my-9 md:my-11 lg:my-12">
+    <div class="mt-9 md:mt-11 lg:mt-12">
       <div class="space-y-3 md:space-y-4">
         {#each recentEssays as essay}
           <a
@@ -412,28 +434,22 @@
           </a>
         {/each}
       </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <PrimaryButton
-        linkButtonContent={{
-          label: "View all essays",
-          destination: "/essays",
-          mediaType: "read",
-          eventName: "ctasection_essays_primary",
-          openInNewTab: false,
-        }}
-        iconName="arrow-right"
-        variant="glacial"
-      />
-      <PrimaryButton
-        linkButtonContent={{
-          label: "Book a 15 min call",
-          destination: "https://cal.com/kevgug/intro",
-          mediaType: "webpage",
-          eventName: "ctasection_bookcall_secondary",
-          openInNewTab: true,
-        }}
-      />
+      <!-- Closes the list rather than starting a new block, so it keeps a
+           gap close to the one between the cards -->
+      <div class="flex justify-end mt-4 md:mt-5">
+        <a
+          class="group inline-flex items-center gap-1.5 text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+          href="/essays"
+          data-sa-link-event="ctasection_essays_viewall"
+        >
+          View all
+          <Icon
+            name="arrow-right"
+            size="12px"
+            class="transition-transform group-hover:translate-x-0.5"
+          />
+        </a>
+      </div>
     </div>
   </div>
   <!-- No keyboard equivalent on purpose: the click only swaps one decorative
