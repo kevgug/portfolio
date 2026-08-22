@@ -263,7 +263,7 @@
           class="dropdown-option {i === selectedIndex ? 'is-active' : ''}"
           on:click={() => handleSelect(i)}
         >
-          <span class="option-dot {i === selectedIndex ? 'bg-white' : 'bg-white/40'}" aria-hidden="true" />
+          <span class="option-dot {i === selectedIndex ? 'bg-off-white' : 'bg-white/40'}" aria-hidden="true" />
           <span class="option-label">{item.label}</span>
         </button>
       {/each}
@@ -277,7 +277,7 @@
   }
 
   .dropdown-trigger {
-    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
+    @apply relative inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-off-white/90 hover:text-off-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
     background: color-mix(in oklab, rgb(255 255 255 / 22%), transparent);
     backdrop-filter: blur(0px);
     transition: color 150ms ease-out, background 150ms ease-out, backdrop-filter 150ms ease-out;
@@ -308,7 +308,7 @@
   }
 
   .dropdown-trigger:hover .dropdown-icon {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   .dropdown-label {
@@ -316,7 +316,7 @@
   }
 
   .chevron-wrapper {
-    @apply absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center text-white/80 pointer-events-none;
+    @apply absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center text-off-white/80 pointer-events-none;
   }
 
   .dropdown-menu {
@@ -325,11 +325,11 @@
   }
 
   .dropdown-option {
-    @apply w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-white/90 hover:text-white hover:bg-white/10 focus:outline-none transition-colors;
+    @apply w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-off-white/90 hover:text-off-white hover:bg-white/10 focus:outline-none transition-colors;
   }
 
   .dropdown-option.is-active {
-    @apply text-white bg-white/10;
+    @apply text-off-white bg-white/10;
   }
 
   .option-dot {
@@ -342,7 +342,7 @@
 
   /* Subtle variant */
   .dropdown-root.is-subtle .dropdown-trigger {
-    @apply border-white/5 px-3 py-1.5 text-white/70;
+    @apply border-white/5 px-3 py-1.5 text-off-white/70;
     background: color-mix(in oklab, rgb(255 255 255 / 10%), transparent);
   }
   .dropdown-root.is-subtle .dropdown-trigger.is-mounted {
@@ -350,18 +350,18 @@
   }
   .dropdown-root.is-subtle .dropdown-trigger:hover {
     background: color-mix(in oklab, rgb(255 255 255 / 16%), transparent);
-    @apply text-white;
+    @apply text-off-white;
   }
   .dropdown-root.is-subtle .dropdown-icon {
     color: #BDBDBE;
   }
   .dropdown-root.is-subtle .dropdown-trigger:hover .dropdown-icon {
-    @apply text-white;
+    @apply text-off-white;
   }
   .dropdown-root.is-subtle .dropdown-label {
     @apply text-sm;
   }
   .dropdown-root.is-subtle .chevron-wrapper {
-    @apply text-white/70 right-3;
+    @apply text-off-white/70 right-3;
   }
 </style>

@@ -274,7 +274,7 @@
 
   figcaption :global(a:hover) {
     color: black;
-    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-image: linear-gradient(to right, #F4F3F0, #F4F3F0);
     background-size: 100% 100%;
   }
 </style>

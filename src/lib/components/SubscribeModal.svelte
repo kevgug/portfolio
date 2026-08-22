@@ -37,11 +37,11 @@
         out:scale={{ duration: 200, easing: cubicEasing, start: 0.95 }}
       >
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl md:text-2xl font-semibold text-white">
+          <h2 class="text-xl md:text-2xl font-semibold text-off-white">
             Subscribe
           </h2>
           <button
-            class="text-muted-text-grey hover:text-white transition-colors p-2 -m-2"
+            class="text-muted-text-grey hover:text-off-white transition-colors p-2 -m-2"
             on:click={close}
             aria-label="Close"
           >
@@ -49,7 +49,7 @@
           </button>
         </div>
         <p class="text-sm md:text-base text-muted-text-grey">
-          Get new posts from <span class="text-white">Kevin Gugelmann</span> in your
+          Get new posts from <span class="text-off-white">Kevin Gugelmann</span> in your
           inbox.
         </p>
         <form class="mt-5" on:submit={submitForm}>
@@ -60,7 +60,7 @@
               bind:value={email}
               required
               autofocus
-              class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-glacial-blue/60"
+              class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-off-white placeholder-off-white/40 focus:outline-none focus:ring-2 focus:ring-glacial-blue/60"
             />
             <button
               type="submit"

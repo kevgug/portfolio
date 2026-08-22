@@ -58,7 +58,7 @@
   }
 
   thead tr th {
-    @apply text-left px-4 md:px-6 py-3 md:py-4 text-white font-semibold border-r border-white/10;
+    @apply text-left px-4 md:px-6 py-3 md:py-4 text-off-white font-semibold border-r border-white/10;
   }
 
   thead tr th:last-child {
@@ -87,7 +87,7 @@
   }
 
   table :global(strong) {
-    @apply font-bold text-white;
+    @apply font-bold text-off-white;
   }
 
   table :global(code) {
@@ -95,7 +95,7 @@
   }
 
   table :global(a) {
-    @apply text-glacial-blue hover:text-white transition-colors underline;
+    @apply text-glacial-blue hover:text-off-white transition-colors underline;
   }
 </style>
 

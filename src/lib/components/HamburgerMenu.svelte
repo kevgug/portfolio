@@ -10,21 +10,21 @@
 >
   <!-- Top line -->
   <div
-    class="w-6 h-px bg-white rounded-full transition-all duration-300 ease-in-out absolute"
+    class="w-6 h-px bg-off-white rounded-full transition-all duration-300 ease-in-out absolute"
     class:rotate-45={open}
     class:-translate-y-1.5={!open}
   />
 
   <!-- Middle line -->
   <div
-    class="w-6 h-px bg-white rounded-full transition-all duration-300 ease-in-out absolute"
+    class="w-6 h-px bg-off-white rounded-full transition-all duration-300 ease-in-out absolute"
     class:opacity-0={open}
     class:scale-0={open}
   />
 
   <!-- Bottom line -->
   <div
-    class="w-6 h-px bg-white rounded-full transition-all duration-300 ease-in-out absolute"
+    class="w-6 h-px bg-off-white rounded-full transition-all duration-300 ease-in-out absolute"
     class:-rotate-45={open}
     class:translate-y-1.5={!open}
   />

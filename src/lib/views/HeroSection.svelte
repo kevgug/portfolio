@@ -361,7 +361,7 @@
       <div>
         <h1
           id="title"
-          class="text-glacial-blue
+          class="text-off-white
                 mb-9 md:mb-8 xl:mb-9 grid"
         >
           <!-- Final title layer -->

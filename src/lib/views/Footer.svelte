@@ -62,7 +62,7 @@
     <button
       on:click={copyRssLink}
       type="button"
-      class="text-white/80 transition-all ease-outro duration-200 border-none p-0 cursor-pointer bg-transparent hover:text-white hover:ease-intro hover:duration-intro"
+      class="text-off-white/80 transition-all ease-outro duration-200 border-none p-0 cursor-pointer bg-transparent hover:text-off-white hover:ease-intro hover:duration-intro"
     >
       <Icon name="rss" class="h-4 w-4 lg:h-5 lg:w-5" />
     </button>
@@ -84,7 +84,7 @@
 
 {#if showToast}
   <div
-    class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
+    class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-off-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
   >
     RSS link copied
   </div>
@@ -93,14 +93,14 @@
 <style lang="postcss">
   /* Icon links - keep current hover behavior */
   a {
-    @apply text-white/80;
+    @apply text-off-white/80;
     @apply transition-all;
     @apply ease-outro;
     @apply duration-200;
   }
 
   a:hover {
-    @apply text-white;
+    @apply text-off-white;
     @apply transition-all;
     @apply ease-intro;
     @apply duration-intro;
@@ -120,7 +120,7 @@
 
   p a:hover {
     color: black;
-    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-image: linear-gradient(to right, #F4F3F0, #F4F3F0);
     background-size: 100% 100%;
   }
 

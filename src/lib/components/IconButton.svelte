@@ -26,6 +26,6 @@
   <Icon
     name={iconName}
     size={iconSize}
-    class="text-white group-hover:!text-glacial-blue duration-100 transition-all"
+    class="text-off-white group-hover:!text-glacial-blue duration-100 transition-all"
   />
 </a>

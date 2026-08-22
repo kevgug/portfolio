@@ -372,48 +372,16 @@
 <!-- Always stacked: the portrait closes the section, below the CTAs. -->
 <div id="contact">
   <div>
-    <h1 class="text-glacial-blue">
+    <h1 class="text-off-white">
       <!-- Both lines break below 375px, where the longer of the two stops fitting -->
       <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
         <span class="hidden min-[375px]:inline">Technology is neutral.</span>
         <span class="min-[375px]:hidden">Technology<br>is neutral.</span>
-        <span class="hidden min-[375px]:inline">Let's build good tech.</span>
-        <span class="min-[375px]:hidden">Let's build<br>good tech.</span>
+        <span class="hidden min-[375px]:inline">Let's make good tech.</span>
+        <span class="min-[375px]:hidden">Let's make<br>good tech.</span>
       </span>
     </h1>
-    <!-- Same card as /essays, so the two listings read as one thing -->
-    <div class="my-9 md:my-11 lg:my-12">
-      <div class="space-y-3 md:space-y-4">
-        {#each recentEssays as essay}
-          <a
-            class="block group"
-            href={`/essays/${essay.slug}`}
-            data-sa-link-event="ctasection_recent_essay"
-          >
-            <div
-              class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
-            >
-              <div class="flex-1 pr-0 md:pr-6">
-                <h2
-                  class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
-                >
-                  {essay.title}
-                </h2>
-              </div>
-              <div class="flex items-center gap-2 mt-1 md:mt-0.5">
-                <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
-                  {essay.formattedDate}
-                </p>
-                {#if essay.publish === false}
-                  <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
-                {/if}
-              </div>
-            </div>
-          </a>
-        {/each}
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 mt-9 md:mt-11 lg:mt-12">
       <PrimaryButton
         linkButtonContent={{
           label: "View all essays",
@@ -434,6 +402,54 @@
           openInNewTab: true,
         }}
       />
+    </div>
+    <!-- Same card as /essays, so the two listings read as one thing -->
+    <div class="mt-9 md:mt-11 lg:mt-12">
+      <div class="space-y-3 md:space-y-4">
+        {#each recentEssays as essay}
+          <a
+            class="block group"
+            href={`/essays/${essay.slug}`}
+            data-sa-link-event="ctasection_recent_essay"
+          >
+            <div
+              class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+            >
+              <div class="flex-1 pr-0 md:pr-6">
+                <h2
+                  class="text-lg md:text-xl font-semibold text-off-white group-hover:text-glacial-blue transition-colors"
+                >
+                  {essay.title}
+                </h2>
+              </div>
+              <div class="flex items-center gap-2 mt-1 md:mt-0.5">
+                <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
+                  {essay.formattedDate}
+                </p>
+                {#if essay.publish === false}
+                  <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+                {/if}
+              </div>
+            </div>
+          </a>
+        {/each}
+      </div>
+      <!-- Closes the list rather than starting a new block, so it keeps a
+           gap close to the one between the cards -->
+      <div class="flex justify-end mt-4 md:mt-5">
+        <a
+          class="group inline-flex items-center gap-1.5 text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
+          href="/essays"
+          data-sa-link-event="ctasection_essays_viewall"
+        >
+          View all
+          <Icon
+            name="arrow-right"
+            size="12px"
+            class="transition-transform group-hover:translate-x-0.5"
+          />
+        </a>
+      </div>
     </div>
   </div>
   <!-- No keyboard equivalent on purpose: the click only swaps one decorative
