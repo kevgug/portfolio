@@ -5,7 +5,6 @@
     getResponsiveOffset,
   } from "$lib/util/reliableScroll";
   import { fly, fade } from "svelte/transition";
-  import { gsap } from "gsap";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import essayIndexData from "$content/essays/index.json";
@@ -70,7 +69,6 @@
   import { onMount } from "svelte";
   import FloatingProjectImage from "$lib/components/FloatingProjectImage.svelte";
   import FloatingEssayImage from "$lib/components/FloatingEssayImage.svelte";
-  import Icon from "$lib/components/Icon.svelte";
   import type { Project } from "$lib/projects";
 
   export let open = false;
@@ -229,38 +227,6 @@
     }, 20);
   }
 
-  function handleIntroductionClick() {
-    // Scroll directly to top of page (position 0)
-    const scrollProxy = {
-      scrollTop: window.pageYOffset || document.documentElement.scrollTop,
-    };
-
-    gsap.to(scrollProxy, {
-      duration: 1000 / 1000, // Convert to seconds for GSAP
-      scrollTop: 0,
-      ease: "expo.out", // Convert "out-expo" to GSAP format
-      onUpdate: () => {
-        window.scrollTo(0, scrollProxy.scrollTop);
-      },
-    });
-
-    open = false;
-    clearHoverState();
-  }
-
-  function handleContactClick() {
-    const totalOffset = getResponsiveOffset({ spacing: "lg" });
-
-    reliableScrollToElement(`#contact`, {
-      duration: 1000,
-      ease: "out-expo",
-      offset: totalOffset,
-    });
-
-    open = false;
-    clearHoverState();
-  }
-
   // Check if device is desktop - now enabled for all viewport sizes
   function checkIsDesktop() {
     if (typeof window !== "undefined") {
@@ -353,77 +319,12 @@
               class="flex flex-col items-center space-y-6 list-none font-serif"
               role="menu"
             >
-              <li
-                in:fly={{
-                  y: 20,
-                  duration: 300,
-                  delay: 150,
-                  easing: logarithmicEaseOut,
-                }}
-                out:customExit={{ duration: 250 }}
-              >
-                <button
-                  on:click|stopPropagation={handleIntroductionClick}
-                  on:mouseenter={handleProjectLeave}
-                  on:mouseleave={handleProjectLeave}
-                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-                >
-                  <Icon
-                    name="wave"
-                    size="1em"
-                    class="group-hover:text-glacial-blue"
-                  />
-                  <span
-                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-                    >Introduction</span
-                  >
-                </button>
-              </li>
-              <li
-                in:fly={{
-                  y: 20,
-                  duration: 300,
-                  delay: 160,
-                  easing: logarithmicEaseOut,
-                }}
-                out:customExit={{ duration: 250 }}
-              >
-                <button
-                  on:click|stopPropagation={handleContactClick}
-                  on:mouseenter={handleProjectLeave}
-                  on:mouseleave={handleProjectLeave}
-                  class="text-base md:text-lg xl:text-xl font-light text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2 mt-2 md:mt-3 flex items-center space-x-2 group"
-                >
-                  <Icon
-                    name="multiple-neutral-2"
-                    size="1em"
-                    class="group-hover:text-glacial-blue"
-                  />
-                  <span
-                    class="group-hover:text-glacial-blue not-italic transition-colors duration-200"
-                    >Contact info</span
-                  >
-                </button>
-              </li>
-              <li
-                in:fly={{
-                  y: 20,
-                  duration: 300,
-                  delay: 170,
-                  easing: logarithmicEaseOut,
-                }}
-                out:customExit={{ duration: 250 }}
-              >
-                <div
-                  class="w-24 md:w-36 xl:w-48 h-px rounded-sm mx-auto my-5 md:my-7 bg-white/20"
-                />
-              </li>
               {#each projects as project, i}
                 <li
                   in:fly={{
                     y: 20,
                     duration: 300,
-                    delay: 170 + i * 35,
+                    delay: 150 + i * 35,
                     easing: logarithmicEaseOut,
                   }}
                   out:customExit={{ duration: 250 }}
