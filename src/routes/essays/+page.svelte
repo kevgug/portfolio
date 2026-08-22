@@ -79,7 +79,7 @@
   <p class="text-muted-text-grey mt-1 md:mt-1.5">
     Writing by <a
       href="/"
-      class="text-white underline underline-offset-4 decoration-white hover:text-glacial-blue hover:decoration-glacial-blue transition-colors"
+      class="text-off-white underline underline-offset-4 decoration-off-white hover:text-glacial-blue hover:decoration-glacial-blue transition-colors"
       >Kevin Gugelmann</a
     >
   </p>
@@ -103,7 +103,7 @@
           >
             <div class="flex-1 pr-0 md:pr-6">
               <h2
-                class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+                class="text-lg md:text-xl font-semibold text-off-white group-hover:text-glacial-blue transition-colors"
               >
                 {post.title}
               </h2>

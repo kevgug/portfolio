@@ -53,7 +53,7 @@
           class="flex flex-row items-center space-x-2 md:space-x-3 pointer-events-auto"
         >
           <a href="/essays" aria-label="Back to essays" class="p-2 -ml-2" data-sveltekit-reload>
-            <Icon name="arrow-left" size="1em" class="text-white" />
+            <Icon name="arrow-left" size="1em" class="text-off-white" />
           </a>
         </div>
 

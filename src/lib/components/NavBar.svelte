@@ -136,7 +136,7 @@
             bind:this={homeEl}
             href="/"
             on:click={(e) => handleTabClick(e, "/")}
-            class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+            class="text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
             aria-current={$page.url.pathname === "/" ? "page" : undefined}
             >Home</a
           >
@@ -144,7 +144,7 @@
             bind:this={essaysEl}
             href="/essays"
             on:click={(e) => handleTabClick(e, "/essays")}
-            class="text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+            class="text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
             aria-current={isEssaysRoute($page.url.pathname)
               ? "page"
               : undefined}>Essays</a
@@ -153,7 +153,7 @@
             class="absolute -bottom-[0.4rem] left-0 w-full h-px bg-white/10 rounded-full"
           />
           <div
-            class="absolute -bottom-[0.4rem] h-[2px] bg-white transition-all duration-300 ease-out rounded-full"
+            class="absolute -bottom-[0.4rem] h-[2px] bg-off-white transition-all duration-300 ease-out rounded-full"
             style={`opacity: ${
               showIndicator ? 1 : 0
             }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${

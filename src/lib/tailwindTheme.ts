@@ -2,6 +2,7 @@ export const tailwindTheme = {
     colors: {
       background: "#141518",
       white: "#FFFFFF",
+      "off-white": "#F4F3F0",
       black: "#000000",
       "glacial-blue": "#A9F4E9",
       "muted-text-grey": "#C1C1C1",

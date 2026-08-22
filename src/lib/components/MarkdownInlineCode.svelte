@@ -245,7 +245,7 @@
 
   {#if showToast}
     <div
-      class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#3D3D3D]/80 backdrop-blur-md text-off-white py-3 px-6 rounded-xl text-sm font-medium z-50 shadow-lg toast-animate"
     >
       Code copied
     </div>
@@ -313,7 +313,7 @@
   }
 
   .inline-code {
-    @apply text-white;
+    @apply text-off-white;
     font-size: 0.9em;
     padding-left: 1px;
     position: relative;
@@ -325,7 +325,7 @@
   /* Animate inline-code to white when play or copy button is hovered */
   .inline-code-wrapper:has(.play-button:hover) .inline-code,
   .inline-code-wrapper:has(.copy-button:hover) .inline-code {
-    @apply text-white !important;
+    @apply text-off-white !important;
   }
 
   /* Override color in footnotes section */
@@ -356,11 +356,11 @@
 
   /* Override play button color in footnotes section */
   :global(#section-notes) .play-button {
-    @apply text-white/90;
+    @apply text-off-white/90;
   }
 
   :global(#section-notes) .play-button:hover {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   .play-button :global(svg) {
@@ -389,16 +389,16 @@
   }
 
   .copy-button.copied {
-    @apply text-white !important;
+    @apply text-off-white !important;
   }
 
   /* Override copy button color in footnotes section */
   :global(#section-notes) .copy-button {
-    @apply text-white/90;
+    @apply text-off-white/90;
   }
 
   :global(#section-notes) .copy-button:hover {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   .copy-button :global(svg) {
@@ -420,7 +420,7 @@
 
   /* Override plain inline code color in footnotes section */
   :global(#section-notes) .plain-inline-code {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   .toast-animate {

@@ -280,7 +280,7 @@
 <blockquote
   bind:this={blockquoteEl}
   id={allRefNums.length > 0 ? `footnote-ref-${allRefNums[0]}` : undefined}
-  class="px-4 md:px-6 border-l-4 md:rounded-r-lg bg-white/5 border-white"
+  class="px-4 md:px-6 border-l-4 md:rounded-r-lg bg-white/5 border-off-white"
   class:!my-7={!multiline}
   class:md:!my-9={!multiline}
   class:!my-2.5={multiline && !endsWithBreak}
@@ -301,14 +301,14 @@
   {#if multiline && paragraphs}
     <div
       bind:this={paragraphsContainerEl}
-      class="space-y-4 font-serif text-white"
+      class="space-y-4 font-serif text-off-white"
     >
       <!-- Paragraphs will be populated by onMount -->
     </div>
   {:else}
     <p
       bind:this={paragraphEl}
-      class="font-serif text-white font-semibold text-3xl md:text-4xl leading-tight"
+      class="font-serif text-off-white font-semibold text-3xl md:text-4xl leading-tight"
     >
       <!-- Content will be populated by onMount -->
     </p>
@@ -333,7 +333,7 @@
   }
 
   blockquote :global(a) {
-    @apply text-glacial-blue hover:text-white transition-colors underline;
+    @apply text-glacial-blue hover:text-off-white transition-colors underline;
   }
 
   /* Style individual lines in blockquotes with custom spacing */
@@ -368,7 +368,7 @@
 
   blockquote cite :global(a:hover) {
     color: black;
-    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-image: linear-gradient(to right, #F4F3F0, #F4F3F0);
     background-size: 100% 100%;
   }
 
@@ -386,7 +386,7 @@
   }
 
   blockquote :global(.group:hover .footnote-ref-inner) {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   blockquote :global(.footnote-space) {
@@ -403,7 +403,7 @@
 
   /* Inline code in blockquotes - use page background color */
   blockquote :global(code) {
-    @apply text-white bg-background/70;
+    @apply text-off-white bg-background/70;
     padding: 0.2rem 0.4rem;
     border-radius: 0.5rem;
     font-size: 0.9em;

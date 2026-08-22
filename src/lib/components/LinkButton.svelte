@@ -31,7 +31,7 @@
         : 'space-x-1.5'}"
     >
       <p
-        class="text-white group-hover:!text-glacial-blue font-thin
+        class="text-off-white group-hover:!text-glacial-blue font-thin
   	  duration-100 transition-all"
       >
         {linkButtonContent.label}
@@ -43,7 +43,7 @@
           name={iconName}
           size={arrowIconSize}
           flipY={iconName === "arrow-corner-right"}
-          class="text-white group-hover:!text-glacial-blue duration-100 transition-all"
+          class="text-off-white group-hover:!text-glacial-blue duration-100 transition-all"
         />
       {/if}
     </div>
@@ -54,7 +54,7 @@
       <div
         class="
   	  h-[2px] rounded-sm
-      bg-white group-hover:bg-glacial-blue
+      bg-off-white group-hover:bg-glacial-blue
     opacity-[36%] group-hover:opacity-100
     duration-100 transition-all"
       />
@@ -72,7 +72,7 @@
         : 'space-x-1.5'}"
     >
       <p
-        class="text-white group-hover:!text-glacial-blue font-thin
+        class="text-off-white group-hover:!text-glacial-blue font-thin
   	  duration-100 transition-all select-none"
       >
         {linkButtonContent.label}
@@ -84,7 +84,7 @@
           name={iconName}
           size={arrowIconSize}
           flipY={iconName === "arrow-corner-right"}
-          class="text-white group-hover:!text-glacial-blue duration-100 transition-all"
+          class="text-off-white group-hover:!text-glacial-blue duration-100 transition-all"
         />
       {/if}
     </div>
@@ -95,7 +95,7 @@
       <div
         class="
   	  h-[2px] rounded-sm
-      bg-white group-hover:bg-glacial-blue
+      bg-off-white group-hover:bg-glacial-blue
     opacity-[36%] group-hover:opacity-100
     duration-100 transition-all"
       />

@@ -34,7 +34,7 @@
     align-items: center;
     background: transparent;
     border: 1px solid #5a5a5a;
-    @apply text-white;
+    @apply text-off-white;
 
     @apply rounded-full;
     @apply px-4 md:px-6;

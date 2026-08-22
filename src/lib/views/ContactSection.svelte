@@ -372,7 +372,7 @@
 <!-- Always stacked: the portrait closes the section, below the CTAs. -->
 <div id="contact">
   <div>
-    <h1 class="text-glacial-blue">
+    <h1 class="text-off-white">
       <!-- Both lines break below 375px, where the longer of the two stops fitting -->
       <span class="flex flex-col gap-3.5 min-[375px]:gap-0">
         <span class="hidden min-[375px]:inline">Technology is neutral.</span>
@@ -417,7 +417,7 @@
             >
               <div class="flex-1 pr-0 md:pr-6">
                 <h2
-                  class="text-lg md:text-xl font-semibold text-white group-hover:text-glacial-blue transition-colors"
+                  class="text-lg md:text-xl font-semibold text-off-white group-hover:text-glacial-blue transition-colors"
                 >
                   {essay.title}
                 </h2>
@@ -438,7 +438,7 @@
            gap close to the one between the cards -->
       <div class="flex justify-end mt-4 md:mt-5">
         <a
-          class="group inline-flex items-center gap-1.5 text-sm md:text-base text-muted-text-grey hover:text-white transition-colors"
+          class="group inline-flex items-center gap-1.5 text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
           href="/essays"
           data-sa-link-event="ctasection_essays_viewall"
         >

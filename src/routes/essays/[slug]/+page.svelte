@@ -261,7 +261,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   <div>
     <header class="max-w-screen-md mx-auto">
       <h1
-        class="text-3xl md:text-5xl font-bold text-glacial-blue leading-[1.175] md:leading-[1.1]"
+        class="text-3xl md:text-5xl font-bold text-off-white leading-[1.175] md:leading-[1.1]"
       >
         {post.title}
       </h1>
@@ -280,7 +280,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
         <section id={getSectionId(i)} data-essay-section="true">
           {#if section.heading !== post.title && section.heading !== "Foreword"}
             <div class="max-w-screen-md mx-auto flex justify-start items-start">
-              <h2 class="text-xl md:text-2xl font-semibold text-white">
+              <h2 class="text-xl md:text-2xl font-semibold text-off-white">
                 {section.heading}
               </h2>
             </div>
@@ -352,7 +352,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
           data-essay-section="true"
         >
           <div class="flex justify-start items-start">
-            <h2 class="text-xl md:text-2xl font-semibold text-white">Notes</h2>
+            <h2 class="text-xl md:text-2xl font-semibold text-off-white">Notes</h2>
           </div>
           {#if Object.keys(post.footnotes).length}
             <div class="mt-4 space-y-4">
@@ -367,16 +367,16 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                       on:click={() => onClickFootnoteRef(num)}
                     >
                       <span
-                        class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                        class="text-sm text-muted-text-grey group-hover:text-off-white transition-colors"
                       >
                         [<span class="text-[0.9rem]">{" "}</span>
-                        <span class="text-white underline decoration-glacial-blue"
+                        <span class="text-off-white underline decoration-glacial-blue"
                           >{num}</span
                         ><span class="text-[0.32rem]">{" "}</span>
                         <Icon
                           name="arrow-up"
                           size="12px"
-                          class="inline text-muted-text-grey group-hover:text-white transition-colors"
+                          class="inline text-muted-text-grey group-hover:text-off-white transition-colors"
                         />
                         <span class="text-[0.32rem]">{" "}</span>]
                       </span>
@@ -398,7 +398,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
                                     on:click={() => onClickRef(t.num)}
                                   >
                                     <span
-                                      class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+                                      class="text-sm text-muted-text-grey group-hover:text-off-white transition-colors"
                                     >
                                       [<span class="text-[0.32rem]">{" "}</span>
                                       <span
@@ -540,7 +540,7 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
   article :global(pre > code) {
     padding: 0 !important;
     background-color: transparent !important;
-    color: white;
+    @apply text-off-white;
   }
 
   /* Override global li margin for essay content - let space-y handle spacing */
@@ -605,17 +605,17 @@ $: formattedDate = new Date(post.date).toLocaleDateString("en-US", {
 
   #section-notes :global(a:hover) {
     color: black;
-    background-image: linear-gradient(to right, #ffffff, #ffffff);
+    background-image: linear-gradient(to right, #F4F3F0, #F4F3F0);
     background-size: 100% 100%;
   }
 
   /* Code block styling in notes section - use white instead of blue */
   #section-notes :global(pre > code) {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   #section-notes :global(p > code),
   #section-notes :global(li > code) {
-    @apply text-white;
+    @apply text-off-white;
   }
 </style>

@@ -47,7 +47,7 @@
       on:click={() => onClickRef(footnoteRef)}
     >
       <span
-        class="text-sm text-muted-text-grey group-hover:text-white transition-colors"
+        class="text-sm text-muted-text-grey group-hover:text-off-white transition-colors"
       >
         [<span class="text-[0.32rem]">{" "}</span>
         <span

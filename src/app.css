@@ -7,7 +7,7 @@
 
 @layer base {
   html {
-    @apply bg-background text-white;
+    @apply bg-background text-off-white;
   }
 
   body {
@@ -19,7 +19,7 @@
   h1,
   h2,
   li {
-    @apply text-white;
+    @apply text-off-white;
   }
 
   h1 {
