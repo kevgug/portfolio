@@ -6,7 +6,7 @@
     "prepare": "node scripts/sync-essays.mjs && npm run gen:essays && npm run gen:essay-txt && npm run gen:llms && npm run gen:thumbnails && svelte-kit sync",
     "dev": "node scripts/watch-essays.mjs",
     "dev:vite": "NODE_ENV=development npm run gen:essays && npm run gen:essay-txt && npm run gen:llms && (npm run gen:thumbnails &) && tailwind-theme-mirror --typescript --output ./src/lib && vite dev",
-    "build": "NODE_ENV=production npm run prepare && tailwind-theme-mirror --typescript --output ./src/lib && vite build && node scripts/post-build.mjs",
+    "build": "NODE_ENV=production npm run prepare && npm run check:assets && tailwind-theme-mirror --typescript --output ./src/lib && vite build && node scripts/post-build.mjs",
     "deploy": "touch build/.nojekyll && gh-pages -d build -t true",
     "preview": "vite preview",
     "check": "NODE_ENV=development npm run prepare && svelte-check --tsconfig ./tsconfig.json",
@@ -16,7 +16,8 @@
     "gen:essays": "node scripts/generate-essay-index.mjs && node scripts/generate-rss.mjs",
     "gen:essay-txt": "node scripts/generate-essay-txt.mjs",
     "gen:llms": "node scripts/generate-llms.mjs",
-    "gen:thumbnails": "tsx scripts/generate-thumbnails.ts"
+    "gen:thumbnails": "tsx scripts/generate-thumbnails.ts",
+    "check:assets": "node scripts/check-duplicate-assets.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.0",
