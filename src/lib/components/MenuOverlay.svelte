@@ -307,7 +307,7 @@
                     }}
                     on:mouseenter={() => handleEssayHover(e)}
                     on:mouseleave={handleEssayLeave}
-                    class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+                    class="text-xl md:text-2xl xl:text-3xl font-medium text-off-white/85 hover:text-glacial-blue hover:translate-x-1 transition-[color,transform] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-glacial-blue focus-visible:outline-offset-4 focus-visible:text-glacial-blue px-6 py-2"
                   >
                     {e.title}
                   </button>
@@ -334,7 +334,7 @@
                       handleProjectClick(project.id)}
                     on:mouseenter={() => handleProjectHover(project)}
                     on:mouseleave={handleProjectLeave}
-                    class="text-xl md:text-2xl xl:text-3xl font-medium text-muted-text-grey hover:text-glacial-blue transition-colors duration-200 focus:outline-none focus:text-glacial-blue px-6 py-2"
+                    class="text-xl md:text-2xl xl:text-3xl font-medium text-off-white/85 hover:text-glacial-blue hover:translate-x-1 transition-[color,transform] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-glacial-blue focus-visible:outline-offset-4 focus-visible:text-glacial-blue px-6 py-2"
                   >
                     {project.name}
                   </button>

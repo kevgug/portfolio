@@ -16,6 +16,12 @@
   let shouldAnimate = false;
   let hasMeasured = false;
   let showIndicator = false;
+  let hoveredTabPath: string | null = null;
+  $: isActiveTabHovered =
+    hoveredTabPath !== null &&
+    (hoveredTabPath === "/"
+      ? $page.url.pathname === "/"
+      : isEssaysRoute($page.url.pathname));
 
   $: fromEssaySlug =
     $navigating?.from?.url.pathname.startsWith("/essays/") ?? false;
@@ -136,7 +142,9 @@
             bind:this={homeEl}
             href="/"
             on:click={(e) => handleTabClick(e, "/")}
-            class="text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
+            on:mouseenter={() => (hoveredTabPath = "/")}
+            on:mouseleave={() => (hoveredTabPath = null)}
+            class="text-sm md:text-base text-off-white/80 hover:text-glacial-blue transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-glacial-blue focus-visible:outline-offset-4"
             aria-current={$page.url.pathname === "/" ? "page" : undefined}
             >Home</a
           >
@@ -144,7 +152,9 @@
             bind:this={essaysEl}
             href="/essays"
             on:click={(e) => handleTabClick(e, "/essays")}
-            class="text-sm md:text-base text-muted-text-grey hover:text-off-white transition-colors"
+            on:mouseenter={() => (hoveredTabPath = "/essays")}
+            on:mouseleave={() => (hoveredTabPath = null)}
+            class="text-sm md:text-base text-off-white/80 hover:text-glacial-blue transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-glacial-blue focus-visible:outline-offset-4"
             aria-current={isEssaysRoute($page.url.pathname)
               ? "page"
               : undefined}>Essays</a
@@ -153,7 +163,9 @@
             class="absolute -bottom-[0.4rem] left-0 w-full h-px bg-white/10 rounded-full"
           />
           <div
-            class="absolute -bottom-[0.4rem] h-[2px] bg-off-white transition-all duration-300 ease-out rounded-full"
+            class="absolute -bottom-[0.4rem] h-[2px] transition-all duration-300 ease-out rounded-full"
+            class:bg-off-white={!isActiveTabHovered}
+            class:bg-glacial-blue={isActiveTabHovered}
             style={`opacity: ${
               showIndicator ? 1 : 0
             }; transform: translateX(${indicatorLeft}px); width: ${indicatorWidth}px; ${

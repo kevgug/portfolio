@@ -74,6 +74,11 @@
     @apply ease-out;
   }
 
+  .button:not(.button--glacial):hover {
+    @apply text-off-white;
+    @apply border-glacial-blue;
+  }
+
   .button:active {
     box-shadow: rgba(169, 244, 233, 0.5) 0 0px 32px;
 
@@ -85,5 +90,10 @@
 
   .button--glacial:active {
     @apply opacity-80;
+  }
+
+  .button:focus-visible {
+    outline: 2px solid theme("colors.glacial-blue");
+    outline-offset: 4px;
   }
 </style>
