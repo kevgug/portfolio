@@ -413,7 +413,7 @@
             data-sa-link-event="ctasection_recent_essay"
           >
             <div
-              class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+              class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-glacial-blue transition-colors duration-300"
             >
               <div class="flex-1 pr-0 md:pr-6">
                 <h2
@@ -427,7 +427,11 @@
                   {essay.formattedDate}
                 </p>
                 {#if essay.publish === false}
-                  <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+                  <Icon
+                    name="lock"
+                    size="16px"
+                    class="shrink-0 text-muted-text-grey"
+                  />
                 {/if}
               </div>
             </div>
@@ -512,4 +516,3 @@
     }
   }
 </style>
-

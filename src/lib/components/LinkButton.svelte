@@ -9,6 +9,8 @@
   export let iconName: IconName = "arrow-corner-right";
   export let usePulsingCircle: boolean = false;
 
+  $: isViewWebsite = linkButtonContent.label === "View Website";
+
   // Calculations
   let innerWidth: number = 0;
   $: arrowIconSize = responsiveIconSize(SmFontSize.xs, innerWidth);
@@ -19,7 +21,7 @@
 
 {#if typeof linkButtonContent.destination == "string"}
   <a
-    class="group relative"
+    class="group relative {isViewWebsite ? 'external-website-link' : ''}"
     href={linkButtonContent.destination}
     data-sa-link-event={linkButtonContent.eventName}
     target={linkButtonContent.openInNewTab ?? false ? "_blank" : "_self"}
@@ -31,7 +33,9 @@
         : 'space-x-1.5'}"
     >
       <p
-        class="text-off-white group-hover:!text-glacial-blue font-thin
+        class="{isViewWebsite
+          ? '!text-glacial-blue'
+          : 'text-off-white'} group-hover:!text-glacial-blue font-thin
   	  duration-100 transition-all"
       >
         {linkButtonContent.label}
@@ -43,7 +47,9 @@
           name={iconName}
           size={arrowIconSize}
           flipY={iconName === "arrow-corner-right"}
-          class="text-off-white group-hover:!text-glacial-blue duration-100 transition-all"
+          class="{isViewWebsite
+            ? '!text-glacial-blue'
+            : 'text-off-white'} group-hover:!text-glacial-blue duration-100 transition-all"
         />
       {/if}
     </div>
@@ -52,7 +58,7 @@
   	w-full h-[0.24rem] md:h-[0.25rem]"
     >
       <div
-        class="
+        class="{isViewWebsite ? 'external-website-underline' : ''}
   	  h-[2px] rounded-sm
       bg-off-white group-hover:bg-glacial-blue
     opacity-[36%] group-hover:opacity-100
@@ -62,7 +68,9 @@
   </a>
 {:else}
   <button
-    class="group relative cursor-pointer select-none"
+    class="group relative cursor-pointer select-none {isViewWebsite
+      ? 'external-website-link'
+      : ''}"
     data-sa-link-event={linkButtonContent.eventName}
     on:click={linkButtonContent.destination}
   >
@@ -72,7 +80,9 @@
         : 'space-x-1.5'}"
     >
       <p
-        class="text-off-white group-hover:!text-glacial-blue font-thin
+        class="{isViewWebsite
+          ? '!text-glacial-blue'
+          : 'text-off-white'} group-hover:!text-glacial-blue font-thin
   	  duration-100 transition-all select-none"
       >
         {linkButtonContent.label}
@@ -84,7 +94,9 @@
           name={iconName}
           size={arrowIconSize}
           flipY={iconName === "arrow-corner-right"}
-          class="text-off-white group-hover:!text-glacial-blue duration-100 transition-all"
+          class="{isViewWebsite
+            ? '!text-glacial-blue'
+            : 'text-off-white'} group-hover:!text-glacial-blue duration-100 transition-all"
         />
       {/if}
     </div>
@@ -93,7 +105,7 @@
   	w-full h-[0.24rem] md:h-[0.25rem]"
     >
       <div
-        class="
+        class="{isViewWebsite ? 'external-website-underline' : ''}
   	  h-[2px] rounded-sm
       bg-off-white group-hover:bg-glacial-blue
     opacity-[36%] group-hover:opacity-100
@@ -102,3 +114,30 @@
     </div>
   </button>
 {/if}
+
+<style>
+  .external-website-underline {
+    background-color: theme("colors.glacial-blue");
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: opacity 180ms ease-out, transform 220ms ease-out;
+  }
+
+  .external-website-link:hover .external-website-underline,
+  .external-website-link:focus-visible .external-website-underline {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .external-website-link:focus-visible {
+    outline: 2px solid theme("colors.glacial-blue");
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .external-website-underline {
+      transition: none;
+    }
+  }
+</style>

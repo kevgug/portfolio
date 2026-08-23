@@ -72,7 +72,7 @@
 
 <section class="py-8 md:py-12">
   <h1
-    class="text-2xl md:text-3xl xl:text-4xl font-bold text-glacial-blue tracking-tight leading-tight"
+    class="text-2xl md:text-3xl xl:text-4xl font-semibold text-off-white tracking-tight leading-tight"
   >
     Essays
   </h1>
@@ -99,7 +99,7 @@
           data-sa-link-event="blog_index_post"
         >
           <div
-            class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-white/20 transition-colors"
+            class="flex flex-col justify-between border border-white/10 rounded-3xl md:rounded-4xl px-5 py-4 md:px-6 md:py-5 xl:px-8 xl:py-7 hover:border-glacial-blue transition-colors duration-300"
           >
             <div class="flex-1 pr-0 md:pr-6">
               <h2
@@ -109,13 +109,15 @@
               </h2>
             </div>
             <div class="flex items-center gap-2 mt-1 md:mt-0.5">
-              <p
-                class="text-muted-text-grey text-xs md:text-sm shrink-0"
-              >
+              <p class="text-muted-text-grey text-xs md:text-sm shrink-0">
                 {post.formattedDate}
               </p>
               {#if post.publish === false}
-                <Icon name="lock" size="16px" class="shrink-0 text-muted-text-grey" />
+                <Icon
+                  name="lock"
+                  size="16px"
+                  class="shrink-0 text-muted-text-grey"
+                />
               {/if}
             </div>
           </div>
